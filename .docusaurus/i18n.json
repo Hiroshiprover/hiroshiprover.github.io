@@ -1,0 +1,31 @@
+{
+  "defaultLocale": "en",
+  "locales": [
+    "en",
+    "zh"
+  ],
+  "path": "i18n",
+  "currentLocale": "zh",
+  "localeConfigs": {
+    "en": {
+      "label": "English",
+      "direction": "ltr",
+      "htmlLang": "en",
+      "calendar": "gregory",
+      "path": "en",
+      "translate": false,
+      "url": "https://hiroshiprover.github.io",
+      "baseUrl": "/"
+    },
+    "zh": {
+      "label": "中文",
+      "direction": "ltr",
+      "htmlLang": "zh",
+      "calendar": "gregory",
+      "path": "zh",
+      "translate": true,
+      "url": "https://hiroshiprover.github.io",
+      "baseUrl": "/zh/"
+    }
+  }
+}

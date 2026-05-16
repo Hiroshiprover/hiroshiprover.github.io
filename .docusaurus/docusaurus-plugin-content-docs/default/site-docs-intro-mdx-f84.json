@@ -1,0 +1,21 @@
+{
+  "id": "intro",
+  "title": "About",
+  "description": "Hi, I’m Hiroshi.",
+  "source": "@site/docs/intro.mdx",
+  "sourceDirName": ".",
+  "slug": "/intro",
+  "permalink": "/docs/intro",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "About"
+  },
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "Todo list",
+    "permalink": "/docs/todos"
+  }
+}

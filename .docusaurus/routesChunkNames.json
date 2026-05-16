@@ -1,0 +1,82 @@
+{
+  "/zh/blog/-df3": {
+    "__comp": "a6aa9e1f",
+    "__context": {
+      "plugin": "36994c47"
+    },
+    "sidebar": "814f3328",
+    "items": [
+      {
+        "content": "8bb71741"
+      }
+    ],
+    "__props": "1669b262"
+  },
+  "/zh/blog/archive/-d8a": {
+    "__comp": "9e4087bc",
+    "__context": {
+      "plugin": "36994c47"
+    },
+    "__props": "73510bc3"
+  },
+  "/zh/blog/Differential Geometry and Fibre Bundle/1_1/-e20": {
+    "__comp": "ccc49370",
+    "__context": {
+      "data": {
+        "blogMetadata": "acecf23e"
+      },
+      "plugin": "36994c47"
+    },
+    "sidebar": "814f3328",
+    "content": "de72d594"
+  },
+  "/zh/blog/tags/-399": {
+    "__comp": "01a85c17",
+    "__context": {
+      "plugin": "36994c47"
+    },
+    "sidebar": "814f3328",
+    "__props": "1b47364f"
+  },
+  "/zh/blog/tags/中文/-72a": {
+    "__comp": "6875c492",
+    "__context": {
+      "plugin": "36994c47"
+    },
+    "sidebar": "814f3328",
+    "items": [
+      {
+        "content": "8bb71741"
+      }
+    ],
+    "__props": "7303e61d"
+  },
+  "/zh/docs/-d04": {
+    "__comp": "5e95c892",
+    "__context": {
+      "plugin": "aba21aa0"
+    }
+  },
+  "/zh/docs/-727": {
+    "__comp": "a7bd4aaa",
+    "__props": "08595e39"
+  },
+  "/zh/docs/-4e7": {
+    "__comp": "a94703ab"
+  },
+  "/zh/docs/intro/-068": {
+    "__comp": "17896441",
+    "content": "45278176"
+  },
+  "/zh/docs/todos/-84a": {
+    "__comp": "17896441",
+    "content": "cb29df56"
+  },
+  "/zh/-a79": {
+    "__comp": "1df93b7f",
+    "__context": {
+      "plugin": "a7456010"
+    },
+    "config": "5e9f5e1a"
+  }
+}

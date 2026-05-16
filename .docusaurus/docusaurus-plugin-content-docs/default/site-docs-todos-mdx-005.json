@@ -1,0 +1,21 @@
+{
+  "id": "todos",
+  "title": "Todo list",
+  "description": "1. Differential Geometry and Fibre Bundle",
+  "source": "@site/docs/todos.mdx",
+  "sourceDirName": ".",
+  "slug": "/todos",
+  "permalink": "/docs/todos",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Todo list"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "About",
+    "permalink": "/docs/intro"
+  }
+}
