@@ -16,6 +16,9 @@ const config: Config = {
   url: 'https://hiroshiprover.github.io',
   baseUrl: '/',
 
+  trailingSlash: true,
+  deploymentBranch: 'gh-pages',
+
   organizationName: 'Hiroshiprover', 
   projectName: 'Hiroshiprover.github.io', 
 
