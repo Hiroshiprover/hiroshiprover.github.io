@@ -1,0 +1,70 @@
+---
+
+title: Basic Topology
+
+date: 2026-05-15
+
+tags:
+  - Differential Geometry
+  - Topology
+
+---
+
+> It's assumed that you have basic knowledge of sets, including the definition, Cartesian product, etc.
+>
+> In fact, the majority of differential geometry does not require much of the knowledge of topology, at least not the basic definitions. It's suggested that beginners should skip this chapter and read the followings directly.
+
+# Definition: Topology
+
+When mathematicians and physicists refer to "topology", there are some subtle differences involved. Here we focus on the rigorous definition of topology:
+
+:::tip[Topology]
+
+A set $\mathscr{T}$ is called the **topology** of a set $X$, if $\mathscr{T}$ contains all of the "open subsets" of $X$. 
+
+:::
+
+:::info[Conditions for topology]
+
+To assure the definition is self-consistent (**all** of the open subsets are contained), $\mathscr{T}$ should satisfy the following conditions:
+ 
+1. $X, \varnothing \in \mathscr{T}$;
+2. if $\ O_i \in \mathscr{T},  i = 1,  2,  \dots,  n$, then $\bigcap\limits_{i=1}^n O_i \in \mathscr{T}$;
+3. if$\ O_i \in \mathscr{T},  \forall i$, then $\bigcup\limits_{i} O_i \in \mathscr{T}$. 
+
+:::
+
+:::note
+
+Notice that condition 2 require $n$ to be a finite integer, while condition 3 does not. This means only finite intersections remains open, while the union of open sets remains open, even if we take infinite sets. For example, consider: $U_n = \{x | \left|x\right| < 1+ \frac{1}{n} \}$, then $\bigcap\limits_{i=1}^\infty U_n \to [-1,  1]$, not a open set of $\mathbb{R}$!
+
+:::
+
+## Examples of topology
+
+Here we offer three examples of different types of topology. In practice for a given set $X$, there are usually infinitely many ways to specify a topology.
+
+:::info[Usual topology]
+
+Suppose $X = \mathbb{R}^n$, we say that $\mathscr{T}_u = \{\varnothing, \bigcup_{x_0, r} B(x_0, r)\}$ is the **usual topology** of $\mathbb{R}^n$, where $B(x_0, r) = \{x \in \mathbb{R}^n| \left|x-x_0\right| < r\}$ for $x_0 \in \mathbb{R}^n, r>0 \in \mathbb{R}$ is called the open ball. 
+
+Notice that the distance in $\mathbb{R}^n$ is defined as: $\left|x-x_0\right| = \sqrt{\sum_{\mu=1}^n(x^\mu-x_0^\mu)^2}$. Here, rather than the exponent, $x^\mu$ means the $\mu$-th component of $x$, this is the common agreement in differential geometry.
+
+In fact, this is the direct generalization of an open interval in $\mathbb{R}$.
+:::
+
+:::info[Discrete topology]
+
+For an arbitrary set $X$, we define $\mathscr{T}$ to be the set containing all subsets of $X$. This is a boring topology.
+
+:::
+
+:::info[Iniscrete topology]
+
+For an arbitrary set $X$, we define $\mathscr{T} = \{\varnothing, X\}$. This is again a boring topology.
+
+:::
+
+# Definition: Continuity
+
+Upcoming....
