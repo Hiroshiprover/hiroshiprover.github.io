@@ -26,7 +26,8 @@ const config: Config = {
 
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'zh']
+    locales: ['en', 'zh'],
+    localeConfigs: {zh: {label: '中文',},},
   },
 
   markdown: {
@@ -90,7 +91,7 @@ presets: [
         src: 'img/image.png',
       },
       items: [
-        {to: '/docs/intro', label: 'About', position: 'left'},
+        {to: '/docs/intro', label: 'Contents', position: 'left'},
         {to: '/blog', label: 'Blog', position: 'left'},
         {type: 'localeDropdown', position: 'right', dropdownItemsAfter: [], dropdownItemsBefore: []},
         {
