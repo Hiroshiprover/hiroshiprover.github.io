@@ -1,0 +1,143 @@
+---
+title: Change of Basis
+sidebar_position: 4
+date: 2026-05-18
+tags: [Differential Geometry, Linear Algebra]
+---
+
+Finally, we now have enough basic machinery to answer a very fundamental question: why are the components of a vector written with upper indices, while those of a covector use lower indices, and why is it the opposite for basis vectors? This entire “tragedy” ultimately comes from physicists naming things according to the shape of **basis transformations**.
+
+## Transformations of Four Basic Objects
+
+### Transformation of Basis Vectors
+
+Consider a linear map
+
+$$
+\Lambda: V \to V, \quad \{e_\mu \} \mapsto \{e'_\mu\},
+$$
+
+This is clearly a $(1,1)$-tensor (a matrix), and we have
+
+$$
+e'_\mu = \Lambda^\nu{}_\mu e_\nu.
+$$
+
+Here both $e_\mu$ and $e'_\mu$ are actual vectors. Note that $\Lambda^\nu{}_\mu$ are the components of $\Lambda$ with respect to the basis $\{e_\mu\}$.
+
+:::note
+The symbol $\Lambda$ is often used to denote a special class of transformations: Lorentz transformations, which arise from the requirement that the spacetime interval $\mathrm{d}s^2$ is invariant under coordinate changes. In our discussion, however, no such restriction is imposed.
+:::
+
+### Transformation of Vector Components
+
+Next we analyze how the components of a vector transform under the basis change $\Lambda$. Consider a vector $v$ written in two different bases:
+
+$$
+v = v^\mu e_\mu = v'^\mu e'_\mu.
+$$
+
+Substituting the basis transformation gives
+
+$$
+v'^\mu \Lambda^\nu{}_\mu e_\nu = v^\nu e_\nu,
+$$
+
+hence
+
+$$
+v'^\mu = (\Lambda^{-1})^\mu{}_\nu v^\nu.
+$$
+
+:::note
+In tensor language, the inverse of a matrix is a tensor satisfying
+$$
+\Lambda^\mu{}_\rho (\Lambda^{-1})^\rho{}_\nu = \delta^\mu{}_\nu.
+$$
+:::
+
+### Transformation of the Dual Basis
+
+Starting from the definition of the dual basis,
+
+$$
+\delta^\mu{}_\nu = e^\mu(e_\nu),
+$$
+
+we multiply both sides by $\Lambda^\nu{}_\rho e'^\rho$, obtaining
+
+$$
+\Lambda^\mu{}_\rho e'^\rho
+= e^\mu(e'^\rho \Lambda^\nu{}_\rho e_\nu)
+= e^\mu(e'^\rho e'_\rho)
+= e^\mu.
+$$
+
+Multiplying by $(\Lambda^{-1})^\sigma{}_\mu$ yields
+
+$$
+e'^\sigma = (\Lambda^{-1})^\sigma{}_\mu e^\mu.
+$$
+
+Renaming dummy indices gives
+
+$$
+e'^\mu = (\Lambda^{-1})^\mu{}_\nu e^\nu.
+$$
+
+### Transformation of Covector Components
+
+Similarly, starting from
+
+$$
+\omega = \omega_\mu e^\mu = \omega'_\mu e'^\mu,
+$$
+
+and substituting the basis transformation, we obtain
+
+$$
+\omega'_\mu = \Lambda^\nu{}_\mu \omega_\nu.
+$$
+
+## Contravariance and Covariance
+
+We now observe a unified pattern:
+
+:::tip[Contravariance and Covariance]
+
+The transformations of basis vectors and covector components are
+
+$$
+e'_\mu = \Lambda^\nu{}_\mu e_\nu, \qquad \omega'_\mu = \Lambda^\nu{}_\mu \omega_\nu,
+$$
+
+while the transformations of dual basis vectors and vector components are
+
+$$
+e'^\mu = (\Lambda^{-1})^\mu{}_\nu e^\nu, \qquad v'^\mu = (\Lambda^{-1})^\mu{}_\nu v^\nu.
+$$
+
+We see that any object carrying an upper index transforms with the **inverse** of the basis transformation, while any object with a lower index transforms with the transformation **itself**.
+
+Thus, upper indices are called **contravariant indices**, and lower indices are called **covariant indices**; vectors are contravariant, and covectors are covariant (which is why dual vectors are also called covectors).
+:::
+
+This explains why Einstein’s summation convention is defined in this way: **indices do not merely indicate tensor type, but rather encode transformation behavior**. Hence vectors use upper indices and covectors use lower indices, while repeated upper–lower pairs indicate summation, i.e. contraction, describing how tensors interact.
+
+:::info
+For a general tensor, the coordinate transformation law is
+
+$$
+T^{\mu_1\cdots \mu_k}{}_{\nu_1\cdots \nu_l}
+=
+(\Lambda^{-1})^{\mu_1}{}_{\rho_1}\cdots(\Lambda^{-1})^{\mu_k}{}_{\rho_k}
+\Lambda^{\sigma_1}{}_{\nu_1}\cdots\Lambda^{\sigma_l}{}_{\nu_l}
+T^{\rho_1\cdots \rho_k}{}_{\sigma_1\cdots \sigma_l}.
+$$
+
+We omit the proof.
+:::
+
+:::note
+Many physics textbooks actually take this transformation law as the definition of a tensor: a $(k,l)$-tensor is defined as a collection of components satisfying the above rule, without explicit reference to bases. This definition is correct, but somewhat lacks conceptual depth.
+:::
