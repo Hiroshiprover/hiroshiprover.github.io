@@ -4,9 +4,7 @@ title: Basic Topology
 
 date: 2026-05-15
 
-tags:
-  - Differential Geometry
-  - Topology
+tags: [Differential Geometry, Topology]
 
 ---
 
@@ -67,4 +65,47 @@ For an arbitrary set $X$, we define $\mathscr{T} = \{\varnothing, X\}$. This is 
 
 # Definition: Continuity
 
-Upcoming....
+For a function $f(x)$ in the usual sense (defined on $\mathbb{R}$), we define its continuity using the $\varepsilon - \delta$ language: 
+
+:::note[Continuity] 
+
+If $\forall \varepsilon > 0$, $\exists \delta > 0$, such that whenever $\left|f(x) - f(x_0)\right| < \varepsilon$, $\left|x - x_0\right| < \delta$ follows. 
+
+:::
+
+However, currently we only have a topological space, on which there is likely no well-defined addition, nor can we define an "order", thus making it impossible to compare magnitudes. 
+At the same time, we do not have a "metric" to measure the "distance" between two elements. Therefore, we turn to seek ways to expand the definition of continuity. 
+For topological spaces, we only have the means to measure open sets, so we need to rephrase the $\varepsilon - \delta$ language in the language of sets: 
+
+:::tip[Continuity: Set Language] 
+
+If for any open subset $U$ of the image $f[X]$ of the mapping $f$, its preimage $f^{-1}[U]$ is an open subset, then $f$ is continuous. 
+
+:::
+
+At first glance, this definition seems to make no sense at all, but we can indeed prove that it is equivalent to the $\varepsilon - \delta$ language on $\mathbb{R}$ (in fact, it holds for any topological space equipped with a metric). 
+We will skip the proof of this equivalence, as it is not necessary for physicists to pay too much attention on the details. However, the proof is quite simple (try using the definition of an open ball). 
+
+For a general function, we use $C^r$ to denote that all derivatives up to the $r$-th order exist and are continuous. In particular, $C^0$ refers to continuous functions and $C^\infty$ to smooth functions. 
+We will adopt this notation for more general mappings as well. Note that for sets with only a topological structure, the highest requirement for mappings defined on them is $C^0$. 
+
+# Definition: Homeomorphism 
+
+A homeomorphism is a mapping used to measure how similar two topological spaces are. Specifically, we define: 
+
+:::tip [Homeomorphism] 
+
+If there exists a mapping $f$ between two topological spaces $(X, \mathscr{T})$ and $(Y, \mathscr{S})$ that satisfies the following conditions: 
+1. $f$ is a bijection;
+2. Both $f$ and $f^{-1}$ are continuous mappings. 
+Then these two topological spaces are said to be homeomorphic to each other, and $f$ is a **homeomorphism** mapping. 
+
+:::
+
+:::note[Note] 
+Generally speaking, if $f$ is a continuous mapping and its inverse exists, then its inverse mapping is also continuous. However, you can force a counterexample by using the discrete topology and the trivial topology mentioned earlier: 
+
+Let the topology of $(X, \mathscr{T})$ be the discrete topology (where all subsets are open subsets), and the topology of $(Y, \mathscr{S})$ be the indiscrete topology (where only $Y$ and $\varnothing$ are open subsets). Then, for any bijection $f$, it is continuous: only $Y = f[X]$ is an open subset, and its preimage $f^{-1}[Y] = X$ is also an open set; however, for any inverse mapping $f^{-1}$, it is not continuous: any subset $U \subseteq X$ is an open subset, but its preimage $f^{-1}[U]$ is not an open subset, unless $U = X$. 
+
+This is almost the only application of discrete topology and coherent topology, and it is as boring as their definitions. 
+:::
