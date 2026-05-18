@@ -1,0 +1,411 @@
+---
+title: Introduction to Tensors
+sidebar_position: 3
+date: 2026-05-18
+tags: [Differential Geometry, Linear Algebra]
+---
+
+In matrix language, vectors are represented as column vectors, while covectors are represented as row vectors. Then what exactly is a matrix? We will use this question as motivation to introduce the definition of tensors.
+
+## Motivation
+
+Let us first consider the so-called quadratic form:
+
+$$
+x^TAx=\begin{bmatrix}
+x_1&x_2&\cdots&x_n
+\end{bmatrix}
+\begin{bmatrix}
+a^1{}_1&a^1{}_2&\cdots&a^1{}_n \\ 
+a^2{}_1&a^2{}_2&\cdots&a^2{}_n \\ 
+\vdots & \vdots & \ddots & \vdots \\ 
+a^n{}_1&a^n{}_2&\cdots&a^n{}_n
+\end{bmatrix}
+\begin{bmatrix}
+x^1\\x^2\\ \vdots \\ x^n
+\end{bmatrix}
+.
+$$
+
+Notice that the object on the left is a covector (row vector), while the object on the right is a vector (column vector), and the entire quadratic form evaluates to a real number.
+
+Therefore, we may think of a matrix as a map sending a covector and a vector to a real number.
+
+:::note
+Of course, we also know that matrices can represent linear maps between vector spaces, or changes of basis. We will return to this perspective later.
+:::
+
+More generally, let us allow different vectors on the two sides of the quadratic form. We then observe that matrices are linear in both the covector and vector arguments:
+
+$$
+(\alpha x^T + \beta y^T)Az = \alpha x^TAz + \beta y^TAz,
+\qquad
+x^TA(\alpha y + \beta z) = \alpha x^TAy + \beta x^TAz.
+$$
+
+Although this observation may seem elementary, it suggests a more general viewpoint: rather than viewing a matrix merely as a map from one vector space to another, we may regard it as a **bilinear map** defined on a vector space $V$ and its dual space $V^*$.
+
+This naturally leads us to more general constructions.
+
+## Definition: Tensor
+
+Let us first define bilinear maps rigorously, or more generally, **multilinear maps**.
+
+::::tip[Multilinear Map]
+Let $V_1, V_2, \cdots, V_n$ be vector spaces over $\mathbb R$ (or more generally, over the same field). An $n$-linear map is a map
+
+$$
+T: V_1 \times V_2 \times \cdots \times V_n \to \mathbb R,
+\qquad
+T(v_1, v_2, \cdots, v_n)=c\in\mathbb R,
+$$
+
+such that for all $v_i,w_i\in V_i$, $i=1,2,\cdots,n$, and all $\alpha,\beta\in\mathbb R$,
+
+$$
+T(\cdots,\alpha v_i+\beta w_i,\cdots)
+=
+\alpha T(\cdots,v_i,\cdots)
++
+\beta T(\cdots,w_i,\cdots).
+$$
+
+:::note[Cartesian Product]
+The product symbol between vector spaces denotes the Cartesian product. The Cartesian product simply collects elements from two spaces into ordered pairs:
+
+$$
+V\times W:=\{(v,w)\mid v\in V,\ w\in W\}.
+$$
+
+Note that "ordered" means $(v,w)\neq (w,v)$ in general.
+
+In particular, for repeated Cartesian products of the same vector space, we use exponential notation:
+$$
+V^n:=\underbrace{V\times V\times\cdots\times V}_{n\text{ times}}.
+$$
+
+This is also the origin of the familiar notation $\mathbb R^n$.
+
+Cartesian products satisfy various basic properties. For example, the Cartesian product of two vector spaces is again a vector space, and the Cartesian product of two subspaces is isomorphic to their direct sum. We will not discuss these facts in detail here.
+
+More generally, Cartesian products can be defined for arbitrary sets, not only vector spaces.
+:::
+::::
+
+We can now define tensors in a simple way:
+
+:::tip[Tensor]
+A tensor of type $(k,l)$ is a multilinear map defined on ${V^*}^k\times V^l$.
+
+Equivalently, a $(k,l)$-tensor is a multilinear map that takes $k$ covectors and $l$ vectors as inputs, and outputs a real number.
+:::
+
+:::note
+A covector maps a vector to a real number, while a vector may also be viewed as mapping a covector to a real number. Therefore, under our definition, covectors and vectors can be regarded as tensors of type $(0,1)$ and $(1,0)$ respectively.
+
+In particular, a scalar (real number) is called a $(0,0)$-tensor.
+:::
+
+## Tensor Operations
+
+### Tensor Addition and Scalar Multiplication
+
+From the definition above, we can naturally define tensor addition and scalar multiplication:
+
+1. $(T+S)(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l)=T(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l)+S(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l),$
+
+2. $(\alpha T)(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l)=\alpha\cdot T(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l).$
+
+These definitions require tensors to have the same type in order to be added or subtracted. This is natural, since there is no meaningful way to add a matrix and a vector directly.
+
+Under these operations, all tensors of type $(k,l)$ naturally form a vector space, denoted by $\mathscr T_V(k,l)$.
+
+If the base space $V$ has dimension $n$, then
+$$
+\dim \mathscr T_V(k,l)=n^{k+l}.
+$$
+
+Although this formula looks obvious, proving it rigorously is somewhat tedious. Interested readers may try constructing an explicit basis using a basis $\{e_\mu\}$ of $V$ together with its dual basis.
+
+### Tensor Product
+
+We begin with some motivation from matrices.
+
+Consider the following fact:
+
+$$
+\begin{bmatrix}
+x^1\\x^2\\ \vdots \\ x^n
+\end{bmatrix}
+\begin{bmatrix}
+y_1&y_2&\cdots&y_n
+\end{bmatrix}
+=
+\begin{bmatrix}
+x^1y_1&x^1y_2&\cdots&x^1y_n \\ 
+x^2y_1&x^2y_2&\cdots&x^2y_n \\ 
+\vdots & \vdots & \ddots & \vdots \\ 
+x^ny_1&x^ny_2&\cdots&x^ny_n
+\end{bmatrix}.
+$$
+
+In other words, the tensor product of a $(1,0)$-tensor and a $(0,1)$-tensor is a $(1,1)$-tensor.
+
+Of course, the definition of tensor product itself does not depend on matrices. This motivates the following formal definition.
+
+::::tip[Tensor Product]
+Let $T$ be a tensor of type $(k,l)$ and $S$ be a tensor of type $(k',l')$. Their tensor product is defined to be a tensor of type $(k+k',l+l')$:
+
+$$
+\begin{aligned}
+&(T\otimes S)(\omega^1,\cdots,\omega^k,\omega^{k+1},\cdots,\omega^{k+k'};v_1,\cdots,v_l,v_{l+1},\cdots,v_{l+l'}) \\
+:=\;&
+T(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l)\,
+S(\omega^{k+1},\cdots,\omega^{k+k'};v_{l+1},\cdots,v_{l+l'}).
+\end{aligned}
+$$
+
+Although this expression looks intimidating, the idea is simple: feed the first group of arguments into $T$, the second group into $S$, and multiply the resulting real numbers.
+::::
+
+Note that tensor products are generally **not commutative**, since the order of vector and covector inputs matters.
+
+:::note
+There is a special case: the tensor product of a vector and a covector may be rearranged without ambiguity, since each contributes only one slot.
+
+For example,
+
+$$
+(e_\mu\otimes e^\nu)\otimes(e_\rho\otimes e_\sigma)
+=
+e_\mu\otimes e^\nu\otimes e_\rho\otimes e_\sigma
+\equiv
+e_\mu\otimes e_\rho\otimes e_\sigma\otimes e^\nu.
+$$
+
+This is why we may naturally regard the result of tensoring a $(k,l)$-tensor and a $(k',l')$-tensor as a $(k+k',l+l')$-tensor.
+:::
+
+Addition and scalar multiplication interact naturally with tensor products:
+
+1. $T\otimes S + T'\otimes S = (T+T')\otimes S,$
+
+2. $T\otimes S + T\otimes S' = T\otimes(S+S'),$
+
+3. $\alpha(T\otimes S) = (\alpha T)\otimes S = T\otimes(\alpha S).$
+
+:::tip[Tensor Product of Spaces]
+The tensor product also naturally induces a new vector space:
+$$
+V\otimes W := \{v\otimes w\mid v\in V,\ w\in W\}.
+$$
+
+If $\dim V=m$ and $\dim W=n$, then
+$$
+\dim(V\otimes W)=mn.
+$$
+
+We omit the proof of this fact.
+:::
+
+:::note
+For a tensor product generating a $(1,1)$-tensor, we have
+
+$$
+A=v\otimes\omega
+=
+(v^\mu e_\mu)\otimes(\omega_\nu e^\nu)
+=
+v^\mu\omega_\nu\,e_\mu\otimes e^\nu.
+$$
+
+Define
+$$
+A^\mu{}_\nu:=v^\mu\omega_\nu.
+$$
+
+These are precisely the components of a matrix.
+
+Of course, not every tensor can be written as a single tensor product of this form. In general, one needs linear combinations of such elementary tensors.
+:::
+
+:::note
+Mathematicians often prefer a more abstract definition of tensor product using a universal property.
+
+Given any bilinear map
+$$
+f:V\times W\to\mathbb R,
+$$
+there exists a vector space $U$, a map $g:V\times W\to U$, and a linear map $h:U\to\mathbb R$ such that
+$$
+f=h\circ g.
+$$
+
+Moreover, this factorization is universal in an appropriate sense.
+
+We then define the tensor product space (up to isomorphism) by
+$$
+V\otimes W:=U.
+$$
+
+This definition is elegant, but does not directly tell us how to construct the space concretely. Since our focus is differential geometry and explicit computation, we only mention this viewpoint briefly.
+:::
+
+### Contraction
+
+We again begin with matrices.
+
+A matrix acts on a vector and produces another vector. In tensor language, this means that a $(1,1)$-tensor can combine with a $(1,0)$-tensor to produce a new $(1,0)$-tensor.
+
+Write a matrix as
+$$
+A=A^\mu{}_\nu\,e_\mu\otimes e^\nu,
+$$
+which is a $(1,1)$-tensor.
+
+Now let
+$$
+v=v^\rho e_\rho
+$$
+be a vector.
+
+In linear algebra, matrix multiplication produces a new vector:
+$$
+(A^\mu{}_\nu v^\nu)e_\mu = w^\mu e_\mu.
+$$
+
+This shows that after combining a matrix and a vector, one vector-covector pair is "eliminated", leaving only one vector basis.
+
+How does this happen?
+
+The most basic way to combine tensors is first to take their tensor product:
+
+$$
+A\otimes v
+=
+A^\mu{}_\nu v^\rho\,
+e_\mu\otimes e^\nu\otimes e_\rho,
+$$
+which is a $(2,1)$-tensor.
+
+This is still not a vector, so we need one further operation: pair one upper index with one lower index and sum over them.
+
+This is called **contraction**.
+
+:::tip[Contraction Operator]
+Define
+$$
+C^i_j:\mathscr T_V(k,l)\to\mathscr T_V(k-1,l-1),
+$$
+which contracts the $i$-th upper index with the $j$-th lower index.
+
+Explicitly,
+
+$$
+C^i_j(T)
+=
+T(\cdot,\dots,e^\mu,\dots,\cdot;\cdot,\dots,e_\mu,\dots,\cdot),
+$$
+where $e^\mu$ is inserted into the $i$-th covector slot, $e_\mu$ into the $j$-th vector slot, and we sum over $\mu$.
+
+Equivalently, contraction uses the natural pairing
+$$
+e^\mu(e_\nu)=\delta^\mu{}_\nu
+$$
+to eliminate one upper-lower index pair.
+:::
+
+Returning to the matrix-vector example, we contract the tensor product:
+
+$$
+C^2_1(A\otimes v)
+=
+C^2_1\left(
+A^\mu{}_\nu v^\rho\,
+e_\mu\otimes e^\nu\otimes e_\rho
+\right).
+$$
+
+Contracting the second upper index with the first lower index gives
+$$
+A^\mu{}_\nu v^\nu e_\mu,
+$$
+which is exactly the expected result of matrix multiplication.
+
+Thus, matrix multiplication is, in tensor language,
+
+$$
+\text{tensor product + contraction}.
+$$
+
+This idea generalizes to arbitrary tensors.
+
+In general, there is no unique multiplication rule between tensors. Instead, we first take tensor products, and then specify which pairs of upper and lower indices should be contracted.
+
+Different contraction choices usually lead to different results.
+
+For example, in the same setting,
+$$
+C^1_1(A\otimes v)=A^\mu{}_\mu v^\nu e_\nu,
+$$
+which is simply the trace of the matrix times the vector:
+$$
+\mathrm{tr}(A)=A^\mu{}_\mu.
+$$
+
+Thus, contraction can be understood as one of the most fundamental interaction rules between tensors: it lowers tensor rank by pairing an upper index with a lower index.
+
+:::note
+In practice, contractions are often not written explicitly.
+
+Under Einstein summation convention, repeated upper and lower indices automatically indicate contraction.
+
+For example,
+$$
+A^\mu{}_\nu v^\nu
+$$
+already implicitly contains a contraction.
+:::
+
+:::note
+Besides the explicit operator $C^i_j$, another common notation is **insertion**.
+
+For a tensor $T\in\mathscr T_V(k,l)$ and a vector $v\in V$, insertion means plugging $v$ into one slot of $T$.
+
+This is usually written as
+$$
+\iota_v T
+\quad\text{or}\quad
+i_v T.
+$$
+
+Explicitly,
+$$
+(\iota_v T)(\omega^1,\cdots,\omega^k;v_1,\cdots,v_{l-1})
+:=
+T(\omega^1,\cdots,\omega^k;v_1,\cdots,v_{l-1},v).
+$$
+
+Thus,
+$$
+\iota_v T\in\mathscr T_V(k,l-1).
+$$
+
+Similarly, for a covector $\omega\in V^*$, one may define
+$$
+\iota_\omega T\in\mathscr T_V(k-1,l).
+$$
+
+Insertion may be viewed as a partial contraction: instead of summing over an upper-lower pair, we simply fix one input.
+
+For example,
+$$
+\iota_v A=A(\cdot;v),
+$$
+which is a $(1,0)$-tensor, i.e. a vector.
+
+This is exactly matrix action in linear algebra:
+$$
+Av=\iota_v A.
+$$
+:::
