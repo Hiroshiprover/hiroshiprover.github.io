@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmy_site=self.webpackChunkmy_site||[]).push([["2884"],{7646(e){e.exports=JSON.parse('{"tags":[{"label":"Differential Geometry","permalink":"/blog/tags/differential-geometry","count":2},{"label":"Linear Algebra","permalink":"/blog/tags/linear-algebra","count":1},{"label":"Topology","permalink":"/blog/tags/topology","count":1}]}')}}]);
