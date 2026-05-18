@@ -5,7 +5,7 @@ date: 2026-05-18
 tags: [Differential Geometry, Linear Algebra]
 ---
 
-In matrix language, vectors are represented as column vectors, while covectors are represented as row vectors. Then what exactly is a matrix? We will use this question as motivation to introduce the definition of tensors.
+In matrix language, vectors are represented as column vectors, while covectors (another name for dual vectors) are represented as row vectors. Then what exactly is a matrix? We will use this question as motivation to introduce the definition of tensors.
 
 ## Motivation
 
@@ -95,9 +95,16 @@ More generally, Cartesian products can be defined for arbitrary sets, not only v
 We can now define tensors in a simple way:
 
 :::tip[Tensor]
-A tensor of type $(k,l)$ is a multilinear map defined on ${V^*}^k\times V^l$.
+A tensor of type $(k,l)$ is a multilinear map defined on ${V^*}^k\times V^l$. Equivalently, a $(k,l)$-tensor is a multilinear map that takes $k$ covectors and $l$ vectors as inputs, and outputs a real number.
+:::
 
-Equivalently, a $(k,l)$-tensor is a multilinear map that takes $k$ covectors and $l$ vectors as inputs, and outputs a real number.
+:::note
+You may wonder why the dual space is placed before the vector space. In fact, this is because we are considering the objects on which tensors act, that is, the domain of the tensor. If we consider what a tensor actually is, we will find that the front becomes vectors and the back becomes covectors. Specifically, any tensor can be written as: 
+$$
+T = T^{\mu_1\cdots\mu_k}{}_{\nu_1\cdots\nu_l} \, e_{\mu_1} \otimes \cdots \otimes e_{\mu_k} \otimes e^{l_1} \otimes \cdots \otimes e^{\nu_l},
+$$
+
+Here, $\{e_\mu\}$ is the basis of the vector space $V$, while $\{e^\nu\}$ is the dual basis.
 :::
 
 :::note
@@ -183,7 +190,7 @@ e_\mu\otimes e^\nu\otimes e_\rho\otimes e_\sigma
 e_\mu\otimes e_\rho\otimes e_\sigma\otimes e^\nu.
 $$
 
-This is why we may naturally regard the result of tensoring a $(k,l)$-tensor and a $(k',l')$-tensor as a $(k+k',l+l')$-tensor.
+This is why we may naturally regard the result of tensoring a $(k,l)$-tensor and a $(k',l')$-tensor as a $(k+k',l+l')$-tensor rather than something strange, say $(k, l; k', l')$ or other things.
 :::
 
 Addition and scalar multiplication interact naturally with tensor products:
@@ -200,12 +207,7 @@ $$
 V\otimes W := \{v\otimes w\mid v\in V,\ w\in W\}.
 $$
 
-If $\dim V=m$ and $\dim W=n$, then
-$$
-\dim(V\otimes W)=mn.
-$$
-
-We omit the proof of this fact.
+If $\dim V=m$ and $\dim W=n$, then $\dim(V\otimes W)=mn.$ We omit the proof of this fact.
 :::
 
 :::note
@@ -248,37 +250,22 @@ $$
 V\otimes W:=U.
 $$
 
-This definition is elegant, but does not directly tell us how to construct the space concretely. Since our focus is differential geometry and explicit computation, we only mention this viewpoint briefly.
+This definition is elegant but useless, ONLY Mathematicians CAN DO. It does not directly tell us how to construct the space. Since our focus is differential geometry and explicit computation, we only mention this viewpoint briefly.
 :::
 
 ### Contraction
 
-We again begin with matrices.
+We again begin with matrices. A matrix acts on a vector and produces another vector. In tensor language, this means that a $(1,1)$-tensor can combine with a $(1,0)$-tensor to produce a new $(1,0)$-tensor.
 
-A matrix acts on a vector and produces another vector. In tensor language, this means that a $(1,1)$-tensor can combine with a $(1,0)$-tensor to produce a new $(1,0)$-tensor.
+Write a matrix as $A=A^\mu{}_\nu\,e_\mu\otimes e^\nu,$ which is a $(1,1)$-tensor. Now, let $v=v^\rho e_\rho$ be a vector, in linear algebra, matrix multiplication produces a new vector:
 
-Write a matrix as
-$$
-A=A^\mu{}_\nu\,e_\mu\otimes e^\nu,
-$$
-which is a $(1,1)$-tensor.
-
-Now let
-$$
-v=v^\rho e_\rho
-$$
-be a vector.
-
-In linear algebra, matrix multiplication produces a new vector:
 $$
 (A^\mu{}_\nu v^\nu)e_\mu = w^\mu e_\mu.
 $$
 
-This shows that after combining a matrix and a vector, one vector-covector pair is "eliminated", leaving only one vector basis.
+This shows that after combining a matrix and a vector, one vector-covector pair is "eliminated", leaving only one vector basis. How does this happen?
 
-How does this happen?
-
-The most basic way to combine tensors is first to take their tensor product:
+Well, the most basic way to combine tensors is first to take their tensor product, therefore we consider:
 
 $$
 A\otimes v
@@ -286,17 +273,15 @@ A\otimes v
 A^\mu{}_\nu v^\rho\,
 e_\mu\otimes e^\nu\otimes e_\rho,
 $$
-which is a $(2,1)$-tensor.
-
-This is still not a vector, so we need one further operation: pair one upper index with one lower index and sum over them.
-
-This is called **contraction**.
+which is a $(2,1)$-tensor, still not a vector. Hence we need one further operation: pair one upper index with one lower index and sum over them. This is what we call a **contraction**:
 
 :::tip[Contraction Operator]
 Define
+
 $$
 C^i_j:\mathscr T_V(k,l)\to\mathscr T_V(k-1,l-1),
 $$
+
 which contracts the $i$-th upper index with the $j$-th lower index.
 
 Explicitly,
@@ -306,16 +291,10 @@ C^i_j(T)
 =
 T(\cdot,\dots,e^\mu,\dots,\cdot;\cdot,\dots,e_\mu,\dots,\cdot),
 $$
-where $e^\mu$ is inserted into the $i$-th covector slot, $e_\mu$ into the $j$-th vector slot, and we sum over $\mu$.
-
-Equivalently, contraction uses the natural pairing
-$$
-e^\mu(e_\nu)=\delta^\mu{}_\nu
-$$
-to eliminate one upper-lower index pair.
+where $e^\mu$ is inserted into the $i$-th covector slot, $e_\mu$ into the $j$-th vector slot, and we sum over $\mu$. Equivalently, contraction uses the fact that $e^\mu(e_\nu)=\delta^\mu{}_\nu$ to eliminate one upper-lower index pair.
 :::
 
-Returning to the matrix-vector example, we contract the tensor product:
+Back to our matrix-vector example, we contract the tensor product:
 
 $$
 C^2_1(A\otimes v)
@@ -327,28 +306,23 @@ e_\mu\otimes e^\nu\otimes e_\rho
 $$
 
 Contracting the second upper index with the first lower index gives
+
 $$
 A^\mu{}_\nu v^\nu e_\mu,
 $$
+
 which is exactly the expected result of matrix multiplication.
 
-Thus, matrix multiplication is, in tensor language,
+Thus, matrix multiplication is, in tensor language, **tensor product + contraction**. This idea generalizes to arbitrary tensors. Although in general, there is no unique multiplication rule between tensors, we can always first take tensor products, and then specify which pairs of upper and lower indices should be contracted. Different contraction choices usually lead to different results.
 
-$$
-\text{tensor product + contraction}.
-$$
+For example, in the same setting, we do a different contraction:
 
-This idea generalizes to arbitrary tensors.
-
-In general, there is no unique multiplication rule between tensors. Instead, we first take tensor products, and then specify which pairs of upper and lower indices should be contracted.
-
-Different contraction choices usually lead to different results.
-
-For example, in the same setting,
 $$
 C^1_1(A\otimes v)=A^\mu{}_\mu v^\nu e_\nu,
 $$
-which is simply the trace of the matrix times the vector:
+
+which is simply gives the trace of the matrix times the vector, where the trace of a matrix is defined as:
+
 $$
 \mathrm{tr}(A)=A^\mu{}_\mu.
 $$
@@ -356,9 +330,7 @@ $$
 Thus, contraction can be understood as one of the most fundamental interaction rules between tensors: it lowers tensor rank by pairing an upper index with a lower index.
 
 :::note
-In practice, contractions are often not written explicitly.
-
-Under Einstein summation convention, repeated upper and lower indices automatically indicate contraction.
+In practice, contractions are often not written explicitly. Under Einstein summation convention, repeated upper and lower indices automatically indicate contraction.
 
 For example,
 $$
@@ -368,18 +340,8 @@ already implicitly contains a contraction.
 :::
 
 :::note
-Besides the explicit operator $C^i_j$, another common notation is **insertion**.
+Besides the explicit operator $C^i_j$, another common notation is **insertion**, noted as $\iota$. For a tensor $T\in\mathscr T_V(k,l)$ and a vector $v\in V$, insertion means plugging $v$ into one slot of $T$. This is usually written as: 
 
-For a tensor $T\in\mathscr T_V(k,l)$ and a vector $v\in V$, insertion means plugging $v$ into one slot of $T$.
-
-This is usually written as
-$$
-\iota_v T
-\quad\text{or}\quad
-i_v T.
-$$
-
-Explicitly,
 $$
 (\iota_v T)(\omega^1,\cdots,\omega^k;v_1,\cdots,v_{l-1})
 :=
@@ -391,21 +353,13 @@ $$
 \iota_v T\in\mathscr T_V(k,l-1).
 $$
 
-Similarly, for a covector $\omega\in V^*$, one may define
-$$
-\iota_\omega T\in\mathscr T_V(k-1,l).
-$$
+Similarly, for a covector $\omega\in V^*$, one may define $\iota_\omega T\in\mathscr T_V(k-1,l).$
 
-Insertion may be viewed as a partial contraction: instead of summing over an upper-lower pair, we simply fix one input.
+Insertion may be viewed as a partial contraction: instead of summing over an upper-lower pair, we simply fix one input. For example,
 
-For example,
 $$
 \iota_v A=A(\cdot;v),
 $$
-which is a $(1,0)$-tensor, i.e. a vector.
 
-This is exactly matrix action in linear algebra:
-$$
-Av=\iota_v A.
-$$
+which is a $(1,0)$-tensor, i.e. a vector. This is exactly matrix action in linear algebra: $w=Av=\iota_v A.$
 :::
