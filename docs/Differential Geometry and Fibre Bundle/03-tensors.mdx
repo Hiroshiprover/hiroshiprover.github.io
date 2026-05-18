@@ -99,18 +99,16 @@ A tensor of type $(k,l)$ is a multilinear map defined on ${V^*}^k\times V^l$. Eq
 :::
 
 :::note
-You may wonder why the dual space is placed before the vector space. In fact, this is because we are considering the objects on which tensors act, that is, the domain of the tensor. If we consider what a tensor actually is, we will find that the front becomes vectors and the back becomes covectors. Specifically, any tensor can be written as: 
+You may wonder why the dual space is placed before the vector space. In fact, this is because we are considering the objects on which tensors act, i.e. the domain of the tensor. If we consider what a tensor actually is, we will find that the front becomes vectors and the back becomes covectors. Specifically, any tensor can be written as: 
 $$
-T = T^{\mu_1\cdots\mu_k}{}_{\nu_1\cdots\nu_l} \, e_{\mu_1} \otimes \cdots \otimes e_{\mu_k} \otimes e^{l_1} \otimes \cdots \otimes e^{\nu_l},
+T = T^{\mu_1\cdots\mu_k}{}_{\nu_1\cdots\nu_l} \, e_{\mu_1} \otimes \cdots \otimes e_{\mu_k} \otimes e^{\nu_1} \otimes \cdots \otimes e^{\nu_l},
 $$
 
 Here, $\{e_\mu\}$ is the basis of the vector space $V$, while $\{e^\nu\}$ is the dual basis.
 :::
 
 :::note
-A covector maps a vector to a real number, while a vector may also be viewed as mapping a covector to a real number. Therefore, under our definition, covectors and vectors can be regarded as tensors of type $(0,1)$ and $(1,0)$ respectively.
-
-In particular, a scalar (real number) is called a $(0,0)$-tensor.
+A covector maps a vector to a real number, while a vector may also be viewed as mapping a covector to a real number. Therefore, under our definition, covectors and vectors can be regarded as tensors of type $(0,1)$ and $(1,0)$ respectively. In particular, a scalar (real number) is called a $(0,0)$-tensor.
 :::
 
 ## Tensor Operations
