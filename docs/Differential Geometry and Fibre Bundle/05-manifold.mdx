@@ -1,0 +1,131 @@
+---
+title: Introduction to Differentiable Manifolds
+sidebar_position: 5
+date: 2026-05-19
+tags: [Differential Geometry]
+---
+
+Before we start: Although the mathematical language we use is quite abstract, whenever you feel confused, just remember that the predecessor of differential geometry is essentially surface theory, which studies the calculus of curves and surfaces in $\R^n$. The fundamental purpose of differentiable manifolds is nothing more than to perform calculus on "surfaces" that lack geometric intuition. Therefore, whenever you get stuck, it's always helpful to imagine a sphere (or a donut, if you prefer).
+
+## Definition: Differentiable Manifold
+
+The reader may have heard of differential geometry, differentiable manifolds, etc. Let's now formally introduce the concept of a manifold.
+
+::::tip[Differentiable Manifold]
+A topological space $(M, \mathscr{T})$ is called a smooth **$n$-dimensional differentiable manifold** if it satisfies:
+
+1. $M = \bigcup_\alpha O_\alpha$, where $\forall \alpha, O_\alpha \in \mathscr{T}$ (open sets);
+2. $\forall \alpha$, $\exists \psi_\alpha: O_\alpha \to \R^n$ a homeomorphism;
+3. If $O_\alpha \cap O_\beta \neq \varnothing$, then $\psi_\beta \circ \psi_\alpha^{-1}: \R^n \to \R^n \in C^{\infty}(\R^n)$.
+
+In the following, unless otherwise specified, we will simply refer to smooth $n$-dimensional manifolds as manifolds.
+:::note
+The notation $C^{\infty}(\R^n)$ denotes smooth functions defined on $\R^n$:
+
+$$
+\psi_\beta \circ \psi_\alpha^{-1} : \R^n\to\R^n,  
+\begin{pmatrix}
+x^1\\x^2\\\vdots\\x^n
+\end{pmatrix} \mapsto 
+\begin{pmatrix}x'^1(x^1,  x^2,  \cdots,  x^n)\\x'^2(x^1,  x^2,  \cdots,  x^n)\\\vdots\\x'^n(x^1,  x^2,  \cdots,  x^n)
+\end{pmatrix}
+$$
+
+i.e., $x'^\mu(x^1,  x^2,  \cdots,  x^n),  \mu = 1,  2,  \dots,  n$ are all smooth functions of $n$ variables.
+:::
+
+:::note
+Condition 1 requires that $M$ be completely covered by open sets, which avoids the issue of "boundary points". Because limits (or one-sided limits) are problematic at boundary points. For example, for the closed interval $[0,1]$ in $\R$, it is difficult to define limits and derivatives at $0$ and $1$. Of course, there are ways to define manifolds using closed sets, but we will not discuss them further.
+:::
+
+:::note
+Condition 2 may look mysterious, but it expresses something simple: near every point, the manifold looks sufficiently like ordinary Euclidean space $\R^n$. In other words, near a point you can always approximate the manifold by a "flat space", and this approximation converges.
+:::
+
+:::note
+Condition 3 is also called the **compatibility condition**. It ensures that your "differentiable structure" is well-defined. This is similar to the requirement when we discussed topological spaces: we cannot define a contradictory criterion. We will expand on this in more detail later.
+
+If we lower the requirement on the functions $\psi_\beta \circ \psi_\alpha^{-1}$ to $C^r(\R^n)$, then we call the manifold a $C^r$ manifold. In particular, $C^0$ manifolds are called topological manifolds.
+:::
+::::
+
+::::info
+For any point $p$ on a manifold $M$, we can always find an open neighborhood $O_\alpha$ of $p$. By the definition of a differentiable manifold, there exists a homeomorphism $\psi_\alpha$ to $\R^n$ such that the point $p$ corresponds to a point $\psi_\alpha(p) = (x_p^1, x_p^2, \dots, x_p^n)$ in $\R^n$. We call $\psi_\alpha(p)$ a set of **coordinates** of the point $p$. Of course, every point in $O_\alpha$ obtains a set of coordinates via this homeomorphism $\psi_\alpha$, so we call $(O_\alpha, \psi_\alpha)$ a (local) **coordinate system**, or mathematicians prefer to call it a **chart**. The collection $\{(O_\alpha, \psi_\alpha)\}$ of all coordinate systems on a manifold is called an **atlas**. This atlas is exactly the **differentiable structure** mentioned earlier.
+
+Of course, a point $p$ can have many open neighborhoods. Suppose there is another open neighborhood $O_\beta$, under the coordinate system $(O_\beta, \psi_\beta)$ the point $p$ obtains another coordinate: $\psi_\beta(p) = (x_p'^1, x_p'^2, \dots, x_p'^n)$. Due to the compatibility condition, we obtain a set of **coordinate transformations** $x_p'^\mu = \psi_\beta \circ \psi_\alpha^{-1}(x_p^\mu)$, and these coordinate transformations are smooth.
+
+:::note
+We usually assume an atlas is **maximally compatible**, meaning that the set $\{(O_\alpha, \psi_\alpha)\}$ includes all coordinate systems $(O_\alpha, \psi_\alpha)$ that satisfy the compatibility condition. This allows us to choose arbitrary coordinates at a point $p$ and always be able to smoothly transform to any other coordinate system. This is why we call the atlas a differentiable structure on the manifold $M$: it includes all possible coordinate transformations.
+
+If a manifold $M$ has more than one maximally compatible atlas (i.e., two different atlases whose coordinate systems are incompatible, for example $\psi_\beta \circ \psi_\alpha^{-1}$ is not smooth), we say that the manifold $M$ admits more than one differentiable structure. The reader may have heard of the infinitely many differentiable structures on four-dimensional manifolds, which is still an unsolved problem. Fortunately, we generally do not face this issue.
+:::
+::::
+
+:::note
+We will not give specific examples of manifolds here. Because almost any "nice" geometric object, curve, surface, or solid you can imagine can be a differentiable manifold (or at least a topological manifold). However, we can list some common names: the $n$-sphere $S^n$, the $n$-torus $T^n$, the trivial manifold $\R^n$ (trivial means it can be completely described by a single coordinate system).
+:::
+
+## Definition: Maps on Manifolds
+
+Unlike in topology, where we only talk about whether a map is continuous ($C^0$), the differentiable structure of a differentiable manifold allows us to talk about "nicer" maps, such as whether they are differentiable or even smooth.
+
+::::tip[$C^r$ Maps between Manifolds]
+Let $M$ be an $m$-dimensional manifold and $N$ an $n$-dimensional manifold, with atlases $\{(O_\alpha, \psi_\alpha)\}$ and $\{(O'_\alpha, \psi'_\alpha)\}$ respectively. Define a map $f: M\to N$. Consider a coordinate system $(O_\alpha, \psi_\alpha)$ near a point $p\in M$ and a coordinate system $(O'_\alpha, \psi'_\alpha)$ near the image $f(p)\in N$. If the map
+
+$$
+\psi'_\alpha \circ f \circ \psi_\alpha^{-1}: \R^m \to \R^n
+$$
+
+is $C^r$, then $f$ is called a $C^r$ map. In particular, $C^\infty$ maps are called smooth maps.
+:::note
+The maximal compatibility of the atlases ensures that this definition is independent of the choice of coordinate systems, hence it is well-defined. When we say something is well-defined, we mean that the definition is unambiguous.
+
+Of course, different atlases (differentiable structures) may give different $C^r$ classifications for the same map.
+:::
+::::
+
+In particular, the notion of homeomorphism defined in topological spaces can be naturally extended to differentiable manifolds:
+
+::::tip[Diffeomorphism]
+
+Let $M, N$ be manifolds. If there exists a map $f$ such that:
+
+1. $f$ is bijective;
+2. $f$ and $f^{-1}$ are both $C^\infty$ maps,
+
+then the two manifolds are said to be **diffeomorphic**, and $f$ is a diffeomorphism.
+
+:::note
+Diffeomorphism is the strongest classification we can give so far regarding the relationship between two manifolds. Try to imagine: homeomorphism means you can deform a donut into a coffee cup with a square mouth (continuous), while diffeomorphism means you can only deform it into one with an elliptical mouth (smooth).
+:::
+
+:::note
+Obviously, a necessary condition for two manifolds to be diffeomorphic is that they have the same dimension.
+:::
+::::
+
+### Scalar Fields
+
+If we consider the real numbers $\R$ as a manifold, then a map from a manifold $M$ to $\R$ is a simple and important example.
+
+:::tip[Scalar Field]
+A map $f: M \to \R$ is called a **scalar field**, or a **function**. Obviously, when $M$ is the trivial manifold, a scalar field is just the familiar multivariate function.
+
+In particular, we denote the set of all smooth functions on a manifold $M$ by $\mathscr{F}_M$, and omit the subscript when no confusion arises.
+:::
+
+:::info[Coordinates as Scalar Fields]
+Let $O \subset M$ be an open set. By the definition of a manifold, there exists a coordinate system $(O, \psi)$. We can then define scalar fields:
+
+$$
+x^\mu: O \to \R, \qquad x^\mu(p) = x^\mu_p \in \R，
+$$
+
+where $x^\mu_p$ is the $\mu$-th component of the coordinates of the point $p$ obtained from the coordinate system $(O, \psi)$.
+
+Specifically, we can view $x^\mu$ as the composition of two maps: $x^\mu = \text{proj}_\mu \circ \psi$, where $\text{proj}_\mu$ is the natural projection from the Cartesian product:
+
+$$
+\text{proj}_\mu (x^1, x^2, \dots) = x^\mu.
+$$
+:::
