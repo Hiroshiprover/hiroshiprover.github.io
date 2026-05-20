@@ -36,12 +36,12 @@ const config: Config = {
 
   themes: ['@docusaurus/theme-mermaid'],
 
-presets: [
+  presets: [
     [
       'classic',
       {
         docs: {
-          sidebarPath: './sidebars.ts',
+          sidebarPath: undefined,
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
           routeBasePath: '/docs',

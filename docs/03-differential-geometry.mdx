@@ -1,0 +1,1155 @@
+---
+title: Differential Geometry and Fibre Bundle for Babies
+sidebar_position: 3
+date: 2026-05-15
+tags: [Differential Geometry, Fibre Bundle, Topology, Linear Algebra, Calculus]
+---
+
+# Differential Geometry and Fibre Bundle for Babies
+
+# Preface
+
+It is well known that textbooks, notes, and lecture materials in mathematics and physics have a long-standing tradition of deliberately presenting content in an obscure and difficult-to-understand manner. This practice—erasing the traces of thought processes while leaving only elegant results—has created a deep and formidable barrier between beginners and mathematical knowledge. This became especially evident to me when I attempted to self-study differential geometry, general relativity, fiber bundles, and gauge theory. 
+
+With this mindset, I began writing these notes, attempting to rephrase the abstract and concise formal language of differential geometry and fiber bundles in a more fundamental and accessible way, aiming to reconstruct the clean traces of previous thinkers' insights and to offer some intuitive guidance for concepts that are often difficult to grasp. 
+
+> During the learning process, I realized that I was gradually losing the ability to express certain ideas in plain language—perhaps this is a kind of intellectual contamination.
+
+# Chapter 1: Mathematical Foundations
+
+## 1.1 Topology
+
+It's assumed that you have basic knowledge of sets, including the definition, Cartesian product, etc.
+
+In fact, the majority of differential geometry does not require much of the knowledge of topology, at least not the basic definitions. It's suggested that beginners should skip this chapter and read the followings directly.
+
+### Topology
+
+When mathematicians and physicists refer to "topology", there are some subtle differences involved. Here we focus on the rigorous definition of topology:
+
+:::tip[Topology]
+
+A set $\mathscr{T}$ is called the **topology** of a set $X$, if $\mathscr{T}$ contains all of the "open subsets" of $X$. 
+
+:::
+
+:::info[Conditions for topology]
+
+To assure the definition is self-consistent (**all** of the open subsets are contained), $\mathscr{T}$ should satisfy the following conditions:
+ 
+1. $X, \varnothing \in \mathscr{T}$;
+2. if $\ O_i \in \mathscr{T},  i = 1,  2,  \dots,  n$, then $\bigcap\limits_{i=1}^n O_i \in \mathscr{T}$;
+3. if$\ O_i \in \mathscr{T},  \forall i$, then $\bigcup\limits_{i} O_i \in \mathscr{T}$. 
+
+:::
+
+:::note
+
+Notice that condition 2 require $n$ to be a finite integer, while condition 3 does not. This means only finite intersections remains open, while the union of open sets remains open, even if we take infinite sets. For example, consider: $U_n = \{x | \left|x\right| < 1+ \frac{1}{n} \}$, then $\bigcap\limits_{i=1}^\infty U_n \to [-1,  1]$, not a open set of $\mathbb{R}$!
+
+:::
+
+#### Some examples of topology
+
+Here we offer three examples of different types of topology. In practice for a given set $X$, there are usually infinitely many ways to specify a topology.
+
+:::info[Usual topology]
+
+Suppose $X = \mathbb{R}^n$, we say that $\mathscr{T}_u = \{\varnothing, \bigcup_{x_0, r} B(x_0, r)\}$ is the **usual topology** of $\mathbb{R}^n$, where $B(x_0, r) = \{x \in \mathbb{R}^n| \left|x-x_0\right| < r\}$ for $x_0 \in \mathbb{R}^n, r>0 \in \mathbb{R}$ is called the open ball. 
+
+Notice that the distance in $\mathbb{R}^n$ is defined as: $\left|x-x_0\right| = \sqrt{\sum_{\mu=1}^n(x^\mu-x_0^\mu)^2}$. Here, rather than the exponent, $x^\mu$ means the $\mu$-th component of $x$, this is the common agreement in differential geometry.
+
+In fact, this is the direct generalization of an open interval in $\mathbb{R}$.
+:::
+
+:::info[Discrete topology]
+
+For an arbitrary set $X$, we define $\mathscr{T}$ to be the set containing all subsets of $X$. This is a boring topology.
+
+:::
+
+:::info[Iniscrete topology]
+
+For an arbitrary set $X$, we define $\mathscr{T} = \{\varnothing, X\}$. This is again a boring topology.
+
+:::
+
+### Continuity
+
+For a function $f(x)$ in the usual sense (defined on $\mathbb{R}$), we define its continuity using the $\varepsilon - \delta$ language: 
+
+:::note[Continuity] 
+
+If $\forall \varepsilon > 0$, $\exists \delta > 0$, such that whenever $\left|f(x) - f(x_0)\right| < \varepsilon$, $\left|x - x_0\right| < \delta$ follows. 
+
+:::
+
+However, currently we only have a topological space, on which there is likely no well-defined addition, nor can we define an "order", thus making it impossible to compare magnitudes. 
+At the same time, we do not have a "metric" to measure the "distance" between two elements. Therefore, we turn to seek ways to expand the definition of continuity. 
+For topological spaces, we only have the means to measure open sets, so we need to rephrase the $\varepsilon - \delta$ language in the language of sets: 
+
+:::tip[Continuity: Set Language] 
+
+If for any open subset $U$ of the image $f[X]$ of the mapping $f$, its preimage $f^{-1}[U]$ is an open subset, then $f$ is continuous. 
+
+:::
+
+At first glance, this definition seems to make no sense at all, but we can indeed prove that it is equivalent to the $\varepsilon - \delta$ language on $\mathbb{R}$ (in fact, it holds for any topological space equipped with a metric). 
+We will skip the proof of this equivalence, as it is not necessary for physicists to pay too much attention on the details. However, the proof is quite simple (try using the definition of an open ball). 
+
+For a general function, we use $C^r$ to denote that all derivatives up to the $r$-th order exist and are continuous. In particular, $C^0$ refers to continuous functions and $C^\infty$ to smooth functions. 
+We will adopt this notation for more general mappings as well. Note that for sets with only a topological structure, the highest requirement for mappings defined on them is $C^0$. 
+
+### Homeomorphism
+
+A homeomorphism is a mapping used to measure how similar two topological spaces are. Specifically, we define: 
+
+:::tip[Homeomorphism] 
+
+If there exists a mapping $f$ between two topological spaces $(X, \mathscr{T})$ and $(Y, \mathscr{S})$ that satisfies the following conditions: 
+1. $f$ is a bijection;
+2. Both $f$ and $f^{-1}$ are continuous mappings. 
+Then these two topological spaces are said to be homeomorphic to each other, and $f$ is a **homeomorphism** mapping. 
+
+:::
+
+:::note[Note] 
+Generally speaking, if $f$ is a continuous mapping and its inverse exists, then its inverse mapping is also continuous. However, you can force a counterexample by using the discrete topology and the trivial topology mentioned earlier: 
+
+Let the topology of $(X, \mathscr{T})$ be the discrete topology (where all subsets are open subsets), and the topology of $(Y, \mathscr{S})$ be the indiscrete topology (where only $Y$ and $\varnothing$ are open subsets). Then, for any bijection $f$, it is continuous: only $Y = f[X]$ is an open subset, and its preimage $f^{-1}[Y] = X$ is also an open set; however, for any inverse mapping $f^{-1}$, it is not continuous: any subset $U \subseteq X$ is an open subset, but its preimage $f^{-1}[U]$ is not an open subset, unless $U = X$. 
+
+This is almost the only application of discrete topology and coherent topology, and it is as boring as their definitions. 
+:::
+
+---
+
+## 1.2 Linear Algebra
+
+We assume the reader already has some basic familiarity with linear algebra, such as the definitions of vector spaces and bases.
+
+There are several concepts that may not appear in an introductory linear algebra course. For those, I will state the basic definitions here. For more detailed discussions, one may consult *Linear Algebra Done Right* or any standard advanced linear algebra textbook.
+
+Readers may notice that some notation conventions differ from those used in other areas. In most cases they refer to exactly the same mathematical objects, so there is no reason to panic.
+
+### Vector Spaces
+
+In linear algebra, every finite-dimensional vector space admits a basis $\{e_\mu\}$, such that any vector can be expanded with respect to this basis.
+
+:::note[Index conventions]
+
+Readers may be more familiar with using $i,j,k$ as indices, or explicitly writing $1,2,3,\dots$.
+
+In differential geometry, Greek letters $\mu,\nu,\rho,\dots$ are typically used for vectors and their components. This is purely a convention.
+
+In the context of general relativity (four-dimensional spacetime), one usually assumes:
+
+$$
+\mu,\nu,\rho,\dots = 0,1,2,3,
+$$
+
+where $0$ denotes the time component.
+
+Meanwhile, due to historical convention, one often writes
+
+$$
+i,j,k,\dots = 1,2,3
+$$
+
+for spatial indices.
+
+Ordinary Roman letters such as $a,b,c$ are often used as abstract indices. They do not take numerical values, but only indicate tensor type. This is a somewhat subtle topic which we will discuss later.
+
+:::
+
+Once a basis is chosen, any vector can be expanded as
+
+$$
+v=\sum_\mu v^\mu e_\mu.
+$$
+
+Notice that vector components are written with upper indices here. This is a common convention in differential geometry, and later we will see that it is actually quite natural.
+
+#### Einstein Summation Convention
+
+So far everything is just standard linear algebra.
+
+Now we begin preparing for differential geometry. In differential geometry, expressions with four or more summation signs frequently appear (for example, the full contraction of the Riemann curvature tensor into the Ricci scalar). Writing out every summation sign quickly becomes visually exhausting.
+
+To avoid this, we introduce the **Einstein summation convention**.
+
+:::tip[Einstein summation convention]
+
+Whenever an upper and lower index with the same symbol appears repeatedly, summation over that index is implied.
+
+For example,
+
+$$
+v^\mu e_\mu = \sum_\mu v^\mu e_\mu,
+$$
+
+or
+
+$$
+A^\mu{}_\nu v^\nu \equiv \sum_\nu A^\mu{}_\nu v^\nu.
+$$
+
+At the moment, we do not need to worry too much about what all these symbols mean. Their meaning will become clearer later.
+
+For now, one may simply view this as a symbolic rule.
+
+:::
+
+:::note
+
+Physicists often suppress the basis entirely and define vectors directly through their components $v^\mu$, together with transformation laws.
+
+This approach is often more intuitive, but somewhat less structural.
+
+Here we adopt a more mathematical viewpoint, which is useful when discussing invariants and canonical objects.
+
+In particular, we emphasize:
+
+1. $v^\mu$ are the components of the vector $v$ in the basis $\{e_\mu\}$;
+2. $\{e_\mu\}$ are actual vectors.
+
+:::
+
+### Dual Vector Spaces
+
+#### Dual vectors
+
+We first define dual vectors.
+
+::::tip[Dual vector]
+
+A dual vector is a linear functional defined on a vector space $V$:
+
+$$
+\omega: V\to\mathbb{R},
+\qquad
+v\mapsto\omega(v).
+$$
+
+It satisfies linearity:
+
+$$
+\omega(\alpha v+\beta w)
+=
+\alpha\omega(v)+\beta\omega(w),
+\qquad
+\forall v,w\in V.
+$$
+
+:::note
+
+If you are more comfortable with matrix language, you may think of this as a row vector.
+
+:::
+
+::::
+
+Addition and scalar multiplication are naturally defined for dual vectors:
+
+1. Addition:
+   $$
+   (\omega_1+\omega_2)(v)=\omega_1(v)+\omega_2(v);
+   $$
+
+2. Scalar multiplication:
+   $$
+   (c \cdot \omega)(v)=c\cdot \omega(v).
+   $$
+
+Under these operations, the set of all dual vectors forms a vector space, denoted by $V^*$.
+
+#### Dual Basis
+
+Since dual vectors form a vector space, we naturally ask for its basis.
+
+Suppose $\{e_\mu\}$ is a basis of $V$. We define the **dual basis** as follows.
+
+::::tip[Dual basis]
+
+Given a basis $\{e_\mu\}$ of $V$, define $\{e^\mu\}$ in $V^*$ by
+
+$$
+e^\mu(e_\nu)=\delta^\mu{}_\nu.
+$$
+
+:::note
+
+Here $\delta^\mu{}_\nu$ is the well-known Kronecker delta:
+
+$$
+\delta^\mu{}_\nu=
+\begin{cases}
+1,&\mu=\nu,\\
+0,&\mu\neq\nu.
+\end{cases}
+$$
+
+In differential geometry it is written with one upper and one lower index, which makes it behave naturally as the identity matrix.
+
+It satisfies
+
+$$
+\delta^\mu{}_\nu v^\nu=v^\mu.
+$$
+
+That is, it effectively replaces indices.
+
+:::
+
+:::note
+
+One should verify that $\{e^\mu\}$ is indeed a basis, meaning that any $\omega\in V^*$ can be expanded as
+
+$$
+\omega=\omega_\mu e^\mu.
+$$
+
+Again we are using Einstein summation convention.
+
+Notice that vector components carry upper indices, while dual vector components carry lower indices.
+
+This is not decorative notation. It reflects different transformation laws, which we will later derive.
+
+:::
+
+::::
+
+From this definition, one immediately obtains an important fact:
+
+$$
+\dim V=\dim V^*
+$$
+
+for finite-dimensional vector spaces.
+
+:::note
+
+Many linear algebra textbooks write the dual basis as $e_\mu^*$.
+
+Differential geometry usually writes it simply as $e^\mu$, which is more convenient once tensors are introduced.
+
+:::
+
+### The Dual of the Dual: Natural Isomorphism
+
+Since $V^*$ is itself a vector space, we can define its dual space $V^{**}$.
+
+This process can clearly be repeated indefinitely, which naturally raises suspicion: do we really need to keep dualizing forever?
+
+Fortunately, there is a canonical relation between $V$ and $V^{**}$.
+
+:::tip[Natural isomorphism between $V$ and $V^{**}$]
+
+For any $v\in V$, define a linear functional on $V^*$ by
+
+$$
+v'(\omega)=\omega(v).
+$$
+
+But linear functionals on $V^*$ are precisely elements of $V^{**}$.
+
+Therefore every vector in $V$ naturally determines an element of $V^{**}$.
+
+In other words,
+
+$$
+V\cong V^{**}.
+$$
+
+This isomorphism does not depend on any choice of basis, so it is called a **natural isomorphism** or **canonical isomorphism**.
+
+:::
+
+This allows vectors and dual vectors to pair naturally:
+
+$$
+\omega(v)=\omega_\mu v^\mu.
+$$
+
+Similarly,
+
+$$
+v(\omega)=v^\mu\omega_\mu.
+$$
+
+Hence,
+
+$$
+\omega_\mu v^\mu=v^\mu\omega_\mu.
+$$
+
+This may look trivial, but it illustrates an important principle:
+
+as long as index structure is correct, components may be manipulated like ordinary scalars, without constantly worrying about compositions of maps.
+
+This is one reason why Einstein summation notation is so powerful.
+
+:::note
+
+If the equations above seem mysterious, write the bases explicitly and examine the interaction between basis vectors and dual basis vectors.
+
+Remember that components are ordinary real numbers, while dual vectors are linear maps.
+
+:::
+
+:::warning
+
+All discussion above assumes finite-dimensional vector spaces.
+
+For infinite-dimensional spaces, $V^*$ is typically larger than $V$, and $V^{**}$ is usually larger than $V$ as well.
+
+Thus in general,
+
+$$
+V\not\cong V^{**}.
+$$
+
+This is one reason why quantum mechanics, despite involving vectors (kets), dual vectors (bras), and tensors (operators), usually does not directly use Einstein summation convention.
+
+In particular, one must be careful with states such as $|x\rangle$ and $|p\rangle$.
+
+Interested readers may look into *rigged Hilbert spaces*.
+
+:::
+
+---
+
+## 1.3 Tensors
+
+In matrix language, vectors are represented as column vectors, while covectors (another name for dual vectors) are represented as row vectors. Then what exactly is a matrix? We will use this question as motivation to introduce the definition of tensors.
+
+### Motivation
+
+Let us first consider the so-called quadratic form:
+
+$$
+x^TAx=\begin{bmatrix}
+x_1&x_2&\cdots&x_n
+\end{bmatrix}
+\begin{bmatrix}
+a^1{}_1&a^1{}_2&\cdots&a^1{}_n \\ 
+a^2{}_1&a^2{}_2&\cdots&a^2{}_n \\ 
+\vdots & \vdots & \ddots & \vdots \\ 
+a^n{}_1&a^n{}_2&\cdots&a^n{}_n
+\end{bmatrix}
+\begin{bmatrix}
+x^1\\x^2\\ \vdots \\ x^n
+\end{bmatrix}
+.
+$$
+
+Notice that the object on the left is a covector (row vector), while the object on the right is a vector (column vector), and the entire quadratic form evaluates to a real number.
+
+Therefore, we may think of a matrix as a map sending a covector and a vector to a real number.
+
+:::note
+Of course, we also know that matrices can represent linear maps between vector spaces, or changes of basis. We will return to this perspective later.
+:::
+
+More generally, let us allow different vectors on the two sides of the quadratic form. We then observe that matrices are linear in both the covector and vector arguments:
+
+$$
+(\alpha x^T + \beta y^T)Az = \alpha x^TAz + \beta y^TAz,
+\qquad
+x^TA(\alpha y + \beta z) = \alpha x^TAy + \beta x^TAz.
+$$
+
+Although this observation may seem elementary, it suggests a more general viewpoint: rather than viewing a matrix merely as a map from one vector space to another, we may regard it as a **bilinear map** defined on a vector space $V$ and its dual space $V^*$.
+
+This naturally leads us to more general constructions.
+
+### Tensor
+
+Let us first define bilinear maps rigorously, or more generally, **multilinear maps**.
+
+::::tip[Multilinear Map]
+Let $V_1, V_2, \cdots, V_n$ be vector spaces over $\mathbb R$ (or more generally, over the same field). An $n$-linear map is a map
+
+$$
+T: V_1 \times V_2 \times \cdots \times V_n \to \mathbb R,
+\qquad
+T(v_1, v_2, \cdots, v_n)=c\in\mathbb R,
+$$
+
+such that for all $v_i,w_i\in V_i$, $i=1,2,\cdots,n$, and all $\alpha,\beta\in\mathbb R$,
+
+$$
+T(\cdots,\alpha v_i+\beta w_i,\cdots)
+=
+\alpha T(\cdots,v_i,\cdots)
++
+\beta T(\cdots,w_i,\cdots).
+$$
+
+:::note[Cartesian Product]
+The product symbol between vector spaces denotes the Cartesian product. The Cartesian product simply collects elements from two spaces into ordered pairs:
+
+$$
+V\times W:=\{(v,w)\mid v\in V,\ w\in W\}.
+$$
+
+Note that "ordered" means $(v,w)\neq (w,v)$ in general.
+
+In particular, for repeated Cartesian products of the same vector space, we use exponential notation:
+$$
+V^n:=\underbrace{V\times V\times\cdots\times V}_{n\text{ times}}.
+$$
+
+This is also the origin of the familiar notation $\mathbb R^n$.
+
+Cartesian products satisfy various basic properties. For example, the Cartesian product of two vector spaces is again a vector space, and the Cartesian product of two subspaces is isomorphic to their direct sum. We will not discuss these facts in detail here.
+
+More generally, Cartesian products can be defined for arbitrary sets, not only vector spaces.
+:::
+::::
+
+We can now define tensors in a simple way:
+
+:::tip[Tensor]
+A tensor of type $(k,l)$ is a multilinear map defined on ${V^*}^k\times V^l$. Equivalently, a $(k,l)$-tensor is a multilinear map that takes $k$ covectors and $l$ vectors as inputs, and outputs a real number.
+:::
+
+:::note
+You may wonder why the dual space is placed before the vector space. In fact, this is because we are considering the objects on which tensors act, i.e. the domain of the tensor. If we consider what a tensor actually is, we will find that the front becomes vectors and the back becomes covectors. Specifically, any tensor can be written as: 
+$$
+T = T^{\mu_1\cdots\mu_k}{}_{\nu_1\cdots\nu_l} \, e_{\mu_1} \otimes \cdots \otimes e_{\mu_k} \otimes e^{\nu_1} \otimes \cdots \otimes e^{\nu_l},
+$$
+
+Here, $\{e_\mu\}$ is the basis of the vector space $V$, while $\{e^\nu\}$ is the dual basis.
+:::
+
+:::note
+A covector maps a vector to a real number, while a vector may also be viewed as mapping a covector to a real number. Therefore, under our definition, covectors and vectors can be regarded as tensors of type $(0,1)$ and $(1,0)$ respectively. In particular, a scalar (real number) is called a $(0,0)$-tensor.
+:::
+
+### Tensor Operations
+
+#### Tensor Addition and Scalar Multiplication
+
+From the definition above, we can naturally define tensor addition and scalar multiplication:
+
+1. $(T+S)(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l)=T(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l)+S(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l),$
+
+2. $(\alpha T)(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l)=\alpha\cdot T(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l).$
+
+These definitions require tensors to have the same type in order to be added or subtracted. This is natural, since there is no meaningful way to add a matrix and a vector directly.
+
+Under these operations, all tensors of type $(k,l)$ naturally form a vector space, denoted by $\mathscr T_V(k,l)$.
+
+If the base space $V$ has dimension $n$, then
+$$
+\dim \mathscr T_V(k,l)=n^{k+l}.
+$$
+
+Although this formula looks obvious, proving it rigorously is somewhat tedious. Interested readers may try constructing an explicit basis using a basis $\{e_\mu\}$ of $V$ together with its dual basis.
+
+#### Tensor Product
+
+We begin with some motivation from matrices.
+
+Consider the following fact:
+
+$$
+\begin{bmatrix}
+x^1\\x^2\\ \vdots \\ x^n
+\end{bmatrix}
+\begin{bmatrix}
+y_1&y_2&\cdots&y_n
+\end{bmatrix}
+=
+\begin{bmatrix}
+x^1y_1&x^1y_2&\cdots&x^1y_n \\ 
+x^2y_1&x^2y_2&\cdots&x^2y_n \\ 
+\vdots & \vdots & \ddots & \vdots \\ 
+x^ny_1&x^ny_2&\cdots&x^ny_n
+\end{bmatrix}.
+$$
+
+In other words, the tensor product of a $(1,0)$-tensor and a $(0,1)$-tensor is a $(1,1)$-tensor.
+
+Of course, the definition of tensor product itself does not depend on matrices. This motivates the following formal definition.
+
+::::tip[Tensor Product]
+Let $T$ be a tensor of type $(k,l)$ and $S$ be a tensor of type $(k',l')$. Their tensor product is defined to be a tensor of type $(k+k',l+l')$:
+
+$$
+\begin{aligned}
+&(T\otimes S)(\omega^1,\cdots,\omega^k,\omega^{k+1},\cdots,\omega^{k+k'};v_1,\cdots,v_l,v_{l+1},\cdots,v_{l+l'}) \\
+:=\;&
+T(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l)\,
+S(\omega^{k+1},\cdots,\omega^{k+k'};v_{l+1},\cdots,v_{l+l'}).
+\end{aligned}
+$$
+
+Although this expression looks intimidating, the idea is simple: feed the first group of arguments into $T$, the second group into $S$, and multiply the resulting real numbers.
+::::
+
+Note that tensor products are generally **not commutative**, since the order of vector and covector inputs matters.
+
+:::note
+There is a special case: the tensor product of a vector and a covector may be rearranged without ambiguity, since each contributes only one slot.
+
+For example,
+
+$$
+(e_\mu\otimes e^\nu)\otimes(e_\rho\otimes e_\sigma)
+=
+e_\mu\otimes e^\nu\otimes e_\rho\otimes e_\sigma
+\equiv
+e_\mu\otimes e_\rho\otimes e_\sigma\otimes e^\nu.
+$$
+
+This is why we may naturally regard the result of tensoring a $(k,l)$-tensor and a $(k',l')$-tensor as a $(k+k',l+l')$-tensor rather than something strange, say $(k, l; k', l')$ or other things.
+:::
+
+Addition and scalar multiplication interact naturally with tensor products:
+
+1. $T\otimes S + T'\otimes S = (T+T')\otimes S,$
+
+2. $T\otimes S + T\otimes S' = T\otimes(S+S'),$
+
+3. $\alpha(T\otimes S) = (\alpha T)\otimes S = T\otimes(\alpha S).$
+
+:::tip[Tensor Product of Spaces]
+The tensor product also naturally induces a new vector space:
+$$
+V\otimes W := \{v\otimes w\mid v\in V,\ w\in W\}.
+$$
+
+If $\dim V=m$ and $\dim W=n$, then $\dim(V\otimes W)=mn.$ We omit the proof of this fact.
+:::
+
+:::note
+For a tensor product generating a $(1,1)$-tensor, we have
+
+$$
+A=v\otimes\omega
+=
+(v^\mu e_\mu)\otimes(\omega_\nu e^\nu)
+=
+v^\mu\omega_\nu\,e_\mu\otimes e^\nu.
+$$
+
+Define
+$$
+A^\mu{}_\nu:=v^\mu\omega_\nu.
+$$
+
+These are precisely the components of a matrix.
+
+Of course, not every tensor can be written as a single tensor product of this form. In general, one needs linear combinations of such elementary tensors.
+:::
+
+:::note
+Mathematicians often prefer a more abstract definition of tensor product using a universal property.
+
+Given any bilinear map
+$$
+f:V\times W\to\mathbb R,
+$$
+there exists a vector space $U$, a map $g:V\times W\to U$, and a linear map $h:U\to\mathbb R$ such that
+$$
+f=h\circ g.
+$$
+
+Moreover, this factorization is universal in an appropriate sense.
+
+We then define the tensor product space (up to isomorphism) by
+$$
+V\otimes W:=U.
+$$
+
+This definition is elegant but useless, ONLY Mathematicians CAN DO. It does not directly tell us how to construct the space. Since our focus is differential geometry and explicit computation, we only mention this viewpoint briefly.
+:::
+
+#### Contraction
+
+We again begin with matrices. A matrix acts on a vector and produces another vector. In tensor language, this means that a $(1,1)$-tensor can combine with a $(1,0)$-tensor to produce a new $(1,0)$-tensor.
+
+Write a matrix as $A=A^\mu{}_\nu\,e_\mu\otimes e^\nu,$ which is a $(1,1)$-tensor. Now, let $v=v^\rho e_\rho$ be a vector, in linear algebra, matrix multiplication produces a new vector:
+
+$$
+(A^\mu{}_\nu v^\nu)e_\mu = w^\mu e_\mu.
+$$
+
+This shows that after combining a matrix and a vector, one vector-covector pair is "eliminated", leaving only one vector basis. How does this happen?
+
+Well, the most basic way to combine tensors is first to take their tensor product, therefore we consider:
+
+$$
+A\otimes v
+=
+A^\mu{}_\nu v^\rho\,
+e_\mu\otimes e^\nu\otimes e_\rho,
+$$
+which is a $(2,1)$-tensor, still not a vector. Hence we need one further operation: pair one upper index with one lower index and sum over them. This is what we call a **contraction**:
+
+:::tip[Contraction Operator]
+Define
+
+$$
+C^i_j:\mathscr T_V(k,l)\to\mathscr T_V(k-1,l-1),
+$$
+
+which contracts the $i$-th upper index with the $j$-th lower index.
+
+Explicitly,
+
+$$
+C^i_j(T)
+=
+T(\cdot,\dots,e^\mu,\dots,\cdot;\cdot,\dots,e_\mu,\dots,\cdot),
+$$
+where $e^\mu$ is inserted into the $i$-th covector slot, $e_\mu$ into the $j$-th vector slot, and we sum over $\mu$. Equivalently, contraction uses the fact that $e^\mu(e_\nu)=\delta^\mu{}_\nu$ to eliminate one upper-lower index pair.
+:::
+
+Back to our matrix-vector example, we contract the tensor product:
+
+$$
+C^2_1(A\otimes v)
+=
+C^2_1\left(
+A^\mu{}_\nu v^\rho\,
+e_\mu\otimes e^\nu\otimes e_\rho
+\right).
+$$
+
+Contracting the second upper index with the first lower index gives
+
+$$
+A^\mu{}_\nu v^\nu e_\mu,
+$$
+
+which is exactly the expected result of matrix multiplication.
+
+Thus, matrix multiplication is, in tensor language, **tensor product + contraction**. This idea generalizes to arbitrary tensors. Although in general, there is no unique multiplication rule between tensors, we can always first take tensor products, and then specify which pairs of upper and lower indices should be contracted. Different contraction choices usually lead to different results.
+
+For example, in the same setting, we do a different contraction:
+
+$$
+C^1_1(A\otimes v)=A^\mu{}_\mu v^\nu e_\nu,
+$$
+
+which is simply gives the trace of the matrix times the vector, where the trace of a matrix is defined as:
+
+$$
+\mathrm{tr}(A)=A^\mu{}_\mu.
+$$
+
+Thus, contraction can be understood as one of the most fundamental interaction rules between tensors: it lowers tensor rank by pairing an upper index with a lower index.
+
+:::note
+In practice, contractions are often not written explicitly. Under Einstein summation convention, repeated upper and lower indices automatically indicate contraction.
+
+For example,
+$$
+A^\mu{}_\nu v^\nu
+$$
+already implicitly contains a contraction.
+:::
+
+:::note
+Besides the explicit operator $C^i_j$, another common notation is **insertion**, noted as $\iota$. For a tensor $T\in\mathscr T_V(k,l)$ and a vector $v\in V$, insertion means plugging $v$ into one slot of $T$. This is usually written as: 
+
+$$
+(\iota_v T)(\omega^1,\cdots,\omega^k;v_1,\cdots,v_{l-1})
+:=
+T(\omega^1,\cdots,\omega^k;v_1,\cdots,v_{l-1},v).
+$$
+
+Thus,
+$$
+\iota_v T\in\mathscr T_V(k,l-1).
+$$
+
+Similarly, for a covector $\omega\in V^*$, one may define $\iota_\omega T\in\mathscr T_V(k-1,l).$
+
+Insertion may be viewed as a partial contraction: instead of summing over an upper-lower pair, we simply fix one input. For example,
+
+$$
+\iota_v A=A(\cdot;v),
+$$
+
+which is a $(1,0)$-tensor, i.e. a vector. This is exactly matrix action in linear algebra: $w=Av=\iota_v A.$
+:::
+
+---
+
+## 1.4 More about indices: basis transformation
+
+We now have enough basic machinery to answer a very fundamental question: why are the components of a vector written with upper indices, while those of a covector use lower indices, and why is it the opposite for basis vectors? This entire “tragedy” ultimately comes from physicists naming things according to their behavior under **basis transformations**.
+
+### Transformations
+
+#### Basis Vectors
+
+Consider a linear map
+
+$$
+\Lambda: V \to V, \quad \{e_\mu \} \mapsto \{e'_\mu\},
+$$
+
+This is clearly a $(1,1)$-tensor (a matrix), and we have
+
+$$
+e'_\mu = \Lambda^\nu{}_\mu e_\nu.
+$$
+
+Here both $e_\mu$ and $e'_\mu$ are actual vectors. Note that $\Lambda^\nu{}_\mu$ are the components of $\Lambda$ with respect to the basis $\{e_\mu\}$.
+
+:::note
+The symbol $\Lambda$ is often used to denote a special class of transformations: Lorentz transformations, which arise from the requirement that the spacetime interval $\mathrm{d}s^2$ is invariant under coordinate changes. In our discussion, however, no such restriction is imposed.
+:::
+
+#### Vector Components
+
+Next we analyze how the components of a vector transform under the basis change $\Lambda$. Consider a vector $v$ written in two different bases:
+
+$$
+v = v^\mu e_\mu = v'^\mu e'_\mu.
+$$
+
+Substituting the basis transformation gives
+
+$$
+v'^\mu \Lambda^\nu{}_\mu e_\nu = v^\nu e_\nu,
+$$
+
+hence
+
+$$
+v'^\mu = (\Lambda^{-1})^\mu{}_\nu v^\nu.
+$$
+
+:::note
+In tensor language, the inverse of a matrix is a tensor satisfying
+$$
+\Lambda^\mu{}_\rho (\Lambda^{-1})^\rho{}_\nu = \delta^\mu{}_\nu.
+$$
+:::
+
+#### Dual Basis
+
+Starting from the definition of the dual basis,
+
+$$
+\delta^\mu{}_\nu = e^\mu(e_\nu),
+$$
+
+we multiply both sides by $\Lambda^\nu{}_\rho e'^\rho$, obtaining
+
+$$
+\Lambda^\mu{}_\rho e'^\rho
+= e^\mu(e'^\rho \Lambda^\nu{}_\rho e_\nu)
+= e^\mu(e'^\rho e'_\rho)
+= e^\mu.
+$$
+
+Multiplying by $(\Lambda^{-1})^\sigma{}_\mu$ yields
+
+$$
+e'^\sigma = (\Lambda^{-1})^\sigma{}_\mu e^\mu.
+$$
+
+Renaming dummy indices gives
+
+$$
+e'^\mu = (\Lambda^{-1})^\mu{}_\nu e^\nu.
+$$
+
+#### Covector Components
+
+Similarly, starting from
+
+$$
+\omega = \omega_\mu e^\mu = \omega'_\mu e'^\mu,
+$$
+
+and substituting the basis transformation, we obtain
+
+$$
+\omega'_\mu = \Lambda^\nu{}_\mu \omega_\nu.
+$$
+
+### Contravariance and Covariance
+
+We now observe a unified pattern:
+
+:::tip[Contravariance and Covariance]
+
+The transformations of basis vectors and covector components are
+
+$$
+e'_\mu = \Lambda^\nu{}_\mu e_\nu, \qquad \omega'_\mu = \Lambda^\nu{}_\mu \omega_\nu,
+$$
+
+while the transformations of dual basis vectors and vector components are
+
+$$
+e'^\mu = (\Lambda^{-1})^\mu{}_\nu e^\nu, \qquad v'^\mu = (\Lambda^{-1})^\mu{}_\nu v^\nu.
+$$
+
+We see that any object carrying an upper index transforms with the **inverse** of the basis transformation, while any object with a lower index transforms with the transformation **itself**.
+
+Thus, upper indices are called **contravariant indices**, and lower indices are called **covariant indices**; vectors are contravariant, and covectors are covariant (which is why dual vectors are also called covectors).
+:::
+
+This explains why Einstein’s summation convention is defined in this way: **indices do not merely indicate tensor type, but rather encode transformation behavior**. Hence vectors use upper indices and covectors use lower indices, while repeated upper–lower pairs indicate summation, i.e. contraction, describing how tensors interact.
+
+:::info
+For a general tensor, the coordinate transformation law is
+
+$$
+T^{\mu_1\cdots \mu_k}{}_{\nu_1\cdots \nu_l}
+=
+(\Lambda^{-1})^{\mu_1}{}_{\rho_1}\cdots(\Lambda^{-1})^{\mu_k}{}_{\rho_k}
+\Lambda^{\sigma_1}{}_{\nu_1}\cdots\Lambda^{\sigma_l}{}_{\nu_l}
+T^{\rho_1\cdots \rho_k}{}_{\sigma_1\cdots \sigma_l}.
+$$
+
+We omit the proof.
+:::
+
+:::note
+Many physics textbooks actually take this transformation law as the definition of a tensor: a $(k,l)$-tensor is defined as a collection of components satisfying the above rule, without explicit reference to bases. This definition is correct, but somewhat lacks conceptual depth.
+:::
+
+---
+
+# Chapter 2: Manifolds and its Basic Structures
+
+Before we start: Although the mathematical language we use is quite abstract, whenever you feel confused, just remember that the predecessor of differential geometry is essentially surface theory, which studies the calculus of curves and surfaces in $\R^n$. The fundamental purpose of differentiable manifolds is nothing more than to perform calculus on "surfaces" that lack geometric intuition. Therefore, whenever you get stuck, it's always helpful to imagine a sphere (or a donut, if you prefer).
+
+## 2.1 Differentiable Manifold
+
+The reader may have heard of differential geometry, differentiable manifolds, etc. Let's now formally introduce the concept of a manifold.
+
+::::tip[Differentiable Manifold]
+A topological space $(M, \mathscr{T})$ is called a smooth **$n$-dimensional differentiable manifold** if it satisfies:
+
+1. $M = \bigcup_\alpha O_\alpha$, where $\forall \alpha, O_\alpha \in \mathscr{T}$ (open sets);
+2. $\forall \alpha$, $\exists \psi_\alpha: O_\alpha \to \R^n$ a homeomorphism;
+3. If $O_\alpha \cap O_\beta \neq \varnothing$, then $\psi_\beta \circ \psi_\alpha^{-1}: \R^n \to \R^n \in C^{\infty}(\R^n)$.
+
+In the following, unless otherwise specified, we will simply refer to smooth $n$-dimensional manifolds as manifolds.
+:::note
+The notation $C^{\infty}(\R^n)$ denotes smooth functions defined on $\R^n$:
+
+$$
+\psi_\beta \circ \psi_\alpha^{-1} : \R^n\to\R^n,  
+\begin{pmatrix}
+x^1\\x^2\\\vdots\\x^n
+\end{pmatrix} \mapsto 
+\begin{pmatrix}x'^1(x^1,  x^2,  \cdots,  x^n)\\x'^2(x^1,  x^2,  \cdots,  x^n)\\\vdots\\x'^n(x^1,  x^2,  \cdots,  x^n)
+\end{pmatrix}
+$$
+
+i.e., $x'^\mu(x^1,  x^2,  \cdots,  x^n),  \mu = 1,  2,  \dots,  n$ are all smooth functions of $n$ variables.
+:::
+
+:::note
+Condition 1 requires that $M$ be completely covered by open sets, which avoids the issue of "boundary points". Because limits (or one-sided limits) are problematic at boundary points. For example, for the closed interval $[0,1]$ in $\R$, it is difficult to define limits and derivatives at $0$ and $1$. Of course, there are ways to define manifolds using closed sets, but we will not discuss them further.
+:::
+
+:::note
+Condition 2 may look mysterious, but it expresses something simple: near every point, the manifold looks sufficiently like ordinary Euclidean space $\R^n$. In other words, near a point you can always approximate the manifold by a "flat space", and this approximation converges.
+:::
+
+:::note
+Condition 3 is also called the **compatibility condition**. It ensures that your "differentiable structure" is well-defined. This is similar to the requirement when we discussed topological spaces: we cannot define a contradictory criterion. We will expand on this in more detail later.
+
+If we lower the requirement on the functions $\psi_\beta \circ \psi_\alpha^{-1}$ to $C^r(\R^n)$, then we call the manifold a $C^r$ manifold. In particular, $C^0$ manifolds are called topological manifolds.
+:::
+::::
+
+::::info
+For any point $p$ on a manifold $M$, we can always find an open neighborhood $O_\alpha$ of $p$. By the definition of a differentiable manifold, there exists a homeomorphism $\psi_\alpha$ to $\R^n$ such that the point $p$ corresponds to a point $\psi_\alpha(p) = (x_p^1, x_p^2, \dots, x_p^n)$ in $\R^n$. We call $\psi_\alpha(p)$ a set of **coordinates** of the point $p$. Of course, every point in $O_\alpha$ obtains a set of coordinates via this homeomorphism $\psi_\alpha$, so we call $(O_\alpha, \psi_\alpha)$ a (local) **coordinate system**, or mathematicians prefer to call it a **chart**. The collection $\{(O_\alpha, \psi_\alpha)\}$ of all coordinate systems on a manifold is called an **atlas**. This atlas is exactly the **differentiable structure** mentioned earlier.
+
+Of course, a point $p$ can have many open neighborhoods. Suppose there is another open neighborhood $O_\beta$, under the coordinate system $(O_\beta, \psi_\beta)$ the point $p$ obtains another coordinate: $\psi_\beta(p) = (x_p'^1, x_p'^2, \dots, x_p'^n)$. Due to the compatibility condition, we obtain a set of **coordinate transformations** $x_p'^\mu = \psi_\beta \circ \psi_\alpha^{-1}(x_p^\mu)$, and these coordinate transformations are smooth.
+
+:::note
+We usually assume an atlas is **maximally compatible**, meaning that the set $\{(O_\alpha, \psi_\alpha)\}$ includes all coordinate systems $(O_\alpha, \psi_\alpha)$ that satisfy the compatibility condition. This allows us to choose arbitrary coordinates at a point $p$ and always be able to smoothly transform to any other coordinate system. This is why we call the atlas a differentiable structure on the manifold $M$: it includes all possible coordinate transformations.
+
+If a manifold $M$ has more than one maximally compatible atlas (i.e., two different atlases whose coordinate systems are incompatible, for example $\psi_\beta \circ \psi_\alpha^{-1}$ is not smooth), we say that the manifold $M$ admits more than one differentiable structure. The reader may have heard of the infinitely many differentiable structures on four-dimensional manifolds, which is still an unsolved problem. Fortunately, we generally do not face this issue.
+:::
+::::
+
+:::note
+We will not give specific examples of manifolds here. Because almost any "nice" geometric object, curve, surface, or solid you can imagine can be a differentiable manifold (or at least a topological manifold). However, we can list some common names: the $n$-sphere $S^n$, the $n$-torus $T^n$, the trivial manifold $\R^n$ (trivial means it can be completely described by a single coordinate system).
+:::
+
+---
+
+## 2.2 Maps on Manifolds
+
+Unlike in topology, where we only talk about whether a map is continuous ($C^0$), the differentiable structure of a differentiable manifold allows us to talk about "nicer" maps, such as whether they are differentiable or even smooth.
+
+::::tip[$C^r$ Maps between Manifolds]
+Let $M$ be an $m$-dimensional manifold and $N$ an $n$-dimensional manifold, with atlases $\{(O_\alpha, \psi_\alpha)\}$ and $\{(O'_\alpha, \psi'_\alpha)\}$ respectively. Define a map $f: M\to N$. Consider a coordinate system $(O_\alpha, \psi_\alpha)$ near a point $p\in M$ and a coordinate system $(O'_\alpha, \psi'_\alpha)$ near the image $f(p)\in N$. If the map
+
+$$
+\psi'_\alpha \circ f \circ \psi_\alpha^{-1}: \R^m \to \R^n
+$$
+
+is $C^r$, then $f$ is called a $C^r$ map. In particular, $C^\infty$ maps are called smooth maps.
+:::note
+The maximal compatibility of the atlases ensures that this definition is independent of the choice of coordinate systems, hence it is well-defined. When we say something is well-defined, we mean that the definition is unambiguous.
+
+Of course, different atlases (differentiable structures) may give different $C^r$ classifications for the same map.
+:::
+::::
+
+In particular, the notion of homeomorphism defined in topological spaces can be naturally extended to differentiable manifolds:
+
+::::tip[Diffeomorphism]
+
+Let $M, N$ be manifolds. If there exists a map $f$ such that:
+
+1. $f$ is bijective;
+2. $f$ and $f^{-1}$ are both $C^\infty$ maps,
+
+then the two manifolds are said to be **diffeomorphic**, and $f$ is a diffeomorphism.
+
+:::note
+Diffeomorphism is the strongest classification we can give so far regarding the relationship between two manifolds. Try to imagine: homeomorphism means you can deform a donut into a coffee cup with a square mouth (continuous), while diffeomorphism means you can only deform it into one with an elliptical mouth (smooth).
+:::
+
+:::note
+Obviously, a necessary condition for two manifolds to be diffeomorphic is that they have the same dimension.
+:::
+::::
+
+### Scalar Fields
+
+If we consider the real numbers $\R$ as a manifold, then a map from a manifold $M$ to $\R$ is a simple and important example.
+
+:::tip[Scalar Field]
+A map $f: M \to \R$ is called a **scalar field**, or a **function**. Obviously, when $M$ is the trivial manifold, a scalar field is just the familiar multivariate function.
+
+In particular, we denote the set of all smooth functions on a manifold $M$ by $\mathscr{F}_M$, and omit the subscript when no confusion arises.
+:::
+
+:::info[Coordinates as Scalar Fields]
+Let $O \subset M$ be an open set. By the definition of a manifold, there exists a coordinate system $(O, \psi)$. We can then define scalar fields:
+
+$$
+x^\mu: O \to \R, \qquad x^\mu(p) = x^\mu_p \in \R，
+$$
+
+where $x^\mu_p$ is the $\mu$-th component of the coordinates of the point $p$ obtained from the coordinate system $(O, \psi)$.
+
+Specifically, we can view $x^\mu$ as the composition of two maps: $x^\mu = \text{proj}_\mu \circ \psi$, where $\text{proj}_\mu$ is the natural projection from the Cartesian product:
+
+$$
+\text{proj}_\mu (x^1, x^2, \dots) = x^\mu.
+$$
+:::
+
+---
+
+## 2.3 Tangent Vectors on Manifolds
+
+### Motivation
+
+Before introducing tangent vectors on manifolds, let us consider a familiar example to aid understanding. Consider a smooth function $f(x, y)$ defined on $\R^2$. At a point $p$, since $f$ is smooth, we can freely take derivatives. For example, the gradient:
+
+$$
+\nabla{f}=\left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right).
+$$
+
+Note that if we set $z=f(x,y)$ in $\R^3$, we obtain a 2‑dimensional surface $F(x, y, z) = f(x, y) - z$. According to multivariable calculus, the 3‑dimensional gradient vector is the normal vector to the tangent plane of this surface:
+
+$$
+\nabla{F} = \left(\frac{\partial F}{\partial x}, \frac{\partial F}{\partial y}, \frac{\partial F}{\partial z}\right) = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, -1\right).
+$$
+
+The surface is 2‑dimensional, hence its tangent plane is also 2‑dimensional; vectors in it have two degrees of freedom. From the normal vector we can determine the general form of tangent vectors:
+
+$$
+\left(a, b, g(a,b)\right) \cdot \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, -1\right) = 0 \Longrightarrow T = \left(a, b, a\frac{\partial f}{\partial x} + b \frac{\partial f}{\partial y}\right),
+$$
+
+from which we can obviously extract two basis vectors:
+
+$$
+r_x = \left(1, 0, \frac{\partial f}{\partial x} \right), \ r_y = \left(0, 1, \frac{\partial f}{\partial y}\right).
+$$
+
+If you are not familiar with this conclusion, try proving it yourself; consider only the origin, compute the tangent curves in the $x$‑ and $y$‑directions; these two curves determine the tangent plane, and you can write down the tangent vectors in the plane. The result is the same as here.
+
+Notice that this definition of the tangent plane does not actually depend on the choice of the function: for any smooth function, we can perform the above operation and the two basis vectors obtained have the same form. In other words, this suggests establishing a correspondence:
+
+$$
+r_x \to \frac{\partial}{\partial x}, \ r_y \to \frac{\partial}{\partial y}.
+$$
+
+:::note
+You might think this is completely unjustified, but it is in fact a very elegant shortcut: it is a very special isomorphism – an isomorphism between the geometric tangent plane and the space of (first‑order) directional derivatives (a very small subspace of a function space). Of course, for finite‑dimensional vector spaces, as long as the dimensions are the same, they are always isomorphic because they have the same number of basis vectors. However, the isomorphism here is actually independent of the choice of basis; the appearance of a basis here is only because we describe the surface using a parametrisation. It can be shown that for any parametrisation the difference is only a Jacobian matrix.
+:::
+
+:::note
+If you define the tangent plane using equivalence classes of curves through $p$, then you can completely eliminate the choice of basis and obtain a natural isomorphism. However, such an introduction requires some background in classical differential geometry and a certain familiarity with the language of abstract algebra, so we will not go into further detail here.
+
+Another illuminating viewpoint: you can think of the tangent plane as the best linear approximation to the surface at that point. This perspective is quite helpful for understanding Lie group theory.
+:::
+
+We shall see that for a general manifold it is difficult to find a geometric tangent plane, but given a smooth scalar field we can always find this space of derivatives, and thus naturally extend the concept to general manifolds.
+
+:::note
+When we only consider problems in $\R^3$, the tangent plane is not actually a vector (sub)space, but rather an element of a quotient space – a coset (which can be understood as a “translation” of a subspace). Therefore speaking of a “basis” of the tangent plane is actually imprecise. Formally, when we write two 3‑dimensional vectors as a basis for a 2‑dimensional plane, we are shifting the tangent plane back to the origin.
+
+Of course, these issues arise because we have “embedded” the surface in a 3‑dimensional Euclidean space, imposing a global coordinate system. This also explains why the tangent vectors we computed earlier take such a special, simple form: we chose the simplest embedding $z=f(x,y)$, which directly assigns the function value as the height over $\R^2$, and naturally obtain the simplest basis, namely $(0,1)$ and $(1,0)$.
+
+On a manifold, coordinates are local and the atlas is always maximal, so it is legitimate to call a tangent plane a vector space.
+:::
+
+:::note
+There is another way to understand vectors: purely consider the “differential” of a function, and then take its functional to obtain a vector. That approach is much clearer, but the price is that it requires very rigorous mathematics – a lot of abstract algebra and more rigorous analysis. We do not have sufficient mathematical background to adopt that approach. Curious readers may refer to Chern’s *Lectures on Differential Geometry*.
+:::
+
+### Tangent Vector
+
+Inspired by the initial example, we now define a **tangent vector** at a point on a manifold:
+
+:::tip[Tangent Vector]
+Let $v: \mathscr{F}_M \to \R$ be a map defined at a point $p$ on the manifold $M$ satisfying:
+
+1. $v(\alpha f + \beta g) = \alpha v(f) + \beta v(g), \quad \forall \alpha, \beta \in \R$ (linearity, homogeneity)
+2. $v(fg) = f(p)v(g) + v(f) g(p)$ (Leibniz rule)
+
+Then $v$ is called a **tangent vector** at $p$. The first property is naturally required for a vector, and the second property is required for a derivative. A map satisfying the second property is also called a derivation.
+:::
+
+:::note
+We emphasise here that the map is “defined at the point $p$”: a vector on a manifold is a local concept. Without further structure, we cannot compare vectors at two different points.
+
+In $\R^n$ we can perform such a comparison because $\R^n$ has a natural translation that relates vectors at different points – $\R^n$ is **flat**.
+:::
+
+:::note
+Some differential geometry textbooks, especially Liang Canbin’s *Differential Geometry and General Relativity*, like to directly call tangent vectors “vectors”. This is not very precise because in the context of fibre bundles, there are many other vectors on a manifold besides tangent vectors, for example vector bundles of Hilbert spaces over a parameter manifold. We will discuss this in detail later.
+:::
+
+### Tangent Space
+
+The set of all tangent vectors at a point $p$ on a manifold $M$ naturally forms a vector space, called the **tangent space** and denoted $T_pM$. According to our geometric intuition, the dimension of this tangent space should equal the dimension of the manifold. To verify this conjecture, we need to find a basis. And as suggested by the initial example, a natural choice is to consider partial derivatives. Note: once a coordinate system is given, any smooth scalar field $f$ corresponds to an $n$-variable function: $F = f \circ \psi_\alpha^{-1} = F(x^1, x^2, \dots, x^n)$. Therefore we take the basis vectors as:
+
+$$
+X_\mu: \mathscr{F}_M \to \R, \quad X_\mu(f) = \left.\frac{\partial F}{\partial x^\mu}\right|_{p}, \quad \mu = 1, 2, \dots, n,
+$$
+
+often abbreviated as $\partial_\mu(f)=\left.\frac{\partial f}{\partial x^\mu}\right|_{p}$. We call this basis the **coordinate basis**.
+
+:::note
+We have merely declared that $\{\partial_\mu\}$ can serve as a basis, but we have not proved this. Specifically, we need to prove:
+
+1. Linear independence of $\{\partial_\mu\}$: i.e., if there exist $\{\alpha^\mu\}$ such that $\alpha^\mu \partial_\mu = 0$, then $\alpha^\mu = 0$ for all $\mu$;
+
+2. Completeness of $\{\partial_\mu\}$: i.e., for any vector $v$, it can be expanded as a linear combination of $\{\partial_\mu\}$: $v = v^\mu \partial_\mu$, where $v^\mu = v(x^\mu)$ are the components of $v$ in the coordinate basis.
+
+As before, we omit the proofs. The proof of linear independence is obvious: use the coordinate functions $x^\mu$ themselves. The proof of completeness is long and not straightforward; we only sketch the idea: expand the $n$-variable function corresponding to a scalar field in a Taylor series up to first order, keeping an integral remainder (or some other form of remainder), and then show that any derivation (tangent vector) acting on the zeroth‑order term and the remainder yields zero.
+:::
