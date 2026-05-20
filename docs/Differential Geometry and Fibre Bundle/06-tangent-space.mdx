@@ -5,7 +5,7 @@ date: 2026-05-19
 tags: [Differential Geometry, Fibre Bundle]
 ---
 
-## Motivation
+## Motivation {#motivation}
 
 Before introducing tangent vectors on manifolds, let us consider a familiar example to aid understanding. Consider a smooth function $f(x, y)$ defined on $\R^2$. At a point $p$, since $f$ is smooth, we can freely take derivatives. For example, the gradient:
 
@@ -43,7 +43,7 @@ $$
 You might think this is completely unjustified, but it is in fact a very elegant shortcut: it is a very special isomorphism – an isomorphism between the geometric tangent plane and the space of (first‑order) directional derivatives (a very small subspace of a function space). Of course, for finite‑dimensional vector spaces, as long as the dimensions are the same, they are always isomorphic because they have the same number of basis vectors. However, the isomorphism here is actually independent of the choice of basis; the appearance of a basis here is only because we describe the surface using a parametrisation. It can be shown that for any parametrisation the difference is only a Jacobian matrix.
 :::
 
-:::info
+:::note
 If you define the tangent plane using equivalence classes of curves through $p$, then you can completely eliminate the choice of basis and obtain a natural isomorphism. However, such an introduction requires some background in classical differential geometry and a certain familiarity with the language of abstract algebra, so we will not go into further detail here.
 
 Another illuminating viewpoint: you can think of the tangent plane as the best linear approximation to the surface at that point. This perspective is quite helpful for understanding Lie group theory.
@@ -63,7 +63,7 @@ On a manifold, coordinates are local and the atlas is always maximal, so it is l
 There is another way to understand vectors: purely consider the “differential” of a function, and then take its functional to obtain a vector. That approach is much clearer, but the price is that it requires very rigorous mathematics – a lot of abstract algebra and more rigorous analysis. We do not have sufficient mathematical background to adopt that approach. Curious readers may refer to Chern’s *Lectures on Differential Geometry*.
 :::
 
-## Definition: Tangent Vector
+## Definition: Tangent Vector {#definition-tangent-vector}
 
 Inspired by the initial example, we now define a **tangent vector** at a point on a manifold:
 
@@ -86,7 +86,7 @@ In $\R^n$ we can perform such a comparison because $\R^n$ has a natural translat
 Some differential geometry textbooks, especially Liang Canbin’s *Differential Geometry and General Relativity*, like to directly call tangent vectors “vectors”. This is not very precise because in the context of fibre bundles, there are many other vectors on a manifold besides tangent vectors, for example vector bundles of Hilbert spaces over a parameter manifold. We will discuss this in detail later.
 :::
 
-## Definition: Tangent Space
+## Definition: Tangent Space {#definition-tangent-space}
 
 The set of all tangent vectors at a point $p$ on a manifold $M$ naturally forms a vector space, called the **tangent space** and denoted $T_pM$. According to our geometric intuition, the dimension of this tangent space should equal the dimension of the manifold. To verify this conjecture, we need to find a basis. And as suggested by the initial example, a natural choice is to consider partial derivatives. Note: once a coordinate system is given, any smooth scalar field $f$ corresponds to an $n$-variable function: $F = f \circ \psi_\alpha^{-1} = F(x^1, x^2, \dots, x^n)$. Therefore we take the basis vectors as:
 

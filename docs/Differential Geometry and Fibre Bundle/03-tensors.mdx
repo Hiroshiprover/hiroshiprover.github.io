@@ -7,7 +7,7 @@ tags: [Differential Geometry, Linear Algebra]
 
 In matrix language, vectors are represented as column vectors, while covectors (another name for dual vectors) are represented as row vectors. Then what exactly is a matrix? We will use this question as motivation to introduce the definition of tensors.
 
-## Motivation
+## Motivation {#motivation}
 
 Let us first consider the so-called quadratic form:
 
@@ -47,7 +47,7 @@ Although this observation may seem elementary, it suggests a more general viewpo
 
 This naturally leads us to more general constructions.
 
-## Definition: Tensor
+## Definition: Tensor {#definition-tensor}
 
 Let us first define bilinear maps rigorously, or more generally, **multilinear maps**.
 
@@ -111,9 +111,9 @@ Here, $\{e_\mu\}$ is the basis of the vector space $V$, while $\{e^\nu\}$ is the
 A covector maps a vector to a real number, while a vector may also be viewed as mapping a covector to a real number. Therefore, under our definition, covectors and vectors can be regarded as tensors of type $(0,1)$ and $(1,0)$ respectively. In particular, a scalar (real number) is called a $(0,0)$-tensor.
 :::
 
-## Tensor Operations
+## Tensor Operations {#tensor-operations}
 
-### Tensor Addition and Scalar Multiplication
+### Tensor Addition and Scalar Multiplication {#tensor-addition-and-scalar-multiplication}
 
 From the definition above, we can naturally define tensor addition and scalar multiplication:
 
@@ -132,7 +132,7 @@ $$
 
 Although this formula looks obvious, proving it rigorously is somewhat tedious. Interested readers may try constructing an explicit basis using a basis $\{e_\mu\}$ of $V$ together with its dual basis.
 
-### Tensor Product
+### Tensor Product {#tensor-product}
 
 We begin with some motivation from matrices.
 
@@ -251,7 +251,7 @@ $$
 This definition is elegant but useless, ONLY Mathematicians CAN DO. It does not directly tell us how to construct the space. Since our focus is differential geometry and explicit computation, we only mention this viewpoint briefly.
 :::
 
-### Contraction
+### Contraction {#contraction}
 
 We again begin with matrices. A matrix acts on a vector and produces another vector. In tensor language, this means that a $(1,1)$-tensor can combine with a $(1,0)$-tensor to produce a new $(1,0)$-tensor.
 
