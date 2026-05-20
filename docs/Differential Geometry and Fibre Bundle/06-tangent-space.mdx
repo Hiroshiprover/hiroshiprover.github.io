@@ -5,7 +5,7 @@ date: 2026-05-19
 tags: [Differential Geometry, Fibre Bundle]
 ---
 
-## Motivation {#motivation}
+## Motivation
 
 Before introducing tangent vectors on manifolds, let us consider a familiar example to aid understanding. Consider a smooth function $f(x, y)$ defined on $\R^2$. At a point $p$, since $f$ is smooth, we can freely take derivatives. For example, the gradient:
 
@@ -63,7 +63,7 @@ On a manifold, coordinates are local and the atlas is always maximal, so it is l
 There is another way to understand vectors: purely consider the “differential” of a function, and then take its functional to obtain a vector. That approach is much clearer, but the price is that it requires very rigorous mathematics – a lot of abstract algebra and more rigorous analysis. We do not have sufficient mathematical background to adopt that approach. Curious readers may refer to Chern’s *Lectures on Differential Geometry*.
 :::
 
-## Definition: Tangent Vector {#definition-tangent-vector}
+## Definition: Tangent Vector
 
 Inspired by the initial example, we now define a **tangent vector** at a point on a manifold:
 
@@ -86,7 +86,7 @@ In $\R^n$ we can perform such a comparison because $\R^n$ has a natural translat
 Some differential geometry textbooks, especially Liang Canbin’s *Differential Geometry and General Relativity*, like to directly call tangent vectors “vectors”. This is not very precise because in the context of fibre bundles, there are many other vectors on a manifold besides tangent vectors, for example vector bundles of Hilbert spaces over a parameter manifold. We will discuss this in detail later.
 :::
 
-## Definition: Tangent Space {#definition-tangent-space}
+## Definition: Tangent Space
 
 The set of all tangent vectors at a point $p$ on a manifold $M$ naturally forms a vector space, called the **tangent space** and denoted $T_pM$. According to our geometric intuition, the dimension of this tangent space should equal the dimension of the manifold. To verify this conjecture, we need to find a basis. And as suggested by the initial example, a natural choice is to consider partial derivatives. Note: once a coordinate system is given, any smooth scalar field $f$ corresponds to an $n$-variable function: $F = f \circ \psi_\alpha^{-1} = F(x^1, x^2, \dots, x^n)$. Therefore we take the basis vectors as:
 

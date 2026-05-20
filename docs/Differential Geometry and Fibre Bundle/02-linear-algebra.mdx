@@ -5,15 +5,13 @@ date: 2026-05-18
 tags: [Differential Geometry, Linear Algebra]
 ---
 
-# Linear Algebra for Differential Geometry
-
 We assume the reader already has some basic familiarity with linear algebra, such as the definitions of vector spaces and bases.
 
 There are several concepts that may not appear in an introductory linear algebra course. For those, I will state the basic definitions here. For more detailed discussions, one may consult *Linear Algebra Done Right* or any standard advanced linear algebra textbook.
 
 Readers may notice that some notation conventions differ from those used in other areas. In most cases they refer to exactly the same mathematical objects, so there is no reason to panic.
 
-## Vector Spaces {#vector-spaces}
+## Vector Spaces
 
 In linear algebra, every finite-dimensional vector space admits a basis $\{e_\mu\}$, such that any vector can be expanded with respect to this basis.
 
@@ -51,7 +49,7 @@ $$
 
 Notice that vector components are written with upper indices here. This is a common convention in differential geometry, and later we will see that it is actually quite natural.
 
-### Einstein Summation Convention {#einstein-summation-convention}
+### Einstein Summation Convention
 
 So far everything is just standard linear algebra.
 
@@ -96,9 +94,9 @@ In particular, we emphasize:
 
 :::
 
-## Dual Vector Spaces {#dual-vector-spaces}
+## Dual Vector Spaces
 
-### Definition {#definition}
+### Definition
 
 We first define dual vectors.
 
@@ -144,7 +142,7 @@ Addition and scalar multiplication are naturally defined for dual vectors:
 
 Under these operations, the set of all dual vectors forms a vector space, denoted by $V^*$.
 
-### Dual Basis {#dual-basis}
+### Dual Basis
 
 Since dual vectors form a vector space, we naturally ask for its basis.
 
@@ -216,7 +214,7 @@ Differential geometry usually writes it simply as $e^\mu$, which is more conveni
 
 :::
 
-## The Dual of the Dual: Natural Isomorphism {#the-dual-of-the-dual-natural-isomorphism}
+## The Dual of the Dual: Natural Isomorphism
 
 Since $V^*$ is itself a vector space, we can define its dual space $V^{**}$.
 
