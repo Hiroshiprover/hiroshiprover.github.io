@@ -11,11 +11,9 @@ This is a review of Modern Optics from the Spring 2026 semester, taught by Profe
 
 This is an *exam-focused* review: it only covers the key topics mentioned in Professor Dai's review lectures, and many derivations that I find obvious have been omitted. For a systematic study of optics, consulting a textbook is still recommended.
 
-:::warning[About the Textbook]
+{/* truncate */}
 
-That said, I don't particularly recommend reading Hecht directly — its sign conventions are highly complex, sometimes even self-contradictory, and much of the content is unnecessary. It reads more like a popular science book than a textbook.
-
-:::
+> I don't particularly recommend reading Hecht directly — its sign conventions are highly complex, sometimes even self-contradictory, and much of the content is unnecessary. It reads more like a popular science book than a textbook.
 
 Chapters 1 and 2 are too simple and are omitted.
 
@@ -199,7 +197,7 @@ n^{2}(\omega) = 1 + \frac{N q_e^{2}}{\epsilon_0 m_e} \sum_{j} \frac{f_j}{\omega_
 $$
 
 <div align="center">
-<img src="img/image-2.png" alt="Refractive index dispersion relation" width="50%">
+<img src="/img/optics/image-2.png" alt="Refractive index dispersion relation" width="50%"/>
 </div>
 
 - **Normal dispersion**: far from resonance, $n$ increases with $\omega$.
@@ -294,7 +292,7 @@ where $k$ can be $\perp$, meaning the electric field is perpendicular to the pla
 1. TE polarization ($E$ perpendicular to the plane of incidence):
 
 <div align="center">
-<img src="img/image-0.png" alt="TE" width="50%">
+<img src="/img/optics/image-0.png" alt="TE" width="50%"/>
 </div>
 
 $$
@@ -306,7 +304,7 @@ $$
 2. TM polarization ($E$ parallel to the plane of incidence):
 
 <div align="center">
-<img src="img/image-1.png" alt="TM" width="50%">
+<img src="/img/optics/image-1.png" alt="TM" width="50%"/>
 </div>
 
 $$
@@ -364,7 +362,7 @@ They represent power (irradiance) ratios. Under lossless conditions, $R+T=1$, i.
 Under total internal reflection, a transmitted wave actually still exists:
 
 <div align="center">
-<img src="img/image-3.png" alt="Evanescent wave" width="50%">
+<img src="/img/optics/image-3.png" alt="Evanescent wave" width="50%"/>
 </div>
 
 The wave vector of the transmitted wave: $\vec{k}_t = (k_{tx}, k_{ty}, 0)$. From the geometry shown in the figure:
@@ -424,7 +422,7 @@ That is, the amplitude decays exponentially with distance $y$ from the interface
 If a denser medium is placed very close to the interface — so close that the evanescent wave still retains a significant amplitude — the evanescent field can couple energy across the gap, producing a propagating electromagnetic wave in the new denser medium. This effect is analogous to quantum tunneling, with transmission coefficient $T \propto e^{-2\beta d}$.
 
 <div align="center">
-<img src="img/image-4.png" alt="Frustrated total internal reflection" width="50%">
+<img src="/img/optics/image-4.png" alt="Frustrated total internal reflection" width="50%"/>
 </div>
 
 ---
@@ -434,7 +432,7 @@ If a denser medium is placed very close to the interface — so close that the e
 ### 5.1 Spherical Refracting Surfaces
 
 <div align="center">
-<img src="img/image-5.png" alt="Spherical mirror" width="50%">
+<img src="/img/optics/image-5.png" alt="Spherical mirror" width="50%"/>
 </div>
 
 As shown, the optical path length is $\text{OPL} = n_1 l_o + n_2 l_i$. Using the law of cosines:
@@ -476,7 +474,7 @@ $$
 ### 5.2 Thin Lenses
 
 <div align="center">
-<img src="img/image-6.png" alt="Thin lens" width="50%">
+<img src="/img/optics/image-6.png" alt="Thin lens" width="50%"/>
 </div>
 
 A lens is the combination of two spherical refracting surfaces.
@@ -531,7 +529,7 @@ $$
 #### Magnification
 
 <div align="center">
-<img src="img/image-7.png" alt="Magnification" width="50%">
+<img src="/img/optics/image-7.png" alt="Magnification" width="50%"/>
 </div>
 
 :::info[Sign Convention]
@@ -587,7 +585,7 @@ $$
 #### Thin Lens Combinations
 
 <div align="center">
-<img src="img/image-8.png" alt="Thin lens combination" width="70%">
+<img src="/img/optics/image-8.png" alt="Thin lens combination" width="70%"/>
 </div>
 
 :::note[Note]
@@ -665,7 +663,7 @@ Its imaging properties are almost identical to those of lenses: a concave mirror
 For an optical fiber of length $L$, core refractive index $n_f$, cladding refractive index $n_c$, and external medium air ($n_a \approx 1$):
 
 <div align="center">
-<img src="img/image-9.png" alt="Optical fiber" width="50%">
+<img src="/img/optics/image-9.png" alt="Optical fiber" width="50%"/>
 </div>
 
 The geometric path length is
@@ -719,7 +717,7 @@ When the broadening becomes large enough, signals become indistinguishable, limi
 
 A thick lens can be treated as two spherical refracting surfaces separated by a distance $d$ at their vertices, or as a combination of two thin lenses. As in the derivation of the thin lens formula earlier, see the figure:
 
-![Thick lens](img/image-10.png)
+![Thick lens](/img/optics/image-10.png)
 
 The focal length can be derived as:
 
@@ -754,7 +752,7 @@ $$
 #### Thick Lens Combinations
 
 <div align="center">
-<img src="img/image-11.png" alt="Thick lens combination" width="50%">
+<img src="/img/optics/image-11.png" alt="Thick lens combination" width="50%"/>
 </div>
 
 The focal length of the compound lens:
@@ -772,7 +770,7 @@ $$
 ### 6.2 Matrix Methods
 
 <div align="center">
-<img src="img/image-12.png" alt="Thick lens matrix method" width="50%">
+<img src="/img/optics/image-12.png" alt="Thick lens matrix method" width="50%"/>
 </div>
 
 :::caution[Note]
@@ -917,7 +915,7 @@ This is exactly the equivalent focal length of the thick lens. Thus we can simil
 #### Computing Thick Lens Formulas Using Matrix Methods
 
 <div align="center">
-<img src="img/image-13.png" alt="Principal planes" width="50%">
+<img src="/img/optics/image-13.png" alt="Principal planes" width="50%"/>
 </div>
 
 For a ray incident parallel to the optical axis ($\alpha_{i1} = 0$) at height $y_{i1}$:
@@ -1258,13 +1256,13 @@ I(\theta) = I(0) \cos^{2}\theta, \qquad I(0) = \frac{c\epsilon_0}{2}E_{01}^2
 $$
 
 <div align="center">
-<img src="img/image-14.png" alt="Malus's law" width="50%">
+<img src="/img/optics/image-14.png" alt="Malus's law" width="50%"/>
 </div>
 
 ### 8.3 Birefringence
 
 In anisotropic crystals, the dielectric constant (and hence the refractive index) depends on the polarization direction relative to the crystal axes. The Lorentz oscillator model extended to anisotropic media gives
-<img align="right" src="img/image-15.png" alt="Birefringence" width="30%">
+<img align="right" src="/img/optics/image-15.png" alt="Birefringence" width="30%"/>
 
 $$
 n^{2}(\omega) = 1 + \frac{N q_e^{2}}{\epsilon_0 m_e}\left(\frac{1}{\omega_0^{2} - \omega^{2}}\right)
@@ -1415,7 +1413,7 @@ Two waves produce a stable interference pattern when:
 
 ### 9.2 Fringes of Equal Inclination (Haidinger Fringes)
 
-<img align="right" src="img/image-16.png" alt="Equal inclination fringes" width="15%">
+<img align="right" src="/img/optics/image-16.png" alt="Equal inclination fringes" width="15%"/>
 
 A parallel plate of refractive index $n_f$ and thickness $d$, with media $n_1, n_2$ on either side.
 
@@ -1449,7 +1447,7 @@ These fringes are localized at infinity (or in the focal plane of a lens). For a
 
 ### 9.3 Fringes of Equal Thickness
 
-<img align="right" src="img/image-17.png" alt="Equal thickness fringes" width="15%">
+<img align="right" src="/img/optics/image-17.png" alt="Equal thickness fringes" width="15%"/>
 
 For a thin wedge of small angle $\alpha$ ($\alpha \ll 1$), near normal incidence ($\theta_t \approx \theta_i \approx 0$):
 
@@ -1473,7 +1471,7 @@ The Michelson interferometer splits a light beam, sends the two parts along diff
 
 A thin dielectric film between two semi-infinite media can suppress reflection through destructive interference.
 
-<img align="right" src="img/image-18.png" alt="Anti-reflection coating" width="40%">
+<img align="right" src="/img/optics/image-18.png" alt="Anti-reflection coating" width="40%"/>
 
 Let the interface be parallel to the $xy$ plane, the normal be along $z$, and the plane of incidence be the $xz$ plane. As shown, the electric field has only a $y$ component ($s$ polarization):
 
@@ -1669,7 +1667,7 @@ the reflection coefficient is $0$.
 
 ### 10.1 Ideal Slit (Zero Width)
 
-<img align="right" src="img/image-20.png" alt="Single slit lemma" width="30%">
+<img align="right" src="/img/optics/image-20.png" alt="Single slit lemma" width="30%"/>
 
 Consider a slit as shown. By the Huygens-Fresnel principle, every point on it can be regarded as an independent point source emitting a spherical wave:
 
@@ -1735,7 +1733,7 @@ where $I(0) = \dfrac{1}{2}\left(\dfrac{\bm \varepsilon_L D}{R}\right)^2$.
 
 ### 10.2 Single Slit
 
-<img align="right" src="img/image-19.png" alt="Single slit" width="30%">
+<img align="right" src="/img/optics/image-19.png" alt="Single slit" width="30%"/>
 
 :::note
 
@@ -1952,7 +1950,7 @@ Each Fourier component corresponds to a specific diffraction order. The sinc env
 
 ### 10.6 Circular Aperture Diffraction — Airy Disk
 
-![Circular aperture diffraction](img/image-21.png)
+![Circular aperture diffraction](/img/optics/image-21.png)
 
 For a circular aperture of radius $a$ (diameter $D = 2a$):
 
