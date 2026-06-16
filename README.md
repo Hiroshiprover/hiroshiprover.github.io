@@ -1,5 +1,7 @@
 # Website
 
+[Web](https://hiroshiprover.github.io)
+
 This repository contains the source code of my personal website, built with [Docusaurus](https://docusaurus.io/) and hosted on GitHub Pages.
 
 ## About
@@ -69,7 +71,6 @@ GitHub Pages serves the website directly from the gh-pages branch.
 ├── i18n/zh/       # Chinese translations
 ├── src/           # React components and pages
 ├── static/        # Static assets
-├── sidebars.ts    # Sidebar configuration
 └── docusaurus.config.ts
 ```
 
