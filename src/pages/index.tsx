@@ -26,7 +26,7 @@ type Corners = [number, number][];   // length‑4
 
 /* ---------- tunable constants ------------------------------------- */
 
-const TEMPERATURE        = 1145.14;
+const TEMPERATURE        = 114.514;
 const MOUSE_RADIUS       = 300;
 const MOUSE_FORCE        = 150.0;  // rigid‑ball repulsion
 const CELL_SIZE          = 200;
