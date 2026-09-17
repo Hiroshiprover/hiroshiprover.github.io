@@ -1,0 +1,346 @@
+---
+title: 宝宝用量子场论
+sidebar_position: 4
+date: 2026-09-08
+tags: [Quantum Field Theory]
+---
+
+# 宝宝用量子场论
+
+## 前言
+
+本文是我个人在上量子场论的笔记，课程是南方科技大学 Sebastian Gracia Sanez 老师开设的《量子场论导论》。据 Seb 说，课程内容没有具体的参考教材，只有几本推荐书目。
+
+课程就目前来看，应该只包含一些非常基础的内容，的确是为宝宝准备的（确信）
+
+## Lecture 1：为什么量子场论是必要的
+
+### 1. 薛定谔方程不符合相对论
+
+对于自由粒子，薛定谔方程为：
+$$
+i\hbar \frac{\partial}{\partial t} \psi= -\frac{\hbar^2}{2m} \nabla^2 \psi = \hat{H}\psi, \qquad \hat{H} = \frac{\hat{p}^2}{2m}, \qquad \hat{p} = -i\hbar \nabla,
+$$
+显然，这里使用的哈密顿量是非相对论的。因此我们需要对薛定谔方程进行修正。
+
+狭义相对论给出的正能量支的总能量（包括静能）为：
+$$
+E = \sqrt{p^2c^2 + m^2c^4} = mc^2 + \frac{p^2}{2m} + \cdots,
+$$
+因此我们尝试使用如下形式的哈密顿量：
+$$
+\hat{H} = \sqrt{\hat{p}^2c^2 + m^2c^4} = \sqrt{-\hbar^2c^2 \nabla^2 + m^2c^4}.
+$$
+
+我们已经可以发现：光速 $c$、约化普朗克常数 $\hbar$ 及其幂次频繁地出现在我们的公式中。为了简化公式，我们可以使用自然单位制：
+$$
+c = \hbar = 1,
+$$
+在自然单位制中，质量、能量和动量可以用同一种单位表示。方括号记录它们相当于“几次方的质量”，所以这里的 $1$ 是单位的幂次，不是说这些量无量纲：
+
+$$
+[\text{质量}] = [\text{能量}] = [\text{频率}] = [\text{动量}] = 1, 
+$$
+同时我们约定：
+$$
+[\text{距离}] = [\text{时间}] = -1.
+$$
+
+现在，我们有“相对论性的薛定谔方程”：
+$$
+i \frac{\partial}{\partial t} \psi = \sqrt{-\nabla^2 + m^2} \psi,
+$$
+不过，这个方程有一个麻烦：它不是**局域的**。也就是说，要知道波函数在某一点接下来怎样变化，光知道这一点附近的情况还不够，还要用到其他位置的波函数值。下面先解释这是什么意思，再尝试寻找一个局域的方程。
+
+:::tip[局域性]
+直观地说，局域算符只查看“这里”的情况，非局域算符还会查看“别处”的情况。
+
+例如，$\hat{D}f(x)=f(x)$ 显然是局域的。求导也是局域的：虽然导数的定义用到了邻近点，但这些点最终可以无限靠近 $x$。有限次求导以及把这些导数加起来，也都是局域操作。
+
+为了看清一个算符究竟用到了哪些位置，我们可以把它写成积分的形式。以一维的情形为例：
+$$
+\hat{D}f(x)=\int dy\,K(x-y)f(y).
+$$
+这里的 $K(x-y)$ 叫作**积分核**，它告诉我们：计算 $x$ 处的结果时，$y$ 处的函数值会有多大的贡献。
+
+如果积分核只在 $y=x$ 处有贡献（严格地说，我们称之为在 $y=x$ 处有支撑），我们就称这个算符是局域的。例如，单位算符的积分核就是 $\delta(x-y)$，因为
+$$
+\int dy\,\delta(x-y)f(y)=f(x).
+$$
+导数的积分核则可以用 delta 函数的导数表示，它们也只在 $y=x$ 处有贡献。
+
+相反，对于平移算符 $\hat{D}f(x)=f(x+a)$（$a\ne0$），我们需要读取 $x+a$ 处的值，因此它是非局域的，对应的积分核是 $\delta(x-y+a)$。
+
+要注意，这里只是在讨论算符如何使用函数值，不能仅凭这一点就断言能用它超光速传递信息。
+:::
+
+
+:::info[开方算符为什么是非局域的]
+按照上面的定义，我们只需找到哈密顿量的积分核，就可以判断它是否是局域的。我们有：
+$$
+\hat{H} \psi(x) = \sqrt{-\nabla^2 + m^2} \psi(x),
+$$
+这看起来似乎无从下手。归根结底是因为我们并不知道如何对一个微分算子开平方。但是考虑到我们的哈密顿量事实上是：
+$$
+\hat{H} = \sqrt{\hat{p}^2 + m^2},
+$$
+动量空间中，动量算符的作用就是简单的乘法，因此我们可以尝试在动量空间中解决这个问题。为此，我们回忆动量空间的波函数：
+$$
+\tilde{\psi}(\vec{p}) = \frac{1}{(2\pi)^{3/2}} \int d^3x \, e^{-i\vec{p}\cdot\vec{x}} \psi(\vec{x}), \qquad \psi(\vec{x}) = \frac{1}{(2\pi)^{3/2}} \int d^3p \, e^{i\vec{p}\cdot\vec{x}} \tilde{\psi}(\vec{p}),
+$$
+因此我们有：
+$$
+\hat{H} \psi(\vec{x}) = \frac{1}{(2\pi)^{3/2}} \int d^3p \, e^{i\vec{p}\cdot\vec{x}} \sqrt{\vec{p}^2 + m^2} \tilde{\psi}(\vec{p}),
+$$
+然而积分核需要在位置空间中表示出来，为此，我们再做一次傅里叶变换：
+$$
+\hat{H} \psi(\vec{x}) = \frac{1}{(2\pi)^{3}} \int d^3p \, e^{i\vec{p}\cdot\vec{x}} \sqrt{\vec{p}^2 + m^2} \left(\int d^3y \, e^{-i\vec{p}\cdot\vec{y}} \psi(\vec{y})\right),
+$$
+交换积分次序，我们就可以得到：
+$$
+\hat{H} \psi(\vec{x}) = \int d^3y \, K(\vec{x}-\vec{y}) \psi(\vec{y}),
+$$
+其中积分核为：
+$$
+K(\vec{x}-\vec{y}) = \frac{1}{(2\pi)^{3}} \int d^3p \, e^{i\vec{p}\cdot(\vec{x}-\vec{y})} \sqrt{\vec{p}^2 + m^2}.
+$$
+
+这个积分核在 $\vec{x}\ne\vec{y}$ 时也可以有贡献，所以 $\hat{H}\psi(\vec{x})$ 会用到其他位置的 $\psi$，这就是它的非局域性。积分核的具体计算比较麻烦，这里先接受这个结果。
+
+也可以从求导来理解它为什么特殊：普通的空间导数在动量空间中对应乘以动量，因此有限次求导只能产生动量的有限次幂。这里却出现了 $\sqrt{\vec{p}^{\,2}+m^2}$，不能写成有限个这样的项，所以它不是一个普通的有限阶微分算符。
+
+:::
+
+### 2. Klein-Gordon 方程
+
+按照先前的讨论，我们写出了：
+$$
+i \frac{\partial}{\partial t} \psi = \sqrt{-\nabla^2 + m^2} \psi,
+$$
+显然，这个方程非局域性的来源是这个根号。因此，我们考虑对两边的算符进行平方：
+$$
+\left(i \frac{\partial}{\partial t}\right)^2 \psi = (-\nabla^2 + m^2) \psi,
+$$
+也就是大名鼎鼎的 Klein-Gordon 方程：
+$$
+\nabla^2\psi - \frac{\partial^2}{\partial t^2} \psi = m^2 \psi.
+$$
+
+:::tip[达朗贝尔算子]
+沿用板书的符号约定，定义：
+
+$$
+\Box \equiv -\frac{\partial^2}{\partial t^2} + \nabla^2,
+$$
+于是 K-G 方程可写作：
+$$
+\Box \psi - m^2 \psi = 0.
+$$
+有些教材把 $\Box$ 定义成这里的相反数，所以方程写成 $(\Box+m^2)\psi=0$。比较公式时，先看清 $\Box$ 的定义就不会混淆。
+
+:::
+
+这是一个带质量项的波动方程。代入平面波解可以得到色散关系：
+$$
+\psi=C e^{-i\omega t+i\vec{k}\cdot\vec{x}},\qquad \omega=\pm\sqrt{\vec{k}^2+m^2}.
+$$
+这里不能简单地说“波都以光速传播”。例如，对正频率的波包，令 $k=|\vec{k}|$，它的群速度为
+$$
+v_g=\frac{d\omega}{dk}=\frac{k}{\sqrt{k^2+m^2}}.
+$$
+因此有质量时，波包的群速度小于光速；$m=0$ 时才等于光速。
+
+对一个固定的波矢 $\vec{k}$，时间依赖的通解为：
+$$
+\psi = A e^{-i\sqrt{\vec{k}^2 + m^2} t} e^{i\vec{k}\cdot\vec{x}} + B e^{i\sqrt{\vec{k}^2 + m^2} t} e^{i\vec{k}\cdot\vec{x}} = \psi_A + \psi_B,
+$$
+其中前半部分称为 $\psi_A$，后半部分称为 $\psi_B$。完整的空间通解还需要对所有 $\vec{k}$ 进行傅里叶叠加，系数相应为 $A(\vec{k})$ 与 $B(\vec{k})$。
+
+这里有个容易漏掉的地方：**平方之后，方程会多出解。** 就像 $x=1$ 平方后变成 $x^2=1$，后者还允许 $x=-1$ 一样。这里 $\psi_A$ 满足原来的一阶开方方程，但 $\psi_B$ 只满足平方后的 K–G 方程，不满足原方程。
+
+下面我们尝试把这两种解都当作单粒子的波函数，看看会遇到什么问题。
+
+### 3. Klein-Gordon 方程的问题
+
+#### 负能量问题
+
+按照量子力学中用 $i\partial_t$ 读取能量的做法，对 $\psi_B$ 有：
+
+$$
+i \frac{\partial}{\partial t} \psi_B = -\sqrt{\vec{k}^2 + m^2} \psi_B.
+$$
+也就是说，如果把 $\psi_B$ 当作粒子的波函数，就会读出负能量。负能量本身未必有问题，因为能量零点可以改变；真正的问题是 $|\vec{k}|$ 可以任意大，所以这里的能量可以无限低，没有最低能量，也就没有基态。
+
+注意，这不是说原来的根号 $\sqrt{-\nabla^2+m^2}$ 能取负值。原来的一阶方程根本不允许 $\psi_B$；这个麻烦是在平方后把它也当成粒子波函数时出现的。
+
+#### 波函数概率诠释问题
+
+我们知道量子力学中，薛定谔方程可以给出一个流守恒方程：
+$$
+\frac{\partial}{\partial t} \left|\psi\right|^2 = - \nabla \cdot \vec{J}, \qquad \vec{J} = \frac{i}{2m}\left(\psi \nabla \psi^* - \psi^* \nabla \psi\right),
+$$
+这说明波函数的模方可以诠释为粒子出现在空间中某处的概率密度，概率流是守恒的。自然地我们期望 K-G 方程会给出相同形式的流守恒方程：
+
+最直接的想法当然还是取 $\rho=|\psi|^2$。但 K–G 方程给出的是二阶时间导数，并不能只凭现在的 $\psi$ 算出 $\partial_t\psi$。这就像牛顿方程：光知道初始位置还不够，还要知道初始速度。
+
+先按板书的思路，回头看看一阶开方方程。它可以直接给出时间导数，方便我们检验 $|\psi|^2$。不过要记住，这样只检查了满足原来一阶方程的那部分解，并没有检查所有 K–G 解。
+
+$$
+\frac{\partial}{\partial t} \left|\psi\right|^2 = \psi^* \frac{\partial \psi}{\partial t} + \psi \frac{\partial \psi^*}{\partial t} = -i\left[ \psi^* \sqrt{-\nabla^2 + m^2} \psi - \psi \sqrt{-\nabla^2 + m^2} \psi^* \right].
+$$
+
+我们想知道右边能否写成 $-\nabla\cdot\vec{j}$ 的形式。先取 $m>0$，在动量远小于质量（$|\vec{p}|\ll m$）时展开根号：
+
+:::info[根号展开与逐阶验证]
+
+$$
+\sqrt{-\nabla^2 + m^2} = m\sqrt{1 - \frac{\nabla^2}{m^2}} = m\left[ 1 - \frac{1}{2m^2} \nabla^2 - \frac{1}{8m^4} (\nabla^2)^2 - \cdots \right],
+$$
+
+代入上式，常数项因 $\psi^*\psi - \psi\psi^* = 0$ 而消失：
+
+$$
+\frac{\partial}{\partial t} \left|\psi\right|^2 = \frac{i}{2m} \left( \psi^* \nabla^2 \psi - \psi \nabla^2 \psi^* \right) + \frac{i}{8m^3} \left( \psi^* (\nabla^2)^2 \psi - \psi (\nabla^2)^2 \psi^* \right) + \cdots.
+$$
+
+括号里的每个组合都是全散度。由乘积法则，
+
+$$
+\psi^* \nabla^2 \psi - \psi \nabla^2 \psi^* = \nabla \cdot \left( \psi^* \nabla \psi - \psi \nabla \psi^* \right),
+$$
+
+最低阶的一项因此正是薛定谔方程的概率流：$\frac{i}{2m} \left( \psi^* \nabla^2 \psi - \psi \nabla^2 \psi^* \right) = -\nabla \cdot \vec{J}$。四阶导数项也可以写成散度；直接用乘积法则可验证：
+
+$$
+\psi^* (\nabla^2)^2 \psi - \psi (\nabla^2)^2 \psi^* = \nabla \cdot \left[ \psi^* \nabla \nabla^2 \psi - \psi \nabla \nabla^2 \psi^* - (\nabla^2 \psi) \nabla \psi^* + (\nabla^2 \psi^*) \nabla \psi \right],
+$$
+
+**这个原先由 DeepSeek 给出的等式是正确的。** 它看起来有点长，我们先用一维的普通导数看看，后两项到底是怎么来的。
+
+暂时把 $\psi^*$ 和 $\psi$ 分别写成 $f$ 和 $g$，用撇号表示对位置求导。我们想把 $fg''''-gf''''$ 写成一个导数。先试试板书中的前两项：
+$$
+(fg'''-gf''')'=fg''''-gf''''+f'g'''-g'f'''.
+$$
+多出了 $f'g'''-g'f'''$，所以只用这两项确实不行。但再算一下后两项：
+$$
+(-g''f'+f''g')'=-g'''f'+f'''g'.
+$$
+这里含有 $f''g''$ 的两项已经互相抵消了。再把两个式子相加，多出来的项也恰好抵消，得到
+$$
+fg''''-gf''''=(fg'''-gf'''-g''f'+f''g')'.
+$$
+这就是上面三维公式的一维版本。用同样的乘积求导法则，把普通导数换成梯度和散度，就能验证上面的公式。因此，板书 `IMG_8158.JPG` 中那个较简单的写法不成立，但补上后两项就成立了。
+
+:::
+
+再往后的高阶项，也可以用类似的方法写成散度。所以，如果只保留展开中的前几项，就能为这个近似方程写出相应的流。困难并不是“四阶项算不出来”。
+
+但是，只保留前几项毕竟是低动量下的近似，不能用它代替完整的根号。对于完整的开方方程，流仍然可以写出，只是它是一个**依赖于 $\psi$ 的积分泛函**：把整个空间中的波函数代进去，经过积分，才能得到某一点的流。换句话说，算这里的流还要知道别处的波函数，所以它是**非局域的**。这里不需要写出它的具体表达式。
+
+因此要分清两件事：**能写成连续性方程，不等于其中的流一定是局域的。** 原来开方方程中的 $\int d^3x\,|\psi|^2$ 仍然守恒，问题在于流的非局域性；而对一般的 K–G 解，这个模方积分就不一定守恒了。
+
+回到二阶的 K-G 方程。它其实有守恒流，只是密度不能取 $|\psi|^2$。定义
+
+$$
+\rho \equiv i\left( \psi^* \frac{\partial \psi}{\partial t} - \psi \frac{\partial \psi^*}{\partial t} \right),
+$$
+
+对它求时间导数：
+
+:::info[连续性方程的推导]
+
+$$
+\frac{\partial \rho}{\partial t} = i\left[ \frac{\partial \psi^*}{\partial t} \frac{\partial \psi}{\partial t} + \psi^* \frac{\partial^2 \psi}{\partial t^2} - \frac{\partial \psi}{\partial t} \frac{\partial \psi^*}{\partial t} - \psi \frac{\partial^2 \psi^*}{\partial t^2} \right] = i\left( \psi^* \frac{\partial^2 \psi}{\partial t^2} - \psi \frac{\partial^2 \psi^*}{\partial t^2} \right),
+$$
+
+其中两个一阶导数的乘积相消。由 K-G 方程有 $\frac{\partial^2 \psi}{\partial t^2} = \nabla^2 \psi - m^2 \psi$，代入得
+
+$$
+\frac{\partial \rho}{\partial t} = i\left[ \psi^* (\nabla^2 - m^2) \psi - \psi (\nabla^2 - m^2) \psi^* \right] = i\left( \psi^* \nabla^2 \psi - \psi \nabla^2 \psi^* \right),
+$$
+
+其中 $m^2$ 项因 $\psi^*\psi - \psi\psi^* = 0$ 而相消。再用一次上面的散度恒等式，
+
+$$
+\frac{\partial \rho}{\partial t} = i \nabla \cdot \left( \psi^* \nabla \psi - \psi \nabla \psi^* \right) = -\nabla \cdot \left[ i\left( \psi \nabla \psi^* - \psi^* \nabla \psi \right) \right],
+$$
+
+:::
+
+于是 K-G 方程确实给出了一条连续性方程
+
+$$
+\frac{\partial \rho}{\partial t} = -\nabla \cdot \vec{j}, \qquad \vec{j} = i\left( \psi \nabla \psi^* - \psi^* \nabla \psi \right),
+$$
+
+和薛定谔流相比，这里的写法少了一个 $1/(2m)$。这是整体常数的约定：如果把 $\rho$ 和 $\vec{j}$ 同时乘上同一个常数，连续性方程仍然成立。本文沿用板书的归一化。
+
+但正负号不能随意改变：既然连续性方程写成 $\partial_t\rho=-\nabla\cdot\vec{j}$，就必须取上面的 $\vec{j}$。板书 `IMG_8159.JPG` 最后一行把空间流写反了，本文原有的符号是正确的。
+
+可惜 $\rho$ 并不具备概率密度所必需的正定性。K-G 方程在时间上二阶，$\psi$ 与 $\frac{\partial \psi}{\partial t}$ 可以独立取值，$\rho$ 的符号由二者的组合决定，而不由 $\psi$ 单独决定。以平面波解为例：
+
+:::info[平面波解的例子]
+
+对 $\psi_A = A e^{-i\omega t + i\vec{k}\cdot\vec{x}}$（$\omega = \sqrt{\vec{k}^2 + m^2}$）有 $\frac{\partial \psi_A}{\partial t} = -i\omega \psi_A$，于是
+
+$$
+\rho = i\left( \psi_A^* \frac{\partial \psi_A}{\partial t} - \psi_A \frac{\partial \psi_A^*}{\partial t} \right) = i\left( -i\omega - i\omega \right) |A|^2 = 2\omega |A|^2 > 0,
+$$
+
+而对 $\psi_B = B e^{i\omega t + i\vec{k}\cdot\vec{x}}$ 有 $\frac{\partial \psi_B}{\partial t} = i\omega \psi_B$，给出 $\rho = -2\omega |B|^2 < 0$。$\psi_A$ 与 $\psi_B$ 都是方程的解。
+
+:::
+
+因此 $\rho$ 有时会是负数，不能直接当作概率密度。以后在复标量场的量子场论中，它可以用来描述守恒的荷；如果这个荷是电荷，那么有正有负就不奇怪了。
+
+### 4. 结论
+
+我们试了两条路：保留根号，方程是非局域的；平方去掉根号，得到的 K–G 方程虽然是局域的，但把它的解直接当作普通波函数，又会遇到负能量和负概率密度的问题。
+
+这并不意味着“相对论性量子力学不存在”。例如，Dirac 方程也是相对论的波动方程。这里的意思是：不能只改一改薛定谔方程，就认为所有问题都解决了。
+
+还需要考虑一个更实际的问题：粒子可以产生，也可以湮灭。如果一直只用“一个粒子的位置波函数”，就无法描述粒子数发生变化的过程。量子场论提供了处理这些过程的方法。
+
+K–G 方程本身仍然是一个好的相对论方程，只是我们换一种看法：把 $\psi$ 看作场，再对场进行量子化。于是课程中的概括是：
+
+$$
+\text{QM} + \text{relativity} \quad \Longrightarrow \quad \text{QFT} = \text{QM of fields},
+$$
+
+也就是场的量子力学。需要说明的是，反过来并不成立：量子场论并不以相对论为前提，也存在描述非相对论系统的量子场论。
+
+### 5. 二次量子化与 Fock 空间
+
+考虑 $N$ 个自由（无相互作用）的非相对论全同粒子，其哈密顿量为
+
+$$
+\hat{H}_s = -\frac{1}{2m} \sum_{j=1}^{N} \nabla_j^2, \qquad \nabla_j^2 \equiv \sum_{\alpha=1}^{3}\frac{\partial^2}{\partial (x_j^\alpha)^2},
+$$
+
+其中 $\vec{x}_j=(x_j^1,x_j^2,x_j^3)$ 是位置表象中的第 $j$ 个坐标变量，不是指定的经典轨迹。波函数是 $N$ 个位置与时间的函数 $\Psi(\vec{x}_1, \vec{x}_2, \dots, \vec{x}_N; t)$。以下省略自旋等内部指标；玻色子的 $\Psi$ 对交换两个粒子坐标对称，费米子的 $\Psi$ 反对称。采用通常的归一化 $\int d^3x_1\cdots d^3x_N\,|\Psi|^2=1$，二次量子化把态矢量写成
+
+$$
+|\Psi(t)\rangle \equiv \frac{1}{\sqrt{N!}}\int d^3x_1 \cdots d^3x_N \, \Psi(\vec{x}_1, \dots, \vec{x}_N; t) \, a^\dagger(\vec{x}_1) \cdots a^\dagger(\vec{x}_N) |0\rangle,
+$$
+
+其中 $a^\dagger(\vec{x})$ 与 $a(\vec{x})$ 分别是产生算符与湮灭算符：$a^\dagger(\vec{x})$ 在位置 $\vec{x}$ 处产生一个粒子；$|0\rangle$ 是没有粒子的真空态，满足
+
+$$
+a(\vec{x}) |0\rangle = 0.
+$$
+
+前面的 $1/\sqrt{N!}$ 是归一化因子。由于粒子全同，交换它们的编号并不会得到一个新的物理状态；在通常的约定下，把这些重复的排列考虑进去，就需要这个因子来保证 $\langle\Psi|\Psi\rangle=1$。板书省略了它，也可以把它吸收进 $\Psi$，但那时 $\Psi$ 就不能再按上面的方式归一化。
+
+于是 $a^\dagger(\vec{x})|0\rangle$ 表示在 $\vec{x}$ 处有一个粒子的态，$a^\dagger(\vec{x})a^\dagger(\vec{y})|0\rangle$ 表示相应的两粒子态，依此类推。和普通量子力学中的位置态 $|\vec{x}\rangle$ 一样，这些都是理想化的点位置态；把它们按波函数的权重叠加起来，才能得到通常的波包。
+
+所有 $N$ 粒子态组成的 Hilbert 空间记作 $\mathcal{H}_N$。对于全同粒子，还要遵守交换规则：交换两个粒子的坐标，玻色子的波函数不变，费米子的波函数变号。
+
+接下来，把零粒子、一个粒子、两个粒子……的态都放进一个更大的空间，就得到 **Fock 空间**：
+
+$$
+\mathcal{F} \equiv \bigoplus_{N=0}^{\infty} \mathcal{H}_N.
+$$
+
+这里的 $\bigoplus$ 叫作直和。可以把 Fock 空间想成一座按粒子数分层的楼：$\mathcal{H}_0$ 放真空态，$\mathcal{H}_1$ 放单粒子态，$\mathcal{H}_2$ 放两粒子态，依此类推。产生算符让粒子数增加一个，湮灭算符让粒子数减少一个。
+
+不过，有了不同的楼层，不代表系统一定会在楼层之间移动。对这里没有相互作用的自由粒子系统，粒子数仍然守恒。

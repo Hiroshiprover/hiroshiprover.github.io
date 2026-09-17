@@ -25,9 +25,12 @@ const config: Config = {
   onBrokenLinks: 'warn',
 
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'zh'],
-    localeConfigs: {zh: {label: '中文',},},
+    defaultLocale: 'zh',
+    locales: ['zh', 'en'],
+    localeConfigs: {
+      zh: {label: '中文', htmlLang: 'zh-CN'},
+      en: {label: 'English', htmlLang: 'en'},
+    },
   },
 
   markdown: {
@@ -48,6 +51,8 @@ const config: Config = {
           includeCurrentVersion: true,
         },
         blog: {
+          blogTitle: '博客',
+          blogDescription: '博客',
           showReadingTime: true,
           blogSidebarCount: 0,
           remarkPlugins: [remarkMath],
@@ -91,8 +96,8 @@ const config: Config = {
         src: 'img/image.png',
       },
       items: [
-        {to: '/docs/intro', label: 'Contents', position: 'left'},
-        {to: '/blog', label: 'Blog', position: 'left'},
+        {to: '/docs/intro', label: '内容', position: 'left'},
+        {to: '/blog', label: '博客', position: 'left'},
         {type: 'localeDropdown', position: 'right', dropdownItemsAfter: [], dropdownItemsBefore: []},
         {
           href: 'https://github.com/Hiroshiprover',
@@ -105,10 +110,10 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Access',
+          title: '链接',
           items: [
             {
-              label: 'Source',
+              label: '源代码',
               href: 'https://github.com/Hiroshiprover/Hiroshiprover.github.io',
             },
           ],

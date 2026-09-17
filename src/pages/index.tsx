@@ -1,4 +1,5 @@
 import Layout from '@theme/Layout';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import {useEffect, useRef} from 'react';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
@@ -367,6 +368,7 @@ function shuffle<T>(arr: T[]): T[] {
 /* ================================================================== */
 
 export default function Home() {
+  const {i18n: {currentLocale}} = useDocusaurusContext();
   const bgRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const animRef = useRef<number>(0);
@@ -595,7 +597,7 @@ export default function Home() {
 
   /* ----------  render  ------------------------------------------- */
   return (
-    <Layout title="Home">
+    <Layout title={currentLocale === 'zh' ? '首页' : 'Home'}>
       <main className="hero-center">
         <div className="eq-bg" ref={bgRef} />
         <div className="center-text">

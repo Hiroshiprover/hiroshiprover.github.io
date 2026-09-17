@@ -66,9 +66,9 @@ GitHub Pages serves the website directly from the gh-pages branch.
 
 ```plain text
 .
-├── blog/          # English blog posts
-├── docs/          # English documentation pages
-├── i18n/zh/       # Chinese translations
+├── blog/          # Chinese blog posts (default locale)
+├── docs/          # Chinese documentation pages (default locale)
+├── i18n/en/       # English translations
 ├── src/           # React components and pages
 ├── static/        # Static assets
 └── docusaurus.config.ts

@@ -22,3 +22,6 @@ yarn-error.log*
 # Instructions
 .github/copilot-instructions.md
 .github/instructions/
+
+# temporary files for AI
+/qft_boardnote
