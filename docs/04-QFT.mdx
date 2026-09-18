@@ -13,15 +13,15 @@ tags: [Quantum Field Theory]
 
 课程就目前来看，应该只包含一些非常基础的内容，的确是为宝宝准备的（确信）
 
-## Lecture 1：为什么量子场论是必要的
-
-### 1. 薛定谔方程不符合相对论
+## Lecture 0：引言：为什么必须要量子场论
 
 对于自由粒子，薛定谔方程为：
 $$
 i\hbar \frac{\partial}{\partial t} \psi= -\frac{\hbar^2}{2m} \nabla^2 \psi = \hat{H}\psi, \qquad \hat{H} = \frac{\hat{p}^2}{2m}, \qquad \hat{p} = -i\hbar \nabla,
 $$
 显然，这里使用的哈密顿量是非相对论的。因此我们需要对薛定谔方程进行修正。
+
+### 1. 第一次尝试：Salpeter 方程
 
 狭义相对论给出的正能量支的总能量（包括静能）为：
 $$
@@ -32,50 +32,52 @@ $$
 \hat{H} = \sqrt{\hat{p}^2c^2 + m^2c^4} = \sqrt{-\hbar^2c^2 \nabla^2 + m^2c^4}.
 $$
 
+:::tip[自然单位制]
 我们已经可以发现：光速 $c$、约化普朗克常数 $\hbar$ 及其幂次频繁地出现在我们的公式中。为了简化公式，我们可以使用自然单位制：
 $$
 c = \hbar = 1,
 $$
-在自然单位制中，质量、能量和动量可以用同一种单位表示。方括号记录它们相当于“几次方的质量”，所以这里的 $1$ 是单位的幂次，不是说这些量无量纲：
+非常不准确、但非常有用地讲，你可以认为他们是无量纲的。
 
 $$
 [\text{质量}] = [\text{能量}] = [\text{频率}] = [\text{动量}] = 1, 
 $$
 同时我们约定：
 $$
-[\text{距离}] = [\text{时间}] = -1.
+[\text{距离}] = [\text{时间}] = -1,
 $$
+这里实际上指的是它们量纲的幂次。
+:::
 
 现在，我们有“相对论性的薛定谔方程”：
 $$
 i \frac{\partial}{\partial t} \psi = \sqrt{-\nabla^2 + m^2} \psi,
 $$
-不过，这个方程有一个麻烦：它不是**局域的**。也就是说，要知道波函数在某一点接下来怎样变化，光知道这一点附近的情况还不够，还要用到其他位置的波函数值。下面先解释这是什么意思，再尝试寻找一个局域的方程。
+这个方程被称为 Salpeter 方程。这个方程有一个麻烦：它不是**局域的**。也就是说，要知道波函数在某一点接下来怎样变化，光知道这一点附近的情况还不够，还要用到其他位置的波函数值。
 
 :::tip[局域性]
 直观地说，局域算符只查看“这里”的情况，非局域算符还会查看“别处”的情况。
 
 例如，$\hat{D}f(x)=f(x)$ 显然是局域的。求导也是局域的：虽然导数的定义用到了邻近点，但这些点最终可以无限靠近 $x$。有限次求导以及把这些导数加起来，也都是局域操作。
 
-为了看清一个算符究竟用到了哪些位置，我们可以把它写成积分的形式。以一维的情形为例：
+为了定量衡量一个算符到底有多“非局域”，我们尝试把它写成积分的形式，因为积分涉及到全空间的性质。以一维的情形为例：
 $$
 \hat{D}f(x)=\int dy\,K(x-y)f(y).
 $$
-这里的 $K(x-y)$ 叫作**积分核**，它告诉我们：计算 $x$ 处的结果时，$y$ 处的函数值会有多大的贡献。
+这里的 $K(x-y)$ 叫作**积分核**，它告诉我们：计算 $x$ 处的结果时，$y$ 处的函数值会有多大的贡献。如果积分核只在 $y=x$ 处有贡献（严格地说，我们称之为在 $y=x$ 处有支撑），我们就称这个算符是局域的。
 
-如果积分核只在 $y=x$ 处有贡献（严格地说，我们称之为在 $y=x$ 处有支撑），我们就称这个算符是局域的。例如，单位算符的积分核就是 $\delta(x-y)$，因为
+例：单位算符 $\hat{I}$ 的积分核就是 $\delta(x-y)$，因为
 $$
-\int dy\,\delta(x-y)f(y)=f(x).
+\int dy\,\delta(x-y)f(y)=f(x)=\hat{I} f(x).
 $$
 导数的积分核则可以用 delta 函数的导数表示，它们也只在 $y=x$ 处有贡献。
 
 相反，对于平移算符 $\hat{D}f(x)=f(x+a)$（$a\ne0$），我们需要读取 $x+a$ 处的值，因此它是非局域的，对应的积分核是 $\delta(x-y+a)$。
-
-要注意，这里只是在讨论算符如何使用函数值，不能仅凭这一点就断言能用它超光速传递信息。
 :::
 
+:::note[开方算符非局域性的证明]
+不喜欢数学的同学建议跳过这个证明。
 
-:::info[开方算符为什么是非局域的]
 按照上面的定义，我们只需找到哈密顿量的积分核，就可以判断它是否是局域的。我们有：
 $$
 \hat{H} \psi(x) = \sqrt{-\nabla^2 + m^2} \psi(x),
@@ -105,13 +107,10 @@ $$
 K(\vec{x}-\vec{y}) = \frac{1}{(2\pi)^{3}} \int d^3p \, e^{i\vec{p}\cdot(\vec{x}-\vec{y})} \sqrt{\vec{p}^2 + m^2}.
 $$
 
-这个积分核在 $\vec{x}\ne\vec{y}$ 时也可以有贡献，所以 $\hat{H}\psi(\vec{x})$ 会用到其他位置的 $\psi$，这就是它的非局域性。积分核的具体计算比较麻烦，这里先接受这个结果。
-
-也可以从求导来理解它为什么特殊：普通的空间导数在动量空间中对应乘以动量，因此有限次求导只能产生动量的有限次幂。这里却出现了 $\sqrt{\vec{p}^{\,2}+m^2}$，不能写成有限个这样的项，所以它不是一个普通的有限阶微分算符。
-
+这个积分核在 $\vec{x}\ne\vec{y}$ 时也可以有贡献，所以 $\hat{H}\psi(\vec{x})$ 会用到其他位置的 $\psi$，因此是非局域的。
 :::
 
-### 2. Klein-Gordon 方程
+### 2. 第二次尝试：Klein-Gordon 方程
 
 按照先前的讨论，我们写出了：
 $$
@@ -127,8 +126,7 @@ $$
 $$
 
 :::tip[达朗贝尔算子]
-沿用板书的符号约定，定义：
-
+定义：
 $$
 \Box \equiv -\frac{\partial^2}{\partial t^2} + \nabla^2,
 $$
@@ -136,42 +134,41 @@ $$
 $$
 \Box \psi - m^2 \psi = 0.
 $$
-有些教材把 $\Box$ 定义成这里的相反数，所以方程写成 $(\Box+m^2)\psi=0$。比较公式时，先看清 $\Box$ 的定义就不会混淆。
 
+不同于多数量子场论/粒子物理教材的符号约定，Seb 采用了广义相对论和宇宙学更喜欢的 (-+++) 的度规符号约定，可能跟他本人是做黑洞的有关系。一般量子场论教材则会写成 $(\Box+m^2)\psi=0$。
 :::
 
 这是一个带质量项的波动方程。代入平面波解可以得到色散关系：
 $$
 \psi=C e^{-i\omega t+i\vec{k}\cdot\vec{x}},\qquad \omega=\pm\sqrt{\vec{k}^2+m^2}.
 $$
-这里不能简单地说“波都以光速传播”。例如，对正频率的波包，令 $k=|\vec{k}|$，它的群速度为
+对于正频率支，令 $k=|\vec{k}|$，则相速度与群速度分别为：
 $$
-v_g=\frac{d\omega}{dk}=\frac{k}{\sqrt{k^2+m^2}}.
+v_{\mathrm{ph}}=\frac{\omega}{k}=\frac{\sqrt{k^2+m^2}}{k},\qquad
+v_{\mathrm{g}}=\frac{d\omega}{dk}=\frac{k}{\sqrt{k^2+m^2}}.
 $$
-因此有质量时，波包的群速度小于光速；$m=0$ 时才等于光速。
+$m=0$ 时二者都为光速；$m>0$ 时相速度大于光速，群速度小于光速。当然，这并不是物理信息的传播速度。
 
-对一个固定的波矢 $\vec{k}$，时间依赖的通解为：
+对一个固定的波矢 $\vec{k}$，通解为：
 $$
 \psi = A e^{-i\sqrt{\vec{k}^2 + m^2} t} e^{i\vec{k}\cdot\vec{x}} + B e^{i\sqrt{\vec{k}^2 + m^2} t} e^{i\vec{k}\cdot\vec{x}} = \psi_A + \psi_B,
 $$
-其中前半部分称为 $\psi_A$，后半部分称为 $\psi_B$。完整的空间通解还需要对所有 $\vec{k}$ 进行傅里叶叠加，系数相应为 $A(\vec{k})$ 与 $B(\vec{k})$。
+其中前半部分称为 $\psi_A$，后半部分称为 $\psi_B$。方程完整的解是所有 $\vec{k}$ 的线性组合（傅里叶积分）。
 
-这里有个容易漏掉的地方：**平方之后，方程会多出解。** 就像 $x=1$ 平方后变成 $x^2=1$，后者还允许 $x=-1$ 一样。这里 $\psi_A$ 满足原来的一阶开方方程，但 $\psi_B$ 只满足平方后的 K–G 方程，不满足原方程。
+就像 $x=1$ 平方后变成 $x^2=1$，两个方程共享 $x=1$ 这个解，而后者还允许 $x=-1$。类比这里，我们可以验证 $\psi_A$ 同样满足 Salpeter 方程，而 $\psi_B$ 只满足 K–G 方程，不满足原方程。
 
-下面我们尝试把这两种解都当作单粒子的波函数，看看会遇到什么问题。
+这看起来我们已经写出了相对论性量子力学的根本方程，接下来一切的事情都是关于如何解这个方程了。但是很快我们就会发现相当多的问题。
 
 ### 3. Klein-Gordon 方程的问题
 
 #### 负能量问题
 
-按照量子力学中用 $i\partial_t$ 读取能量的做法，对 $\psi_B$ 有：
+考虑量子力学中哈密顿量的本征方程：对 $\psi_B$ 有：
 
 $$
-i \frac{\partial}{\partial t} \psi_B = -\sqrt{\vec{k}^2 + m^2} \psi_B.
+\hat{H} \psi_B =  i \frac{\partial}{\partial t} \psi_B = -\sqrt{\vec{k}^2 + m^2} \psi_B.
 $$
-也就是说，如果把 $\psi_B$ 当作粒子的波函数，就会读出负能量。负能量本身未必有问题，因为能量零点可以改变；真正的问题是 $|\vec{k}|$ 可以任意大，所以这里的能量可以无限低，没有最低能量，也就没有基态。
-
-注意，这不是说原来的根号 $\sqrt{-\nabla^2+m^2}$ 能取负值。原来的一阶方程根本不允许 $\psi_B$；这个麻烦是在平方后把它也当成粒子波函数时出现的。
+也就是说，$\psi_B$ 的本征态给出了负能量解。这似乎也不是什么大问题，毕竟能量零点可以任意选取。但我们注意到并没有条件来限制波矢的模：$|\vec{k}|$ 可以任意大，所以这里的能量可以无限低，没有最低能量，也就没有基态。
 
 #### 波函数概率诠释问题
 
@@ -179,148 +176,112 @@ $$
 $$
 \frac{\partial}{\partial t} \left|\psi\right|^2 = - \nabla \cdot \vec{J}, \qquad \vec{J} = \frac{i}{2m}\left(\psi \nabla \psi^* - \psi^* \nabla \psi\right),
 $$
-这说明波函数的模方可以诠释为粒子出现在空间中某处的概率密度，概率流是守恒的。自然地我们期望 K-G 方程会给出相同形式的流守恒方程：
+这说明波函数的模方可以诠释为粒子出现在空间中某处的概率密度，概率流是守恒的。自然地我们期望 K-G 方程会给出相同形式的流守恒方程。
 
-最直接的想法当然还是取 $\rho=|\psi|^2$。但 K–G 方程给出的是二阶时间导数，并不能只凭现在的 $\psi$ 算出 $\partial_t\psi$。这就像牛顿方程：光知道初始位置还不够，还要知道初始速度。
+但 K–G 方程给出的是二阶时间导数，并不能直接确定 $\partial_t\psi$。因此我们考虑最开始的 Salpeter 方程，它对时间是一阶导数。虽然这样只检查了 K–G 方程的一部分解 $\psi_A$，但我们的目的只是展示会遇到的困难，并不会影响结论。
 
-先按板书的思路，回头看看一阶开方方程。它可以直接给出时间导数，方便我们检验 $|\psi|^2$。不过要记住，这样只检查了满足原来一阶方程的那部分解，并没有检查所有 K–G 解。
-
+按部就班地进行计算：
 $$
 \frac{\partial}{\partial t} \left|\psi\right|^2 = \psi^* \frac{\partial \psi}{\partial t} + \psi \frac{\partial \psi^*}{\partial t} = -i\left[ \psi^* \sqrt{-\nabla^2 + m^2} \psi - \psi \sqrt{-\nabla^2 + m^2} \psi^* \right].
 $$
 
-我们想知道右边能否写成 $-\nabla\cdot\vec{j}$ 的形式。先取 $m>0$，在动量远小于质量（$|\vec{p}|\ll m$）时展开根号：
-
-:::info[根号展开与逐阶验证]
+我们尝试将等号右侧写成某个散度 $-\nabla\cdot\vec{j}$ 的形式。这个计算太过复杂，我们不做讨论地给出结果：
 
 $$
-\sqrt{-\nabla^2 + m^2} = m\sqrt{1 - \frac{\nabla^2}{m^2}} = m\left[ 1 - \frac{1}{2m^2} \nabla^2 - \frac{1}{8m^4} (\nabla^2)^2 - \cdots \right],
+\boxed{
+\vec{j}(\vec{x},t)
+=\frac{1}{(2\pi)^3}\int d^3p\,d^3q\,
+\frac{\vec{p}+\vec{q}}{E_{\vec{p}}+E_{\vec{q}}}
+\tilde{\psi}(\vec{p},t)\tilde{\psi}^{*}(\vec{q},t)
+e^{i(\vec{p}-\vec{q})\cdot\vec{x}}
+},
+\qquad E_{\vec{p}}\equiv\sqrt{\vec{p}^{\,2}+m^2}.
 $$
 
-代入上式，常数项因 $\psi^*\psi - \psi\psi^* = 0$ 而消失：
-
+这里沿用前面的傅里叶变换约定：
 $$
-\frac{\partial}{\partial t} \left|\psi\right|^2 = \frac{i}{2m} \left( \psi^* \nabla^2 \psi - \psi \nabla^2 \psi^* \right) + \frac{i}{8m^3} \left( \psi^* (\nabla^2)^2 \psi - \psi (\nabla^2)^2 \psi^* \right) + \cdots.
+\tilde{\psi}(\vec{p},t)
+=\frac{1}{(2\pi)^{3/2}}\int d^3y\,
+e^{-i\vec{p}\cdot\vec{y}}\psi(\vec{y},t).
 $$
-
-括号里的每个组合都是全散度。由乘积法则，
-
+这是精确表达式，不需要对开方算符作级数展开。验证它只需注意：
 $$
-\psi^* \nabla^2 \psi - \psi \nabla^2 \psi^* = \nabla \cdot \left( \psi^* \nabla \psi - \psi \nabla \psi^* \right),
+(\vec{p}-\vec{q})\cdot
+\frac{\vec{p}+\vec{q}}{E_{\vec{p}}+E_{\vec{q}}}
+=\frac{\vec{p}^{\,2}-\vec{q}^{\,2}}{E_{\vec{p}}+E_{\vec{q}}}
+=E_{\vec{p}}-E_{\vec{q}}.
 $$
+对流求散度会得到 $i(E_{\vec{p}}-E_{\vec{q}})$，而由 $i\partial_t\tilde{\psi}(\vec{p},t)=E_{\vec{p}}\tilde{\psi}(\vec{p},t)$，对密度求时间导数给出相反的一项，因此 $\partial_t|\psi|^2+\nabla\cdot\vec{j}=0$。交换积分变量 $\vec{p},\vec{q}$ 还可以验证 $\vec{j}^{\,*}=\vec{j}$。
 
-最低阶的一项因此正是薛定谔方程的概率流：$\frac{i}{2m} \left( \psi^* \nabla^2 \psi - \psi \nabla^2 \psi^* \right) = -\nabla \cdot \vec{J}$。四阶导数项也可以写成散度；直接用乘积法则可验证：
+*上式可参见 [Salpeter 方程与概率流的讨论](https://arxiv.org/abs/1110.5146)。Seb 本人上课采用了一个算符泰勒展开的方法，但他犯了一点错误，我们不在这里重复了。*
 
-$$
-\psi^* (\nabla^2)^2 \psi - \psi (\nabla^2)^2 \psi^* = \nabla \cdot \left[ \psi^* \nabla \nabla^2 \psi - \psi \nabla \nabla^2 \psi^* - (\nabla^2 \psi) \nabla \psi^* + (\nabla^2 \psi^*) \nabla \psi \right],
-$$
+我们可以看到：它是一个依赖于 $\psi$ 的积分泛函：计算某一点的流，需要用到全空间的波函数，因此是非局域的。所以，对于满足 Salpeter 方程的正频率解，$\rho=|\psi|^2$ 确实可以配上一个守恒流，代价是这个流不再局域。
 
-**这个原先由 DeepSeek 给出的等式是正确的。** 它看起来有点长，我们先用一维的普通导数看看，后两项到底是怎么来的。
-
-暂时把 $\psi^*$ 和 $\psi$ 分别写成 $f$ 和 $g$，用撇号表示对位置求导。我们想把 $fg''''-gf''''$ 写成一个导数。先试试板书中的前两项：
-$$
-(fg'''-gf''')'=fg''''-gf''''+f'g'''-g'f'''.
-$$
-多出了 $f'g'''-g'f'''$，所以只用这两项确实不行。但再算一下后两项：
-$$
-(-g''f'+f''g')'=-g'''f'+f'''g'.
-$$
-这里含有 $f''g''$ 的两项已经互相抵消了。再把两个式子相加，多出来的项也恰好抵消，得到
-$$
-fg''''-gf''''=(fg'''-gf'''-g''f'+f''g')'.
-$$
-这就是上面三维公式的一维版本。用同样的乘积求导法则，把普通导数换成梯度和散度，就能验证上面的公式。因此，板书 `IMG_8158.JPG` 中那个较简单的写法不成立，但补上后两项就成立了。
-
-:::
-
-再往后的高阶项，也可以用类似的方法写成散度。所以，如果只保留展开中的前几项，就能为这个近似方程写出相应的流。困难并不是“四阶项算不出来”。
-
-但是，只保留前几项毕竟是低动量下的近似，不能用它代替完整的根号。对于完整的开方方程，流仍然可以写出，只是它是一个**依赖于 $\psi$ 的积分泛函**：把整个空间中的波函数代进去，经过积分，才能得到某一点的流。换句话说，算这里的流还要知道别处的波函数，所以它是**非局域的**。这里不需要写出它的具体表达式。
-
-因此要分清两件事：**能写成连续性方程，不等于其中的流一定是局域的。** 原来开方方程中的 $\int d^3x\,|\psi|^2$ 仍然守恒，问题在于流的非局域性；而对一般的 K–G 解，这个模方积分就不一定守恒了。
-
-回到二阶的 K-G 方程。它其实有守恒流，只是密度不能取 $|\psi|^2$。定义
-
+不过，K-G 方程的确存在一个局域的流守恒方程，定义：
 $$
 \rho \equiv i\left( \psi^* \frac{\partial \psi}{\partial t} - \psi \frac{\partial \psi^*}{\partial t} \right),
 $$
 
 对它求时间导数：
-
-:::info[连续性方程的推导]
-
 $$
 \frac{\partial \rho}{\partial t} = i\left[ \frac{\partial \psi^*}{\partial t} \frac{\partial \psi}{\partial t} + \psi^* \frac{\partial^2 \psi}{\partial t^2} - \frac{\partial \psi}{\partial t} \frac{\partial \psi^*}{\partial t} - \psi \frac{\partial^2 \psi^*}{\partial t^2} \right] = i\left( \psi^* \frac{\partial^2 \psi}{\partial t^2} - \psi \frac{\partial^2 \psi^*}{\partial t^2} \right),
 $$
 
-其中两个一阶导数的乘积相消。由 K-G 方程有 $\frac{\partial^2 \psi}{\partial t^2} = \nabla^2 \psi - m^2 \psi$，代入得
-
+而由 K-G 方程，我们可以消去等号右侧的二阶时间导数：
 $$
 \frac{\partial \rho}{\partial t} = i\left[ \psi^* (\nabla^2 - m^2) \psi - \psi (\nabla^2 - m^2) \psi^* \right] = i\left( \psi^* \nabla^2 \psi - \psi \nabla^2 \psi^* \right),
 $$
 
-其中 $m^2$ 项因 $\psi^*\psi - \psi\psi^* = 0$ 而相消。再用一次上面的散度恒等式，
-
+利用乘积法则：
 $$
 \frac{\partial \rho}{\partial t} = i \nabla \cdot \left( \psi^* \nabla \psi - \psi \nabla \psi^* \right) = -\nabla \cdot \left[ i\left( \psi \nabla \psi^* - \psi^* \nabla \psi \right) \right],
 $$
 
-:::
-
-于是 K-G 方程确实给出了一条连续性方程
-
+于是有连续性方程：
 $$
 \frac{\partial \rho}{\partial t} = -\nabla \cdot \vec{j}, \qquad \vec{j} = i\left( \psi \nabla \psi^* - \psi^* \nabla \psi \right),
 $$
 
-和薛定谔流相比，这里的写法少了一个 $1/(2m)$。这是整体常数的约定：如果把 $\rho$ 和 $\vec{j}$ 同时乘上同一个常数，连续性方程仍然成立。本文沿用板书的归一化。
+:::note
+这里的流和薛定谔方程的概率流其实是同一个，只是少了一个 $1/(2m)$。这无伤大雅：等式两边 $\rho$ 和 $\vec{j}$ 同时乘上同一个常数，连续性方程仍然成立。
 
-但正负号不能随意改变：既然连续性方程写成 $\partial_t\rho=-\nabla\cdot\vec{j}$，就必须取上面的 $\vec{j}$。板书 `IMG_8159.JPG` 最后一行把空间流写反了，本文原有的符号是正确的。
-
-可惜 $\rho$ 并不具备概率密度所必需的正定性。K-G 方程在时间上二阶，$\psi$ 与 $\frac{\partial \psi}{\partial t}$ 可以独立取值，$\rho$ 的符号由二者的组合决定，而不由 $\psi$ 单独决定。以平面波解为例：
-
-:::info[平面波解的例子]
-
-对 $\psi_A = A e^{-i\omega t + i\vec{k}\cdot\vec{x}}$（$\omega = \sqrt{\vec{k}^2 + m^2}$）有 $\frac{\partial \psi_A}{\partial t} = -i\omega \psi_A$，于是
-
-$$
-\rho = i\left( \psi_A^* \frac{\partial \psi_A}{\partial t} - \psi_A \frac{\partial \psi_A^*}{\partial t} \right) = i\left( -i\omega - i\omega \right) |A|^2 = 2\omega |A|^2 > 0,
-$$
-
-而对 $\psi_B = B e^{i\omega t + i\vec{k}\cdot\vec{x}}$ 有 $\frac{\partial \psi_B}{\partial t} = i\omega \psi_B$，给出 $\rho = -2\omega |B|^2 < 0$。$\psi_A$ 与 $\psi_B$ 都是方程的解。
-
+事实上，上面那个看起来略微注意力惊人的 $\rho$ 定义，就是从这个简单的概率流出发，反代回去计算得到的结果。
 :::
 
-因此 $\rho$ 有时会是负数，不能直接当作概率密度。以后在复标量场的量子场论中，它可以用来描述守恒的荷；如果这个荷是电荷，那么有正有负就不奇怪了。
+这看起来还不错，但我们注意到 $\rho$ 并不是正定的，没有办法解释成粒子在空间中的概率分布。因此之前的尝试又失败了。
+
+不过我们后面会发现，对于复标量场，$\rho$ 可以解释为守恒荷的密度，$\vec{j}$ 是相应的流；若这个荷是电荷，就得到电荷密度与电流，因此出现负数是被允许的。
 
 ### 4. 结论
 
 我们试了两条路：保留根号，方程是非局域的；平方去掉根号，得到的 K–G 方程虽然是局域的，但把它的解直接当作普通波函数，又会遇到负能量和负概率密度的问题。
 
-这并不意味着“相对论性量子力学不存在”。例如，Dirac 方程也是相对论的波动方程。这里的意思是：不能只改一改薛定谔方程，就认为所有问题都解决了。
+还需要考虑一个更实际的问题：粒子可以产生，也可以湮灭。如果一直只用“一个粒子的位置波函数”，就无法描述粒子数发生变化的过程。
 
-还需要考虑一个更实际的问题：粒子可以产生，也可以湮灭。如果一直只用“一个粒子的位置波函数”，就无法描述粒子数发生变化的过程。量子场论提供了处理这些过程的方法。
-
-K–G 方程本身仍然是一个好的相对论方程，只是我们换一种看法：把 $\psi$ 看作场，再对场进行量子化。于是课程中的概括是：
-
+K–G 方程本身是一个好的相对论方程，只是我们不得不换一种看法：把 $\psi$ 看作场，对其进行**二次量子化**：
 $$
 \text{QM} + \text{relativity} \quad \Longrightarrow \quad \text{QFT} = \text{QM of fields},
 $$
+也就是场的量子力学。
 
-也就是场的量子力学。需要说明的是，反过来并不成立：量子场论并不以相对论为前提，也存在描述非相对论系统的量子场论。
+不过，量子场论本身并不以相对论为前提，存在描述非相对论系统的量子场论，通常在凝聚态理论中使用。
 
-### 5. 二次量子化与 Fock 空间
 
-考虑 $N$ 个自由（无相互作用）的非相对论全同粒子，其哈密顿量为
+
+## Lecture 1：二次量子化与 Lorentz 变换
+
+20 世纪初的物理学家们在面对相对论性量子力学时，最终从量子力学的谐振子得到了启发，找到了新理论的切入口。我们先来考虑 $N$ 个自由（无相互作用）的非相对论全同粒子，其哈密顿量为
 
 $$
 \hat{H}_s = -\frac{1}{2m} \sum_{j=1}^{N} \nabla_j^2, \qquad \nabla_j^2 \equiv \sum_{\alpha=1}^{3}\frac{\partial^2}{\partial (x_j^\alpha)^2},
 $$
 
-其中 $\vec{x}_j=(x_j^1,x_j^2,x_j^3)$ 是位置表象中的第 $j$ 个坐标变量，不是指定的经典轨迹。波函数是 $N$ 个位置与时间的函数 $\Psi(\vec{x}_1, \vec{x}_2, \dots, \vec{x}_N; t)$。以下省略自旋等内部指标；玻色子的 $\Psi$ 对交换两个粒子坐标对称，费米子的 $\Psi$ 反对称。采用通常的归一化 $\int d^3x_1\cdots d^3x_N\,|\Psi|^2=1$，二次量子化把态矢量写成
+其中 $\vec{x}_j$ 是第 $j$ 个粒子的位置坐标变量。波函数是 $N$ 个位置与时间的函数 $\Psi(\vec{x}_1, \vec{x}_2, \dots, \vec{x}_N; t)$。
+
+我们定义它希尔伯特空间中的态矢量写成：
 
 $$
-|\Psi(t)\rangle \equiv \frac{1}{\sqrt{N!}}\int d^3x_1 \cdots d^3x_N \, \Psi(\vec{x}_1, \dots, \vec{x}_N; t) \, a^\dagger(\vec{x}_1) \cdots a^\dagger(\vec{x}_N) |0\rangle,
+|\Psi(t)\rangle \equiv \int d^3x_1 \cdots d^3x_N \, \Psi(\vec{x}_1, \dots, \vec{x}_N; t) \, a^\dagger(\vec{x}_1) \cdots a^\dagger(\vec{x}_N) |0\rangle,
 $$
 
 其中 $a^\dagger(\vec{x})$ 与 $a(\vec{x})$ 分别是产生算符与湮灭算符：$a^\dagger(\vec{x})$ 在位置 $\vec{x}$ 处产生一个粒子；$|0\rangle$ 是没有粒子的真空态，满足
@@ -329,18 +290,841 @@ $$
 a(\vec{x}) |0\rangle = 0.
 $$
 
-前面的 $1/\sqrt{N!}$ 是归一化因子。由于粒子全同，交换它们的编号并不会得到一个新的物理状态；在通常的约定下，把这些重复的排列考虑进去，就需要这个因子来保证 $\langle\Psi|\Psi\rangle=1$。板书省略了它，也可以把它吸收进 $\Psi$，但那时 $\Psi$ 就不能再按上面的方式归一化。
+于是 $a^\dagger(\vec{x})|0\rangle$ 表示在 $\vec{x}$ 处有一个粒子的态，$a^\dagger(\vec{x})a^\dagger(\vec{y})|0\rangle$ 表示 $\vec{x}, \vec{y}$ 处分别有一个粒子的两粒子态，依此类推。
 
-于是 $a^\dagger(\vec{x})|0\rangle$ 表示在 $\vec{x}$ 处有一个粒子的态，$a^\dagger(\vec{x})a^\dagger(\vec{y})|0\rangle$ 表示相应的两粒子态，依此类推。和普通量子力学中的位置态 $|\vec{x}\rangle$ 一样，这些都是理想化的点位置态；把它们按波函数的权重叠加起来，才能得到通常的波包。
-
-所有 $N$ 粒子态组成的 Hilbert 空间记作 $\mathcal{H}_N$。对于全同粒子，还要遵守交换规则：交换两个粒子的坐标，玻色子的波函数不变，费米子的波函数变号。
-
-接下来，把零粒子、一个粒子、两个粒子……的态都放进一个更大的空间，就得到 **Fock 空间**：
+我们把所有 $N$ 粒子态组成的希尔伯特空间记作 $\mathcal{H}_N$。考虑到费米子与玻色子的区别，还需要考虑波函数的交换对称性，它们是这个空间的两个子空间。而为了自然地描述粒子数可变的系统，我们将所有的 $\mathcal{H}_N$ 取直和，就得到 **Fock 空间**：
 
 $$
 \mathcal{F} \equiv \bigoplus_{N=0}^{\infty} \mathcal{H}_N.
 $$
 
-这里的 $\bigoplus$ 叫作直和。可以把 Fock 空间想成一座按粒子数分层的楼：$\mathcal{H}_0$ 放真空态，$\mathcal{H}_1$ 放单粒子态，$\mathcal{H}_2$ 放两粒子态，依此类推。产生算符让粒子数增加一个，湮灭算符让粒子数减少一个。
+这样，产生算符与湮灭算符就变成了定义在 Fock 空间上的映射，把 $\mathcal{H}_N$ 映射到 $\mathcal{H}_{N\pm 1}$ 上。
 
-不过，有了不同的楼层，不代表系统一定会在楼层之间移动。对这里没有相互作用的自由粒子系统，粒子数仍然守恒。
+### 1. 产生算符、湮灭算符与对易关系（玻色子）
+
+按照量子谐振子的启示，上升算符将系统的态上升一个能量量子、下降算符则相反，并且还存在一个无能量的真空态。这非常像我们要处理的可变粒子数的系统，因我们定义产生、湮灭算符（玻色子），满足
+
+$$
+[a(\vec{x}),a(\vec{y})]=0,\qquad
+[a^\dagger(\vec{x}),a^\dagger(\vec{y})]=0,
+$$
+
+$$
+[a(\vec{x}),a^\dagger(\vec{y})]
+=\delta^{(3)}(\vec{x}-\vec{y}).
+$$
+
+这里 $[A,B]\equiv AB-BA$ 是对易子，$\delta^{(3)}$ 是三维 Dirac $\delta$ 函数，满足
+
+$$
+\int d^3x\,\delta^{(3)}(\vec{x}-\vec{y})f(\vec{x})=f(\vec{y}).
+$$
+
+两个产生算符可以交换顺序，所以
+
+$$
+a^\dagger(\vec{x})a^\dagger(\vec{y})|0\rangle
+=a^\dagger(\vec{y})a^\dagger(\vec{x})|0\rangle.
+$$
+
+这正对应玻色子交换两个粒子时态不变的性质。费米子要用反对易关系，这里暂不讨论。
+
+### 2. 湮灭算符怎样作用在多粒子态上？
+
+由对易关系，
+
+$$
+a(\vec{x})a^\dagger(\vec{x}_1)
+=\delta^{(3)}(\vec{x}-\vec{x}_1)
++a^\dagger(\vec{x}_1)a(\vec{x}).
+$$
+
+右边第二项由于湮灭算子先作用在真空态上，因此得到零，则有
+
+$$
+a(\vec{x})a^\dagger(\vec{x}_1)|0\rangle
+=\delta^{(3)}(\vec{x}-\vec{x}_1)|0\rangle.
+$$
+
+有两个粒子时，我们把湮灭算符一步步往右移：
+
+$$
+\begin{aligned}
+&a(\vec{x})a^\dagger(\vec{x}_1)a^\dagger(\vec{x}_2)|0\rangle\\
+&=\delta^{(3)}(\vec{x}-\vec{x}_1)a^\dagger(\vec{x}_2)|0\rangle
++a^\dagger(\vec{x}_1)a(\vec{x})a^\dagger(\vec{x}_2)|0\rangle\\
+&=\delta^{(3)}(\vec{x}-\vec{x}_1)a^\dagger(\vec{x}_2)|0\rangle
++\delta^{(3)}(\vec{x}-\vec{x}_2)a^\dagger(\vec{x}_1)|0\rangle.
+\end{aligned}
+$$
+
+每一项对应湮灭其中一个粒子。对一般的 $N$ 粒子态，反复使用对易关系，得到：
+
+$$
+a(\vec{x})\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle
+=\sum_{j=1}^{N}\delta^{(3)}(\vec{x}-\vec{x}_j)
+\prod_{k\ne j}a^\dagger(\vec{x}_k)|0\rangle.
+$$
+
+其中 $\prod_{k\ne j}$ 表示略去第 $j$ 个产生算符。最后移到最右边的湮灭算符作用于真空，贡献为零。
+
+### 3. 用产生、湮灭算符重写哈密顿量
+
+原来的 $N$ 粒子波函数满足
+
+$$
+i\frac{\partial\Psi}{\partial t}=\hat H_s\Psi,\qquad
+\hat H_s=-\frac{1}{2m}\sum_{j=1}^{N}\nabla_j^2.
+$$
+
+现在定义一个作用在 Fock 空间上的算符：
+
+$$
+\hat H=\int d^3x\,a^\dagger(\vec{x})
+\left(-\frac{\nabla_{\vec{x}}^2}{2m}\right)a(\vec{x}).
+$$
+
+这里的 $\nabla_{\vec{x}}^2$ 作用在它右边的 $a(\vec{x})$ 上。直观上，$\hat H$ 湮灭一个粒子，对它施加单粒子的动能算符，再产生一个粒子；对所有位置积分，就把这些贡献加起来了。
+
+我们要证明：把上一讲的 $|\Psi(t)\rangle$ 代进去，这个算符给出的恰好是
+
+$$
+i\frac{\partial}{\partial t}|\Psi(t)\rangle=\hat H|\Psi(t)\rangle.
+$$
+
+:::note[分部积分与边界条件]
+假设无穷远处衰减足够快，或采用使边界项消失的边界条件。两次分部积分给出：
+
+$$
+\int d^3x\,A\,\nabla^2 B
+=\int d^3x\,(\nabla^2 A)\,B.
+$$
+
+即使 $A,B$ 是算符，这个公式仍然成立，但要保持乘法顺序。
+
+证明：先看普通函数的情形。对两个乘积分别求散度，
+$$
+\nabla\cdot(A\nabla B)=(\nabla A)\cdot(\nabla B)+A\nabla^2 B,\qquad
+\nabla\cdot(B\nabla A)=(\nabla A)\cdot(\nabla B)+B\nabla^2 A.
+$$
+两式相减，相同的交叉项消去，
+$$
+A\nabla^2 B-B\nabla^2 A=\nabla\cdot(A\nabla B-B\nabla A).
+$$
+右边是一个全散度。对全空间积分后，由 Gauss 定理它等于无穷远边界上的面积分；按前面的衰减假设，这一项为零。于是
+$$
+\int d^3x\,A\,\nabla^2 B
+=\int d^3x\,B\,\nabla^2 A
+=\int d^3x\,(\nabla^2 A)\,B.
+$$
+
+对算符，乘积法则同样成立，只是乘积的次序不能改动。重复上面的计算，但把第二个散度写成不交换次序的形式：
+$$
+\nabla\cdot(A\nabla B)=(\nabla A)\cdot(\nabla B)+A\nabla^2 B,\qquad
+\nabla\cdot\bigl((\nabla A)B\bigr)=(\nabla A)\cdot(\nabla B)+(\nabla^2 A)B.
+$$
+两式中出现的交叉项是同一个乘积 $(\nabla A)\cdot(\nabla B)$，次序相同，相减时消去：
+$$
+A\nabla^2 B-(\nabla^2 A)B=\nabla\cdot\bigl(A\nabla B-(\nabla A)B\bigr).
+$$
+右边仍是全散度，积分后边界项同样消失，所以对算符等式也成立。注意这里比较的两项都是 $B$ 留在右边：$A\nabla^2 B$ 与 $(\nabla^2 A)B$；若换成 $B\nabla^2 A$，展开出的交叉项次序相反，一般就不再相消。
+:::
+
+为了少写一些符号，暂记
+
+$$
+dX\equiv d^3x_1\cdots d^3x_N,\qquad
+\Psi\equiv\Psi(\vec{x}_1,\ldots,\vec{x}_N;t).
+$$
+
+把态的展开代入 $\hat H|\Psi\rangle$，应用我们上面证明的分部积分等式：
+
+$$
+\begin{aligned}
+\hat H|\Psi\rangle
+&=-\frac{1}{2m}\int dX\,d^3x\,
+\Psi\,a^\dagger(\vec{x})
+\bigl(\nabla_{\vec{x}}^2a(\vec{x})\bigr)
+\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle\\
+&=-\frac{1}{2m}\int dX\,d^3x\,
+\Psi\,\bigl(\nabla_{\vec{x}}^2a^\dagger(\vec{x})\bigr)
+a(\vec{x})\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle.
+\end{aligned}
+$$
+
+用上一节的湮灭公式，再做 $\vec{x}$ 积分，$\delta$ 函数会把 $\vec{x}$ 换成 $\vec{x}_j$：
+
+$$
+\hat H|\Psi\rangle
+=-\frac{1}{2m}\sum_{j=1}^{N}\int dX\,
+\Psi\,\bigl(\nabla_j^2a^\dagger(\vec{x}_j)\bigr)
+\prod_{k\ne j}a^\dagger(\vec{x}_k)|0\rangle.
+$$
+
+现在对 $\vec{x}_j$ 再分部积分两次。其余产生算符都不依赖 $\vec{x}_j$，所以导数只会移到 $\Psi$ 上。最后把产生算符排回原来的顺序：
+
+$$
+\begin{aligned}
+\hat H|\Psi\rangle
+&=\int dX\,
+\left(-\frac{1}{2m}\sum_{j=1}^{N}\nabla_j^2\Psi\right)
+\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle\\
+&=\int dX\,
+(\hat H_s\Psi)\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle\\
+&=i\frac{\partial}{\partial t}|\Psi(t)\rangle.
+\end{aligned}
+$$
+
+最后一步用了波函数的薛定谔方程。在这里的薛定谔绘景中，时间依赖放在态里，展开式中的产生算符不随时间变化。
+
+所以 $\hat H_s$ 和 $\hat H$ 给出的是同一个多粒子动力学，只是写法不同。前者作用在 $N$ 粒子波函数上，后者作用在 Fock 空间中的态上。而且 $\hat H$ 的公式里不用事先指定 $N$：态中有几个粒子，湮灭公式就自动给出几项。
+
+#### 哈密顿量是厄米的吗？
+
+对 $\hat H$ 分部积分一次，可写成
+
+$$
+\hat H=\frac{1}{2m}\int d^3x\,
+\sum_{i=1}^{3}\bigl(\partial_i a^\dagger(\vec{x})\bigr)
+\bigl(\partial_i a(\vec{x})\bigr).
+$$
+
+每一项都是 $B^\dagger B$ 的形式，因此在上述边界条件下，
+
+$$
+\hat H^\dagger=\hat H.
+$$
+
+### 4. 粒子数算符与粒子数守恒
+
+定义**粒子数算符**
+
+$$
+\hat N=\int d^3x\,a^\dagger(\vec{x})a(\vec{x}).
+$$
+
+它的形式和刚才的 $\hat H$ 很像，只是中间没有动能算符。再用一次湮灭公式：
+
+$$
+\begin{aligned}
+\hat N\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle
+&=\sum_{j=1}^{N}\int d^3x\,
+\delta^{(3)}(\vec{x}-\vec{x}_j)a^\dagger(\vec{x})
+\prod_{k\ne j}a^\dagger(\vec{x}_k)|0\rangle\\
+&=N\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle.
+\end{aligned}
+$$
+
+积分后每一项都还原成原来的 $N$ 粒子态，共有 $N$ 项。由线性性，
+
+$$
+\hat N|\Psi_N\rangle=N|\Psi_N\rangle.
+$$
+
+这说明 $\hat N$ 确实在数粒子。若一个态叠加了不同粒子数的成分，它就不一定有一个确定的粒子数。
+
+#### 自由演化为什么不改变粒子数？
+
+先用对易关系算出两个有用的式子：
+
+$$
+[\hat N,a^\dagger(\vec{y})]=a^\dagger(\vec{y}),\qquad
+[\hat N,a(\vec{y})]=-a(\vec{y}).
+$$
+
+例如第一个式子，可以用 $[AB,C]=A[B,C]+[A,C]B$ 展开：
+
+$$
+\begin{aligned}
+[\hat N,a^\dagger(\vec{y})]
+&=\int d^3x\,
+\left(a^\dagger(\vec{x})[a(\vec{x}),a^\dagger(\vec{y})]
++[a^\dagger(\vec{x}),a^\dagger(\vec{y})]a(\vec{x})\right)\\
+&=\int d^3x\,a^\dagger(\vec{x})\delta^{(3)}(\vec{x}-\vec{y})
+=a^\dagger(\vec{y}).
+\end{aligned}
+$$
+
+第二个式子同理，只是 $[a^\dagger(\vec{x}),a(\vec{y})]=-\delta^{(3)}(\vec{x}-\vec{y})$，所以多一个负号。这两个结果也符合直觉：产生算符使粒子数加一，湮灭算符使粒子数减一。
+
+用它们来计算 $[\hat N,\hat H]$。由于 $\hat N$ 不依赖这里的坐标变量 $\vec{x}$，可以把空间导数放到对易子外：
+
+$$
+\begin{aligned}
+[\hat N,\hat H]
+&=-\frac{1}{2m}\int d^3x\,
+\left([\hat N,a^\dagger]\nabla^2a
++a^\dagger\nabla^2[\hat N,a]\right)\\
+&=-\frac{1}{2m}\int d^3x\,
+\left(a^\dagger\nabla^2a-a^\dagger\nabla^2a\right)=0.
+\end{aligned}
+$$
+
+这里为简洁省略了各算符的 $(\vec{x})$。这个结果意味着：若最初处在某个 $N$ 粒子态，按这个自由哈密顿量演化，以后仍在同一个 $N$ 粒子空间里。
+
+也可以用海森堡运动方程表达守恒。海森堡绘景把时间变化放在算符上；对于本身没有显式时间依赖的可观测量，
+
+$$
+\frac{d\hat O_H}{dt}=i[\hat H,\hat O_H],
+\qquad\text{也就是}\qquad
+i\frac{d\hat O_H}{dt}=[\hat O_H,\hat H].
+$$
+
+因此 $[\hat N,\hat H]=0$ 就给出 $d\hat N_H/dt=0$。
+
+*板书将 $i\,d\hat O_H/dt$ 的右边写成了 $[\hat H,\hat O_H]$；按 $[A,B]=AB-BA$ 与薛定谔方程的约定，这里应交换顺序。这个符号笔误不影响本节对易子为零的结论。*
+
+#### 什么样的项会改变粒子数？
+
+板书给了一个示意性的相互作用项。取 $\alpha$ 为实数，
+
+$$
+\hat H_{\mathrm{int}}
+=\alpha\int d^3x\,
+\left(a^\dagger a^2+(a^\dagger)^2a\right).
+$$
+
+这里的算符都在同一个位置 $\vec{x}$。第二项是第一项的厄米共轭，所以也常简写为 $a^\dagger a^2+\text{h.c.}$。
+
+$a^\dagger a^2$ 使粒子数净减少一，$(a^\dagger)^2a$ 则使粒子数净增加一。由刚才的对易关系，
+
+$$
+[\hat N,\hat H_{\mathrm{int}}]
+=\alpha\int d^3x\,
+\left(-a^\dagger a^2+(a^\dagger)^2a\right),
+$$
+
+一般不为零。因此这样的相互作用可以使态在不同粒子数的子空间之间演化。不过，并不是所有相互作用都改变粒子数，仍要看具体的哈密顿量。
+
+### 5. Lorentz 变换与 Minkowski 度规
+
+下面开始准备相对论的记号。把时间和三个空间坐标放在一起，写成
+
+$$
+x^\mu=(x^0,x^1,x^2,x^3)=(t,x,y,z).
+$$
+
+采用指标约定：
+
+- 希腊字母 $\mu,\nu,\rho,\sigma$ 取 $0,1,2,3$，包含时间与空间。
+- 拉丁字母 $i,j,k,l$ 取 $1,2,3$，只包含空间。
+
+Lorentz 变换是一类线性坐标变换，
+
+$$
+x'^\mu=\Lambda^\mu{}_\nu x^\nu.
+$$
+
+我们采用 **Einstein 求和约定**：在一项中，同一个指标出现两次，一次在上、一次在下，就默认对它求和。例如上式实际表示
+
+$$
+x'^\mu
+=\Lambda^\mu{}_0x^0+\Lambda^\mu{}_1x^1
++\Lambda^\mu{}_2x^2+\Lambda^\mu{}_3x^3.
+$$
+
+没有被求和的 $\mu$ 指出这是哪个分量的方程。可以把 $\Lambda^\mu{}_\nu$ 看成一个 $4\times4$ 矩阵，$\mu$ 是行号，$\nu$ 是列号。
+
+但不是任意矩阵都能作为 Lorentz 变换。它必须保持相对论的时空间隔不变：
+
+$$
+ds^2=-dt^2+dx^2+dy^2+dz^2.
+$$
+
+把其中的正负号放进一个矩阵，
+
+$$
+g_{\mu\nu}=
+\begin{pmatrix}
+-1&0&0&0\\
+0&1&0&0\\
+0&0&1&0\\
+0&0&0&1
+\end{pmatrix},
+$$
+
+这个矩阵叫作 **Minkowski 度规**，于是
+
+$$
+ds^2=g_{\mu\nu}\,dx^\mu dx^\nu.
+$$
+
+这里 $\mu,\nu$ 都是重复指标，所以实际上有两重求和；由于度规只有对角元非零，展开后就是上面的四项。本笔记采用 $(-,+,+,+)$ 号差约定，与上一讲的 $\Box=-\partial_t^2+\nabla^2$ 一致。
+
+### 6. 保持时空间隔不变的条件
+
+由于 $\Lambda$ 是不依赖坐标的常矩阵，$dx'^\mu=\Lambda^\mu{}_\rho dx^\rho$。代入变换后的间隔：
+
+$$
+\begin{aligned}
+ds'^2
+&=g_{\mu\nu}\,dx'^\mu dx'^\nu\\
+&=g_{\mu\nu}\Lambda^\mu{}_\rho\Lambda^\nu{}_\sigma
+\,dx^\rho dx^\sigma.
+\end{aligned}
+$$
+
+若要对任意坐标差都有 $ds'^2=ds^2$，就要求
+
+$$
+g_{\mu\nu}\Lambda^\mu{}_\rho\Lambda^\nu{}_\sigma
+=g_{\rho\sigma}.
+$$
+
+此时上面的最后一行就变成 $g_{\rho\sigma}dx^\rho dx^\sigma=ds^2$。重复指标的字母可以改名，因此这也就是板书中的
+
+$$
+g_{\rho\sigma}\Lambda^\rho{}_\mu\Lambda^\sigma{}_\nu
+=g_{\mu\nu}.
+$$
+
+同一个条件，用矩阵写法更短：
+
+$$
+\Lambda^Tg\Lambda=g.
+$$
+
+$T$ 表示矩阵转置。这个式子是 Lorentz 变换的定义条件。
+
+#### 为什么这些变换组成一个群？
+
+所有满足这个条件的实矩阵组成 **Lorentz 群** $O(3,1)$，其中 $3$ 和 $1$ 对应度规的三个正号、一个负号。我们验证其群结构。
+
+单位元为：
+
+$$
+\Lambda^\mu{}_\nu=\delta^\mu{}_\nu,\qquad x'^\mu=x^\mu.
+$$
+
+这里 $\delta^\mu{}_\nu$ 是 Kronecker $\delta$。
+
+其次，连续做两个 Lorentz 变换，结果仍然是 Lorentz 变换。若先做 $\Lambda_1$，再做 $\Lambda_2$，总变换为 $\Lambda_2\Lambda_1$，并且
+
+$$
+\begin{aligned}
+(\Lambda_2\Lambda_1)^Tg(\Lambda_2\Lambda_1)
+&=\Lambda_1^T\Lambda_2^Tg\Lambda_2\Lambda_1\\
+&=\Lambda_1^Tg\Lambda_1=g.
+\end{aligned}
+$$
+
+对于逆元，由 $\Lambda^Tg\Lambda=g$，左乘 $g^{-1}$，得到
+
+$$
+(g^{-1}\Lambda^Tg)\Lambda=I,
+$$
+
+所以逆变换为
+
+$$
+\Lambda^{-1}=g^{-1}\Lambda^Tg.
+$$
+
+把 $\Lambda^Tg\Lambda=g$ 两边分别左乘 $(\Lambda^{-1})^T$、右乘 $\Lambda^{-1}$，也得到
+
+$$
+(\Lambda^{-1})^Tg\Lambda^{-1}=g.
+$$
+
+因此逆变换本身也是 Lorentz 变换。再加上矩阵乘法本来就满足结合律，这些变换就组成了群。在当前坐标中 $g^{-1}=g$，但保留 $g^{-1}$ 的写法更能看清公式是怎么来的。
+
+### 7. 用度规升降指标
+
+板书最后介绍了指标的升降。对一个四维矢量 $V^\mu$，定义
+
+$$
+V_\mu=g_{\mu\nu}V^\nu.
+$$
+
+这叫作**降低指标**，即利用度规把矢量与协矢量联系起来。在当前坐标中，
+
+$$
+V_0=-V^0,\qquad V_1=V^1,\qquad
+V_2=V^2,\qquad V_3=V^3.
+$$
+
+反过来，用逆度规就能把指标升回去。逆度规的分量记作 $g^{\mu\nu}$，满足
+
+$$
+g^{\mu\nu}g_{\nu\rho}=\delta^\mu{}_\rho.
+$$
+
+因此
+
+$$
+g^{\mu\nu}V_\nu
+=g^{\mu\nu}g_{\nu\rho}V^\rho
+=\delta^\mu{}_\rho V^\rho
+=V^\mu.
+$$
+
+也就是说，
+
+$$
+V^\mu=g^{\mu\nu}V_\nu.
+$$
+
+这里 $g^{\mu\nu}$ 和 $g_{\mu\nu}$ 的数值都是 $\operatorname{diag}(-1,1,1,1)$，但它们分别负责升指标与降指标，不能因此把上下指标随意混写。例如两个四维矢量的内积写作
+
+$$
+V_\mu W^\mu
+=-V^0W^0+V^1W^1+V^2W^2+V^3W^3,
+$$
+
+其中时间分量前的负号，正是度规带来的。
+
+## Lecture 2：Lorentz 群、场的变换与群表示
+
+上一讲给出了 Lorentz 变换的定义：
+$$
+x'^\mu=\Lambda^\mu{}_\nu x^\nu,\qquad
+\Lambda^Tg\Lambda=g,\qquad
+g=\operatorname{diag}(-1,1,1,1).
+$$
+这个条件类似于欧氏空间中正交矩阵满足的 $R^TR=I$，只是单位矩阵被 Minkowski 度规替代了。因此 Lorentz 矩阵也称为**伪正交矩阵**，可以理解为保持 Minkowski 内积的“伪旋转”。本讲继续讨论它们的结构，再把这些变换作用到场和量子态上。
+
+### 1. Lorentz 矩阵的指标升降
+
+上一讲已经证明：
+$$
+\Lambda^{-1}=g^{-1}\Lambda^Tg.
+$$
+我们现在对 $\Lambda^\mu{}_\nu$ 降低第一个指标、升高第二个指标，定义
+$$
+\Lambda_\mu{}^\nu
+\equiv g_{\mu\rho}\Lambda^\rho{}_\sigma g^{\sigma\nu}.
+$$
+如果按第一个指标为行、第二个指标为列来排列，这个矩阵就是 $g\Lambda g^{-1}$。利用 $g$ 的对称性，
+$$
+(g\Lambda g^{-1})^T
+=g^{-1}\Lambda^Tg
+=\Lambda^{-1}.
+$$
+转回分量语言，就得到本讲反复使用的关系：
+$$
+\boxed{\Lambda_\mu{}^\nu=(\Lambda^{-1})^\nu{}_\mu.}
+$$
+注意等号右边两个指标的顺序。**升降指标与求逆并不是同一个操作**；这里是利用 Lorentz 条件，才把它们联系起来。
+
+### 2. Lorentz 群的分类
+
+#### 行列式：proper 与 improper
+
+对 $\Lambda^Tg\Lambda=g$ 两边取行列式，
+$$
+(\det\Lambda)^2\det g=\det g
+\quad\Longrightarrow\quad
+\det\Lambda=\pm1.
+$$
+我们称 $\det\Lambda=+1$ 的变换为 **proper（正）Lorentz 变换**，$\det\Lambda=-1$ 的为 **improper（非正）Lorentz 变换**。正 Lorentz 变换组成子群：
+$$
+SO(3,1)=\{\Lambda\in O(3,1)\mid\det\Lambda=1\}.
+$$
+这是因为单位元的行列式为 $1$，两个行列式为 $1$ 的矩阵相乘或取逆后，行列式仍为 $1$。
+
+#### 时间方向：orthochronous 与 non-orthochronous
+
+在 Lorentz 条件
+$$
+g_{\mu\nu}\Lambda^\mu{}_\rho\Lambda^\nu{}_\sigma=g_{\rho\sigma}
+$$
+中取 $\rho=\sigma=0$，得到
+$$
+-(\Lambda^0{}_0)^2+\delta_{ij}\Lambda^i{}_0\Lambda^j{}_0=-1.
+$$
+因此
+$$
+(\Lambda^0{}_0)^2
+=1+\sum_{i=1}^{3}(\Lambda^i{}_0)^2\ge1,
+$$
+也就是
+$$
+\Lambda^0{}_0\ge1
+\qquad\text{或}\qquad
+\Lambda^0{}_0\le-1.
+$$
+前者称为 **orthochronous（保时向）变换**，它保持未来指向的类时矢量仍然指向未来；后者则反转这个时间方向。保时向变换组成子群 $O^+(3,1)$。
+
+同时满足 proper 与 orthochronous 的变换组成
+$$
+SO^+(3,1)
+=\{\Lambda\in O(3,1)\mid
+\det\Lambda=1,\ \Lambda^0{}_0\ge1\},
+$$
+称为**正保时 Lorentz 群**。它是 $O(3,1)$ 中包含单位元的连通分支：其中每个变换都可以在群内连续地变回单位元。
+
+为什么另外几类不行？沿着一条连续路径，$\det\Lambda$ 不能从 $+1$ 跳到 $-1$，$\Lambda^0{}_0$ 也不能穿过 $(-1,1)$。反过来，正保时变换可以由空间旋转和 boost 组成，而旋转角与 boost 参数都可以连续缩到零。
+
+*板书在区分子群时写作 $SO^+(3,1)$，后面讨论场和表示时常简写成 $SO(3,1)$。下文沿用这种简写；涉及与单位元连续相连的变换时，实际指前者。*
+
+:::tip[这里的 Lie 群是什么意思？]
+Lie 群同时具有群和光滑流形的结构，并且群乘法、取逆都是光滑映射。因而我们不仅能做群乘法，还能研究单位元附近的导数，也就是无穷小变换。
+
+本讲只需要用到这个具体想法：将矩阵在单位元附近展开，保留一阶小量。Lie 群不一定连通，完整的 $O(3,1)$ 同样是 Lie 群；正保时条件选出的是它的单位连通分支。
+:::
+
+### 3. 无穷小 Lorentz 变换与六个参数
+
+考虑单位元附近的 Lorentz 变换。按板书记号，写成
+$$
+\Lambda^\mu{}_\nu
+=\delta^\mu{}_\nu+\epsilon\Omega^\mu{}_\nu,
+$$
+其中 $\epsilon$ 是无穷小参数，以下等式都只保留到一阶。逆矩阵为
+$$
+(\Lambda^{-1})^\mu{}_\nu
+=\delta^\mu{}_\nu-\epsilon\Omega^\mu{}_\nu.
+$$
+验证非常直接：
+$$
+(I-\epsilon\Omega)(I+\epsilon\Omega)
+=I+O(\epsilon^2).
+$$
+
+现在降低 $\Lambda$ 的第一个指标：
+$$
+\Lambda_{\mu\nu}=g_{\mu\nu}+\epsilon\Omega_{\mu\nu},
+\qquad
+\Omega_{\mu\nu}\equiv g_{\mu\rho}\Omega^\rho{}_\nu.
+$$
+由上一节的 $\Lambda_\mu{}^\nu=(\Lambda^{-1})^\nu{}_\mu$，再降低 $\nu$，有
+$$
+\Lambda_{\mu\nu}=(\Lambda^{-1})_{\nu\mu}.
+$$
+代入展开式，
+$$
+g_{\mu\nu}+\epsilon\Omega_{\mu\nu}
+=g_{\nu\mu}-\epsilon\Omega_{\nu\mu}.
+$$
+由于度规对称，得到
+$$
+\boxed{\Omega_{\mu\nu}=-\Omega_{\nu\mu}.}
+$$
+也就是说，**两个指标都降下来之后**，$\Omega_{\mu\nu}$ 是一个反对称矩阵。一个 $4\times4$ 反对称矩阵只有
+$$
+\frac{4(4-1)}2=6
+$$
+个独立分量，因此 Lorentz 群有六个连续参数。其中 $\Omega_{ij}$ 的三个独立分量对应空间旋转，$\Omega_{0i}$ 的三个分量对应三个空间方向上的 boost。
+
+:::note[为什么强调“降指标之后”？]
+反对称性并不是说矩阵 $\Omega^\mu{}_\nu$ 满足普通的 $\Omega^T=-\Omega$。例如
+$$
+\Omega^0{}_i=-\Omega_{0i},
+\qquad
+\Omega^i{}_0=\Omega_{i0}=-\Omega_{0i},
+$$
+所以混合时间与空间的两个矩阵元反而相等。普通的空间旋转与 boost 在这里的符号差别，来自度规的负号。
+:::
+
+### 4. 离散变换与 Poincaré 群
+
+除了与单位元连续相连的变换，板书还给出两个离散变换：
+$$
+P^\mu{}_\nu=\operatorname{diag}(1,-1,-1,-1),
+\qquad
+T^\mu{}_\nu=\operatorname{diag}(-1,1,1,1).
+$$
+$P$ 是**空间反演（parity）**，将 $(t,\vec{x})$ 变成 $(t,-\vec{x})$；$T$ 是**时间反演（time reversal）**，将 $(t,\vec{x})$ 变成 $(-t,\vec{x})$。
+
+它们都满足 Lorentz 条件，但 $\det P=\det T=-1$。$P$ 保时向，$T$ 不保时向，而 $PT=-I$ 的行列式为 $+1$，却不保时向。完整 Lorentz 群的四个连通分支可以写成：
+$$
+SO^+(3,1),\qquad
+P\,SO^+(3,1),\qquad
+T\,SO^+(3,1),\qquad
+PT\,SO^+(3,1).
+$$
+因此板书所说的两个“独立”离散变换，是指在连续变换之外，可用 $P,T$ 以及它们的乘积到达其他分支，并不是说非正变换总共只有两个。
+
+再允许时空平移，就得到 **Poincaré 变换**：
+$$
+x'^\mu=\Lambda^\mu{}_\nu x^\nu+c^\mu,
+$$
+其中 $c^\mu$ 是常矢量。平移不改变 $dx^\mu$，因此这个变换同样保持 $ds^2$。板书将相应的群记作 $ISO(3,1)$，其中 $I$ 表示 inhomogeneous（非齐次）。
+
+两个这样的变换连续作用时，
+$$
+(\Lambda_2,c_2)(\Lambda_1,c_1)
+=(\Lambda_2\Lambda_1,\ \Lambda_2c_1+c_2).
+$$
+注意平移部分不是简单的 $c_1+c_2$：第一次的平移还要经过第二次的 Lorentz 变换。
+
+*这里沿用板书的 $ISO(3,1)$，其中 Lorentz 部分取 $SO(3,1)$；若把所有反演也包括进来，完整的非齐次 Lorentz 群通常记作 $IO(3,1)$。*
+
+### 5. 标量场、矢量场与缩并
+
+有了坐标的变换，我们还需要规定场怎样变化。这里 $x$ 简写整个时空坐标 $(t,\vec{x})$，并先讨论经典场：场在每一点的取值是数，而不是量子算符。板书将这样的数称为 c-number。
+
+#### 标量场
+
+标量场 $\phi(x)$ 在 Lorentz 变换下满足
+$$
+\boxed{\phi'(x')=\phi(x).}
+$$
+这表示同一个时空点的标量值不因坐标系改变而变化。但不要删掉自变量上的撇号：由于 $x'=\Lambda x$，把两边写在同一个坐标自变量上，得到的是
+$$
+\phi'(x)=\phi(\Lambda^{-1}x),
+$$
+一般并不是 $\phi'(x)=\phi(x)$。标量的“不变”与场是不是常函数，完全是两件事。
+
+#### 矢量场与协矢量场
+
+逆变矢量场 $V^\mu(x)$ 与协变矢量场 $W_\mu(x)$ 的变换律分别为
+$$
+V'^\mu(x')=\Lambda^\mu{}_\nu V^\nu(x),
+$$
+$$
+W'_\mu(x')=\Lambda_\mu{}^\nu W_\nu(x)
+=(\Lambda^{-1})^\nu{}_\mu W_\nu(x).
+$$
+这就是熟悉的向量与对偶向量的变换律；Lorentz 变换的 Jacobian 是常矩阵 $\Lambda$，而逆变换的 Jacobian 是 $\Lambda^{-1}$。
+
+把一个上指标与一个下指标缩并，得到标量：
+$$
+\begin{aligned}
+V'^\mu(x')W'_\mu(x')
+&=\Lambda^\mu{}_\rho
+(\Lambda^{-1})^\sigma{}_\mu
+V^\rho(x)W_\sigma(x)\\
+&=\delta^\sigma{}_\rho V^\rho(x)W_\sigma(x)\\
+&=V^\rho(x)W_\rho(x).
+\end{aligned}
+$$
+两个变换矩阵互相抵消，正是缩并后不再留下自由指标的原因。
+
+#### 例子：四动量与标量场的导数
+
+粒子的四动量是一个逆变四矢量：
+$$
+p^\mu=(E,\vec{p}),\qquad E=p^0.
+$$
+按本课程的度规约定，其缩并为 $p_\mu p^\mu=-E^2+\vec{p}^{\,2}=-m^2$。
+
+另一个例子是标量场的导数：
+$$
+\partial_\mu\phi
+\equiv\frac{\partial\phi}{\partial x^\mu}
+=\left(\frac{\partial\phi}{\partial t},\vec{\nabla}\phi\right).
+$$
+它带下指标，是协矢量场。板书把证明留作练习，我们用链式法则验证：
+$$
+\begin{aligned}
+\partial'_\mu\phi'(x')
+&=\frac{\partial x^\nu}{\partial x'^\mu}
+\frac{\partial\phi(x)}{\partial x^\nu}\\
+&=(\Lambda^{-1})^\nu{}_\mu\partial_\nu\phi(x)
+=\Lambda_\mu{}^\nu\partial_\nu\phi(x).
+\end{aligned}
+$$
+因此微分算符的变换也可以简写为
+$$
+\partial'_\mu=\Lambda_\mu{}^\nu\partial_\nu.
+$$
+
+### 6. 张量场与 Lorentz 不变的方程
+
+#### 一般张量场
+
+高阶张量的规则没有新的困难：每个上指标乘一个 $\Lambda^\mu{}_\nu$，每个下指标乘一个 $\Lambda_\mu{}^\nu$。例如
+$$
+A'^{\mu\nu}(x')
+=\Lambda^\mu{}_\rho\Lambda^\nu{}_\sigma A^{\rho\sigma}(x),
+$$
+以及板书中的混合张量：
+$$
+D'^{\mu\nu}{}_{\rho\sigma\tau}(x')
+=\Lambda^\mu{}_\alpha\Lambda^\nu{}_\beta
+\Lambda_\rho{}^\gamma\Lambda_\sigma{}^\delta
+\Lambda_\tau{}^\epsilon
+D^{\alpha\beta}{}_{\gamma\delta\epsilon}(x).
+$$
+在 Lorentz 变换下，$\Lambda$ 与坐标无关，所以对一个张量场作偏导，会多出一个协变指标；缩并一对上下指标，则会减少两个指标。
+
+*这里的“偏导仍是张量”限于当前的 Lorentz 坐标变换。一般曲线坐标下，对张量场求导需要协变导数；不能把这里的结论直接搬到一般坐标变换中。*
+
+#### Klein–Gordon 方程
+
+对标量场作两次偏导，再用度规缩并，就有
+$$
+\Box\phi
+=g^{\mu\nu}\partial_\mu\partial_\nu\phi
+=\partial^\mu\partial_\mu\phi
+=-\frac{\partial^2\phi}{\partial t^2}+\nabla^2\phi.
+$$
+由于全部指标都已缩并，$\Box\phi$ 也是标量：
+$$
+\Box'\phi'(x')=\Box\phi(x).
+$$
+于是 $\Box\phi=0$ 在一个惯性系中成立，就在另一个惯性系中成立。这就是板书给出的无质量 Klein–Gordon 方程的 Lorentz 不变性。质量项 $m^2\phi$ 同样是标量，因此有质量的方程也满足：
+$$
+(\Box'-m^2)\phi'(x')
+=(\Box-m^2)\phi(x)=0.
+$$
+
+#### Maxwell 方程
+
+电磁场可以用反对称的 Faraday 张量 $F_{\mu\nu}$ 描述。板书给出的无源 Maxwell 方程为
+$$
+\partial_\mu F_{\rho\sigma}
++\partial_\rho F_{\sigma\mu}
++\partial_\sigma F_{\mu\rho}=0,
+$$
+$$
+\partial_\mu F^{\mu\nu}=0.
+$$
+第一式左边是三阶协变张量；第二式缩并了 $\mu$，只剩下自由指标 $\nu$，因而是逆变矢量。例如第二式的变换为
+$$
+\begin{aligned}
+\partial'_\mu F'^{\mu\nu}(x')
+&=\Lambda_\mu{}^\alpha\Lambda^\mu{}_\rho
+\Lambda^\nu{}_\sigma\partial_\alpha F^{\rho\sigma}(x)\\
+&=\Lambda^\nu{}_\sigma\partial_\rho F^{\rho\sigma}(x).
+\end{aligned}
+$$
+若原式为零，变换后也为零。第一式同理，所以这组方程在 Lorentz 变换下保持形式不变。
+
+*板书把第一式标作 Gauss' equation；这里保留原式，称为齐次 Maxwell 方程。它同时包含磁场的 Gauss 定律与 Faraday 感应定律。第二式的右边为零，对应无源情形。*
+
+现在可以更准确地表述相对性原理：**物理定律在不同惯性系中应当具有相同的形式**。用张量写方程的好处正是在这里：只要等式两边按相同的规则变换，在一个惯性系中成立的方程，就在另一个惯性系中成立。板书将这种性质称为 Lorentz invariant。
+
+*对带自由指标的方程，通常也称 Lorentz 协变；这里沿用板书“不变”的说法，指方程的形式不变，而不是各分量的数值不变。*
+
+### 7. 量子态上的 Lorentz 变换：群表示
+
+前面 $\Lambda$ 作用在时空坐标上，场的分量也有相应的变换律。那么，量子态应当怎样变换？
+
+我们希望给每个 Lorentz 变换 $\Lambda$ 配上一个作用在 Hilbert 空间上的可逆线性算符 $U(\Lambda)$，并且满足
+$$
+\boxed{U(\Lambda_1\Lambda_2)=U(\Lambda_1)U(\Lambda_2).}
+$$
+这称为群的一个**表示（representation）**。形式上，它是从群到线性空间上可逆线性算符群的同态。定义的重点是保留群乘法：先后实施两个时空变换，与先把它们合成、再作用到量子态上，必须给出同一个结果。
+
+由此有
+$$
+U(I)=I,\qquad
+U(\Lambda^{-1})=U(\Lambda)^{-1}.
+$$
+注意这里的 $U(\Lambda)$ 不必是 $4\times4$ 矩阵；它作用的是量子态所在的 Hilbert 空间。
+
+在量子理论中，我们主要关心**幺正表示**：
+$$
+U(\Lambda)^\dagger=U(\Lambda)^{-1}.
+$$
+若 $|\psi'\rangle=U(\Lambda)|\psi\rangle$、$|\chi'\rangle=U(\Lambda)|\chi\rangle$，则
+$$
+\langle\chi'|\psi'\rangle
+=\langle\chi|U(\Lambda)^\dagger U(\Lambda)|\psi\rangle
+=\langle\chi|\psi\rangle.
+$$
+因此态的归一化与跃迁概率不随参考系改变。这与量子力学中用幺正算符描述空间平移、时间演化的思路一致。
+
+:::note[场的变换矩阵与态的变换算符]
+这里的幺正性是对 Hilbert 空间上的 $U(\Lambda)$ 提出的，并不是要求时空矩阵 $\Lambda$ 满足 $\Lambda^\dagger\Lambda=I$。$\Lambda$ 保持的是 Minkowski 度规，即 $\Lambda^Tg\Lambda=g$；量子态的算符 $U$ 保持的是 Hilbert 空间内积。两者作用的空间不同。
+:::
+
+加上平移后，同样可以讨论 Poincaré 群的表示，记作 $U(\Lambda,c)$，其乘法遵守前面推导的群乘法：
+$$
+U(\Lambda_2,c_2)U(\Lambda_1,c_1)
+=U(\Lambda_2\Lambda_1,\Lambda_2c_1+c_2).
+$$
+
+*这里按板书先讨论普通的幺正表示，并限于连续的时空对称变换。涉及自旋时还会遇到投影表示与覆盖群；时间反演在量子态上的反幺正实现，也不包含在本节的幺正性要求中。*

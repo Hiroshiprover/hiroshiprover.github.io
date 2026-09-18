@@ -19,9 +19,13 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Instructions
-.github/copilot-instructions.md
-.github/instructions/
+# Local AI context and editor configuration (not for publication)
+/AGENTS.md
+/AGENTS.override.md
+/.shared-context/
+/.vscode/
+/.github/copilot-instructions.md
+/.github/instructions/
 
 # temporary files for AI
 /qft_boardnote
