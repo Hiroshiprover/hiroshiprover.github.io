@@ -1128,3 +1128,262 @@ U(\Lambda_2,c_2)U(\Lambda_1,c_1)
 $$
 
 *这里按板书先讨论普通的幺正表示，并限于连续的时空对称变换。涉及自旋时还会遇到投影表示与覆盖群；时间反演在量子态上的反幺正实现，也不包含在本节的幺正性要求中。*
+
+## Lecture 3：算符变换、平移生成元与经典场论
+
+上一讲把 Lorentz 变换实现为量子态上的幺正算符 $U(\Lambda)$；再加上平移，就得到 Poincaré 群的表示 $U(\Lambda,c)$。按 Wigner 定理，量子态上的对称变换由幺正或反幺正算符实现（允许相差一个相位），连续的时空对称变换属于幺正的情形。本讲先把这些算符具体作用到态与场算符上，从变换规则里读出平移的生成元；然后暂时离开算符，回到经典场，介绍拉格朗日形式与 Euler–Lagrange 方程，为后面的量子化作准备。
+
+### 1. 态与场算符的变换
+
+态矢量按 $|\psi\rangle\to U(\Lambda)|\psi\rangle$ 变换，$U(\Lambda)$ 的幺正性保证内积不变，这部分上一讲已经讨论过。本讲的新内容是算符的变换。对任意算符，变换规则取为
+$$
+\hat O\;\to\;\hat O'=U^\dagger(\Lambda)\,\hat O\,U(\Lambda).
+$$
+这样定义之后，变换后的态里的矩阵元可以完全用原来的态与变换后的算符表示：
+$$
+\langle\psi'|\hat O|\psi'\rangle
+=\langle\psi|U^\dagger\hat O U|\psi\rangle
+=\langle\psi|\hat O'|\psi\rangle.
+$$
+若一个算符在任意 Lorentz 变换下都不变，$\hat O'=\hat O$，就称它为**标量算符**；此时上式给出 $\langle\psi'|\hat O|\psi'\rangle=\langle\psi|\hat O|\psi\rangle$，标量算符的期望值在变换前后相同。这可以看作“标量”在算符层面的定义。
+
+场算符通常带时空坐标（海森堡绘景）。这时变换规则里坐标也要跟着走：
+$$
+\hat O(x)\;\to\;\hat O'(x')=U^\dagger(\Lambda)\,\hat O(x)\,U(\Lambda),
+\qquad x'=\Lambda x.
+$$
+若 $\hat\phi$ 是**标量场**，定义要求它在同一点上取相同的值：
+$$
+\hat\phi'(x')=\hat\phi(x).
+$$
+把 $x=\Lambda^{-1}x'$ 代入，再重新标记 $x'\to x$，就得到常用的形式
+$$
+U^\dagger(\Lambda)\,\hat\phi(x)\,U(\Lambda)=\hat\phi(\Lambda^{-1}x).
+$$
+对**矢量场**，除了坐标移动，分量还要按矢量表示混合：
+$$
+U^\dagger(\Lambda)\,\hat V^\mu(x)\,U(\Lambda)
+=\Lambda^\mu{}_\nu\,\hat V^\nu(\Lambda^{-1}x).
+$$
+带平移的非齐次变换 $x'=\Lambda x+c$ 不会带来新困难，同样的步骤给出
+$$
+U^\dagger(\Lambda,c)\,\hat\phi(x)\,U(\Lambda,c)
+=\hat\phi\bigl(\Lambda^{-1}(x-c)\bigr).
+$$
+
+### 2. 时空平移与生成元
+
+一个具体的例子是**四动量算符**
+$$
+\hat P^\mu=(\hat H,\hat{\vec P}),
+\qquad
+(\hat P^\mu)^\dagger=\hat P^\mu,
+$$
+其中 $\hat H$ 是哈密顿量。对纯时间平移 $t\to t'=t+c$（这属于 Poincaré 群 $ISO(3,1)$），相应的算符取为
+$$
+U(c)\equiv e^{i\hat Hc}.
+$$
+用 $\hat H^\dagger=\hat H$ 立即得到幺正性：
+$$
+U^\dagger(c)=e^{-i\hat H^\dagger c}=e^{-i\hat Hc}=U^{-1}(c).
+$$
+而指数上出现的是同一个 $\hat H$，相乘时可以直接合并指数：
+$$
+U(c_1+c_2)
+=e^{i\hat H(c_1+c_2)}
+=e^{i\hat Hc_1}e^{i\hat Hc_2}
+=U(c_1)U(c_2),
+$$
+表示性质自动满足。
+
+把它作用到标量场上，按上一节的规则：
+$$
+U^\dagger(c)\,\hat\phi(t,\vec{x})\,U(c)
+=e^{-i\hat Hc}\,\hat\phi(t,\vec{x})\,e^{i\hat Hc}
+=\hat\phi(t-c,\vec{x}).
+$$
+这对任意 $c,t$ 成立；取 $c\to-t$、$t=0$，就得到
+$$
+e^{i\hat Ht}\,\hat\phi(0,\vec{x})\,e^{-i\hat Ht}
+=\hat\phi(t,\vec{x}).
+$$
+这正是“$\hat H$ 是时间平移的生成元”的含义：把生成元放到指数上，就得到有限大小的时间平移。
+
+对一般的时空平移 $x'^\mu=x^\mu+c^\mu$，把 $\hat H$ 换成四动量：
+$$
+e^{-i\hat P\cdot x}\,\hat\phi(0)\,e^{i\hat P\cdot x}=\hat\phi(x),
+\qquad
+\hat P\cdot x=g_{\mu\nu}\hat P^\mu x^\nu
+=-\hat Ht+\hat{\vec P}\cdot\vec{x}.
+$$
+这里用了四矢量点积的记号
+$$
+a\cdot b\equiv a^\mu b_\mu=g_{\mu\nu}a^\mu b^\nu
+=-a^0b^0+\vec{a}\cdot\vec{b},
+$$
+等号右侧最后的 $\vec{a}\cdot\vec{b}$ 是通常的三维欧氏点积。
+
+把上式的 $x$ 换成 $x+a$：
+$$
+e^{-i\hat P\cdot(x+a)}\,\hat\phi(0)\,e^{i\hat P\cdot(x+a)}
+=\hat\phi(x+a).
+$$
+注意 $\hat P$ 的各分量互相对易，因此 $[e^{i\hat P\cdot a},e^{i\hat P\cdot b}]=0$，两个指数因子可以自由对调。把中间一段认出是 $\hat\phi(x)$，就得到
+$$
+e^{-i\hat P\cdot a}\,\hat\phi(x)\,e^{i\hat P\cdot a}=\hat\phi(x+a).
+$$
+
+现在设 $a^\mu$ 无穷小。一方面，$\hat\phi(x+a)=\hat\phi(x)+a^\mu\partial_\mu\hat\phi(x)+O(a^2)$；另一方面，把两个指数展开到一阶，
+$$
+[1-i\hat P\cdot a]\,\hat\phi(x)\,[1+i\hat P\cdot a]
+=\hat\phi(x)-ia^\mu\hat P_\mu\hat\phi(x)+ia^\mu\hat\phi(x)\hat P_\mu+O(a^2).
+$$
+两式在 $O(a)$ 阶相等，于是
+$$
+\boxed{\partial_\mu\hat\phi(x)=i\,[\hat\phi(x),\hat P_\mu].}
+$$
+板书称它为 **Heisenberg 方程**。当 $\mu=0$ 时，注意 $\hat P_0=-\hat P^0\equiv-\hat H$，所以
+$$
+\partial_t\hat\phi=-i[\hat\phi,\hat H],
+\qquad\text{也就是}\qquad
+i\,\partial_t\hat\phi=[\hat\phi,\hat H],
+$$
+这正是上一讲用过的海森堡运动方程。
+
+### 3. BCH 公式
+
+*（板书关于 BCH 公式的一页没有拍到，本节为按上下文补写的简要介绍。）*
+
+前面每一步之所以顺畅，靠的是指数上的算符互相对易：$\hat H$ 与自己当然对易，$\hat P$ 的各分量也对易，所以 $e^{-i\hat P\cdot a}$ 可以无代价地穿过 $e^{-i\hat P\cdot x}$。一般情况下没有这种便利。对两个不对易的算符 $A,B$，
+$$
+e^{A}e^{B}\ne e^{A+B},
+$$
+差别的完整表达式由 **Baker–Campbell–Hausdorff（BCH）公式**给出：
+$$
+e^{A}e^{B}
+=\exp\left(
+A+B+\frac12[A,B]
++\frac{1}{12}\bigl([A,[A,B]]+[B,[B,A]]\bigr)
++\cdots
+\right).
+$$
+各项都由嵌套的对易子组成，级数一般不会终止。两个常用的特殊情形是：$[A,B]=0$ 时，公式退化成 $e^{A}e^{B}=e^{A+B}$；若 $[A,B]$ 与 $A,B$ 都对易，级数在第二项之后截断，
+$$
+e^{A}e^{B}=e^{A+B+\frac12[A,B]}.
+$$
+对平移，$\hat P\cdot a$ 与 $\hat P\cdot b$ 对易，所以 $e^{i\hat P\cdot a}e^{i\hat P\cdot b}=e^{i\hat P\cdot(a+b)}$，这正是“先后平移两次等于平移一次”；前面用到的 $[e^{i\hat P\cdot a},e^{i\hat P\cdot b}]=0$ 也是同一个事实。对 Lorentz 变换则不然：六个参数对应的生成元并不两两对易，表示性质 $U(\Lambda_1)U(\Lambda_2)=U(\Lambda_1\Lambda_2)$ 要求两个指数相乘后组合出的是合成变换的生成元，其中起作用的正是生成元的对易子。可以说，BCH 公式把“群元素相乘”翻译成“生成元对易”：知道了生成元及其对易关系，就能在单位元附近重建群的乘法。
+
+### 4. 经典场论：拉格朗日量与作用量
+
+接下来把视线从算符转回经典的场。考虑一个实标量场 $\phi(x)$，它的动力学可以用拉格朗日形式重写。拉格朗日量是**拉格朗日密度** $\mathcal L[\phi]$ 对空间的积分：
+$$
+L[\phi]=\int d^3x\,\mathcal L[\phi],
+$$
+作用量再对时间积分：
+$$
+S[\phi]=\int dt\,L[\phi]
+=\int dt\,d^3x\,\mathcal L[\phi]
+=\int d^4x\,\mathcal L[\phi].
+$$
+最一般地，$\mathcal L$ 可以依赖 $\phi$、各阶导数与坐标：
+$$
+\mathcal L=\mathcal L(\phi,\partial_\mu\phi,\partial_\mu\partial_\nu\phi,\dots,x^\mu).
+$$
+实际使用的 $\mathcal L$ 还要满足几条要求，板书列出四条。**局域性**要求所有场及其导数都取在同一个 $x^\mu$ 上：$\mathcal L=\phi^2(x)+\partial_t\phi(x)+\phi(x)\partial_x\phi(x)$ 是局域的，而 $\mathcal L=\phi(x)\phi(x+a)$ 把两个不同点上的场乘在一起，不是局域的。**平移不变性**要求 $\mathcal L$ 不显含 $x^\mu$，像 $\mathcal L=\phi^2(x)+t\,\phi(x)$ 这样显含时间的形式就会破坏平移不变性。**Lorentz 不变性**要求 $\mathcal L$ 是 Lorentz 标量，而 $\mathcal L=\phi^2(x)+\partial_t\phi(x)\partial_x\phi(x)$ 把两个不同分量的导数直接相乘，不是标量。最后，通常还假定 $\mathcal L$ 只依赖 $\phi$ 与 $\partial_\mu\phi$，不出现二阶及更高阶导数，这样得到的运动方程才是二阶的。
+
+### 5. Euler–Lagrange 方程
+
+最小作用量原理说：真实的场构型使作用量取驻值。对场作无穷小变分
+$$
+\phi(x)\to\phi(x)+\delta\phi(x),
+$$
+变分时坐标 $x$ 不动，且场在无穷远处的变分与导数为零：
+$$
+\delta\phi(x)\big|_{|x|\to\infty}=0,
+\qquad
+\partial_\mu\delta\phi(x)\big|_{|x|\to\infty}=0.
+$$
+变分与求导可以交换，$\delta(\partial_\mu\phi)=\partial_\mu\delta\phi$，于是
+$$
+\delta S=\int d^4x\,\delta\mathcal L
+=\int d^4x\left(
+\frac{\partial\mathcal L}{\partial\phi}\,\delta\phi
++\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\,\delta(\partial_\mu\phi)
+\right).
+$$
+第二项可以分部积分：
+$$
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\,\partial_\mu\delta\phi
+=\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\,\delta\phi
+\right)
+-\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+\right)\delta\phi.
+$$
+第一项是全散度，积分后只剩无穷远边界上的项，由边界条件为零：
+$$
+\int d^4x\,\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\,\delta\phi
+\right)
+=\left.\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\,\delta\phi
+\right)\right|_{|x|\to\infty}=0.
+$$
+把它代回，就得到
+$$
+\delta S=\int d^4x\left[
+\frac{\partial\mathcal L}{\partial\phi}
+-\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+\right)
+\right]\delta\phi.
+$$
+由于 $\delta\phi$ 在区域内部任意，要让 $\delta S=0$，方括号只能处处为零：
+$$
+\boxed{
+\frac{\partial\mathcal L}{\partial\phi}
+-\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+\right)=0.
+}
+$$
+这就是 **Euler–Lagrange 方程**，简称 EL 方程。
+
+### 6. 二次阶的拉格朗日量与场重定义
+
+在 $\phi$ 的二次阶上，最一般的拉格朗日密度是
+$$
+\mathcal L
+=a\,\partial^\mu\phi\,\partial_\mu\phi
++b\,\phi^2+c\,\phi,
+$$
+其中 $a,b,c$ 为常数，第一项常简写为 $a(\partial\phi)^2$。若还有形如 $d^\mu\partial_\mu\phi$ 的项（$d^\mu$ 为常矢量），它可以写成全散度 $\partial_\mu(d^\mu\phi)$，不会进入 EL 方程，可以不管。把上式代入 EL 方程：
+$$
+\frac{\partial\mathcal L}{\partial\phi}=2b\phi+c,
+\qquad
+\partial_\mu\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+=\partial_\mu(2a\,\partial^\mu\phi)
+=2a\,\Box\phi,
+$$
+于是
+$$
+-2a\,\Box\phi+2b\phi+c=0.
+$$
+由于 $\mathcal L$ 只保留到二次阶，这个方程对 $\phi$ 是线性的。
+
+常数 $c$ 可以通过变量替换消掉。把 $\mathcal L$ 写成
+$$
+\mathcal L
+=a\,\partial^\mu\left(\phi+\frac{c}{2b}\right)
+\partial_\mu\left(\phi+\frac{c}{2b}\right)
++b\left(\phi+\frac{c}{2b}\right)^2
+-\frac{c^2}{4b},
+$$
+它和原来的 $\mathcal L$ 只相差一个常数。定义 $\tilde\phi\equiv\phi+\dfrac{c}{2b}$，这个操作称为**场的重定义**（field redefinition），于是
+$$
+\mathcal L
+=a\,\partial^\mu\tilde\phi\,\partial_\mu\tilde\phi
++b\,\tilde\phi^2,
+$$
+末尾的常数 $-c^2/(4b)$ 不影响 EL 方程，直接略去。为什么要在意这一步？在 QFT 中，我们通常要求 $\phi=0$ 是 EL 方程的解——它对应“没有粒子”的态；而含 $c$ 的形式只有当 $c=0$ 时才满足这一点。所以 QFT 中通常把消去 $c$ 之后的 $\tilde\phi$ 当作更基本的场变量。
