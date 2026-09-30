@@ -1,0 +1,116 @@
+---
+title: 量子态与场算符
+sidebar_position: 8
+hide_title: true
+---
+# 量子态与场算符
+
+## 1. 量子态上的 Lorentz 变换：群表示
+
+[前文](./03-lorentz-group.mdx)建立了经典场在时空变换下的规则，[经典场论（3）](./06-hamiltonian-and-noether.mdx)又把平移与能量、动量联系起来。现在考虑这些连续变换在量子态空间中的实现，用幺正算符 $U(\Lambda)$ 表示；本节限于满足下列乘法规则的变换：
+$$
+U(\Lambda_1\Lambda_2)=U(\Lambda_1)U(\Lambda_2),
+\qquad U(I)=I,
+\qquad U(\Lambda^{-1})=U(\Lambda)^{-1}.
+$$
+这样的映射称为群表示。$U(\Lambda)$ 作用在量子态上，一般不是作用在四维坐标上的矩阵 $\Lambda$。
+
+对于连续的时空变换，这里取幺正实现 $U^\dagger(\Lambda)=U^{-1}(\Lambda)$。于是 $|\psi\rangle\mapsto|\psi'\rangle=U(\Lambda)|\psi\rangle$ 保持内积。
+
+加上平移后，用 $U(\Lambda,c)$ 表示 Poincaré 变换在态空间中的作用。由场与 Lorentz 变换一章给出的 Poincaré 群乘法，
+$$
+U(\Lambda_2,c_2)U(\Lambda_1,c_1)
+=U(\Lambda_2\Lambda_1,\Lambda_2c_1+c_2).
+$$
+
+## 2. 态与场算符的变换
+
+在变换后的态中计算算符 $\hat O$ 的矩阵元，可以把作用在态上的变换移到算符上：
+$$
+\langle\psi'|\hat O|\psi'\rangle
+=\langle\psi|U^\dagger(\Lambda)\hat O U(\Lambda)|\psi\rangle.
+$$
+因此我们采用 $\hat O'=U^\dagger(\Lambda)\hat O U(\Lambda)$ 的记法。如果不依赖时空坐标的算符满足 $\hat O'=\hat O$，它就是 Lorentz 标量算符，其矩阵元在这种变换下保持不变。
+
+场算符还依赖于时空坐标。沿用第 3 篇对经典场的变换约定：对标量场，$\phi'(x')=\phi(x)$，其中 $x'=\Lambda x$。将两边写在同一个坐标自变量上，得到 $\phi'(x)=\phi(\Lambda^{-1}x)$。我们要求量子标量场的矩阵元也服从这种变换规则，因此施加如下协变条件：
+$$
+\boxed{U^\dagger(\Lambda)\hat\phi(x)U(\Lambda)
+=\hat\phi(\Lambda^{-1}x).}
+$$
+这里的标量场并不等于上一段的标量算符：它没有需要混合的 Lorentz 指标，但固定 $x$ 处的场算符一般仍会变成另一点的场算符。
+
+四矢量场除了移动自变量，还要变换分量。第 3 篇的经典变换律是 $V'^\mu(x')=\Lambda^\mu{}_\nu V^\nu(x)$；相应地，量子矢量场须满足
+$$
+\boxed{U^\dagger(\Lambda)\hat V^\mu(x)U(\Lambda)
+=\Lambda^\mu{}_\nu\hat V^\nu(\Lambda^{-1}x).}
+$$
+若 $\hat\Phi_a$ 带一般的场表示指标 $a$，两类变化可以统一记作
+$$
+U^\dagger(\Lambda)\hat\Phi_a(x)U(\Lambda)
+=D(\Lambda)_a{}^b\hat\Phi_b(\Lambda^{-1}x).
+$$
+标量场取 $D=1$，四矢量场取 $D^\mu{}_\nu=\Lambda^\mu{}_\nu$。$D$ 作用于场的分量，$U$ 作用于 Hilbert 空间中的态。
+
+对于 $x'=\Lambda x+c$，自变量改为 $\Lambda^{-1}(x-c)$，因此标量场满足
+$$
+U^\dagger(\Lambda,c)\hat\phi(x)U(\Lambda,c)
+=\hat\phi\bigl(\Lambda^{-1}(x-c)\bigr).
+$$
+对其他场，右侧还须乘相应的 $D(\Lambda)$。这些协变条件是对场算符的要求，不能仅从前面的矩阵元恒等式推出。
+
+## 3. 时空平移与生成元
+
+纯平移的生成元是四动量算符 $\hat P^\mu=(\hat H,\hat{\vec P})$，其分量为自伴算符。沿用 $(-+++)$ 度规和自然单位，
+$$
+\hat P\cdot x\equiv g_{\mu\nu}\hat P^\mu x^\nu
+=-\hat Ht+\hat{\vec P}\cdot\vec x.
+$$
+与上一节的场变换约定一致，我们取 $U(c)=e^{-i\hat P\cdot c}$；对纯时间平移 $c^\mu=(c,\vec0)$，这就是 $U(c)=e^{i\hat Hc}$。$\hat H$ 自伴使它幺正；两个时间平移的指数含同一个 $\hat H$，因此 $U(c_1+c_2)=U(c_1)U(c_2)$。
+
+将时间平移代入标量场的变换律，
+$$
+e^{-i\hat Hc}\hat\phi(t,\vec x)e^{i\hat Hc}
+=\hat\phi(t-c,\vec x).
+$$
+取左侧场的时间为零、平移参数为 $-t$，便得到海森堡绘景中的时间演化式
+$$
+\hat\phi(t,\vec x)
+=e^{i\hat Ht}\hat\phi(0,\vec x)e^{-i\hat Ht}.
+$$
+
+在具有时空平移对称性的理论中，把这一关系写成四维形式：
+$$
+\hat\phi(x)=e^{-i\hat P\cdot x}\hat\phi(0)e^{i\hat P\cdot x}.
+$$
+平移群可交换，故 $[\hat P_\mu,\hat P_\nu]=0$。把 $x$ 换为 $x+a$，两个指数都可拆成分别含 $a$ 与 $x$ 的因子：
+$$
+\begin{aligned}
+\hat\phi(x+a)
+&=e^{-i\hat P\cdot a}
+\bigl(e^{-i\hat P\cdot x}\hat\phi(0)e^{i\hat P\cdot x}\bigr)
+e^{i\hat P\cdot a}\\
+&=e^{-i\hat P\cdot a}\hat\phi(x)e^{i\hat P\cdot a}.
+\end{aligned}
+$$
+这与第 2 节的 $U^\dagger(a)\hat\phi(x)U(a)=\hat\phi(x-a)$ 一致：这里共轭表达式的第一个指数是 $U(a)$，对应正向平移 $x\mapsto x+a$。
+
+令 $a^\mu$ 无穷小。左侧按坐标展开为 $\hat\phi(x)+a^\mu\partial_\mu\hat\phi(x)+O(a^2)$；右侧则为
+$$
+(1-ia^\mu\hat P_\mu)\hat\phi(x)(1+ia^\mu\hat P_\mu)
+=\hat\phi(x)+ia^\mu[\hat\phi(x),\hat P_\mu]+O(a^2).
+$$
+比较 $a^\mu$ 的系数，得到
+$$
+\boxed{\partial_\mu\hat\phi(x)=i[\hat\phi(x),\hat P_\mu].}
+$$
+对于时间分量，$\hat P_0=-\hat H$，因而
+$$
+i\,\partial_t\hat\phi=[\hat\phi,\hat H].
+$$
+这就是[二次量子化](./02-second-quantization.mdx)中判断粒子数守恒时用到的海森堡运动方程。若算符还具有显式的时间依赖，运动方程中须另加该显式导数项。
+
+## 4. BCH 公式
+
+两个不对易的生成元一般不能把有限变换的指数直接合并。Baker–Campbell–Hausdorff（BCH）公式给出相应的对易子展开；公式及本节用到的特殊情形见[附录 C](./appendix-mathematical-tools.mdx#c-算符指数与-bch-公式)。板书推导页缺失，附录中的级数为按上下文补写，并保留来源说明。
+
+本篇给出了量子场应满足的协变关系和生成元方程，还没有从经典诺特荷构造出具体的量子算符。下一篇从自由 KG 方程求出经典实场的模展开，为这种构造准备模式变量。

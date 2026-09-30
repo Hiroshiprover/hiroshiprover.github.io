@@ -1,0 +1,101 @@
+---
+title: 7.4 巨正则系综中的密度涨落
+sidebar_position: 4
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 7.4 巨正则系综中的密度涨落
+
+本节我们计算巨正则系综中的密度涨落，其表达式为
+
+<Anchor id="eq-7-39" />
+$$
+\begin{aligned}
+\langle N^2\rangle - \langle N\rangle^2 &= \frac{k^2T^2}{\mathcal{Q}(z,V,T)}\frac{\partial^2}{\partial\mu^2}\mathcal{Q}(z,V,T) - \left[\frac{kT}{\mathcal{Q}(z,V,T)}\frac{\partial}{\partial\mu}\mathcal{Q}(z,V,T)\right]^2\\
+&= k^2T^2\frac{\partial^2}{\partial\mu^2}\ln\mathcal{Q}(z,V,T) = \frac{1}{\beta^2}\frac{\partial^2}{\partial\mu^2}\left(\frac{PV}{kT}\right) = kTV\frac{\partial^2 P}{\partial\mu^2},
+\end{aligned} \tag{7.39}
+$$
+
+其中我们用了下面的恒等式
+
+$$
+\frac{\partial^2}{\partial x^2}\ln\mathcal{Q} = \frac{\partial}{\partial x}\left(\frac{1}{\mathcal{Q}}\frac{\partial\mathcal{Q}}{\partial x}\right) = \frac{1}{\mathcal{Q}}\frac{\partial^2\mathcal{Q}}{\partial x^2} - \left(\frac{1}{\mathcal{Q}}\frac{\partial\mathcal{Q}}{\partial x}\right)^2.
+$$
+
+接下来，我们要把密度涨落（更确切地说，是右端出现的二阶导数 $\partial^2 P/\partial\mu^2$）化成更熟悉、物理意义更透明的形式。作为广延量，亥姆霍兹自由能 $A(N, V, T)$ 满足标度关系：
+
+$$
+A(\lambda N,\lambda V,T) = \lambda A(N,V,T).
+$$
+
+因此，我们可以把它写成：
+
+<Anchor id="eq-7-40" />
+$$
+A(N,V) = Na(v), \tag{7.40}
+$$
+
+其中 $v = V/N$ 为每粒子体积，$a(v)$ 为每粒子的亥姆霍兹自由能。为简单起见，我们在记号中省略温度 $T$（一个固定的外部参量）。化学势 $\mu$ 与压强 $P$（两者都是强度量）于是由下式给出：
+
+<Anchor id="eq-7-41" />
+$$
+\mu = \left\{\frac{\partial[Na(v)]}{\partial N}\right\}_V = a(v) + N\frac{\partial a}{\partial v}\frac{\partial v}{\partial N} = a(v) - v\frac{\partial a(v)}{\partial v} \tag{7.41}
+$$
+
+<Anchor id="eq-7-42" />
+$$
+P = -\left\{\frac{\partial[Na(v)]}{\partial V}\right\}_N = -N\frac{\partial a(v)}{\partial v}\frac{\partial v}{\partial V} = -\frac{\partial a(v)}{\partial v}. \tag{7.42}
+$$
+
+于是，二阶导数 $\partial^2 P/\partial\mu^2$ 可以计算如下：
+
+$$
+\begin{aligned}
+\left(\frac{\partial P}{\partial\mu}\right)_V &= -\frac{\partial^2 a}{\partial v^2}\left(\frac{\partial v}{\partial\mu}\right)_V = -\frac{\partial^2 a}{\partial v^2}\left(\frac{\partial\mu}{\partial v}\right)_V^{-1} = -\frac{\partial^2 a}{\partial v^2}\left(-v\frac{\partial^2 a}{\partial v^2}\right)^{-1} = \frac{1}{v},\\
+\left(\frac{\partial^2 P}{\partial\mu^2}\right)_V &= -\frac{1}{v^2}\left(\frac{\partial v}{\partial\mu}\right)_V = \frac{1}{v^2}\left(v\frac{\partial^2 a}{\partial v^2}\right)^{-1} = \frac{1}{v^3}\left(\frac{\partial^2 a}{\partial v^2}\right)^{-1} = -\frac{1}{v^3\partial P/\partial v}.
+\end{aligned}
+$$
+
+我们再次强调，上述推导中温度 $T$ 保持不变。回顾等温压缩系数 $\kappa_T$ 的定义
+
+<Anchor id="eq-7-43" />
+$$
+\kappa_T \equiv -\frac{1}{v}\left(\frac{\partial v}{\partial P}\right)_T = -\frac{1}{v(\partial P/\partial v)}. \tag{7.43}
+$$
+
+利用这一结果，我们最终可以把粒子密度的涨落写成
+
+<Anchor id="eq-7-44" />
+$$
+\langle N^2\rangle - \langle N\rangle^2 = kTV\frac{\partial^2 P}{\partial\mu^2} = kTV\frac{1}{v^2}\kappa_T = \langle N\rangle kT\kappa_T/v. \tag{7.44}
+$$
+
+对大多数物理系统，等温压缩系数 $\kappa_T$ 是正的且有限。在这种情况下，粒子密度的相对涨落可以忽略。当 $\kappa_T$ 发散时，情况不再如此。这种发散可以发生在一级相变处，此时 $(\partial P/\partial v)_T = 0$；也可以发生在连续相变的临界点。
+
+式 [(7.44)](#eq-7-44) 与式 [(7.18)](./02-energy-fluctuations.mdx#eq-7-18) 类似，是*涨落耗散定理*的另一个例子。该定理指出，物理量的涨落一般与相应的*广义感受率*相联系。在式 [(7.18)](./02-energy-fluctuations.mdx#eq-7-18) 中，能量涨落与定容热容 $C_V$ 相联系；在式 [(7.44)](#eq-7-44) 中，密度涨落与等温压缩系数 $\kappa_T$ 相联系。
+
+在巨正则系综中，系统含有 $N$ 个粒子的概率正比于：
+
+<Anchor id="eq-7-45" />
+$$
+W(N) = z^N Q_N(V,T) = e^{\beta[\mu N - A(N,V,T)]}, \tag{7.45}
+$$
+
+其中 $A(N,V,T)$ 是含 $N$ 个粒子的正则系综的亥姆霍兹自由能。当密度涨落可以忽略时（远离相变），$W(N)$ 在 $N = \langle N\rangle$ 处尖锐成峰，宽度约为 $\sqrt{\langle N\rangle}$。因此最概然粒子数就是平均粒子数，$\bar{N} = \langle N\rangle$。此外，
+
+$$
+\mathcal{Q}(z,V,T) = \sum_N W(N) \approx W(\bar{N}).
+$$
+
+由式 [(7.45)](#eq-7-45)，亥姆霍兹自由能由其最概然粒子数 $N = \bar{N}$ 处的值确定：
+
+<Anchor id="eq-7-46" />
+$$
+A(\bar{N},V,T) \approx \mu\bar{N} - kT\ln W(\bar{N}) = kT\left[\bar{N}\ln z - \ln\mathcal{Q}(z,V,T)\right]. \tag{7.46}
+$$
+
+这一结果与欧拉关系 $A = U - TS = -PV + \mu N$ 一致。
+
+**注：** 在相变过程中，等温压缩系数 $\kappa_T$ 发散，密度涨落变得显著（如临界乳光现象所示）。尽管如此，式 [(7.46)](#eq-7-46) 仍然成立，这一点将在本章后面说明。

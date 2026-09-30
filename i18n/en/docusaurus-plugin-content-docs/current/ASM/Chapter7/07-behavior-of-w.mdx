@@ -1,0 +1,149 @@
+---
+title: 7.7 Behavior of W(N)
+sidebar_position: 7
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 7.7 Behavior of W(N)
+
+Recall that in Eq. [(7.45)](./04-density-fluctuations.mdx#eq-7-45), we defined the unnormalized probability $W(N) = z^N Q_N(V,T)$ for a system with $N$ particles in the grand canonical ensemble. In Eq. [(7.70)](./06-ensemble-equivalence.mdx#eq-7-70), the same quantity is denoted by $e^{V\phi(V/N,z)}$. Thus, we have
+
+<Anchor id="eq-7-82" />
+$$
+W(N) = e^{V\phi(V/N,z)}. \tag{7.82}
+$$
+
+We now examine the function $\phi(V/N,z)$ in more detail to extract additional information about $W(N)$.
+
+Assuming the pressure $P(v)$ has the form illustrated in the $P-v$ diagram of Fig. 7.3. When $v$ lies in the range $v_1 \leq v \leq v_2$, the pressure has a constant value $P_0$. For this range of $v$, the function $\phi(v,z)$ (defined in Eq. [(7.72)](./06-ensemble-equivalence.mdx#eq-7-72)) has the following form
+
+$$
+\begin{aligned}
+\phi(v,z) &= \frac{1}{v}\ln z + \frac{1}{v}\int_{v_0}^{v}\beta P(v')dv' = \frac{1}{v}\ln z + \frac{1}{v}\int_{v_0}^{v_1}\beta P(v')dv' + \frac{1}{v}\int_{v_1}^{v}\beta P_0dv'\\
+&= \frac{1}{v}\left[\ln z + \int_{v_0}^{v_1}\beta P(v')dv' - \beta v_1 P_0\right] + \beta P_0.
+\end{aligned}
+$$
+
+Furthermore, the sum of the last two terms in the square bracket is just $-\ln z_0$ defined in Eq. [(7.81)](./06-ensemble-equivalence.mdx#eq-7-81). Then, we obtain
+
+<Anchor id="eq-7-83" />
+$$
+\phi(v,z) = \frac{1}{v}\ln\left(\frac{z}{z_0}\right) + \beta P_0 \qquad (v_1 < v < v_2). \tag{7.83}
+$$
+
+This equation gives rise to a family of $\phi-v$ curves in the range $v_1 \leq v \leq v_2$, one for each value of $z$. The qualitative results for three distinct cases $z > z_0$, $z = z_0$ and $z < z_0$ are shown Fig. 7.5. In this figure, we also give a qualitative
+
+![Qualitative form of the function phi(v,z) for a physical substance.](/img/asm/chap07-fig7-5.png)
+
+Figure 7.5: Qualitative form of $\phi(v,z)$ for a physical substance.
+
+sketch of the curves outside the range $v_1 \leq v \leq v_2$, guided by the following facts:
+
+1. As implied by Eq. [(7.72)](./06-ensemble-equivalence.mdx#eq-7-72), $\partial\phi/\partial v$ is continuous everywhere.
+
+2. Following Eq. [(7.73)](./06-ensemble-equivalence.mdx#eq-7-73), $\phi$ as a function of $v$ cannot have a minimum.
+
+3. From Eq. [(7.80)](./06-ensemble-equivalence.mdx#eq-7-80), $\phi$ has one and only one maximum for $z \neq z_0$.
+
+The behavior of $W(N) = e^{V\phi(v,z)}$ can be obtained immediately from that of $\phi(v,z)$. Note that the volume $V$ is always fixed in the present discussion. The results are plotted in Fig. 7.6.
+
+![The function W(N) for three typical values of z, corresponding to three different densities.](/img/asm/chap07-fig7-6.png)
+
+Figure 7.6: The function $W(N)$ for three typical values of $z$ (corresponding to three different densities). For curves $a$ and $c$ the system is in a single pure phase. For curve $b$ the system is undergoing a first-order phase transition.
+
+From this figure, we observe the following facts:
+
+1. For $z \neq z_0$, $W(N)$ exhibits a single sharp peak at some value of $N$ (see curves $a$ and $c$), which becomes infinitely sharp in the thermodynamic limit. Consequently, in the normal (single-phase) region where $\partial P/\partial V < 0$, the grand canonical ensemble is equivalent to the canonical ensemble.
+
+2. For $z = z_0$, all values of $N$ in the interval $v_1 \leq \frac{V}{N} \leq v_2$, are equally probable. The corresponding number of $N$ then reads
+
+<Anchor id="eq-7-84" />
+$$
+\left(\frac{1}{v_1} - \frac{1}{v_2}\right)V. \tag{7.84}
+$$
+
+This situation corresponds to large density fluctuations in the transition region. It is worth noting that
+
+$$
+\mathcal{Q}(z,V) = \sum_N W(N) = \left(\frac{V}{v_1} - \frac{V}{v_2}\right)e^{V\phi(\bar{v},z)},
+$$
+
+and in the thermodynamic limit,
+
+$$
+\ln\mathcal{Q}(z,V) = V\phi(\bar{v},z) = W(N), \quad V/v_2 < N < V/v_1.
+$$
+
+{/* Editor’s note (not part of the original notes): this equation remains as printed. From the preceding equation, if the flat region contains $M=(1/v_1-1/v_2)V$ equal terms, then $\mathcal{Q}=M W(N)$ and $W(N)=e^{V\phi}$. Hence $\ln\mathcal{Q}=\ln M+V\phi=\ln M+\ln W(N)$. The last term in the printed equation lacks $\ln$, and the middle equality omits $\ln M$. Only after division by $V$ and taking the thermodynamic limit, where $\ln M/V\to0$, does the limiting relation hold. */}
+
+This implies that the grand canonical ensemble remains equivalent to the canonical ensemble in the liquid–gas coexistence region of a first-order phase transition, where $\partial P/\partial v = 0$.
+
+## Remark on the first order phase transition.
+
+As shown in the $P$-$v$ diagram of Fig. 7.3, the first-order phase transition occurs over the interval $v_1 \leq v \leq v_2$. Consider a system initially in the pure low-density phase at $v = v_2$. As additional molecules are gradually introduced into the fixed volume $V$, the system responds by transferring molecules from the low-density phase to the high-density phase. Thus, the pressure stays constant throughout the transition region until the system is entirely in the pure high-density phase. The number of such transfers is proportional to $V$. Each transfer corresponds to a term in the grand partition function, and all these terms have the same value.
+
+## A brief summary.
+
+We describe the thermodynamics of a system with $N$ particles in the canonical ensemble following the steps listed below.
+
+1. Calculate the partition
+
+    $$
+    Q_N(V) = \int\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,e^{-\beta\mathscr{H}(q,p)},\qquad \text{Eq. }(7.5).
+    $$
+
+2. Calculate the Helmholtz free energy
+
+    $$
+    A(N,V) = -kT\ln Q_N(V),\qquad \text{Eq. }(7.6).
+    $$
+
+3. Switch to an intensive quantity $f(v)$ as a function of molecular volume $v = V/N$
+
+    $$
+    f(v) = -\frac{\beta}{V}A(V,N),\qquad \text{Eq. }(7.66).
+    $$
+
+4. Calculate the pressure
+
+    $$
+    P(v) = \beta\frac{\partial}{\partial v}(vf),\qquad \text{Eq. }(7.67).
+    $$
+
+5. The final step involves comparing the volume dependence of pressure derived from our theory with experimental data. This comparison enables us to refine our theoretical framework, including the Hamiltonian and any approximations employed during the calculation.
+
+It is worth noting that the aforementioned steps can be reversed. By integrating the experimentally measured $P-v$ curve, we can obtain the function $f(v)$. Subsequently, multiplying $f(v)$ by the volume $V$ yields the Helmholtz free energy and the partition function itself.
+
+In the grand canonical ensemble, the grand partition function is a weighted sum of the partition function with all possible particle number $N$
+
+{/* Editor’s note (not part of the original notes): the opening words are printed as “In the canonical ensemble”; this defines the grand partition function by summing over particle number, so the wording has been corrected here. */}
+
+$$
+\mathcal{Q}(z,V) = \sum_{N=0}^{\infty} z^N Q_N(V),\qquad \text{Eq. }(7.34).
+$$
+
+We will show the equivalence between the grand canonical ensemble and the canonical ensemble. For this purpose, a new function $\phi(V/N,z)$ is introduced to represent the partition function
+
+$$
+e^{V\phi(V/N,z)} = z^N Q_N(V) = W(N),\qquad \text{Eq. }(7.70).
+$$
+
+It has been proved that the grand partition function is dominated by the maximum of $\phi(V/N,z)$
+
+$$
+\lim_{V\to\infty}\frac{1}{V}\ln\mathcal{Q}(z,V) = \max\left[\phi\left(\frac{V}{N},z\right)\right] = \phi(\bar{v},z),\qquad \text{Eq. }(7.77),
+$$
+
+where the value of $\bar{v}$ is determined by $\partial\phi/\partial v|_{v=\bar{v}} = 0$. This equation tells us that at a fixed fugacity $z$, the grand canonical ensemble is equivalent to a canonical ensemble with fixed particle number $\bar{N} = V/\bar{v}$.
+
+If $\partial P/\partial v < 0$ ($\kappa_T$ is a finite positive number), the equivalence between the grand canonical and canonical ensembles is readily understood. This is because the relative fluctuation of particle number becomes statistically insignificant in the thermodynamic limit, and the function $\phi(v,z)$ associated with the partition function exhibits a sharp peak at the equilibrium molecular volume $v = \bar{v}$.
+
+When $\partial P/\partial v = 0$, as commonly encountered in first-order phase transitions, the peak of $\phi(v,z)$ vanishes. For instance, in the liquid-gas transition, we have shown that the function $\phi(v,z)$ for a particular value of $z = z_0$ remains flat as the volume varies within the transition region $v_1 < v < v_2$. This behavior suggests that different canonical ensembles with varying particle numbers $N$ in the range $V/v_2 < N < V/v_1$ all yield the same value of $W(N)$. As an average of these functions, the grand partition function retains the same value as each individual term $W(N)$ within the transition region, thereby resulting in the same pressure.
+
+{/* Editor’s note (not part of the original notes): “average” and “the same value as each individual term” remain as printed. By definition, the grand partition function sums the terms $W(N)$; $M$ equal terms contribute $M W(N)$, not $W(N)$. Since $\ln M/V\to0$, the pressure in the thermodynamic limit is still determined by the same leading exponential as each term. */}
+
+Finally, we have shown that, in all physically relevant cases with $\partial P/\partial v \leq 0$, the grand canonical ensemble is equivalent to the canonical ensemble.
+
+**Wait! The story is not finished.** What will happen when $\partial P/\partial v > 0$? Although representing an unstable state, this condition arises both in theoretical calculations and practical experiments. In the subsequent section, we examine the intricacies of this scenario trying to gain a deeper understanding.

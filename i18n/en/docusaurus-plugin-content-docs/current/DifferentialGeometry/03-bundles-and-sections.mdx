@@ -1,0 +1,287 @@
+---
+title: "Chapter 3: Fields: Tangent Bundle and Sections"
+sidebar_position: 4
+hide_title: true
+date: 2026-05-15
+tags: [Differential Geometry, Fibre Bundle, Topology, Linear Algebra, Calculus]
+---
+# Chapter 3: Fields: Tangent Bundle and Sections
+
+## 3.1 Tangent Bundle
+
+We use the tangent bundle to motivate the definition of a fibre bundle. The tangent bundle itself is motivated by the need for vector fields.
+
+We have all encountered vector fields in $\R^n$ — the electric field of a point charge, the magnetic field of a solenoid, and so on. Intuitively, a vector field assigns a vector to every point in space. Naturally, we can imagine the same definition on a manifold: placing one tangent vector at each point of the manifold yields a **tangent vector field**.
+
+:::note
+
+Electric and magnetic fields actually appear as the curvature of the 4‑potential; treating them as genuine vectors is slightly imprecise. The 4‑potential is an even more subtle object, which we will discuss later.
+:::
+
+To define a tangent vector field on a manifold rigorously, we must first answer the question: how do we describe such an assignment of vectors? You might think: in a coordinate system $(O,\psi)$, a vector has components $v=v^\mu\partial_\mu$. But such a description is local and coordinate‑dependent. We would like a global, canonical description. To this end, we introduce the concept of the **tangent bundle**.
+
+::::tip[Tangent Bundle]
+
+Recall: at every point $p$ of a manifold $M$ there is an associated [tangent space](./02-manifolds.mdx#tangent-space) $T_pM$. The tangent bundle is the space obtained by "collecting together" the tangent spaces of all points:
+
+$$
+TM := \bigcup_{p\in M} \{p\} \times T_pM.
+$$
+
+:::info[Tangent bundle as a manifold]
+
+If the manifold $M$ has dimension $n$, then the tangent bundle has dimension $2n$. Let $(O_\alpha,\psi_\alpha)$ be a local coordinate system on $M$. This chart induces a coordinate system $(U_\alpha,\phi_\alpha)$ on $TM$, where $U_\alpha$ is defined by
+
+$$
+U_\alpha = \{(p,v)\in TM : p\in O_\alpha,\ v\in T_pM\},
+$$
+
+and the homeomorphism $\phi_\alpha$ is defined by
+
+$$
+\phi_\alpha: U_\alpha \to \R^{2n}, \qquad
+\phi_\alpha(p,v) = (x^\mu, v^\mu),
+$$
+
+where $x^\mu$ are the coordinates of the point $p$ given by the chart on $M$, i.e. $\psi_\alpha(p)=(x^1,\dots,x^n)$, and $v^\mu$ are the components of the vector $v$ with respect to the coordinate basis, i.e. $v=v^\mu\partial_\mu$.
+:::
+
+:::note
+
+Although we have given a map from the tangent bundle to $\R^{2n}$, we have not yet specified a topology on $TM$, which means the $U_\alpha$ defined above are not yet fully justified. The remedy is straightforward: we declare a subset $V\subset TM$ to be open if and only if for every $\alpha$, the set $\phi_\alpha(V\cap\pi^{-1}(O_\alpha))$ is open in $\R^{2n}$, where $\pi$ is the natural projection of the Cartesian product used in constructing the tangent bundle:
+
+$$
+\pi: TM \to M, \qquad \pi(p,v)=p.
+$$
+
+This is precisely the bundle projection of the tangent bundle. We will explain this in greater detail when we discuss fibre bundles later.
+
+The motivation behind this seemingly messy definition is simple: it is designed to make $\phi_\alpha$ a homeomorphism. If we simply take $V=\pi^{-1}(O_\alpha)$, we see that $V$ is exactly $U_\alpha$. For $\phi_\alpha$ to be a homeomorphism, at the very least it must map open sets to open sets; hence we declare $U_\alpha$ to be open. For a more general $V$, one simply decomposes it into a union of pieces coming from different charts, and requires each piece to be a homeomorphism.
+:::
+::::
+
+:::warning
+
+The construction above only works for the tangent bundle and does **not** extend naturally to an arbitrary fibre bundle (vector bundle)! The reason is that the tangent bundle inherits a natural **local trivialisation** from the base manifold — essentially the topology we just described, or equivalently, the local coordinate systems chosen on the base manifold.
+
+We will discuss local trivialisation in greater detail later.
+:::
+
+It is easy to see that if $M$ is a smooth manifold, then $TM$ is also a smooth manifold. Its coordinate transformations are
+
+$$
+(x^\mu, v^\mu) \mapsto \left(y^\mu,\ \frac{\partial y^\mu}{\partial x^\nu}\,v^\nu\right).
+$$
+
+The smoothness of $y^\mu=y^\mu(x^\mu)$ is guaranteed by the smoothness of $M$, and $\frac{\partial y^\mu}{\partial x^\nu}v^\nu$ is a linear map, hence also smooth. The smoothness of the Jacobian matrix is likewise guaranteed by $M$.
+
+### Tangent Vector Fields
+
+Now that we have introduced the tangent bundle, we can treat a point on the manifold and a tangent vector as parts of a single object. This immediately suggests how to define a vector field: a vector field is simply a set of points $\{(p,v)\in TM\}$ where $p$ ranges over the entire manifold $M$, and $v$ takes exactly one value at each $p$. Of course, just as with curves on a manifold, we prefer to define a vector field as a map. Concretely, we define a **section**:
+
+::::tip[Section]
+
+A continuous map $\sigma: M\to TM$ satisfying
+
+$$
+\pi\circ\sigma = \mathrm{id}_M
+$$
+
+is called a **section** of the tangent bundle, or a **vector field** on the manifold $M$. Here $\pi$ is the bundle projection (the natural projection of the Cartesian product used in constructing the tangent bundle), and $\mathrm{id}_M$ is the identity map on $M$.
+
+:::note
+
+This condition merely rules out pathological behaviour, such as mapping a tangent vector $v_p$ at $p\in M$ to a different point $q\neq p$. While such a map is formally allowed, it is meaningless.
+:::
+::::
+
+You will find that defining a vector field as a map is very convenient. After all, it is simply a map from an $n$-dimensional manifold to a $2n$-dimensional manifold, and we have already defined [smoothness of maps between manifolds](./02-manifolds.mdx#22-maps-on-manifolds). We denote the set of all smooth vector fields by $\Gamma(TM)$.
+
+:::note
+
+Lest you get lost in the mathematics: up to this point, all we have done is to make rigorous the statement "a vector field assigns a vector to every point in space".
+:::
+
+### Operations on Tangent Vector Fields
+
+Now that we have rigorously defined tangent vector fields, let us consider some of their operational properties. Recall that we originally defined a [tangent vector](./02-manifolds.mdx#tangent-vector) as a derivation, so a vector field should have a natural action on scalar fields:
+
+::::tip[Action of a vector field on a scalar field]
+
+Let $X\in\Gamma(TM)$. At a point $p\in M$, we have $\mathrm{proj}_2\circ X(p)=v\in T_pM$. Since $v$ is a derivation, it acts on any scalar field: $v(f)\in\R$. We therefore define the action of the vector field $X$ on a scalar field by
+
+$$
+X': \mathscr{F}_M \to \mathscr{F}_M, \qquad
+[X'(f)](p) = [\mathrm{proj}_2\circ X(p)](f).
+$$
+
+When no confusion arises, we denote $X'$ simply by $X$. In practice, there is little opportunity for confusion.
+
+:::note
+
+Without introducing the tangent bundle, this is precisely the rigorous definition of a tangent vector field: a tangent vector field is a map $\mathscr{F}_M\to\mathscr{F}_M$, whose smoothness is determined by the smoothness of the resulting scalar fields.
+:::
+::::
+
+On the tangent space we defined linear combinations of tangent vectors: $\alpha v+\beta w$ for $v,w\in T_pM$ and $\alpha,\beta\in\R$, yielding another vector in the same tangent space. Can we define similar operations for entire vector fields? The answer is yes, and we can even allow the coefficients to vary from point to point — i.e. be scalar fields.
+
+::::tip[$C^\infty(M)$-linearity of vector fields]
+
+Define addition and scalar multiplication of vector fields by:
+
+1. Addition: $(X+Y)(p) := X(p) + Y(p)$,
+2. Scalar multiplication: $(fX)(p) := f(p)\,X(p)$,
+
+where $f\in\mathscr{F}_M$ is a scalar field and $X,Y\in\Gamma(TM)$ are vector fields.
+
+:::note
+
+The above addition and scalar multiplication should be understood under the projection:
+
+$$
+\mathrm{proj}_2\circ(X+Y)(p) = \mathrm{proj}_2\circ X(p) + \mathrm{proj}_2\circ Y(p),
+$$
+
+and
+
+$$
+\mathrm{proj}_2\circ(fX)(p) = f(p)\,\mathrm{proj}_2\circ X(p),
+$$
+
+because $X(p)$, as a point in the tangent bundle, does not have a well‑defined addition or scalar multiplication, whereas $\mathrm{proj}_2\circ X(p)\in T_pM$ is an element of a vector space, which naturally admits addition and scalar multiplication.
+
+More generally, whenever we speak of addition or scalar multiplication of sections, we implicitly perform the operation pointwise: evaluate the section at each point, perform the operation in the fibre, and define the result as a new section.
+:::
+::::
+
+::::info[$C^\infty(M)$-Module]
+
+> The following discussion departs somewhat from the main thread; readers who are not interested may skip ahead.
+
+Clearly, under the definitions above, vector fields form a structure that resembles a vector space: addition, scalar multiplication, and closure all appear to be satisfied. But this is **not** a vector space!
+
+The reason is that $\mathscr{F}_M$ is not a field. Concretely, we cannot guarantee that every smooth scalar field $f$ possesses a multiplicative inverse $g$ that is also a smooth scalar field and satisfies $f\cdot g = I$, where $I$ is the constant scalar field $I:M\to\R$, $I(p)=1$ for all $p\in M$. In fact, $\mathscr{F}_M$ forms a **ring**.
+
+:::tip[Basic abstract algebra]
+
+We first define a **group**: a group is a set equipped with a multiplication $(G,\cdot)$ satisfying:
+
+1. Identity: there exists an element $e$ such that $\forall\,g\in G$, $g\cdot e = e\cdot g = g$;
+2. Inverse: for every $g\in G$ there exists an element $g^{-1}$ such that $g\cdot g^{-1}=g^{-1}\cdot g = e$;
+3. Closure: for any $g,h\in G$ there exists a unique element $f$ with $f=g\cdot h$;
+4. Associativity: for any $f,g,h\in G$, $(f\cdot g)\cdot h = f\cdot(g\cdot h) = f\cdot g\cdot h$.
+
+If the multiplication additionally satisfies $g\cdot h = h\cdot g$ for all $g,h\in G$, the group is called **abelian**. A typical example is the additive group of real numbers: the group elements are real numbers $\R$, and the group multiplication is ordinary addition $+$. A typical non‑abelian group is the matrix multiplication group: the elements are $n\times n$ matrices, and the multiplication is matrix multiplication.
+
+Next we define a **ring**: a ring is an abelian group $(R,+)$ (the group operation is written as addition and called ring addition) equipped with a multiplication, i.e. $(R,+,\cdot)$ is called a ring. The ring multiplication must satisfy:
+
+1. Distributivity: for all $a,b,c\in R$, $a\cdot(b+c)=a\cdot b + a\cdot c$ and $(a+b)\cdot c = a\cdot c + b\cdot c$;
+2. Associativity of multiplication: for all $a,b,c\in R$, $(a\cdot b)\cdot c = a\cdot(b\cdot c) = a\cdot b\cdot c$;
+3. Multiplicative identity: there exists $1\in R$ such that $1\cdot a = a\cdot 1 = a$ for all $a\in R$ (strictly speaking, the most general definition of a ring does not require a multiplicative identity, but it is usually assumed).
+
+If the ring multiplication additionally satisfies $a\cdot b = b\cdot a$ for all $a,b\in R$, the ring is called **commutative**. A typical example is the ring of integers: the elements are integers $\Z$, ring addition is ordinary addition $+$, and ring multiplication is ordinary multiplication $\cdot$. A typical non‑commutative ring is the matrix ring: the elements are $n\times n$ matrices, ring addition is componentwise addition, and ring multiplication is matrix multiplication.
+
+If a commutative ring additionally satisfies that every non‑zero element (with respect to the additive identity $0$) has a multiplicative inverse, and $0\neq 1$, then it is called a **field**.
+:::
+
+Clearly, the addition and multiplication defined pointwise on scalar fields over a manifold satisfy the definition of a ring, and it is a commutative ring. As for the structure formed by vector fields, mathematicians call such a set — one that admits a linear structure but is not a vector space — a **module**.
+
+:::tip[Module]
+
+A module is an abelian group $(V,+)$ together with an action of a ring $R$ on $V$, written as a multiplication $R\times V\to V$ and denoted by $\cdot$, satisfying:
+
+1. Distributivity: for all $a,b\in R$ and $u,v\in V$, $a(u+v)=au+av$ and $(a+b)u = au+bu$;
+2. Compatibility with ring multiplication: for all $a,b\in R$ and $v\in V$, $a\cdot(b\cdot v) = (a\cdot b)\cdot v = a\cdot b\cdot v$;
+3. Identity: there exists $1\in R$ such that $1\cdot v = v$ for all $v\in V$.
+
+When the ring $R$ is itself a field, this definition reduces to that of a vector space.
+
+Note: a ring $R$ is itself an abelian group under its own addition, so a ring can act on itself, forming an $R$-module. Although this returns the same set $R$, it acquires a module structure that is generally non‑trivial. In particular, for non‑commutative rings, left and right actions yield different module structures.
+:::
+
+From the definitions above, it is easy to see that under the addition and scalar multiplication defined earlier, the vector fields $\Gamma(TM)$ form a $C^\infty(M)$-module.
+::::
+
+## 3.2 Introduction to Fibre Bundles
+
+Continuing from the previous section, we now give the rigorous definition of a fibre bundle.
+
+::::tip[Fibre Bundle]
+
+Formally, a quadruple $(E,B,\pi,F)$ is called a **fibre bundle** if it satisfies the following properties:
+
+1. $E,B,F$ are topological spaces;
+2. $\pi: E\to B$ is a continuous surjection;
+3. For every point $x\in B$, there exists an open neighbourhood $U\subset B$ and a homeomorphism $\varphi: \pi^{-1}(U)\subset E \to U\times F$ such that $\pi = \mathrm{proj}_1\circ\varphi$, where $\mathrm{proj}_1$ is the natural projection of $U\times F$.
+
+:::note
+
+The third condition is a requirement on the map $\pi$; a map satisfying this condition is said to be **locally trivial**. If this condition is not met, the quadruple is not a fibre bundle but merely a **fibration** of $F$ over $B$.
+:::
+
+Here $E$ is called the **total space**, $B$ the **base space**, $F$ the **fibre**, and $\pi$ the **bundle projection**.
+::::
+
+Let us now explain this in plain language. Under the local triviality condition, we easily observe that
+
+$$
+\varphi(\pi^{-1}(\{x\})) = \{x\}\times F \cong F,
+$$
+
+i.e. once local triviality is satisfied, each point of the base manifold naturally sprouts its corresponding fibre.
+
+:::info[Local trivialisation]
+
+It may be counterintuitive that the local triviality condition — requiring an open neighbourhood $U$ such that $\pi^{-1}(U)\cong U\times F$ — is **stronger** than the pointwise condition $\pi^{-1}(\{x\})\cong\{x\}\times F\cong F$, even though the latter appears more fine‑grained.
+
+Let us make an analogy. Consider a person's hair. Local triviality demands that on every small patch of the scalp, the hair is smooth and dense, while globally the hairstyle may be short, long, permed, in a bun, pigtails, straight, etc. If your scalp is not locally trivial, you might have dreadlocks, a shaved side, or bald patches.
+
+The author offers this analogy merely to aid understanding, with no intention of offending anyone. If this light‑hearted comparison happens to be offensive to you, the author sincerely apologises.
+
+The discussion above also highlights a point made earlier: the definition of the tangent bundle as
+
+$$
+TM = \bigcup_{x\in M} \{x\}\times T_xM
+$$
+
+is not fully rigorous! This is clearly a pointwise construction, and could in principle fail the local triviality condition. Fortunately, in retrospect this definition caused no real problems. The reason is that the tangent bundle inherits a natural topology from the base manifold, and the smoothness of the differentiable manifold automatically guarantees the existence of a local trivialisation. The key point is: **this method of constructing the tangent bundle cannot be naïvely generalised to the definition of other fibre bundles.**
+
+A clear counterexample is the "cylinder": let the base manifold be $S^1$ (the circle) and the fibre be $[0,1]\subset\R$. Place the centre of the circle at the origin of $\R^3$ and use cylindrical coordinates $\rho,\phi,z$. Define
+
+$$
+E = \bigcup_{x\in S^1} \{x\}\times[0,1],
+$$
+
+and impose the following rule: when the cylindrical angle $\phi$ is rational, the fibre $[0,1]$ is placed horizontally (i.e. along the radial direction $\rho$) at the corresponding point on $S^1$; when $\phi$ is irrational, the fibre $[0,1]$ is placed vertically (i.e. along the $z$ direction). One can imagine that as the angle varies, the fibre oscillates wildly, so that for a given point there is absolutely no open neighbourhood $U$ for which $\pi^{-1}(U)\cong U\times[0,1]$. This is a typical example of a fibration that fails to be a fibre bundle.
+:::
+
+We should also clarify one point: although we formally write a quadruple $(E,B,\pi,F)$, we do not actually know $E$ in advance. In fact, we use the base space $B$, the fibre $F$, and the bundle projection $\pi$ to **describe** the total space $E$.
+
+Furthermore, for an unknown fibre bundle, our knowledge of the bundle projection $\pi$ is limited to the fact that it is, in a suitable sense, equivalent to the natural projection — as expressed in the local triviality condition: $\pi = \mathrm{proj}_1\circ\varphi$. The bundle projection $\pi$ is equivalent, up to the homeomorphism provided by local trivialisation, to the natural projection of a Cartesian product. For simple fibre bundles such as the tangent bundle, it **is** the natural projection.
+
+:::note
+
+You may wonder: if two of the four components are unclear to us, how do we describe a fibre bundle at all? In fact, we have not yet introduced another crucial ingredient: the **transition functions**.
+
+What are these? They are analogous to the differentiable structure of a manifold. Suppose that for a point $x$ on the base manifold there exist two open neighbourhoods $U_\alpha$ and $U_\beta$, each equipped with a local trivialisation: $\pi = \mathrm{proj}_1\circ\varphi_\alpha = \mathrm{proj}_1\circ\varphi_\beta$. On the overlap $U = U_\alpha\cap U_\beta$, we obtain a map
+
+$$
+\varphi_\alpha\circ\varphi_\beta^{-1}: U\times F \to U\times F.
+$$
+
+By the local triviality condition, points of the base space are left unchanged, so this map acts only on the fibre. It is called a **transition function**.
+
+We will not delve deeper into this concept for now, as it requires some group theory. Once we have finished with the manifold‑related concepts, we will return to explore this topic in greater depth.
+
+In fact, both the transition functions and the bundle projection serve to describe how a fibre bundle is assembled from local Cartesian products into a global (generally) non‑trivial structure. The bundle projection captures global properties, while the transition functions (together with the structure group) capture local properties. Under suitable conditions, the two can define each other. From an axiomatic viewpoint, the bundle projection is the cleanest; but for concrete computations, specifying the transition functions is indispensable.
+
+If the reader finds the above passage incomprehensible, a sensible option is to take a half‑hour walk, return, skip the preceding paragraph, pretend to have understood it, and continue reading. The discussion above is the kind of axiomatic presentation that mathematicians adore; we were obliged to include it for the sake of rigour. The few bundles we will actually use are all very simple and trivial (at least within the scope of this article), so we shall strive to keep the material accessible while maintaining a sufficiently clean, high‑level definition.
+:::
+
+### Vector Bundles
+
+In the special case where the fibre $F$ is a vector space, i.e. $F\cong\mathbb{K}^n$ with $\mathbb{K}=\C$ or $\R$, we call the fibre bundle a **vector bundle**.
+
+*To be continued (2026-06-05)*
+
+*Coming next: the trivial bundle $M\times\R$, another way of understanding scalar fields; affine connections*

@@ -1,0 +1,172 @@
+---
+title: 7.6 正则系综与巨正则系综的等价性
+sidebar_position: 6
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 7.6 正则系综与巨正则系综的等价性
+
+若 $\partial P/\partial v < 0$，巨正则系综中几乎所有系统都具有相同的粒子数 $N$，因为相对密度涨落很小。此时，巨正则系综与正则系综的等价性是显然的。
+
+为了完整地考察正则系综与巨正则系综之间的等价性，我们必须考虑 $\partial P/\partial v = 0$ 的那些 $v$ 值。我们将说明，在这种情况下式 [(7.45)](./04-density-fluctuations.mdx#eq-7-45) 给出的函数 $W(N)$ 不再具有尖锐的极大值；尽管如此，由巨正则系综得到的状态方程仍与由正则系综得到的相符。在这个更广的意义上，两个系综总是等价的。
+
+从物理上看，条件 $\partial P/\partial v = 0$ 对应一级相变的共存区。在这一区域，式 [(7.44)](./04-density-fluctuations.mdx#eq-7-44) 使我们可以预期，系统给定体积中的密度涨落会很大。这在物理上也是合理的，因为在这种区域中系统由两种或更多密度不同的相组成。因此，任何给定体积中的粒子数都可以取很宽范围内的值，取决于各相所占的比例。在气–液系统的临界点（连续相变），密度涨落同样预期很大，因为整个系统中分子在自发地形成大团簇并瓦解。显然，在这些条件下巨正则系综必须继续给出与正则系综一致的热力学预测。否则，二者中任何一个作为物质描述的可靠性都值得怀疑，因为一个基本的实验事实是：无论我们考察整个系统（对应正则系综）还是只考察它的一个子体积（对应巨正则系综），都能得到相同的热力学信息。
+
+数学上，给定正则配分函数 $Q_N(V,T)$，我们的目标是计算巨配分函数：
+
+$$
+\mathcal{Q}(z,V,T) = \sum_{N=0}^{\infty} z^N Q_N(V,T)
+$$
+
+在给定的 $z$、$V$ 与 $T$ 值下，并回答如下问题：
+
+(a) 对于固定的 $z$，近似式 $\mathcal{Q}(z,V,T) \approx z^N Q_N(V,T)$ 是否对某个 $N$ 成立？
+
+(b) 是否总存在某个 $z$ 值，使得 $N$ 可以取任意给定的正值？
+
+显然，对任意函数 $Q_N(V,T)$，这些问题的答案通常是“否”。不过我们关心的并不是一般的函数 $Q_N(V,T)$，而是那些对应真实物理系统的配分函数。
+
+为了既能体现物理系统的主要特征、又保持数学上的简单，我们假设系统具有如下性质：
+
+- 分子被建模为有限直径的硬球，它们之间还通过有限程势相互作用。
+
+- 亥姆霍兹自由能具有如下形式
+
+    <Anchor id="eq-7-66" />
+    $$
+    A(N,V) = -\frac{1}{\beta}\ln Q_N(V) = -\frac{V}{\beta}f(v),\quad f(v) = -\frac{\beta}{v}a(v). \tag{7.66}
+    $$
+
+    温度 $T$ 将在我们的讨论中固定，不再显式写出。函数 $f(v)$ 是强度量。根据式 [(7.42)](./04-density-fluctuations.mdx#eq-7-42)，$P = -\partial_v a(v)$；因此 $f(v)$ 可以写成正则系综压强 $P(v)$ 的积分：
+
+    <Anchor id="eq-7-67" />
+    $$
+    f(v) = -\frac{\beta}{v}a(v) = \frac{1}{v}\int_{v_0}^{v}\beta P(v')dv'. \tag{7.67}
+    $$
+
+    这里积分沿一条等温线进行，$v_0$ 是任意常数，对应亥姆霍兹自由能中任意的可加常数。
+
+- 合理的假设是（换句话说，我们只考虑这种物理情形）
+
+    <Anchor id="eq-7-68" />
+    $$
+    \frac{\partial P}{\partial v} \leq 0, \tag{7.68}
+    $$
+
+    它意味着
+
+    <Anchor id="eq-7-69" />
+    $$
+    \frac{\partial^2 f(v)}{\partial(1/v)^2} = \beta v^3\frac{\partial P}{\partial v} \leq 0. \tag{7.69}
+    $$
+
+    之所以对 $f(v)$ 关于 $1/v$ 而不是 $v$ 求导，原因很快就会清楚。
+
+综合以上考虑，我们可以把巨配分函数写成如下形式
+
+<Anchor id="eq-7-70" />
+$$
+\mathcal{Q}(z,V) = \sum_{N=0}^{\infty} z^N Q_N(V) = \sum_{N=0}^{\infty} e^{N\ln z - \beta A_N(V)} = \sum_{N=0}^{\infty} e^{V\phi(V/N,z)}, \tag{7.70}
+$$
+
+其中函数 $\phi(v,z)$ 定义为
+
+<Anchor id="eq-7-71" />
+$$
+\phi(v,z) \equiv \frac{1}{V}[N\ln z - \beta A_N(V)] = \frac{1}{v}\ln z + f(v). \tag{7.71}
+$$
+
+这里逸度 $z$ 被当作控制参量。由于我们考虑的是粒子数很大的热力学系统，式 [(7.70)](#eq-7-70) 中对粒子数 $N$ 的求和由宏观 $N$ 的项主导，而小 $N$ 的项几乎不贡献。这使我们能够把亥姆霍兹自由能看作广延量，并把它写成 $A_N(V) = Na(v) = -Vf(v)/\beta$。把式 [(7.67)](#eq-7-67) 代入式 [(7.71)](#eq-7-71)，得到
+
+<Anchor id="eq-7-72" />
+$$
+\phi(v,z) = \frac{1}{v}\ln z + \frac{1}{v}\int_{v_0}^{v}\beta P(v')dv'. \tag{7.72}
+$$
+
+由式 [(7.69)](#eq-7-69)，我们有
+
+<Anchor id="eq-7-73" />
+$$
+\frac{\partial^2\phi}{\partial(1/v)^2} = \frac{\partial^2 f}{\partial(1/v)^2} \leq 0,\quad\text{或}\quad \frac{\partial^2\phi}{\partial v^2} + \frac{2}{v}\frac{\partial\phi}{\partial v} \leq 0. \tag{7.73}
+$$
+
+现在我们能看出为什么对 $f(v)$ 关于 $1/v$ 而不是关于 $v$ 求导了。
+
+现在我们来计算巨配分函数。回忆分子被假设为硬球；因此，在有限体积 $V$ 中，粒子数不能超过一个上界——密堆积极限，记作 $N_0(V)$。对于足够大的体积，我们可以定义一个密堆积密度 $\mathfrak{a}$，由下式给出
+
+<Anchor id="eq-7-74" />
+$$
+N_0(V) = \mathfrak{a}V. \tag{7.74}
+$$
+
+相应地，*巨配分函数 $\mathcal{Q}(z,V)$ 是次数为 $N_0(V)$ 的多项式*。我们把定义 $\mathcal{Q}(z,V)$ 的求和中最大的项记作 $e^{V\phi_0(z)}$，其中
+
+<Anchor id="eq-7-75" />
+$$
+\phi_0(z) = \max\left[\phi\left(\frac{V}{N},z\right)\right],\quad (N = 0,1,2,\cdots,\mathfrak{a}V). \tag{7.75}
+$$
+
+于是如下不等式成立：
+
+<Anchor id="eq-7-76" />
+$$
+\begin{aligned}
+&e^{V\phi_0(z)} \leq \mathcal{Q}(z,V) \leq N_0(V)e^{V\phi_0(z)} = \mathfrak{a}Ve^{V\phi_0(z)},\\
+&\text{或}\quad \phi_0(z) \leq \frac{1}{V}\ln\mathcal{Q}(z,V) \leq \phi_0(z) + \frac{1}{V}\ln(\mathfrak{a}V).
+\end{aligned} \tag{7.76}
+$$
+
+在热力学极限 $V \to \infty$ 下，我们得到
+
+<Anchor id="eq-7-77" />
+$$
+\lim_{V\to\infty}\frac{1}{V}\ln\mathcal{Q}(z,V) = \phi_0(z). \tag{7.77}
+$$
+
+这就对本节开头提出的问题 (a) 给出了肯定的回答。
+
+设 $\bar{v}$ 是使 $\phi(v,z)$ 取最大可能值 $\phi_0(z)$ 的某个 $v$ 值。那么函数 $\phi(v,z)$ 应当满足如下两个条件：
+
+<Anchor id="eq-7-78" />
+$$
+\left(\frac{\partial\phi}{\partial v}\right)_{v=\bar{v}} = 0, \tag{7.78}
+$$
+
+<Anchor id="eq-7-79" />
+$$
+\left(\frac{\partial^2\phi}{\partial v^2}\right)_{v=\bar{v}} \leq 0. \tag{7.79}
+$$
+
+借助式 [(7.73)](#eq-7-73)，我们发现仅第一个条件就足以确定给出 $\phi(v,z)$ 较大值的 $\bar{v}$。
+
+下面我们说明 $\bar{v}$ 与 $z$ 之间的关系。在 $v = \bar{v}$ 处对式 [(7.72)](#eq-7-72) 求导，我们得到
+
+<Anchor id="eq-7-80" />
+$$
+\begin{aligned}
+0 = \left(\frac{\partial\phi}{\partial v}\right)_{v=\bar{v}} &= -\frac{1}{\bar{v}^2}\ln z - \frac{1}{\bar{v}^2}\int_{v_0}^{\bar{v}}\beta P(v')dv' + \frac{1}{\bar{v}}\beta P(\bar{v})\\
+&\Rightarrow \int_{v_0}^{\bar{v}}P(v')dv' - \bar{v}P(\bar{v}) = -kT\ln z,\\
+&\text{或}\quad \left[\int_{v_0}^{\bar{v}}P(v')dv' - (\bar{v}-v_0)P(\bar{v})\right] - v_0P(\bar{v}) = -kT\ln z,
+\end{aligned} \tag{7.80}
+$$
+
+其中 $v_0$ 是任意小参量。式 [(7.80)](#eq-7-80) 中条件的几何意义如图 7.3 所示。方括号中的项是阴影区域 A 的面积，而式 [(7.80)](#eq-7-80) 左端余下的项是阴影区域 B 的面积。因此，$\bar{v}$ 的值使得区域 A 与 B 的面积之差等于 $-kT\ln z$。
+
+![一级相变中物质的典型等温线。](/img/asm/chap07-fig7-3.png)
+
+图 7.3：一级相变中物质的典型等温线。
+
+一个微妙之处在于，式 [(7.80)](#eq-7-80) 似乎暗示 $\bar{v}$ 依赖于初始比容 $v_0$ 的选取。然而从物理上看，$v_0$ 只是为亥姆霍兹自由能设定了参考点，平衡值 $\bar{v}$ 应当保持不变。事实理应如此：$\bar{v}$ 是平衡态的内禀性质，由 $T$ 与 $z$ 决定，而不是由任意的参考体积 $v_0$ 决定。事实上，由式 [(7.42)](./04-density-fluctuations.mdx#eq-7-42) $P = -\partial_v a(v)$，把 $v_0$ 变为 $v'_0$ 会使每粒子的亥姆霍兹自由能 $a(v) \equiv A(V)/N$ 平移一个常数 $\int_{v_0}^{v'_0}P(v')\,dv'$。由式 [(7.41)](./04-density-fluctuations.mdx#eq-7-41) $\mu = a(v) - v\partial_v a(v)$，化学势也平移同一个常数。因此，在式 [(7.72)](#eq-7-72) $\phi(v,z) = \frac{1}{v}\ln z + \frac{1}{v}\int_{v_0}^{v}\beta P(v')\,dv'$ 中，积分的变化恰好由 $\ln z$ 的相应平移所补偿，从而 $\phi(v,z)$ 本身保持不变。所以，使 $\phi(v,z)$ 最大的 $v$ 的平衡值 $\bar{v}$ 与 $v_0$ 的选取无关。
+
+![逸度作为比容的函数。](/img/asm/chap07-fig7-4.png)
+
+图 7.4：逸度 $z$ 作为 $\bar{v}$ 的函数。
+
+式 [(7.80)](#eq-7-80) 表明，对每一个大于密堆积体积的 $\bar{v}$ 值，都对应唯一的逸度 $z$。结果如图 7.4 所示。于是，本节开头提出的问题 (b) 也得到了肯定的回答。*我们要强调，尽管图 7.3 中所示的等温线和图 7.4 中作为 $\bar{v}$ 函数的逸度 $z$ 是一级相变的典型情形，我们得到的一般结论对任意等温线都成立。*式 [(7.80)](#eq-7-80) 还表明，当 $v_1 < \bar{v} < v_2$ 时 $\partial\ln z/\partial\bar{v} = 0$（可直接计算验证）。因此，区间 $v_1 \leq \bar{v} \leq v_2$ 内所有 $\bar{v}$ 值都对应同一个 $z$ 值，如图 7.4 所示。这个共同值记作 $z_0$，可以通过令 $\bar{v} = v_1$ 来确定：
+
+<Anchor id="eq-7-81" />
+$$
+\ln z_0 = \beta v_1 P_0 - \int_{v_0}^{v_1}dv'\,\beta P(v'). \tag{7.81}
+$$

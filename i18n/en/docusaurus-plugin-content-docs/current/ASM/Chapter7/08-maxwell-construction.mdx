@@ -1,0 +1,213 @@
+---
+title: 7.8 The Meaning of the Maxwell Construction
+sidebar_position: 8
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 7.8 The Meaning of the Maxwell Construction
+
+It has been established that the pressure $P$ derived in the canonical ensemble coincides with that from the grand canonical ensemble if and only if $\partial P/\partial v \leq 0$. In this section, we demonstrate that when $\partial P/\partial v > 0$ for certain values of $v$ —a situation relevant only in theoretical contexts or non-equilibrium state— the pressure in the grand canonical ensemble is obtained from the that in the canonical ensemble via the *Maxwell construction*.
+
+![Isotherm with positive derivative of the canonical pressure.](/img/asm/chap07-fig7-7.png)
+
+Figure 7.7: Isotherm with $\partial P_{\text{can}}/\partial v > 0$ for $v$ lying in the range $a < v < b$.
+
+## Canonical ensemble
+
+Let the pressure calculated in the canonical ensemble be denoted by $P_{\text{can}}(v)$. At a special temperature, it may exhibit a positive derivative over a finite range, as shown qualitatively in Fig. 7.7. Suppose the partition function can be written as
+
+<Anchor id="eq-7-85" />
+$$
+Q_N(V) = e^{VF(v)}, \tag{7.85}
+$$
+
+where $F(v)$ is another notation for $f(v)$ defined in Eq. [(7.66)](./06-ensemble-equivalence.mdx#eq-7-66). In what follows, we also introduce the notation $\Phi(v,z)$ in place of $\phi(v,z)$ defined in Eq. [(7.80)](./06-ensemble-equivalence.mdx#eq-7-80). The purpose of these new notations is to distinguish the scenarios involving unstable states in the present section from those without such states in the preceding discussion. Almost all the results obtained in previous sections regarding $f(v)$ and $\phi(v,z)$ can be readily carried over to this section by replacing them with the newly defined notations. If such a direct translation is not possible, we shall point it out.
+
+For instance, just as in Eq. [(7.67)](./06-ensemble-equivalence.mdx#eq-7-67) we construct $f(v)$ from $P(v)$, the new function $F(v)$ can be constructed from $P_{\text{can}}(v)$ in the same manner,
+
+<Anchor id="eq-7-86" />
+$$
+F(v) = \frac{1}{v}\int_{v_0}^{v}dv'\,\beta P_{\text{can}}(v'), \tag{7.86}
+$$
+
+<Anchor id="eq-7-87" />
+$$
+\text{or}\quad \beta P_{\text{can}}(v) = F(v) + v\frac{\partial F(v)}{\partial v}. \tag{7.87}
+$$
+
+Moreover, analogous to Eq. [(7.71)](./06-ensemble-equivalence.mdx#eq-7-71), we may write for the functions $\Phi$ and $F$
+
+<Anchor id="eq-7-88" />
+$$
+\Phi(v,z) = F(v) + \frac{1}{v}\ln z. \tag{7.88}
+$$
+
+According to the $P_{\text{can}}-v$ diagram in Fig. 7.7, wee that
+
+<Anchor id="eq-7-89" />
+$$
+\frac{\partial^2\Phi}{\partial v^2} + \frac{2}{v}\frac{\partial\Phi}{\partial v} = \frac{\beta}{v}\frac{\partial P_{\text{can}}}{\partial v}\begin{cases} > 0 & (a < v < b)\\ \leq 0 & (\text{otherwise}). \end{cases} \tag{7.89}
+$$
+
+Note that both $F(v)$ and $\Phi(v,z)$ pertain to systems with a fixed specific volume $v$. Once the system volume $V$ is fixed, such a system corresponds to a particular canonical ensemble with particle number $N = V/v$. Consequently, every state represented in the $P_{\text{can}}$–$v$ diagram of Fig. 7.7 can be characterized by a suitable canonical ensemble.
+
+## Grand canonical ensemble
+
+Let us now examine the same scenario presented in Fig. 7.7, utilizing the grand canonical ensemble.
+
+Note that the derivation of Eq. [(7.77)](./06-ensemble-equivalence.mdx#eq-7-77) is independent of the sign of $\partial P/\partial v$. By the same reasoning, the grand partition function in the present case is also dominated by the largest of its summands,
+
+<Anchor id="eq-7-90" />
+$$
+\lim_{V\to\infty}\frac{1}{V}\ln\mathcal{Q}(z,V) = \max[\Phi(v,z)] \equiv \Phi(\bar{v},z). \tag{7.90}
+$$
+
+From Eqs. [(7.86)](#eq-7-86)–[(7.88)](#eq-7-88) and Fig. 7.7, we see that both $\Phi$ and $\partial\Phi/\partial v$ are differentiable. The value of $\bar{v}$ is therefore determined by the following conditions:
+
+<Anchor id="eq-7-91" />
+$$
+\begin{aligned}
+\left(\frac{\partial\Phi}{\partial v}\right)_{v=\bar{v}} &= 0\\
+\left(\frac{\partial^2\Phi}{\partial v^2}\right)_{v=\bar{v}} &\leq 0
+\end{aligned} \tag{7.91}
+$$
+
+together with the following additional rule: *if there are more than one value of $\bar{v}$, we must take the one that gives the largest $\Phi(\bar{v}, z)$.* These conditions determine the value of $\bar{v}$ as a function of $z$, or vice versa. Then, the pressure in the grand canonical ensemble, denoted as $P_{\text{gr}}(\bar{v})$, is given by
+
+<Anchor id="eq-7-92" />
+$$
+\beta P_{\text{gr}}(\bar{v}) = \lim_{V\to\infty}\frac{1}{V}\ln\mathcal{Q}(z,V) = \Phi(\bar{v},z). \tag{7.92}
+$$
+
+{/* Editor’s note (not part of the original notes): the limit in Eq. (7.92) is printed as $\mathcal{Q}(z,V)/V$, without a logarithm; $\ln$ has been restored using Eq. (7.90). */}
+
+*Is this pressure $P_{\text{gr}}$ equal to $P_{\text{can}}$?*
+
+Note that the function $\Phi(v,z)$ is given by Eqs. [(7.86)](#eq-7-86) and [(7.88)](#eq-7-88). Thereby, at $v = \bar{v}$,
+
+<Anchor id="eq-7-93" />
+$$
+0 = \left(\frac{\partial\Phi}{\partial v}\right)_{v=\bar{v}} = \left(\frac{\partial F}{\partial v}\right)_{v=\bar{v}} - \frac{1}{\bar{v}^2}\ln z \quad\Rightarrow\quad \bar{v}\left(\frac{\partial F}{\partial v}\right)_{v=\bar{v}} = \frac{1}{\bar{v}}\ln z \tag{7.93}
+$$
+
+<Anchor id="eq-7-94" />
+$$
+\beta P_{\text{can}}(\bar{v}) = F(\bar{v}) + \bar{v}\left(\frac{\partial F}{\partial v}\right)_{v=\bar{v}} = F(\bar{v}) + \frac{1}{\bar{v}}\ln z = \Phi(\bar{v},z). \tag{7.94}
+$$
+
+By comparing Eq. [(7.94)](#eq-7-94) and Eq. [(7.92)](#eq-7-92), we then conclude that
+
+<Anchor id="eq-7-95" />
+$$
+P_{\text{gr}}(\bar{v}) = P_{\text{can}}(\bar{v}). \tag{7.95}
+$$
+
+At first sight, the story seems to end with the conclusion that the two ensembles are equivalent even for $\partial P/\partial v > 0$. However, the story is not over yet: the situations in the two ensembles are, in fact, different. The key point lies in the domain of $\bar{v}$. In the canonical ensemble, there is no further restriction on the specific volume $v$, whereas in the grand canonical ensemble $\bar{v}$ must satisfy the condition in Eq. [(7.91)](#eq-7-91). Therefore, the domains of $\bar{v}$ in the two ensembles may differ.
+
+## Maxwell Construction in Grand Canonical Ensemble
+
+First, $\bar{v}$ cannot lie in the interval $a \leq v \leq b$. If it did, then, according to Eq. [(7.89)](#eq-7-89), $\partial\Phi/\partial v = 0$ would imply $\partial^2\Phi/\partial v^2 > 0$, in contradiction with Eq. [(7.91)](#eq-7-91). Outside this interval, on the other hand, the condition $\partial\Phi/\partial v = 0$, which then also implies $\partial^2\Phi/\partial v^2 \leq 0$, is by itself sufficient to determine $\bar{v}$. Using Eqs. [(7.86)](#eq-7-86) and [(7.94)](#eq-7-94), we obtain
+
+<Anchor id="eq-7-96" />
+$$
+\begin{aligned}
+&\beta P_{\text{can}}(\bar{v}) = F(\bar{v}) + \frac{1}{\bar{v}}\ln z \Rightarrow kT\bar{v}F(\bar{v}) - \bar{v}P_{\text{can}}(\bar{v}) = -kT\ln z\\
+&\Rightarrow \int_{v_0}^{\bar{v}}dv'\,P_{\text{can}}(v') - \bar{v}P_{\text{can}}(\bar{v}) = -kT\ln z.
+\end{aligned} \tag{7.96}
+$$
+
+This equation determines an implicit relation between $\bar{v}$ and $z$. Differentiating both sides of Eq. [(7.96)](#eq-7-96) with respect to $\bar{v}$, we find
+
+<Anchor id="eq-7-97" />
+$$
+kT\frac{\partial\ln z}{\partial\bar{v}} = \bar{v}\frac{\partial P_{\text{can}}}{\partial\bar{v}}. \tag{7.97}
+$$
+
+Since $\bar{v} > 0$, Eq. [(7.97)](#eq-7-97) suggests that the $\ln z$–$\bar{v}$ curve is similar in shape to the $P_{\text{can}}$–$v$ curve. Both exhibit a minimum at $a$ and a maximum at $b$. However, they differ in one key respect: in the grand canonical ensemble, $\bar{v}$ cannot take values in the interval $a < \bar{v} < b$. Consequently, the plot of $z$ versus $\bar{v}$ in Fig. 7.8 shows a gap along the $\bar{v}$ axis between $a$ and $b$.
+
+![The fugacity as a function of the specific volume, showing a gap between a and b.](/img/asm/chap07-fig7-8.png)
+
+Figure 7.8: The fugacity $z$ as a function $\bar{v}$.
+
+In addition, for a given value of $z$, Eq. [(7.96)](#eq-7-96) may have two roots for $\bar{v}$. For example, as shown in Fig. (7.8), the roots are $A$ and $B$ for $z = z'$, and $B'$ and $A'$ for $z = z''$. There exists a special value of $z$, denoted by $z_0$, for which the two roots $v_1$ and $v_2$ satisfy the following two conditions:
+
+<Anchor id="eq-7-98a" />
+$$
+\int_{v_0}^{v_{1,2}}dv'\,\beta P_{\text{can}}(v') - v_{1,2}\beta P_{\text{can}}(v_{1,2}) = -\ln z_0, \tag{7.98a}
+$$
+
+<Anchor id="eq-7-98b" />
+$$
+\Phi(v_1,z_0) = \Phi(v_2,z_0). \tag{7.98b}
+$$
+
+Together with Eq. [(7.88)](#eq-7-88), $\Phi(v,z) = \frac{1}{v}[\ln z + \int_{v_0}^{v}dv'\,\beta P_{\text{can}}(v')]$, these two conditions gives rise to
+
+$$
+\begin{aligned}
+\Phi(v_1,z_0) &= \frac{1}{v_1}\left[\ln z_0 + \int_{v_0}^{v_1}dv'\,\beta P_{\text{can}}(v')\right] = \beta P_{\text{can}}(v_1)\\
+\Phi(v_2,z_0) &= \frac{1}{v_2}\left[\ln z_0 + \int_{v_0}^{v_2}dv'\,\beta P_{\text{can}}(v')\right] = \beta P_{\text{can}}(v_2)\\
+&\Rightarrow P_{\text{can}}(v_1) = P_{\text{can}}(v_2) \equiv P_0.
+\end{aligned}
+$$
+
+This means that at this special value $z_0$, two specific volumes correspond to the same $z$, and the pressures at these two volumes are equal. We denote this common pressure by $P_0$. However, it should be noted that for $z \neq z_0$, two specific volumes may also correspond to the same $z$, but the pressures at these two volumes are generally not equal.
+
+Taking the difference between the two equations in Eq. [(7.98a)](#eq-7-98a), corresponding respectively to $v_1$ and $v_2$, we obtain the following expression:
+
+<Anchor id="eq-7-99" />
+$$
+\int_{v_1}^{v_2}dv'\,P_{\text{can}}(v') - (v_2-v_1)P_{\text{can}}(v_1) = 0. \tag{7.99}
+$$
+
+This equation leads to the well-known *Maxwell construction* in the $P_{\text{can}}$–$v$ diagram shown in Fig. 7.7.
+
+Let us now return to the roots of Eq. [(7.96)](#eq-7-96) for $\bar{v}$ at a general $z$, which are also shown graphically in Fig. 7.8. Outside the interval $v_1 \leq v \leq v_2$, the $z$–$v$ curve is drawn as a solid line. Inside this interval but outside $a \leq v \leq b$, it is drawn as a dashed line. Next, we shall demonstrate that the dashed line must be discarded in the grand canonical ensemble.
+
+Consider two points, $A$ and $B$, in Fig. 7.8. They correspond to the same value of $z$, denoted by $z'$, and their specific volumes are denoted by $v_A$ and $v_B$, respectively. Since both are solutions of Eq. [(7.96)](#eq-7-96), the function $\Phi(v,z')$ has a local maximum at each of $v = v_A$ and $v = v_B$. We then have
+
+<Anchor id="eq-7-100" />
+$$
+\begin{aligned}
+-kT\ln z' &= \int_{v_0}^{v_A}dv'\,P_{\text{can}}(v') - v_AP_{\text{can}}(v_A) = \int_{v_0}^{v_B}dv'\,P_{\text{can}}(v') - v_BP_{\text{can}}(v_B)\\
+&\Rightarrow \int_{v_B}^{v_A}dv'\,P_{\text{can}}(v') = v_AP_{\text{can}}(v_A) - v_BP_{\text{can}}(v_B)
+\end{aligned} \tag{7.100}
+$$
+
+Since $z' \neq z_0$, the pressures at the two specific volumes are not equal. Let us assume that $P_{\text{can}}(v_B) < P_{\text{can}}(v_A)$. As shown in Fig. 7.7, we choose a point $C$ that has the same pressure as $A$ and lies close to $B$. Since the segment $CA$ lies above the Maxwell construction line, we obtain the following inequality:
+
+$$
+\int_{v_C}^{v_A}dv'\,P_{\text{can}}(v') < (v_A-v_C)P_{\text{can}}(v_A).
+$$
+
+Subtracting Eq. [(7.100)](#eq-7-100) from this inequality yields
+
+$$
+\int_{v_C}^{v_B}dv'\,P_{\text{can}}(v') < v_BP_{\text{can}}(v_B) - v_CP_{\text{can}}(v_A) < (v_B-v_C)P_{\text{can}}(v_B),
+$$
+
+where we use the original assumption $P_{\text{can}}(v_B) < P_{\text{can}}(v_A)$. By inspection of Fig. 7.7, we find that this inequality is impossible. Therefore, we must have
+
+<Anchor id="eq-7-101" />
+$$
+P_{\text{can}}(v_B) > P_{\text{can}}(v_A),\quad\text{and}\quad \Phi(v_B,z') > \Phi(v_A,z'). \tag{7.101}
+$$
+
+In the same way, we also find
+
+<Anchor id="eq-7-102" />
+$$
+P_{\text{can}}(v_{A'}) > P_{\text{can}}(v_{B'}),\quad\text{and}\quad \Phi(v_{A'},z'') > \Phi(v_{B'},z''). \tag{7.102}
+$$
+
+Recall that in the thermodynamic limit, the grand partition function is dominated by its largest term, as described in Eqs. [(7.77)](./06-ensemble-equivalence.mdx#eq-7-77) and [(7.92)](#eq-7-92). Consequently, the dashed portions of the curves in Fig. 7.8 must be discarded.
+
+The pressure $P_{\text{gr}}(\bar{v})$ is plotted as solid lines in Fig. 7.9. This is equivalent to $P_{\text{can}}(\bar{v})$ but excludes the region between $v_1$ and $v_2$, because there is no $z$ that will give a $\bar{v}$ lying in that interval. In other words, in the grand canonical ensemble the system cannot have a uniform phase with constant specific volume in that interval. We can, however, fill in a horizontal line at $P_0$ by the usual arguments, namely, that since the systems at $v_1$ and $v_2$ have the same temperature, pressure, and chemical potential, a system at $v_1$ can coexist with a system at $v_2$ with any relative amount of each present.
+
+![The pressure in the grand canonical ensemble (solid lines).](/img/asm/chap07-fig7-9.png)
+
+Figure 7.9: The pressure in the grand canonical ensemble (solid lines).
+
+**Final remark:** It is an experimental fact that $\partial P/\partial v \leq 0$. It could not be otherwise: the system would then be in a highly unstable situation, in which reducing the pressure applied to it would cause it to shrink. The quantity $P_{\text{can}}$ is obtained from a (generally approximate) calculation and may or may not possess this desirable property. However, the corresponding pressure in the grand canonical ensemble always satisfies the stability condition, because the ensemble explicitly includes all possible density fluctuations of the system. Note that although the intervals $v_1 < v < a$ and $b < v < v_2$ are excluded from the grand canonical ensemble, they also satisfy $\partial P/\partial v \leq 0$ and are accessible as metastable states, corresponding respectively to a superheated liquid and a supercooled gas.

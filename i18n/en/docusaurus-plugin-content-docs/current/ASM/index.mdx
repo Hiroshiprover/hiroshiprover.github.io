@@ -1,0 +1,76 @@
+---
+title: Advanced Statistical Mechanics
+sidebar_position: 1
+hide_title: true
+slug: /05-ASM
+date: 2026-09-20
+tags: [Statistical Mechanics]
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+:::note[Attribution]
+
+This document is not my original work. It consists of the class notes for **Advanced Statistical Mechanics**, provided directly by the course instructor **Fei Ye (叶飞)**. The reference textbook is Kerson Huang, *Statistical Mechanics*.
+
+The text below is reproduced verbatim from the original notes; only the typography has been adapted for the web: equations are typeset with KaTeX, the figures are extracted from the original PDF, and footnotes and navigation are formatted for online reading.
+
+:::
+
+# Note on Statistical Mechanics
+
+F. Ye
+
+September 5, 2026
+
+In our undergraduate curriculum, the fundamental laws of physics are organized into four core courses: analytical mechanics, which summarizes the laws of classical motion; electrodynamics, which describes electromagnetic phenomena; quantum mechanics, which governs microscopic physics such as atomic spectra; and statistical mechanics, which explains thermal phenomena. Among these four subjects, the laws of statistical mechanics differ fundamentally from those of the other three: statistical mechanics deals with macroscopic systems that possess an enormous number of degrees of freedom, whereas analytical mechanics, electrodynamics, and quantum mechanics—at least as presented in the undergraduate curriculum—are primarily formulated for systems with few degrees of freedom.
+
+Consider a system of $N$ particles whose state is specified by canonical coordinates $q_{i}$ and conjugate momenta $p_{i}(i= 1, . . . , N).$ In classical mechanics, its time evolution is governed by Hamilton’s canonical equations:
+
+<Anchor id="eq-0-1" />
+$$
+\dot{q}_i = \frac{\partial \mathscr{H}}{\partial p_i},\quad \dot{p}_i = -\frac{\partial \mathscr{H}}{\partial q_i}, \tag{0.1}
+$$
+
+where the Hamiltonian $\mathscr{H}(\mathbf{q},\mathbf{p})$ depends only on the phase-space variables $(q_{i}, p_{i})$ and has no explicit time dependence. In the quantum mechanical treatment, the state is specified by a wave function $\Psi(q_{1}, . . . , q_{N}, t),$ which obeys the Schrödinger equation:
+
+<Anchor id="eq-0-2" />
+$$
+i\hbar\frac{\partial}{\partial t}\Psi(\mathbf{q},t) = \hat{H}\Psi(\mathbf{q},t). \tag{0.2}
+$$
+
+Here the Hamiltonian operator $\hat{H}$ is obtained from the classical Hamiltonian by canonical quantization, i.e., by replacing each momentum $p_{i}$ with $-i\bar{h} \partial/\partial q_{i}.$
+
+For small molecule number $N,$ both [(0.1)](#eq-0-1) and [(0.2)](#eq-0-2) remain computationally tractable, even with electromagnetic fields incorporated through minimal coupling. When the molecule number increases, the computational complexity increases exponentially with $N,$ making solutions infeasible for macroscopic systems like gases or crystals with $\sim10^{23}!$ molecules.
+
+However, this does not preclude the study of macroscopic systems. In fact, as is well known, gases, liquids, and solids can be effectively described by a small set of macroscopic variables—such as temperature, pressure, volume, and current density—without reference to the mechanical laws governing individual molecules. This approach forms the basis of thermodynamics, a discipline developed long before the atomic theory of matter. For example, the macroscopic laws of such systems include the equation of state for gases, the Navier–Stokes equations for fluids, Curie-Weiss law for ferromagnets above the critical temperature, and the macroscopic Maxwell equations for different dielectrics.
+
+Once matter was understood as composed of atoms, interpreting thermal phenomena via the mechanical laws of the microscopic atoms became a central physical challenge. Since solving the equations of motion (Eqs. [(0.1)](#eq-0-1) and [(0.2)](#eq-0-2)) for systems of $\sim10^{23}$ particles is definitely impossible. New physical principles, that can effectively reduce the vast number of microscopic degrees of freedom to a manageable set of thermodynamic variables, were required to bridge the gap between microscopic dynamics and macroscopic thermodynamics.
+
+Remarkably, the immense number of particles—which precludes tracking the motion of each individual—becomes the very feature that enables a probabilistic explanation of thermodynamics through mechanical laws. The resulting framework—pioneered by Boltzmann, Maxwell, and Gibbs—is now known as statistical mechanics, parallel to other three mechanics. Despite the open questions on the postulates of the statistical mechanics, it turns out to be very successful theory in describing thermal phenomena.
+
+This course shall address the fundamentals and applications of statistical physics.
+
+Allow me to add a couple of remarks.
+
+## Supplementary: Hilbert’s sixth problem
+
+Modern physics and mathematics are deeply intertwined. Generally speaking, *analytical mechanics*—particularly systems composed of many individual particles—is mathematically founded on systems of *ordinary differential equations* (ODEs); *classical electrodynamics*, or more broadly *classical field theory*, rests on *partial differential equations* (PDEs); and *quantum mechanics*, in its standard formulation, is also governed by PDEs (the Schrödinger equation). The equations required in these physical theories are derived from their respective physical postulates—themselves summaries of experimental observations: Newton’s laws in mechanics, Coulomb’s law, Faraday’s law, and the Ampère–Maxwell law in electromagnetism. From a more abstract perspective, the starting point of analytical mechanics can be chosen as the Lagrangian function and the principle of least action. Quantum mechanics is similar in that it also possesses Lagrangian and Hamiltonian formulations, but its axiomatic system is entirely different from that of classical mechanics, and the corresponding rules of mathematical operation differ fundamentally from those of analytical mechanics—a point I will not elaborate here.
+
+*Statistical physics*, however, differs from the other three major branches of mechanics. While it certainly employs calculus as a mathematical tool, its core theoretical foundation is essentially *probability theory*. The rigorous mathematical foundation of probability theory was established by the Soviet mathematician A. Kolmogorov in 1933, when he published “Foundations of the Theory of Probability.”
+
+Yet even with probability theory and its rigorous mathematical framework in place, neither mathematicians nor physicists were fully satisfied with the foundations of statistical physics, and this dissatisfaction is intimately related to the physical problems that statistical physics seeks to address. In essence, statistical physics aims to understand macroscopic phenomena, such as thermal phenomena, the elasticity of solids, and the flow behavior of gases and liquids. At the end of the 19th century, physicists had already developed a set of phenomenological theories that described these macroscopic phenomena with considerable accuracy. However, by that time it had become widely recognized that macroscopic systems are composed of microscopic individual constituents, and that the laws governing the motion of these microscopic constituents are precisely Newton’s laws and the laws of electrodynamics. Consequently, the question of how to derive the physical laws describing macroscopic systems from the microscopic equations of motion became a matter of paramount importance.
+
+This also became a grand ambition for mathematicians: to interpret the world from a mathematical perspective. In 1900, D. Hilbert presented his famous list of 23 unsolved mathematical problems at the International Congress of Mathematicians in Paris. The sixth problem is stated as follows: *The investigations on the foundations of geometry suggest the problem: To treat in the same manner, by means of axioms, those physical sciences in which mathematics plays an important part; in the first rank are the theory of probabilities and mechanics.* Later, Hilbert’s sixth problem came to be understood as posing two central challenges. The first concerns the axiomatic foundation of probability, which was resolved in the first half of the twentieth century by A. Kolmogorov. The second challenge is the derivation of the equations of fluid mechanics—such as the Euler and Navier-Stokes equations—from first principles, by rigorously justifying Boltzmann’s kinetic theory. This entails starting from Newton’s laws for a system of $N$ particles and taking successive limits: first to obtain Boltzmann’s kinetic equation, and then to pass from there to the macroscopic fluid equations.
+
+In 1975, O. Lanford achieved the first major breakthrough: he rigorously derived the Boltzmann equation from a system of hard-sphere particles.[^1] However, his result was valid only for a very short time—less than the average time between molecular collisions. Hilbert’s original goal required a derivation that holds over the whole time range in which the macroscopic equations themselves are physically meaningful. This long-time problem remained open for decades. Y. Deng, together with collaborators Z. Hani and X. Ma, finally solved this problem.[^2] In the Boltzmann-Grad limit, they derived the Boltzmann equation from hard-sphere dynamics and proved that it remains valid for as long as the Boltzmann equation itself has a strong solution. This extends Lanford’s theorem from short times to the entire lifespan of the solution. As a corollary, they also obtained the corresponding fluid equations directly from the particle system. In this way, they completed the original program of Hilbert’s Sixth Problem: starting from microscopic particle collisions, passing through the Boltzmann equation, and arriving at the equations of fluid mechanics. For this achievement, Deng was awarded the Fields Medal in 2026.
+
+Although in this specific classical hard-sphere model mathematicians have exhibited a route leading directly from microscopic Newtonian dynamics to a macroscopic description of fluids—without invoking any additional probabilistic postulate—it remains unknown whether, for generic systems, one can construct a formalism of statistical mechanics directly from microscopic models, or whether the probabilistic postulate itself can be derived from microscopic laws. Therefore, in these notes we still follow the traditional formalism in introducing statistical mechanics.
+
+[^1]: O. E. Lanford III, “Time Evolution of Large Classical Systems,” in Dynamical Systems, Theory and Applications, Lecture Notes in Physics, Vol. 38, edited by J. Moser (Springer, Berlin, 1975), pp. 1–111; O. E. Lanford III, “On a Derivation of the Boltzmann Equation,” Astérisque 40, 117–137 (1976).
+[^2]: Y. Deng, Z. Hani, and X. Ma, “Long Time Derivation of the Boltzmann Equation from Hard Sphere Dynamics,” arXiv:2408.07818v3 (2025); Y. Deng, Z. Hani, and X. Ma, “Hilbert’s sixth problem: derivation of fluid equations via Boltzmann’s kinetic theory,” arXiv:2503.01800v1 (2025).
+
+## Contents
+
+- [Chapter 6: Classical Statistical Mechanics](./Chapter6/index.mdx)
+- [Chapter 7: Canonical and Grand Canonical Ensembles](./Chapter7/index.mdx)

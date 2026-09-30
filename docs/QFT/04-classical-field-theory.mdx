@@ -1,0 +1,217 @@
+---
+title: 经典场论（1）：实标量场
+sidebar_position: 5
+hide_title: true
+---
+# 经典场论（1）：实标量场
+
+## 1. 作用量与拉格朗日密度
+
+上一章介绍了场与 Lorentz 变换，并检验了 KG 方程的协变性。但协变性还不能确定动力学：加入适当的非线性项，方程依然协变，却描述另一种相互作用。这里从作用量出发，用对称性约束拉格朗日密度，再由变分得到场方程。先考虑一个实标量场 $\phi(x)$，它的动力学可以用拉格朗日形式重写。拉格朗日量是**拉格朗日密度** $\mathcal L[\phi]$ 对空间的积分：
+$$
+L[\phi]=\int d^3x\,\mathcal L[\phi],
+$$
+作用量再对时间积分：
+$$
+S[\phi]=\int dt\,L[\phi]
+=\int dt\,d^3x\,\mathcal L[\phi]
+=\int d^4x\,\mathcal L[\phi].
+$$
+最一般地，$\mathcal L$ 可以依赖 $\phi$、各阶导数与坐标：
+$$
+\mathcal L=\mathcal L(\phi,\partial_\mu\phi,\partial_\mu\partial_\nu\phi,\dots,x^\mu).
+$$
+这里采用下列构造条件。**局域性**要求所有场及其导数都取在同一个 $x^\mu$ 上：$\mathcal L=\phi^2(x)+\partial_t\phi(x)+\phi(x)\partial_x\phi(x)$ 是局域的，而 $\mathcal L=\phi(x)\phi(x+a)$ 把两个不同点上的场乘在一起，不是局域的。**平移不变性**要求 $\mathcal L$ 不显含 $x^\mu$，像 $\mathcal L=\phi^2(x)+t\,\phi(x)$ 这样显含时间的形式就会破坏平移不变性。**Lorentz 不变性**要求 $\mathcal L$ 是 Lorentz 标量，而 $\mathcal L=\phi^2(x)+\partial_t\phi(x)\partial_x\phi(x)$ 把两个不同分量的导数直接相乘，不是标量。本章先限于只含 $\phi$ 与一阶导数的拉格朗日密度；这保证场方程至多含二阶导数，便于建立基本例子。含高阶导数的理论也可以研究，本节的取舍只是课程范围。以上采用不显含坐标的标量密度来实现时空对称性；更一般地，拉格朗日密度在变换下只差全散度也可以对应对称性，这将在诺特定理中说明。
+
+## 2. Euler–Lagrange 方程
+
+最小作用量原理说：真实的场构型使作用量取驻值。对场作无穷小变分
+$$
+\phi(x)\to\phi(x)+\delta\phi(x),
+$$
+变分时坐标 $x$ 不动。取在时空边界上为零（或具有紧支撑）的 $\delta\phi$，使分部积分产生的边界项消失；不必另外要求 $\partial_\mu\delta\phi$ 在边界为零。变分与求导可以交换，$\delta(\partial_\mu\phi)=\partial_\mu\delta\phi$，于是
+$$
+\delta S=\int d^4x\,\delta\mathcal L
+=\int d^4x\left(
+\frac{\partial\mathcal L}{\partial\phi}\,\delta\phi
++\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\,\delta(\partial_\mu\phi)
+\right).
+$$
+第二项可以分部积分：
+$$
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\,\partial_\mu\delta\phi
+=\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\,\delta\phi
+\right)
+-\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+\right)\delta\phi.
+$$
+第一项是全散度，积分后只剩时空区域 $\Omega$ 的边界通量，包括初末时间面；由上述边界条件为零：
+$$
+\int d^4x\,\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\,\delta\phi
+\right)
+=\int_{\partial\Omega}d\Sigma_\mu\,
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\,\delta\phi=0.
+$$
+把它代回，就得到
+$$
+\delta S=\int d^4x\left[
+\frac{\partial\mathcal L}{\partial\phi}
+-\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+\right)
+\right]\delta\phi.
+$$
+由于 $\delta\phi$ 在区域内部任意，要让 $\delta S=0$，方括号只能处处为零：
+$$
+\boxed{
+\frac{\partial\mathcal L}{\partial\phi}
+-\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+\right)=0.
+}
+$$
+这就是 **Euler–Lagrange 方程**，简称 EL 方程。
+
+## 3. 自由实标量场与展开点
+
+在上述条件下，略去常数与全散度，$\phi$ 的二次阶拉格朗日密度可写成
+$$
+\mathcal L
+=a\,\partial^\mu\phi\,\partial_\mu\phi
++b\,\phi^2+c\,\phi,
+$$
+其中 $a,b,c$ 为常数，第一项常简写为 $a(\partial\phi)^2$。若还有形如 $d^\mu\partial_\mu\phi$ 的项（$d^\mu$ 为常矢量），它可以写成全散度 $\partial_\mu(d^\mu\phi)$，不会进入 EL 方程，可以不管。把上式代入 EL 方程：
+$$
+\frac{\partial\mathcal L}{\partial\phi}=2b\phi+c,
+\qquad
+\partial_\mu\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+=\partial_\mu(2a\,\partial^\mu\phi)
+=2a\,\Box\phi,
+$$
+于是
+$$
+-2a\,\Box\phi+2b\phi+c=0.
+$$
+由于 $\mathcal L$ 只保留到二次阶，这个方程对 $\phi$ 是线性的。
+
+当 $b\ne0$ 时，常数 $c$ 可以通过变量替换消掉。把 $\mathcal L$ 写成
+$$
+\mathcal L
+=a\,\partial^\mu\left(\phi+\frac{c}{2b}\right)
+\partial_\mu\left(\phi+\frac{c}{2b}\right)
++b\left(\phi+\frac{c}{2b}\right)^2
+-\frac{c^2}{4b},
+$$
+上式与原来的 $\mathcal L$ 完全相等。定义 $\tilde\phi\equiv\phi+\dfrac{c}{2b}$，这个操作称为**场的重定义**（field redefinition）。略去不影响 EL 方程的常数 $-c^2/(4b)$ 后，
+$$
+\mathcal L
+=a\,\partial^\mu\tilde\phi\,\partial_\mu\tilde\phi
++b\,\tilde\phi^2,
+$$
+这样就把所选展开背景移到了 $\tilde\phi=0$ 附近，便于研究该背景周围的小振动；这些激发与粒子的对应留到量子化后再讨论。若 $b=0$ 而 $c\ne0$，则不能用上述常数平移消去线性项。
+
+## 4. 稳定性与标准归一化
+
+我们希望在选定的稳定背景附近展开场，把二次项描述的小振动作为自由理论，再把更高次项作为相互作用。这里把展开点移到 $\phi=0$，并假定 $\mathcal L$ 在该点附近可以作解析的 Taylor 展开。像
+$$
+\mathcal L=-\partial^\mu\phi\,\partial_\mu\phi+|\phi|^3
+$$
+这样的形式不满足这一解析性假设：$|\phi|^3$ 在原点有连续的一、二阶导数，但没有三阶导数，因此不是解析函数。*解析性是这里组织微扰展开的假设，不能仅由“小振动近似”推出，更不是所有场论都必须满足的条件。*
+
+以下假定线性项 $c\phi$ 已经消去：当 $b\ne0$ 时可用上一节的场平移；若 $b=0$，则需另要求 $c=0$，才能以常数场 $\phi=0$ 为背景。留下的二次形是
+$$
+\mathcal L=a(\partial\phi)^2+b\phi^2.
+$$
+把平面波
+$$
+\phi=Ae^{-i\omega t+i\vec k\cdot\vec x}+\text{c.c.}
+$$
+（$A$ 任意；以下假定动能系数 $a\ne0$）代入上一节的 $\Box\phi=(b/a)\phi$。利用 $\Box\equiv-\partial_t^2+\nabla^2$，
+$$
+\Box\phi=(\omega^2-\vec k^{\,2})\phi,
+$$
+比较即得**色散关系**
+$$
+\omega^2=\vec k^{\,2}+\frac{b}{a}.
+$$
+给定波矢 $\vec k$，频率就由 $b/a$ 决定。
+
+这个关系限制了 $b/a$ 的符号。若 $b/a<0$，则当 $|\vec k|^2<|b/a|$ 时 $\omega^2<0$，于是
+$$
+\omega=\pm i|\omega|,\qquad
+\phi\propto e^{|\omega|t},
+$$
+存在随时间指数增长的模，称为**快子不稳定性**（tachyon instability）。这说明 $\phi=0$ 不是稳定的展开背景；若完整的相互作用势在别处有稳定极小值，应改在那个极小值附近展开。
+
+{/* 已核实（IMG_8311）：板书阈值左侧漏平方；由色散关系直接得到 k² < |b/a|，正文已更正。 */}
+
+要排除二次理论中的快子不稳定性，需要 $b/a\geq0$：有质量时 $a,b$ 同号，$b=0$ 则对应无质量场。另一方面，把缩并写开（利用 $(\partial\phi)^2=-\dot\phi^2+(\vec{\nabla}\phi)^2$）：
+$$
+\mathcal L=a(\partial\phi)^2+\cdots
+=-a\,\dot\phi^2+a(\vec{\nabla}\phi)^2+\cdots
+$$
+若 $a>0$，时间导数项的系数为负。借用 $L=K-V$ 的说法，这就是**负动能**，相应的传播自由度称为**鬼**（ghost）。它的哈密顿量在经典层面就没有下界；即使孤立的自由方程仍有振荡解，也不能据此认为与其他自由度耦合后稳定。第三篇经典场论会直接计算这一哈密顿量。
+
+于是对于这里的稳定自由标量场，应取 $a<0$、$b\leq0$。记 $a=-|a|$、$b=-|b|$，再通过场重定义
+$$
+\phi=\frac{\tilde\phi}{\sqrt{2|a|}}
+$$
+把系数归一：
+$$
+\mathcal L=-|a|(\partial\phi)^2-|b|\phi^2
+=-\frac12(\partial\tilde\phi)^2-\frac{|b|}{2|a|}\tilde\phi^2.
+$$
+这种写法叫**规范归一化**（canonical normalization）。把 $\tilde\phi$ 改回记作 $\phi$，并定义
+$$
+m^2\equiv\frac{|b|}{|a|},
+$$
+就得到自由标量场的拉格朗日量
+$$
+\boxed{
+\mathcal L=-\frac12(\partial\phi)^2-\frac{m^2}{2}\phi^2,
+}
+$$
+它给出的运动方程正是 Klein–Gordon 方程
+$$
+\boxed{\Box\phi-m^2\phi=0.}
+$$
+至此，一个自由（无相互作用）实标量场的经典理论就完全确定下来了。
+
+## 5. 相互作用与势
+
+相互作用表现为 EL 方程中的非线性项，也就是 $\mathcal L$ 中高于二次的贡献：三次、四次，等等。板书给出的例子是
+$$
+\mathcal L_{\mathrm{int}}
+=\phi^2(\partial\phi)^2+\phi^3+\phi^4+\phi^5+\phi^2(\partial\phi)^2(\partial\phi)^2+\cdots
+$$
+这里省略了各项应带的耦合常数。板书把 $\phi^{5/2}$ 划掉并注明“not analytic”：它不能在实场 $\phi=0$ 的邻域写成整数幂的 Taylor 级数。
+
+*这里要区分一项中导数因子的总数与场方程的最高导数阶数。上式最后一项有四个导数因子，但每个场只被求导一次，仍属于 $\mathcal L(\phi,\partial\phi)$，其 EL 方程最高为二阶。例如令 $X=\partial^\mu\phi\,\partial_\mu\phi$，相互作用 $\lambda X^2$ 给 EL 方程增加的项为*
+$$
+-\partial_\mu\frac{\partial(\lambda X^2)}{\partial(\partial_\mu\phi)}
+=-4\lambda\,\partial_\mu(X\partial^\mu\phi),
+$$
+*展开后也不含三阶或更高阶导数。Lecture 5 将这类项排除，可以作为课程讨论范围的限制；“导数总数大于二就不允许”不是一般结论。*
+
+{/* 已核实（IMG_8313、IMG_8360）：两页表述不一致；排除高总导数项只能作为讨论范围的限制，不能把总导数计数当成 EL 方程阶数。第一导数非线性理论的例子可参见 https://arxiv.org/abs/hep-th/9904176；此处结论亦直接由上述变分得到。 */}
+
+通常考虑的相互作用与 $\partial_\mu\phi$ 无关，这时可以把它们全部写进**势**（potential）里：
+$$
+\mathcal L=-\frac12(\partial\phi)^2-V(\phi),
+$$
+$$
+V(\phi)=\frac{m^2}{2}\phi^2+V_{\mathrm{int}}(\phi),
+$$
+
+{/* 已核实（IMG_8314、IMG_8360、IMG_8363）：复习页势中的质量项多了负号。这里 m² 表示在稳定真空附近的非负质量平方，V 的二次项须为 +m²φ²/2，才能使 L 的质量项为 -m²φ²/2。正文原公式正确，保留。 */}
+
+其中 $V_{\mathrm{int}}$ 从 $\phi^3$ 项开始，且整个 $V$ 在 $\phi=0$ 处解析。相应的运动方程是
+$$
+\boxed{
+\Box\phi=\frac{dV}{d\phi},
+}
+$$
+称为**非线性 Klein–Gordon 方程**。

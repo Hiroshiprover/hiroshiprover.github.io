@@ -1,0 +1,371 @@
+---
+title: 数学工具与补充推导
+sidebar_position: 10
+hide_title: true
+---
+# 数学工具与补充推导
+
+本附录收录主线中会用到、但不必在第一次阅读时展开的数学定义和计算。每节都标出对应正文，读完可返回原处。
+
+## A. 局域算符与平方根算符的非局域性
+
+**对应 01 §1。**[返回正文](./01-why-qft.mdx)。主线把局域算符直观地描述为只读取同一位置的场值或其有限阶导数。对平移不变的线性算符 $D$，可以写成卷积
+
+$$
+(Df)(\vec x)=\int d^3y\,K(\vec x-\vec y)f(\vec y).
+$$
+
+核的支集给出它会读取哪些位置：若 $K$ 的支集只有原点，$D$ 是局域的。单位算符对应 $\delta^{(3)}(\vec x-\vec y)$，有限阶微分算符对应 delta 函数及其有限阶导数。平移 $f(\vec x)\mapsto f(\vec x+\vec a)$ 的核是 $\delta^{(3)}(\vec x-\vec y+\vec a)$，其支集在非零位移处，所以是非局域的。
+
+为判断平方根算符，我们采用主文的对称 Fourier 约定：
+
+$$
+\widetilde f(\vec p)=\frac1{(2\pi)^{3/2}}\int d^3x\,e^{-i\vec p\cdot\vec x}f(\vec x),\qquad
+f(\vec x)=\frac1{(2\pi)^{3/2}}\int d^3p\,e^{i\vec p\cdot\vec x}\widetilde f(\vec p).
+$$
+
+在动量空间，$D=\sqrt{-\nabla^2+m^2}$ 乘以 $\sqrt{\vec p^{\,2}+m^2}$。代入逆变换，再把 $\widetilde f$ 写回位置空间，得到
+
+$$
+(Df)(\vec x)=\int d^3y\,K(\vec x-\vec y)f(\vec y),\qquad
+K(\vec r)=\frac1{(2\pi)^3}\int d^3p\,e^{i\vec p\cdot\vec r}\sqrt{\vec p^{\,2}+m^2}.
+$$
+
+这里的积分通常不按普通绝对收敛积分理解，而是温和分布的 Fourier 变换。仅仅写出这个积分还没有说明它在原点以外是否为零；还需用到如下分布事实。
+
+若一个分布的支集只有原点，那么它必可写成有限多个 delta 函数导数的线性组合：
+
+$$
+K(\vec r)=\sum_{|\alpha|\leq n}c_\alpha\,\partial^\alpha\delta^{(3)}(\vec r).
+$$
+
+这里 $\alpha=(\alpha_1,\alpha_2,\alpha_3)$ 是多重指标，$|\alpha|=\alpha_1+\alpha_2+\alpha_3$。这个结论的依据是：紧支集分布具有有限阶，而支集只有原点意味着它只读取测试函数在原点的有限阶 Taylor 系数；读取这些导数正是 delta 导数的作用。
+
+在上述固定约定下，$\widetilde{\partial^\alpha\delta}=(2\pi)^{-3/2}(i\vec p)^\alpha$，且卷积算符的乘子是 $(2\pi)^{3/2}\widetilde K$，所以这里得到的乘子恰为 $\sum c_\alpha(i\vec p)^\alpha$；有限线性组合因此对应一个多项式。反过来，多项式 Fourier 乘子对应只支撑于原点的 delta 导数。平方根乘子 $\sqrt{\vec p^{\;2}+m^2}$ 不是多项式，所以 $K$ 不可能只支撑在原点。它在原点以外也有贡献，平方根算符因而非局域。
+
+这证明的是该算符不属于有限阶微分算符；它没有单独证明超光速信号传播，也不涉及相速度或群速度。
+
+## B. Lorentz 群的数学补充
+
+**对应 03 §2–5。**[返回正文](./03-lorentz-group.mdx)。Lorentz 矩阵满足 $\Lambda^Tg\Lambda=g$。下面补充群结构、连通分支及无穷小变换的计算，主线只使用其变换规则。
+
+### 1. Lorentz 群
+
+所有可能的洛伦兹变换组成 **Lorentz 群** $O(3,1)$，其中 $3$ 和 $1$ 对应度规的三个正号、一个负号。我们验证其群结构。
+
+单位元为：
+
+$$
+\Lambda^\mu{}_\nu=\delta^\mu{}_\nu,\qquad x'^\mu=x^\mu.
+$$
+
+这里 $\delta^\mu{}_\nu$ 是 Kronecker $\delta$。
+
+其次，连续做两个 Lorentz 变换，结果仍然是 Lorentz 变换。若先做 $\Lambda_1$，再做 $\Lambda_2$，总变换为 $\Lambda_2\Lambda_1$，并且
+
+$$
+(\Lambda_2\Lambda_1)^Tg(\Lambda_2\Lambda_1)
+=\Lambda_1^T\Lambda_2^Tg\Lambda_2\Lambda_1
+=\Lambda_1^Tg\Lambda_1=g.
+$$
+
+对于逆元，由 $\Lambda^Tg\Lambda=g$，左乘 $g^{-1}$，得到
+
+$$
+(g^{-1}\Lambda^Tg)\Lambda=I,
+$$
+
+所以逆变换为
+
+$$
+\Lambda^{-1}=g^{-1}\Lambda^Tg.
+$$
+
+把 $\Lambda^Tg\Lambda=g$ 两边分别左乘 $(\Lambda^{-1})^T$、右乘 $\Lambda^{-1}$，也得到
+
+$$
+(\Lambda^{-1})^Tg\Lambda^{-1}=g.
+$$
+
+因此逆变换本身也是 Lorentz 变换。再加上矩阵乘法本来就满足结合律，这些变换就组成了群。
+
+### 2. Lorentz 群的结构
+
+#### 行列式：proper 与 improper
+
+对 $\Lambda^Tg\Lambda=g$ 两边取行列式，
+$$
+(\det\Lambda)^2\det g=\det g
+\quad\Longrightarrow\quad
+\det\Lambda=\pm1.
+$$
+我们称 $\det\Lambda=+1$ 的变换为 **proper（正）Lorentz 变换**，$\det\Lambda=-1$ 的为 **improper（非正）Lorentz 变换**。正 Lorentz 变换组成子群：
+$$
+SO(3,1)=\{\Lambda\in O(3,1)\mid\det\Lambda=1\}.
+$$
+这是因为单位元的行列式为 $1$，两个行列式为 $1$ 的矩阵相乘或取逆后，行列式仍为 $1$。
+
+#### 时间方向：orthochronous 与 non-orthochronous
+
+在 Lorentz 条件
+$$
+g_{\mu\nu}\Lambda^\mu{}_\rho\Lambda^\nu{}_\sigma=g_{\rho\sigma}
+$$
+中取 $\rho=\sigma=0$，得到
+$$
+-(\Lambda^0{}_0)^2+\delta_{ij}\Lambda^i{}_0\Lambda^j{}_0=-1.
+$$
+因此
+$$
+(\Lambda^0{}_0)^2
+=1+\sum_{i=1}^{3}(\Lambda^i{}_0)^2\ge1,
+$$
+也就是
+$$
+\Lambda^0{}_0\ge1
+\qquad\text{或}\qquad
+\Lambda^0{}_0\le-1.
+$$
+前者称为 **orthochronous（保时向）变换**，它保持未来指向的类时矢量仍然指向未来；后者则反转这个时间方向。保时向变换组成子群 $O^+(3,1)$。
+
+同时满足 proper 与 orthochronous 的变换组成
+$$
+SO^+(3,1)
+=\{\Lambda\in O(3,1)\mid
+\det\Lambda=1,\ \Lambda^0{}_0\ge1\},
+$$
+称为**正保时 Lorentz 群**，它是 $O(3,1)$ 中包含单位元的连通分支。在我们的课程中提到 Lorentz 群时，一般指的都是 $SO^+(3, 1)$，而不是整个 $O(3, 1)$。
+
+完整 Poincaré 群还包括四维平移，其 Lorentz 部分可以取整个 $O(3,1)$；正文讨论连续生成元时，只取 $SO^+(3,1)$ 与平移组成的单位元连通分支。
+
+### 3. Lorentz 群的李代数
+
+考虑单位元附近的 Lorentz 变换：
+$$
+\Lambda^\mu{}_\nu
+=\delta^\mu{}_\nu+\epsilon\Omega^\mu{}_\nu,
+$$
+其中 $\epsilon$ 是无穷小参数。很容易注意到：
+$$
+(I-\epsilon\Omega)(I+\epsilon\Omega)
+=I+O(\epsilon^2),
+$$
+
+因此其逆（在保留到一阶小量的意义下）为：
+$$
+(\Lambda^{-1})^\mu{}_\nu
+=\delta^\mu{}_\nu-\epsilon\Omega^\mu{}_\nu.
+$$
+
+现在降低 $\Lambda$ 的第一个指标：
+$$
+\Lambda_{\mu\nu}=g_{\mu\nu}+\epsilon\Omega_{\mu\nu},
+\qquad
+\Omega_{\mu\nu}\equiv g_{\mu\rho}\Omega^\rho{}_\nu.
+$$
+考虑到 $\Lambda_\mu{}^\nu=(\Lambda^{-1})^\nu{}_\mu$，再降低 $\nu$，有
+$$
+\Lambda_{\mu\nu}=(\Lambda^{-1})_{\nu\mu},
+$$
+代入展开式，
+$$
+g_{\mu\nu}+\epsilon\Omega_{\mu\nu}
+=g_{\nu\mu}-\epsilon\Omega_{\nu\mu}.
+$$
+由于度规对称，得到
+$$
+\Omega_{\mu\nu}=-\Omega_{\nu\mu}.
+$$
+也就是说，$\Omega_{\mu\nu}$ 是一个反对称矩阵（注意：不是 $\Omega^\mu{}_\nu$ 本身）。一个 $4\times4$ 反对称矩阵只有 $6$ 个独立分量，因此 Lorentz 群有六个连续参数。其中 $\Omega_{ij}$ 的三个独立分量对应空间旋转，$\Omega_{0i}$ 的三个分量对应三个空间方向上的 boost。这给定了 Lorentz 群的生成元。原则上，利用指数映射与生成元可以得到单位元附近的群元素。
+
+除了与单位元连续相连的变换，我们还需要两个离散变换来描述整个 Lorentz 群：
+$$
+P^\mu{}_\nu=\operatorname{diag}(1,-1,-1,-1),
+\qquad
+T^\mu{}_\nu=\operatorname{diag}(-1,1,1,1).
+$$
+$P$ 是**空间反演（parity）**，将 $(t,\vec{x})$ 变成 $(t,-\vec{x})$；$T$ 是**时间反演（time reversal）**，将 $(t,\vec{x})$ 变成 $(-t,\vec{x})$。
+
+它们都满足 Lorentz 条件，但 $\det P=\det T=-1$。$P$ 保时向，$T$ 不保时向，而 $PT=-I$ 的行列式为 $+1$，却不保时向。完整 Lorentz 群的四个连通分支可以写成：
+$$
+SO^+(3,1),\qquad
+P\,SO^+(3,1),\qquad
+T\,SO^+(3,1),\qquad
+PT\,SO^+(3,1).
+$$
+
+
+
+### 4. 指标变换与张量例子
+
+Lorentz 条件还给出升降指标后变换矩阵与逆矩阵的关系：
+
+$$
+\Lambda_\mu{}^\nu\equiv g_{\mu\rho}\Lambda^\rho{}_\sigma g^{\sigma\nu}
+=(\Lambda^{-1})^\nu{}_\mu.
+$$
+
+因此对同一事件，逆变矢量 $V^\mu$ 和协变矢量 $W_\mu$ 的缩并保持不变：
+
+$$
+V'^\mu(x')W'_\mu(x')=V^\mu(x)W_\mu(x).
+$$
+
+更高阶张量的每个上指标各乘一个 $\Lambda$，每个下指标各乘一个 $\Lambda_\mu{}^\nu$。例如：
+
+$$
+D'^{\mu\nu}{}_{\rho\sigma\tau}(x')
+=\Lambda^\mu{}_\alpha\Lambda^\nu{}_\beta
+\Lambda_\rho{}^\gamma\Lambda_\sigma{}^\delta
+\Lambda_\tau{}^\epsilon D^{\alpha\beta}{}_{\gamma\delta\epsilon}(x).
+$$
+
+## C. 算符指数与 BCH 公式
+
+**对应 07 平移生成元一节。**[返回正文](./07-quantum-symmetry.mdx)。平移生成元彼此对易时，有限平移的指数可以直接合并。对不对易算符 $A,B$，一般 $e^Ae^B\ne e^{A+B}$；其乘积由 Baker–Campbell–Hausdorff（BCH）公式给出：
+
+$$
+e^Ae^B=\exp\left(A+B+\frac12[A,B]
++\frac1{12}\bigl([A,[A,B]]+[B,[B,A]]\bigr)+\cdots\right).
+$$
+
+当 $[A,B]=0$ 时，对易子项全消失。若 $[A,B]$ 与 $A,B$ 都对易，级数在 $\tfrac12[A,B]$ 处终止。更一般的高阶项可按嵌套对易子逐阶求得。
+
+旧量子对称性页的板书缺失一页，以上 BCH 级数为依上下文补写；保留此来源标记。
+
+## D. 汤川积分与留数定理
+
+**对应 05 的静态点源例子。**[返回正文](./05-complex-vector-and-sources.mdx)。该例需要计算
+
+$$
+\phi(r)=\alpha\int\frac{d^3k}{(2\pi)^3}\frac{e^{i\vec k\cdot\vec x}}{\vec k^{\,2}+m^2},\qquad r=|\vec x|.
+$$
+
+### D.1 留数定理与弧积分估计
+
+在孤立奇点 $z_0$ 附近，将函数展开为 Laurent 级数
+
+$$
+f(z)=\sum_{n=-\infty}^{\infty}a_n(z-z_0)^n.
+$$
+
+其中 $(z-z_0)^{-1}$ 的系数称为**留数**：$\operatorname{Res}(f,z_0)=a_{-1}$。若是 $N$ 阶极点，可以直接计算
+
+$$
+\operatorname{Res}(f,z_0)=\frac1{(N-1)!}
+\lim_{z\to z_0}\frac{d^{N-1}}{dz^{N-1}}\bigl[(z-z_0)^Nf(z)\bigr].
+$$
+
+若 $f(z)$ 在正向（逆时针）闭合曲线 $C$ 内亚纯，且在曲线上无极点，则
+
+$$
+\oint_C f(z)\,dz=2\pi i\sum_j\operatorname{Res}(f,z_j),
+$$
+
+其中求和遍历曲线内部的孤立奇点。对简单极点 $z_0$，若 $f(z)=g(z)/(z-z_0)$ 且 $g$ 在该点解析，则 $\operatorname{Res}(f,z_0)=g(z_0)$。
+
+闭合实轴积分时还要证明新增的圆弧积分趋于零。最直接的估计是
+
+$$
+\left|\int_C f(z)\,dz\right|\leq \operatorname{length}(C)\sup_C|f|.
+$$
+
+半径 $R$ 的大圆弧长度为 $O(R)$；若被积函数在弧上为 $O(R^{-1-\epsilon})$，此估计就给出 $O(R^{-\epsilon})\to0$。本例含指数 $e^{izr}$，在上半平面 $|e^{izr}|=e^{-r\operatorname{Im}z}$，可用 Jordan 引理得到更精细的结论。写 $z=Re^{i\theta}$，有
+
+$$
+\left|\int_{C_R}e^{izr}\frac{z}{z^2+m^2}\,dz\right|
+\leq C\int_0^\pi e^{-Rr\sin\theta}\,d\theta\longrightarrow0\qquad(r>0).
+$$
+
+上述极限可由 $\sin\theta\geq2\theta/\pi$（$0\leq\theta\leq\pi/2$）直接估计：利用关于 $\pi/2$ 的对称性，
+
+$$
+\int_0^\pi e^{-Rr\sin\theta}\,d\theta
+\leq2\int_0^{\pi/2}e^{-2Rr\theta/\pi}\,d\theta
+\leq\frac{\pi}{Rr}\longrightarrow0.
+$$
+
+极点附近若用半径 $\varepsilon$ 的小圆弧绕开，并且 $|f(z)|\leq C|z-z_0|^{-\beta}$，则其积分量级至多 $O(\varepsilon^{1-\beta})$。当 $\beta<1$ 时小弧消失；简单极点对应 $\beta=1$，小弧贡献不消失，若小弧写作 $z=z_0+\varepsilon e^{i\theta}$、$\theta$ 从 $\theta_1$ 走到 $\theta_2$，则它趋于 $i(\theta_2-\theta_1)\operatorname{Res}(f,z_0)$。例如逆时针半圆贡献 $i\pi$ 乘留数，顺时针半圆则取负号。本例 $m>0$ 时实轴上没有极点，不需绕小弧；若奇点落在积分路径上，才需明确选取绕行方向和相应的边界值。
+
+### D.2 对静态点源积分
+
+令 $\vec x$ 沿极轴，记 $k=|\vec k|$、$u=\cos\theta$。球坐标给出
+
+$$
+\begin{aligned}
+\phi(r)
+&=\frac{\alpha}{4\pi^2}\int_0^\infty dk\,\frac{k^2}{k^2+m^2}\int_{-1}^{1}du\,e^{ikru}\\
+&=\frac{\alpha}{4\pi^2}\int_0^\infty dk\,\frac{k^2}{k^2+m^2}
+\frac{e^{ikr}-e^{-ikr}}{ikr}\\
+&=-\frac{i\alpha}{4\pi^2r}\int_{-\infty}^{\infty}dk\,\frac{k e^{ikr}}{k^2+m^2}.
+\end{aligned}
+$$
+
+第二行的分子来自角积分
+
+$$
+\int_{-1}^{1}du\,e^{ikru}=\frac{e^{ikr}-e^{-ikr}}{ikr};
+$$
+
+将其中含 $e^{-ikr}$ 的半轴积分换元 $k\mapsto-k$，才能得到第三行的整轴积分。这里明确写出角积分的左端，避免把板书中间一步误读为整个 $\phi(r)$。
+
+当 $r>0$ 时，按逆时针方向在上半平面闭合。指数 $e^{ikr}$ 在上半平面衰减，大圆弧积分由上一节的估计消失。分母的极点为 $k=\pm im$；只有 $k=im$ 位于围道内。其留数是
+
+$$
+\operatorname{Res}_{k=im}\frac{k e^{ikr}}{(k-im)(k+im)}
+=\left.\frac{k e^{ikr}}{k+im}\right|_{k=im}
+=\frac12e^{-mr}.
+$$
+
+所以整轴积分为 $2\pi i$ 乘该留数，代回前因子得
+
+$$
+\phi(r)=\frac{\alpha}{4\pi}\frac{e^{-mr}}{r},\qquad m>0,\ r>0.
+$$
+
+无质量极限应在结果求出后取 $m\to0^+$，给出 $\phi(r)=\alpha/(4\pi r)$。点源位置 $r=0$ 的场是奇异分布，不由上述普通函数公式在原点直接代值。
+
+## E. 二次量子化中的分部积分
+
+**对应 02 §4。**[返回正文](./02-second-quantization.mdx)。在全空间积分并假设边界通量消失时，普通函数满足
+
+$$
+\int d^3x\,A\nabla^2B=\int d^3x\,(\nabla^2A)B.
+$$
+
+从乘积求导开始：
+
+$$
+\nabla\cdot(A\nabla B)=(\nabla A)\cdot(\nabla B)+A\nabla^2B,\qquad
+\nabla\cdot(B\nabla A)=(\nabla B)\cdot(\nabla A)+B\nabla^2A.
+$$
+
+相减后梯度乘积相消，得到
+
+$$
+A\nabla^2B-B\nabla^2A=\nabla\cdot(A\nabla B-B\nabla A).
+$$
+
+积分右侧是无穷远边界上的通量；边界项为零后，且普通函数可交换，便得到所需等式。
+
+若 $A,B$ 是算符值函数，不能交换次序。此时要证明保持顺序的等式
+
+$$
+\int d^3x\,A\nabla^2B=\int d^3x\,(\nabla^2A)B.
+$$
+
+展开下面这两个散度：
+
+$$
+\nabla\cdot(A\nabla B)=(\nabla A)\cdot(\nabla B)+A\nabla^2B,\qquad
+\nabla\cdot\bigl((\nabla A)B\bigr)=(\nabla A)\cdot(\nabla B)+(\nabla^2A)B.
+$$
+
+交叉项次序相同，相减得
+
+$$
+A\nabla^2B-(\nabla^2A)B
+=\nabla\cdot\bigl(A\nabla B-(\nabla A)B\bigr).
+$$
+
+边界通量消失后积分即可。关键是两项都让 $B$ 留在右边；通常不能把右端写成 $B\nabla^2A$。这正是 02 中把 Laplacian 依次移到产生算符和波函数上时所用的等式。

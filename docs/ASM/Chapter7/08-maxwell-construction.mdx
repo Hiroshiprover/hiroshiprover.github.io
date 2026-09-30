@@ -1,0 +1,213 @@
+---
+title: 7.8 麦克斯韦构造的含义
+sidebar_position: 8
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 7.8 麦克斯韦构造的含义
+
+我们已经确认，由正则系综得到的压强 $P$ 与由巨正则系综得到的压强相等，当且仅当 $\partial P/\partial v \leq 0$。本节我们将说明，当对某些 $v$ 值有 $\partial P/\partial v > 0$ 时——这一情形只在理论讨论或非平衡态中出现——巨正则系综中的压强是由正则系综中的压强经*麦克斯韦构造*得到的。
+
+![当 $a < v < b$ 时正则压强导数大于零的等温线。](/img/asm/chap07-fig7-7.png)
+
+图 7.7：当 $a < v < b$ 时 $\partial P_{\text{can}}/\partial v > 0$ 的等温线。
+
+## 正则系综
+
+把正则系综中计算得到的压强记作 $P_{\text{can}}(v)$。在某个特殊温度下，它可能在一个有限区间内具有正的导数，如图 7.7 定性地所示。假设配分函数可以写成
+
+<Anchor id="eq-7-85" />
+$$
+Q_N(V) = e^{VF(v)}, \tag{7.85}
+$$
+
+其中 $F(v)$ 是式 [(7.66)](./06-ensemble-equivalence.mdx#eq-7-66) 定义的 $f(v)$ 的另一种记号。在下文中，我们还将引入记号 $\Phi(v,z)$，用来代替式 [(7.80)](./06-ensemble-equivalence.mdx#eq-7-80) 定义的 $\phi(v,z)$。这些新记号是为了把本节涉及不稳定态的情形与前面讨论中不涉及不稳定态的情形区分开来。前面各节关于 $f(v)$ 与 $\phi(v,z)$ 得到的几乎所有结果都可以直接搬到本节，只需把它们换成新定义的记号；如果某种直接的替换行不通，我们会特别指出。
+
+例如，正如式 [(7.67)](./06-ensemble-equivalence.mdx#eq-7-67) 中由 $P(v)$ 构造 $f(v)$ 那样，新函数 $F(v)$ 可以按同样的方式由 $P_{\text{can}}(v)$ 构造，
+
+<Anchor id="eq-7-86" />
+$$
+F(v) = \frac{1}{v}\int_{v_0}^{v}dv'\,\beta P_{\text{can}}(v'), \tag{7.86}
+$$
+
+<Anchor id="eq-7-87" />
+$$
+\text{或}\quad \beta P_{\text{can}}(v) = F(v) + v\frac{\partial F(v)}{\partial v}. \tag{7.87}
+$$
+
+此外，与式 [(7.71)](./06-ensemble-equivalence.mdx#eq-7-71) 类似，对函数 $\Phi$ 与 $F$，我们可以写出
+
+<Anchor id="eq-7-88" />
+$$
+\Phi(v,z) = F(v) + \frac{1}{v}\ln z. \tag{7.88}
+$$
+
+根据图 7.7 的 $P_{\text{can}}-v$ 图，我们看到
+
+<Anchor id="eq-7-89" />
+$$
+\frac{\partial^2\Phi}{\partial v^2} + \frac{2}{v}\frac{\partial\Phi}{\partial v} = \frac{\beta}{v}\frac{\partial P_{\text{can}}}{\partial v}\begin{cases} > 0 & (a < v < b)\\ \leq 0 & (\text{其他情况}). \end{cases} \tag{7.89}
+$$
+
+注意 $F(v)$ 与 $\Phi(v,z)$ 都针对比容 $v$ 固定的系统。一旦系统体积 $V$ 固定，这样的系统就对应粒子数 $N = V/v$ 的某个正则系综。因此，图 7.7 的 $P_{\text{can}}$–$v$ 图中表示的每一个状态都可以由某个合适的正则系综来刻画。
+
+## 巨正则系综
+
+现在我们用巨正则系综来考察图 7.7 所示的同一情形。
+
+注意式 [(7.77)](./06-ensemble-equivalence.mdx#eq-7-77) 的推导与 $\partial P/\partial v$ 的符号无关。由同样的推理，当前情形下的巨配分函数也由它的最大项主导，
+
+<Anchor id="eq-7-90" />
+$$
+\lim_{V\to\infty}\frac{1}{V}\ln\mathcal{Q}(z,V) = \max[\Phi(v,z)] \equiv \Phi(\bar{v},z). \tag{7.90}
+$$
+
+由式 [(7.86)](#eq-7-86)–[(7.88)](#eq-7-88) 与图 7.7，我们看到 $\Phi$ 与 $\partial\Phi/\partial v$ 都可微。因此 $\bar{v}$ 的值由如下条件确定：
+
+<Anchor id="eq-7-91" />
+$$
+\begin{aligned}
+\left(\frac{\partial\Phi}{\partial v}\right)_{v=\bar{v}} &= 0\\
+\left(\frac{\partial^2\Phi}{\partial v^2}\right)_{v=\bar{v}} &\leq 0
+\end{aligned} \tag{7.91}
+$$
+
+再附上一条额外的规则：*若存在多于一个 $\bar{v}$ 值，我们必须取使 $\Phi(\bar{v}, z)$ 最大的那个。*这些条件把 $\bar{v}$ 确定为 $z$ 的函数（或反之）。于是，巨正则系综中的压强（记作 $P_{\text{gr}}(\bar{v})$）由下式给出
+
+<Anchor id="eq-7-92" />
+$$
+\beta P_{\text{gr}}(\bar{v}) = \lim_{V\to\infty}\frac{1}{V}\ln\mathcal{Q}(z,V) = \Phi(\bar{v},z). \tag{7.92}
+$$
+
+{/* 编者注（不属于原文内容）：式 (7.92) 的原文极限印作 $\mathcal{Q}(z,V)/V$，缺少对数；按式 (7.90) 已补上 $\ln$。 */}
+
+*这个压强 $P_{\text{gr}}$ 是否等于 $P_{\text{can}}$？*
+
+注意函数 $\Phi(v,z)$ 由式 [(7.86)](#eq-7-86) 与 [(7.88)](#eq-7-88) 给出。因此，在 $v = \bar{v}$ 处，
+
+<Anchor id="eq-7-93" />
+$$
+0 = \left(\frac{\partial\Phi}{\partial v}\right)_{v=\bar{v}} = \left(\frac{\partial F}{\partial v}\right)_{v=\bar{v}} - \frac{1}{\bar{v}^2}\ln z \quad\Rightarrow\quad \bar{v}\left(\frac{\partial F}{\partial v}\right)_{v=\bar{v}} = \frac{1}{\bar{v}}\ln z \tag{7.93}
+$$
+
+<Anchor id="eq-7-94" />
+$$
+\beta P_{\text{can}}(\bar{v}) = F(\bar{v}) + \bar{v}\left(\frac{\partial F}{\partial v}\right)_{v=\bar{v}} = F(\bar{v}) + \frac{1}{\bar{v}}\ln z = \Phi(\bar{v},z). \tag{7.94}
+$$
+
+比较式 [(7.94)](#eq-7-94) 与式 [(7.92)](#eq-7-92)，我们得出结论
+
+<Anchor id="eq-7-95" />
+$$
+P_{\text{gr}}(\bar{v}) = P_{\text{can}}(\bar{v}). \tag{7.95}
+$$
+
+乍看之下，故事似乎以两个系综即使在 $\partial P/\partial v > 0$ 时也等价的结论结束。然而故事还没有结束：两个系综中的情形实际上并不相同。关键就在于 $\bar{v}$ 的取值范围。在正则系综中，比容 $v$ 没有进一步的限制；而在巨正则系综中，$\bar{v}$ 必须满足式 [(7.91)](#eq-7-91) 的条件。因此，两个系综中 $\bar{v}$ 的取值范围可能不同。
+
+## 巨正则系综中的麦克斯韦构造
+
+首先，$\bar{v}$ 不能位于区间 $a \leq v \leq b$ 内。否则，根据式 [(7.89)](#eq-7-89)，$\partial\Phi/\partial v = 0$ 将意味着 $\partial^2\Phi/\partial v^2 > 0$，与式 [(7.91)](#eq-7-91) 矛盾。另一方面，在该区间之外，条件 $\partial\Phi/\partial v = 0$（此时它同样意味着 $\partial^2\Phi/\partial v^2 \leq 0$）本身就足以确定 $\bar{v}$。利用式 [(7.86)](#eq-7-86) 与 [(7.94)](#eq-7-94)，我们得到
+
+<Anchor id="eq-7-96" />
+$$
+\begin{aligned}
+&\beta P_{\text{can}}(\bar{v}) = F(\bar{v}) + \frac{1}{\bar{v}}\ln z \Rightarrow kT\bar{v}F(\bar{v}) - \bar{v}P_{\text{can}}(\bar{v}) = -kT\ln z\\
+&\Rightarrow \int_{v_0}^{\bar{v}}dv'\,P_{\text{can}}(v') - \bar{v}P_{\text{can}}(\bar{v}) = -kT\ln z.
+\end{aligned} \tag{7.96}
+$$
+
+该方程确定了 $\bar{v}$ 与 $z$ 之间的隐式关系。把式 [(7.96)](#eq-7-96) 两端对 $\bar{v}$ 求导，得到
+
+<Anchor id="eq-7-97" />
+$$
+kT\frac{\partial\ln z}{\partial\bar{v}} = \bar{v}\frac{\partial P_{\text{can}}}{\partial\bar{v}}. \tag{7.97}
+$$
+
+由于 $\bar{v} > 0$，式 [(7.97)](#eq-7-97) 表明 $\ln z$–$\bar{v}$ 曲线的形状与 $P_{\text{can}}$–$v$ 曲线相似。二者都在 $a$ 处取极小、在 $b$ 处取极大。不过它们有一个关键区别：在巨正则系综中，$\bar{v}$ 不能取区间 $a < \bar{v} < b$ 内的值。因此，图 7.8 中 $z$ 对 $\bar{v}$ 的图在 $\bar{v}$ 轴上 $a$ 与 $b$ 之间出现一段空白。
+
+![在 a 与 b 之间有一段空白的逸度-比容图。](/img/asm/chap07-fig7-8.png)
+
+图 7.8：逸度 $z$ 作为 $\bar{v}$ 的函数。
+
+此外，对给定的 $z$ 值，式 [(7.96)](#eq-7-96) 可能有两个 $\bar{v}$ 根。例如，如图 (7.8) 所示，当 $z = z'$ 时两根为 $A$ 与 $B$；当 $z = z''$ 时两根为 $B'$ 与 $A'$。存在一个特殊的 $z$ 值，记作 $z_0$，此时两个根 $v_1$ 与 $v_2$ 满足如下两个条件：
+
+<Anchor id="eq-7-98a" />
+$$
+\int_{v_0}^{v_{1,2}}dv'\,\beta P_{\text{can}}(v') - v_{1,2}\beta P_{\text{can}}(v_{1,2}) = -\ln z_0, \tag{7.98a}
+$$
+
+<Anchor id="eq-7-98b" />
+$$
+\Phi(v_1,z_0) = \Phi(v_2,z_0). \tag{7.98b}
+$$
+
+结合式 [(7.88)](#eq-7-88)，$\Phi(v,z) = \frac{1}{v}[\ln z + \int_{v_0}^{v}dv'\,\beta P_{\text{can}}(v')]$，这两个条件给出
+
+$$
+\begin{aligned}
+\Phi(v_1,z_0) &= \frac{1}{v_1}\left[\ln z_0 + \int_{v_0}^{v_1}dv'\,\beta P_{\text{can}}(v')\right] = \beta P_{\text{can}}(v_1)\\
+\Phi(v_2,z_0) &= \frac{1}{v_2}\left[\ln z_0 + \int_{v_0}^{v_2}dv'\,\beta P_{\text{can}}(v')\right] = \beta P_{\text{can}}(v_2)\\
+&\Rightarrow P_{\text{can}}(v_1) = P_{\text{can}}(v_2) \equiv P_0.
+\end{aligned}
+$$
+
+这意味着在这个特殊值 $z_0$ 处，两个比容对应同一个 $z$，而且这两个体积处的压强相等。我们把这个共同压强记作 $P_0$。不过应当注意，当 $z \neq z_0$ 时，两个比容也可能对应同一个 $z$，但这两个体积处的压强一般并不相等。
+
+把式 [(7.98a)](#eq-7-98a) 中分别对应 $v_1$ 与 $v_2$ 的两个方程相减，我们得到如下表达式：
+
+<Anchor id="eq-7-99" />
+$$
+\int_{v_1}^{v_2}dv'\,P_{\text{can}}(v') - (v_2-v_1)P_{\text{can}}(v_1) = 0. \tag{7.99}
+$$
+
+这一方程给出了图 7.7 的 $P_{\text{can}}$–$v$ 图中著名的*麦克斯韦构造*。
+
+现在让我们回到一般 $z$ 下式 [(7.96)](#eq-7-96) 关于 $\bar{v}$ 的根，它们也画在图 7.8 中。在区间 $v_1 \leq v \leq v_2$ 之外，$z$–$v$ 曲线画成实线；在该区间之内但在 $a \leq v \leq b$ 之外，曲线画成虚线。下面我们将说明，在巨正则系综中必须抛弃虚线部分。
+
+考虑图 7.8 中的两点 $A$ 与 $B$。它们对应同一个 $z$ 值 $z'$，其比容分别记作 $v_A$ 与 $v_B$。由于二者都是式 [(7.96)](#eq-7-96) 的解，函数 $\Phi(v,z')$ 在 $v = v_A$ 与 $v = v_B$ 处各有一个局部极大值。于是我们有
+
+<Anchor id="eq-7-100" />
+$$
+\begin{aligned}
+-kT\ln z' &= \int_{v_0}^{v_A}dv'\,P_{\text{can}}(v') - v_AP_{\text{can}}(v_A) = \int_{v_0}^{v_B}dv'\,P_{\text{can}}(v') - v_BP_{\text{can}}(v_B)\\
+&\Rightarrow \int_{v_B}^{v_A}dv'\,P_{\text{can}}(v') = v_AP_{\text{can}}(v_A) - v_BP_{\text{can}}(v_B)
+\end{aligned} \tag{7.100}
+$$
+
+由于 $z' \neq z_0$，这两个比容处的压强不相等。让我们假设 $P_{\text{can}}(v_B) < P_{\text{can}}(v_A)$。如图 7.7 所示，我们选一个与 $A$ 压强相同、且靠近 $B$ 的点 $C$。由于线段 $CA$ 位于麦克斯韦构造线之上，我们得到如下不等式：
+
+$$
+\int_{v_C}^{v_A}dv'\,P_{\text{can}}(v') < (v_A-v_C)P_{\text{can}}(v_A).
+$$
+
+把这个不等式减去式 [(7.100)](#eq-7-100)，得到
+
+$$
+\int_{v_C}^{v_B}dv'\,P_{\text{can}}(v') < v_BP_{\text{can}}(v_B) - v_CP_{\text{can}}(v_A) < (v_B-v_C)P_{\text{can}}(v_B),
+$$
+
+其中我们用了原来的假设 $P_{\text{can}}(v_B) < P_{\text{can}}(v_A)$。对照图 7.7 可以发现，这个不等式不可能成立。因此，必须有
+
+<Anchor id="eq-7-101" />
+$$
+P_{\text{can}}(v_B) > P_{\text{can}}(v_A),\quad\text{且}\quad \Phi(v_B,z') > \Phi(v_A,z'). \tag{7.101}
+$$
+
+同样地，我们还得到
+
+<Anchor id="eq-7-102" />
+$$
+P_{\text{can}}(v_{A'}) > P_{\text{can}}(v_{B'}),\quad\text{且}\quad \Phi(v_{A'},z'') > \Phi(v_{B'},z''). \tag{7.102}
+$$
+
+回忆一下，在热力学极限下巨配分函数由其最大项主导，如式 [(7.77)](./06-ensemble-equivalence.mdx#eq-7-77) 与 [(7.92)](#eq-7-92) 所述。因此，图 7.8 中曲线的虚线部分必须抛弃。
+
+压强 $P_{\text{gr}}(\bar{v})$ 在图 7.9 中画成实线。它等价于 $P_{\text{can}}(\bar{v})$，但排除了 $v_1$ 与 $v_2$ 之间的区域，因为不存在使 $\bar{v}$ 落入该区间的 $z$。换句话说，在巨正则系综中，系统不能在该区间内具有比容恒定的均匀相。不过，我们可以按通常的论证补上 $P_0$ 处的水平线：既然 $v_1$ 与 $v_2$ 处的系统具有相同的温度、压强与化学势，$v_1$ 处的系统就可以与 $v_2$ 处的系统以任意相对比例共存。
+
+![巨正则系综中的压强（实线）。](/img/asm/chap07-fig7-9.png)
+
+图 7.9：巨正则系综中的压强（实线）。
+
+**最后一点说明：** 实验事实是 $\partial P/\partial v \leq 0$。它不可能是别的样子：否则系统将处于高度不稳定的情形，减小施加在它上面的压强反而会使它收缩。$P_{\text{can}}$ 由（一般是近似的）计算得到，它可能具有、也可能不具有这一理想性质。然而巨正则系综中相应的压强总是满足稳定性条件，因为该系综显式地包含了系统所有可能的密度涨落。注意，尽管区间 $v_1 < v < a$ 与 $b < v < v_2$ 被排除在巨正则系综之外，它们同样满足 $\partial P/\partial v \leq 0$，并且可以作为亚稳态被访问，分别对应过热液体与过冷气体。

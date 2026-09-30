@@ -1,0 +1,125 @@
+---
+title: 7.2 正则系综中的能量涨落
+sidebar_position: 2
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 7.2 正则系综中的能量涨落
+
+尽管正则系综在原则上允许能量涨落，但对宏观热力学系统而言这些涨落可以忽略。因此，系综中的绝大多数系统都处在一个极窄的能量范围内，该范围以温度 $T$ 所确定的能量为中心。于是，正则系综与微正则系综等价。
+
+考虑如下表达式
+
+<Anchor id="eq-7-15" />
+$$
+\int\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,[U-\mathscr{H}(q,p)]\,e^{\beta[A(V,T)-\mathscr{H}(q,p)]} = 0, \tag{7.15}
+$$
+
+其中 $U = \langle\mathscr{H}\rangle$ 由 $T$ 与 $V$ 确定。把式 [(7.15)](#eq-7-15) 两端对 $\beta$ 求导，得到
+
+<Anchor id="eq-7-16" />
+$$
+\frac{\partial U}{\partial\beta} + \int\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}(U-\mathscr{H})\left(A-\mathscr{H}+\beta\frac{\partial A}{\partial\beta}\right)e^{\beta(A-\mathscr{H})} = 0. \tag{7.16}
+$$
+
+由于 $\beta\frac{\partial A}{\partial\beta} = -T\frac{\partial A}{\partial T} = TS$，式 [(7.16)](#eq-7-16) 可以写成
+
+<Anchor id="eq-7-17" />
+$$
+\frac{\partial U}{\partial\beta} + \left\langle(U-\mathscr{H})^2\right\rangle = 0. \tag{7.17}
+$$
+
+由此得到能量的均方涨落
+
+<Anchor id="eq-7-18" />
+$$
+\langle\mathscr{H}^2\rangle - \langle\mathscr{H}\rangle^2 = \left\langle(U-\mathscr{H})^2\right\rangle = -\frac{\partial U}{\partial\beta} = kT^2\left(\frac{\partial U}{\partial T}\right)_V = kT^2C_V. \tag{7.18}
+$$
+
+这个恒等式把能量涨落与系统的热容联系起来，它是*涨落耗散定理*的一个例子。对于宏观系统，$\langle\mathscr{H}\rangle$ 与 $C_V$ 都与粒子数 $N$ 成正比。在热力学极限 $N \to \infty$ 下，相对能量涨落变得可以忽略。因此，系综中几乎所有系统副本都具有相同的能量值，即系统的内能 $U$。这一结果是意料之中的，因为我们在前面已经说明，广延量的相对涨落可以忽略。
+
+下面，我们将给出能量涨落的另一种启发式推导，它展示了微正则系综与正则系综中熵的定义之间的联系。我们从配分函数出发
+
+<Anchor id="eq-7-19" />
+$$
+\begin{aligned}
+\int\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,e^{-\beta\mathscr{H}(q,p)} &= \int_0^\infty dE\,\omega(E)e^{-\beta E} = \int_0^\infty dE\,e^{-\beta E+\ln\omega(E)}\\
+&= \int_0^\infty dE\,e^{\beta[TS(E)-E]},
+\end{aligned} \tag{7.19}
+$$
+
+其中 $\omega(E)$ 是固定体积 $V$ 下的态密度，$S(E) = k\ln\omega(E)$ 给出固定能量 $E$ 的微正则系综的熵。需要强调，函数 $S(E)$ 目前还不是我们正则系综的熵，在现在这种写法下它只是 $E$ 的函数。
+
+![态密度、玻尔兹曼因子及其乘积对能量的依赖关系示意图。](/img/asm/chap07-fig7-2.png)
+
+图 7.2：态密度 $\omega(E)$、玻尔兹曼因子 $e^{-\beta E}$ 及其乘积 $\omega(E)e^{-\beta E}$ 对能量依赖关系的示意图。
+
+以第 6 章 $N$ 个粒子的理想气体为例，态密度 $\omega(E)$ 随能量快速增长，典型地 $\omega(E) \propto E^N$，而玻尔兹曼因子 $e^{-\beta E}$ 指数衰减。因此，式 [(7.19)](#eq-7-19) 中的被积函数在最概然能量值 $E$ 处呈现出一个尖锐的峰。峰的宽度 $\Delta E$ 代表相对能量涨落，对于宏观系统，在热力学极限下它可以忽略。图 7.2 展示了被积函数中这两个竞争因素对能量的依赖关系。
+
+事实上，被积函数的最大值出现在 $E = \bar{E}$ 处，其中 $\bar{E}$ 满足条件
+
+<Anchor id="eq-7-20" />
+$$
+T\left(\frac{\partial S}{\partial E}\right)_{E=\bar{E}} = 1, \tag{7.20}
+$$
+
+<Anchor id="eq-7-21" />
+$$
+\left(\frac{\partial^2 S}{\partial E^2}\right)_{E=\bar{E}} < 0, \tag{7.21}
+$$
+
+其中 $S(E)$ 的偏导数在固定体积下取值。
+
+回顾微正则系综的框架，偏导数 $\frac{\partial S}{\partial E}$ 给出温度的倒数，对给定能量的孤立系统，这一温度被所有宏观子系统一致地采用。在当前正则系综的讨论中，温度 $T$ 由热库规定。于是第一个条件式 [(7.20)](#eq-7-20) 确定了最概然能量值 $\bar{E}$，我们把它认定为系统的内能 $U$。无论如何，式 [(7.20)](#eq-7-20) 都可以解释为在系统体积固定时定义了 $U$ 与 $T$ 之间的隐式函数关系。
+
+接下来，为了保证被积函数在 $E = \bar{E} = U$ 处取得最大值，我们还必须验证式 [(7.21)](#eq-7-21) 给出的第二个条件。事实上我们注意到，$\bar{E}$（或 $U$）是由式 [(7.20)](#eq-7-20) 确定的 $T$ 的隐函数，因此
+
+<Anchor id="eq-7-22" />
+$$
+\left(\frac{\partial^2 S}{\partial E^2}\right)_{E=\bar{E}} = \left(\frac{\partial T^{-1}}{\partial E}\right)_{E=\bar{E}} = -\frac{1}{T^2}\left(\frac{\partial T}{\partial E}\right)_{E=\bar{E}} = -\frac{1}{T^2C_V}. \tag{7.22}
+$$
+
+由于真实物理系统的热容总是正的，第二个条件式 [(7.21)](#eq-7-21) 自动满足。
+
+现在我们把 $TS - E$ 在最概然能量 $\bar{E}$（或 $U$）附近展开
+
+<Anchor id="eq-7-23" />
+$$
+\begin{aligned}
+TS(E) - E &= [TS(\bar{E}) - \bar{E}] + \frac{1}{2}(E-\bar{E})^2T\left(\frac{\partial^2 S}{\partial E^2}\right)_{E=\bar{E}} + \cdots\\
+&= [TS(U) - U] - \frac{1}{2TC_V}(E-U)^2 + \cdots.
+\end{aligned} \tag{7.23}
+$$
+
+这一展开表明，在正则系综中能量分布是高斯分布，它以平均能量 $U$ 为中心，宽度为
+
+<Anchor id="eq-7-24" />
+$$
+\Delta E = \sqrt{2kT^2C_V}. \tag{7.24}
+$$
+
+显然，相对涨落 $\Delta E/U$ 的量级为 $N^{-1/2}$，这表明在热力学极限 $N \to \infty$ 下能量分布趋于狄拉克 $\delta$ 函数，如图 7.2 所示。
+
+把式 [(7.23)](#eq-7-23) 代入式 [(7.19)](#eq-7-19) 并对 $E$ 积分，得到
+
+$$
+\begin{aligned}
+Q_N(V,T) &= \int_0^\infty dE\,e^{\beta[TS(E)-E]} \approx e^{\beta[TS(U)-U]}\int_0^\infty dE\,e^{-(E-U)^2/(2kT^2C_V)}\\
+&= e^{\beta[TS(U)-U]}\int_{-\infty}^{\infty} dx\,e^{-x^2/(2kT^2C_V)} = e^{\beta[TS(U)-U]}\sqrt{2\pi kT^2C_V},
+\end{aligned}
+$$
+
+<Anchor id="eq-7-25" />
+$$
+A(V,T) \approx U - TS(U) - \frac{1}{2}kT\ln C_V \xrightarrow{\text{热力学极限}} U - TS(U). \tag{7.25}
+$$
+
+由于前两项都是广延的（正比于 $N$），第三项——它正比于 $\ln N$——在热力学极限下可以忽略。略去这个对数贡献并与式 [(7.12)](./index.mdx#eq-7-12) 比较，我们发现式 [(7.13)](./index.mdx#eq-7-13) 定义的正则熵与在正则系综内能 $U$ 处取值的微正则熵一致：
+
+$$
+S = k\ln\omega(U) = -\left(\frac{\partial A}{\partial T}\right)_V.
+$$
+
+**外部量与随机量。** 对于孤立系统，其总能量是严格守恒的量，不表现出热涨落（注意微正则系综定义中的小量 $\Delta$ 表示的是能量分辨率宽度，而不是热涨落）。这一能量是固定的，只能通过外部手段调节。我们把这类参量称为外部量。而考虑它的子系统时，每个子系统的能量可以在其平均值（最概然值）附近涨落，同时保持总能量守恒。我们把这类量称为随机变量。温度由所有子系统之间的平衡条件（最概然状态）确定，因而同样构成一个随机变量。相比之下，正则系综中的系统可以看成某个孤立系统的一个宏观子系统。因此，它的内能表现为随机变量，而温度由外部热库固定（其涨落可以忽略），从而充当外部参量。

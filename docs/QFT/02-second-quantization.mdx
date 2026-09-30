@@ -1,0 +1,300 @@
+---
+title: 二次量子化
+sidebar_position: 3
+hide_title: true
+---
+# 二次量子化
+
+上一节提到，固定粒子数的波函数不能直接处理粒子的产生与湮灭，这是一个有些棘手的问题。狄拉克从量子谐振子的运算中得到启发，引入了新的处理方式，让同一个态空间可以容纳不同粒子数的态。这套写法通常称为**二次量子化**[^name]。
+
+本文以下只讨论玻色子。
+
+## 1. 从固定粒子数到 Fock 空间
+
+先考虑 $N$ 个自由、无相互作用的非相对论全同粒子。其哈密顿量为
+
+$$
+\hat{H}_s = -\frac{1}{2m} \sum_{j=1}^{N} \nabla_j^2, \qquad \nabla_j^2 \equiv \sum_{\alpha=1}^{3}\frac{\partial^2}{\partial (x_j^\alpha)^2},
+$$
+
+其中 $\vec{x}_j$ 是第 $j$ 个粒子的位置坐标变量。波函数是 $N$ 个位置与时间的函数 $\Psi(\vec{x}_1, \vec{x}_2, \dots, \vec{x}_N; t)$。
+
+固定 $N$ 时，这种描述没有问题。但如果要同时描述零个、一个、两个乃至更多粒子的状态，就不能只使用同一个固定 $N$ 的波函数。这不仅是函数多一个变量的问题，它改变了我们使用的整个希尔伯特空间。为此，我们需要一个在改变粒子数时不变的空间来讨论问题。
+
+:::tip[Fock 空间]
+我们把交换任意两个粒子坐标都不变的 $N$ 粒子波函数组成的希尔伯特空间记作 $\mathcal H_N$；它是一般 $N$ 重张量积空间的对称部分。费米子则取反对称部分，并构造相应的费米 Fock 空间，这里不展开。
+
+没有粒子的空间 $\mathcal H_0$ 由真空态 $|0\rangle$ 张成，约定 $\langle0|0\rangle=1$。把各个粒子数的空间取直和，就得到 Fock 空间：
+
+$$
+\mathcal{F} \equiv \bigoplus_{N=0}^{\infty} \mathcal{H}_N.
+$$
+
+不同粒子数的子空间彼此正交。一个 Fock 空间中的态可以只落在某个 $\mathcal H_N$ 中，也可以含有不同粒子数的成分。因此无论系统的粒子数如何改变，它都会落在我们的 Fock 空间里。
+:::
+
+## 2. 产生与湮灭算符
+
+有了这些子空间，我们希望找到把 $\mathcal H_N$ 中的态送到 $\mathcal H_{N+1}$ 或 $\mathcal H_{N-1}$ 中的算符。谐振子的升降算符提供了一个启发：它们改变激发能量量子的数目，而下降算符作用于基态时得到零。
+
+因此，在位置表象中，我们引入互为厄米共轭的产生算符 $a^\dagger(\vec x)$ 与湮灭算符 $a(\vec x)$：前者在位置 $\vec x$ 处增加一个粒子，后者在该处湮灭一个粒子，并且约定：
+$$
+a(\vec{x}) |0\rangle = 0,
+$$
+其中，等式左侧的 $\ket{0}$ 代表没有粒子的真空态，等式右侧的零是零向量。
+
+我们采用玻色子的对易关系：
+
+$$
+[a(\vec{x}),a(\vec{y})]=0,\qquad
+[a^\dagger(\vec{x}),a^\dagger(\vec{y})]=0,
+\qquad
+[a(\vec{x}),a^\dagger(\vec{y})]
+=\delta^{(3)}(\vec{x}-\vec{y}).
+$$
+
+这里$\delta^{(3)}$ 是三维 Dirac $\delta$ 函数，满足
+
+$$
+\int d^3x\,\delta^{(3)}(\vec{x}-\vec{y})f(\vec{x})=f(\vec{y}).
+$$
+
+于是 $a^\dagger(\vec{x})|0\rangle$ 表示在 $\vec{x}$ 处有一个粒子的态，$a^\dagger(\vec{x})a^\dagger(\vec{y})|0\rangle$ 表示 $\vec{x}, \vec{y}$ 处分别有一个粒子的两粒子态，依此类推。
+
+:::note[玻色子]
+两个产生算符可以交换顺序，所以
+
+$$
+a^\dagger(\vec{x})a^\dagger(\vec{y})|0\rangle
+=a^\dagger(\vec{y})a^\dagger(\vec{x})|0\rangle.
+$$
+
+这正对应玻色子交换两个粒子时态不变的性质。费米子要用反对易关系，这里暂不讨论。
+:::
+
+类比与单粒子的位置表象展开，我们可以用对称的系数函数将确定粒子位置的态叠加，得到一般的 $N$ 粒子态：
+
+$$
+|\Psi_N(t)\rangle \equiv \frac{1}{\sqrt{N!}}\int d^3x_1 \cdots d^3x_N \, \Psi(\vec{x}_1, \dots, \vec{x}_N; t) \, a^\dagger(\vec{x}_1) \cdots a^\dagger(\vec{x}_N) |0\rangle,
+$$
+
+这里 $\Psi$ 采用通常的归一化，$\int d^{3N}x\,|\Psi|^2=1$；前面的 $1/\sqrt{N!}$ 抵消玻色对称态内积中出现的 $N!$。
+
+## 3. 粒子数算符
+
+:::info[计算技巧]
+为了把湮灭算符作用到产生算符串上，先看一个基本对易关系：利用对易关系有：
+
+$$
+a(\vec{x})a^\dagger(\vec{x}_1)
+=\delta^{(3)}(\vec{x}-\vec{x}_1)
++a^\dagger(\vec{x}_1)a(\vec{x}).
+$$
+
+将等式作用于真空，右边第二项中的湮灭算符直接作用于真空，因而为零：
+
+$$
+a(\vec{x})a^\dagger(\vec{x}_1)|0\rangle
+=\delta^{(3)}(\vec{x}-\vec{x}_1)|0\rangle.
+$$
+
+有两个粒子时，我们把湮灭算符一步步往右移：
+
+$$
+\begin{aligned}
+&a(\vec{x})a^\dagger(\vec{x}_1)a^\dagger(\vec{x}_2)|0\rangle\\
+= \ &\delta^{(3)}(\vec{x}-\vec{x}_1)a^\dagger(\vec{x}_2)|0\rangle
++a^\dagger(\vec{x}_1)a(\vec{x})a^\dagger(\vec{x}_2)|0\rangle\\
+= \ &\delta^{(3)}(\vec{x}-\vec{x}_1)a^\dagger(\vec{x}_2)|0\rangle
++\delta^{(3)}(\vec{x}-\vec{x}_2)a^\dagger(\vec{x}_1)|0\rangle.
+\end{aligned}
+$$
+
+每一项对应湮灭其中一个粒子。对一般的 $N$ 粒子态，反复使用对易关系，得到：
+
+$$
+a(\vec{x})\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle
+=\sum_{j=1}^{N}\delta^{(3)}(\vec{x}-\vec{x}_j)
+\prod_{k\ne j}a^\dagger(\vec{x}_k)|0\rangle.
+$$
+
+其中 $\prod_{k\ne j}$ 表示略去第 $j$ 个产生算符。最后移到最右边的湮灭算符作用于真空，贡献为零。
+:::
+
+类似量子谐振子那样，我们可以定义**粒子数算符**：
+
+$$
+\hat N=\int d^3x\,a^\dagger(\vec{x})a(\vec{x}).
+$$
+
+这个形式的含义可以直接验证：先湮灭一个粒子，再在同一位置产生一个粒子，并对位置积分。用我们刚刚得到的公式：
+
+$$
+\hat N\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle
+=\sum_{j=1}^{N}a^\dagger(\vec{x}_j)
+\prod_{k\ne j}a^\dagger(\vec{x}_k)|0\rangle
+=N\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle.
+$$
+
+将这个位置态结果代回 $|\Psi_N\rangle$ 的积分展开，由线性性得到 $\hat N|\Psi_N\rangle=N|\Psi_N\rangle$。所以 $|\Psi_N\rangle$ 是粒子数为 $N$ 的本征态。若一个态叠加了不同粒子数的成分，它就不一定有一个确定的粒子数。
+
+还有两个之后会用到的式子：
+
+$$
+[\hat N,a^\dagger(\vec{y})]=a^\dagger(\vec{y}),\qquad
+[\hat N,a(\vec{y})]=-a(\vec{y}).
+$$
+
+证明很简单，用 $[AB,C]=A[B,C]+[A,C]B$ 展开：
+
+$$
+\begin{aligned}
+[\hat N,a^\dagger(\vec{y})]
+&=\int d^3x\,
+\left(a^\dagger(\vec{x})[a(\vec{x}),a^\dagger(\vec{y})]
++[a^\dagger(\vec{x}),a^\dagger(\vec{y})]a(\vec{x})\right)\\
+&=\int d^3x\,a^\dagger(\vec{x})\delta^{(3)}(\vec{x}-\vec{y})
+=a^\dagger(\vec{y}).
+\end{aligned}
+$$
+
+第二个式子同理，只是 $[a^\dagger(\vec{x}),a(\vec{y})]=-\delta^{(3)}(\vec{x}-\vec{y})$，所以多一个负号。这两个结果也符合直觉：产生算符使粒子数加一，湮灭算符使粒子数减一。
+
+## 4. 重写哈密顿量
+
+原来的 $N$ 粒子波函数满足
+$$
+i\frac{\partial\Psi}{\partial t}=\hat H_s\Psi,\qquad
+\hat H_s=-\frac{1}{2m}\sum_{j=1}^{N}\nabla_j^2,
+$$
+其中下标 $s$ 只用来标出它作用于固定粒子数的薛定谔波函数。以下采用薛定谔绘景：时间依赖放在态和系数函数中，算符本身不随时间变化。
+
+现在定义一个作用在 Fock 空间上的算符：
+
+$$
+\hat H=\int d^3x\,a^\dagger(\vec{x})
+\left(-\frac{\nabla_{\vec{x}}^2}{2m}\right)a(\vec{x}).
+$$
+
+这里的 $\nabla_{\vec{x}}^2$ 作用在它右边的 $a(\vec{x})$ 上。直观上，$\hat H$ 湮灭一个粒子，对它施加单粒子的动能算符，再产生一个粒子；对所有位置积分，因此看起来的确是系统的能量。我们要证明：把第 2 节给出的态展开式代进去，这个算符给出的恰好是：
+
+$$
+i\frac{\partial}{\partial t}|\Psi(t)\rangle=\hat H|\Psi(t)\rangle.
+$$
+
+为了少写一些符号，暂记
+
+$$
+dX\equiv d^3x_1\cdots d^3x_N,\qquad
+\Psi\equiv\Psi(\vec{x}_1,\ldots,\vec{x}_N;t).
+$$
+
+为了把 Laplacian 从湮灭算符移到产生算符，再移到波函数上，需要对算符值函数分部积分。边界条件与保持算符次序的完整证明见[附录 E](./appendix-mathematical-tools.mdx#e-二次量子化中的分部积分)；这里直接使用该等式。
+
+
+把态具体形式代入 $\hat H|\Psi\rangle$，应用上面的积分等式：
+
+$$
+\begin{aligned}
+\hat H|\Psi\rangle
+&=-\frac{1}{2m\sqrt{N!}}\int dX\,d^3x\,
+\Psi\,a^\dagger(\vec{x})
+\bigl(\nabla_{\vec{x}}^2a(\vec{x})\bigr)
+\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle\\
+&=-\frac{1}{2m\sqrt{N!}}\int dX\,d^3x\,
+\Psi\,\bigl(\nabla_{\vec{x}}^2a^\dagger(\vec{x})\bigr)
+a(\vec{x})\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle.
+\end{aligned}
+$$
+
+接着用第 3 节得到的湮灭算符作用公式，再做 $\vec{x}$ 积分，$\delta$ 函数会把 $\vec{x}$ 换成 $\vec{x}_j$：
+
+$$
+\hat H|\Psi\rangle
+=-\frac{1}{2m\sqrt{N!}}\sum_{j=1}^{N}\int dX\,
+\Psi\,\bigl(\nabla_j^2a^\dagger(\vec{x}_j)\bigr)
+\prod_{k\ne j}a^\dagger(\vec{x}_k)|0\rangle.
+$$
+
+现在再对 $\Psi\,\bigl(\nabla_j^2a^\dagger(\vec{x}_j)\bigr)$ 部分应用积分等式（因为后面连乘中没有算符依赖于 $x_j$），并把产生算符排回原来的顺序：
+
+$$
+\begin{aligned}
+\hat H|\Psi\rangle
+&=\frac{1}{\sqrt{N!}}\int dX\,
+\left(-\frac{1}{2m}\sum_{j=1}^{N}\nabla_j^2\Psi\right)
+\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle\\
+&=\frac{1}{\sqrt{N!}}\int dX\,
+(\hat H_s\Psi)\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle\\
+&=i\frac{\partial}{\partial t}|\Psi(t)\rangle.
+\end{aligned}
+$$
+
+最后一步用了波函数的薛定谔方程，以及前面说明的薛定谔绘景约定。
+
+所以 $\hat H_s$ 和 $\hat H$ 给出的是同一个多粒子动力学，只是写法不同。前者作用在 $N$ 粒子波函数上，后者作用在 Fock 空间中的态上。
+
+:::note[哈密顿量厄米性的验证]
+
+对 $\hat H$ 本身应用积分等式一次，可写成
+$$
+\hat H=\frac{1}{2m}\int d^3x\,
+\sum_{i=1}^{3}\bigl(\partial_i a^\dagger(\vec{x})\bigr)
+\bigl(\partial_i a(\vec{x})\bigr).
+$$
+
+每一项都是 $B^\dagger B$ 的形式，因此在上述边界条件下，
+
+$$
+\hat H^\dagger=\hat H.
+$$
+:::
+
+## 5. 系统的粒子数变化
+
+对于我们构造的自由 $N$ 粒子哈密顿量而言，粒子数是守恒的。我们可以利用对易关系 $[\hat N,\hat H]$ 来证明。由于 $\hat N$ 不依赖这里的坐标变量 $\vec{x}$，可以把空间导数放到对易子外：
+
+$$
+\begin{aligned}
+[\hat N,\hat H]
+&=-\frac{1}{2m}\int d^3x\,
+\left([\hat N,a^\dagger]\nabla^2a
++a^\dagger\nabla^2[\hat N,a]\right)\\
+&=-\frac{1}{2m}\int d^3x\,
+\left(a^\dagger\nabla^2a-a^\dagger\nabla^2a\right)=0.
+\end{aligned}
+$$
+
+量子力学告诉我们，这两个算符可以同时对角化。而哈密顿量是时间演化的生成元，因而粒子数不变。
+
+也可以用海森堡运动方程表达守恒。海森堡绘景把时间变化放在算符上；对于本身没有显式时间依赖的可观测量，
+
+$$
+\frac{d\hat O_H}{dt}=i[\hat H,\hat O_H],
+$$
+
+因此 $[\hat N,\hat H]=0$ 就给出 $d\hat N_H/dt=0$。
+
+假如我们有一个存在相互作用的系统，它的哈密顿量是：
+
+$$
+\hat H_{\mathrm{int}}
+=\alpha\int d^3x\,
+\left(a^\dagger a^2+(a^\dagger)^2a\right).
+$$
+
+其中 $\alpha$ 为实数。这里的算符都在同一个位置 $\vec{x}$。第二项是第一项的厄米共轭，也可简写为 $a^\dagger a^2+\text{h.c.}$。
+
+$a^\dagger a^2$ 使粒子数净减少一，$(a^\dagger)^2a$ 则使粒子数净增加一。由刚才的对易关系，
+
+$$
+[\hat N,\hat H_{\mathrm{int}}]
+=\alpha\int d^3x\,
+\left(-a^\dagger a^2+(a^\dagger)^2a\right),
+$$
+
+一般不为零。因此这样的相互作用可以使态在不同粒子数的子空间之间演化。不过，并不是所有相互作用都改变粒子数，仍要看具体的哈密顿量。这个三次项只作为粒子数改变的形式例子：厄米性并不保证能量有下界，单独加入它还不能构成稳定的完整理论。
+
+这里的 $a(\vec x)$ 是作用于 Fock 空间的算符，$\vec x$ 是它的位置标签；$\Psi(\vec x_1,\ldots,\vec x_N;t)$ 则是态在 $N$ 粒子配置空间中的展开系数，两者不是同一个对象。后面构造相对论量子场时还会用到场算符；在此之前，我们先建立经典场的变换规律和动力学。
+
+[^name]: “二次量子化”是沿用已久的名称；本章用产生、湮灭算符重写多体量子理论，并非把同一个波函数重复量子化。

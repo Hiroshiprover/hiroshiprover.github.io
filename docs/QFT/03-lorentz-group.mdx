@@ -1,0 +1,107 @@
+---
+title: 场与 Lorentz 变换
+sidebar_position: 4
+hide_title: true
+---
+# 场与 Lorentz 变换
+
+## 1. 场与场配置
+
+分析力学中，有限个广义坐标通常就能确定一个系统的瞬时配置。场的自由度分布在空间各点：要确定一个时刻的场配置，需要给出每个位置 $\vec x$ 上的 $\phi(t,\vec x)$。这些配置随时间改变，就构成时空中的场 $\phi(x)$。
+
+## 2. 时空坐标、度规与指标
+
+把时间和三个空间坐标合写为 $x^\mu=(t,\vec x)$。本套笔记采用 $(-+++)$ 度规，
+
+$$
+g_{\mu\nu}=\operatorname{diag}(-1,1,1,1),\qquad ds^2=g_{\mu\nu}dx^\mu dx^\nu.
+$$
+
+希腊指标取 $0,1,2,3$，拉丁空间指标取 $1,2,3$。重复的一个上指标和一个下指标表示求和；度规升降指标，例如 $V_\mu=g_{\mu\nu}V^\nu$。Lorentz 变换保持时空间隔，写成 $x'^\mu=\Lambda^\mu{}_\nu x^\nu$ 时，其矩阵满足
+
+$$
+\Lambda^Tg\Lambda=g.
+$$
+
+我们主要讨论与恒等变换连续相连的 Lorentz 变换。它们可以连续地由空间旋转和 boost 组成；完整群的其他分支及其分类见[附录 B](./appendix-mathematical-tools.mdx#b-lorentz-群的数学补充)。本章只用到指标变换和时空间隔不变。
+
+## 3. 场的变换
+
+坐标变换把同一事件 $x$ 标记为 $x'=\Lambda x$。场也要按自身的分量类型变换。标量场在两个坐标系对同一事件的描述中满足
+
+$$
+\phi'(x')=\phi(x).
+$$
+
+把两边改写成同一个坐标自变量，则
+
+$$
+\phi'(x)=\phi(\Lambda^{-1}x).
+$$
+
+所以“标量”指的是同一事件上的场值不因坐标系改变而混合，并不表示 $\phi$ 是常函数。
+
+逆变矢量场与协变矢量场分别满足
+
+$$
+V'^\mu(x')=\Lambda^\mu{}_\nu V^\nu(x),\qquad
+W'_\mu(x')=\Lambda_\mu{}^\nu W_\nu(x)
+=(\Lambda^{-1})^\nu{}_\mu W_\nu(x).
+$$
+
+因此一个上指标与一个下指标缩并后是标量：$V'^\mu(x')W'_\mu(x')=V^\mu(x)W_\mu(x)$。一般张量的每个上指标都乘以一个 $\Lambda$，每个下指标都乘以一个逆变换矩阵。例如，二阶逆变张量满足
+$$
+T'^{\mu\nu}(x')=\Lambda^\mu{}_\rho\Lambda^\nu{}_\sigma T^{\rho\sigma}(x).
+$$
+高阶例子和矩阵指标恒等式见附录 B。
+
+四动量是一个常用例子。对 $p^\mu=(E,\vec p)$，其 Lorentz 不变量为
+$$
+p_\mu p^\mu=-E^2+|\vec p|^2=-m^2,
+$$
+因此质量壳条件在 Lorentz 变换下保持不变。
+
+标量场的一阶偏导按链式法则变换为协矢量：
+
+$$
+\partial'_\mu\phi'(x')
+=\frac{\partial x^\nu}{\partial x'^\mu}\partial_\nu\phi(x)
+=(\Lambda^{-1})^\nu{}_\mu\partial_\nu\phi(x)
+=\Lambda_\mu{}^\nu\partial_\nu\phi(x).
+$$
+
+这里 Lorentz 变换的 Jacobian 是常矩阵，因此继续对张量分量作普通偏导时不会再出现 Jacobian 的导数项；任意坐标变换下的一般情形不在本章讨论。
+
+## 4. Klein–Gordon 方程的协变性
+
+对标量场再取一次偏导并用度规缩并，得到标量 $\Box\phi$：
+
+$$
+\Box\phi\equiv g^{\mu\nu}\partial_\mu\partial_\nu\phi
+=-\partial_t^2\phi+\nabla^2\phi.
+$$
+
+因此若一个惯性系中有
+
+$$
+(\Box-m^2)\phi(x)=0,
+$$
+
+变换后的场满足 $(\Box'-m^2)\phi'(x')=(\Box-m^2)\phi(x)=0$。方程在各惯性系中保持同一形式；这并不表示每个场分量在换坐标后数值不变。
+
+## 5. 加入平移：Poincaré 变换
+
+本章仍将 Lorentz 部分限于与恒等变换连续相连的正保时分支。加上平移后，得到这里使用的连续 Poincaré 变换：
+
+$$
+x'^\mu=\Lambda^\mu{}_\nu x^\nu+c^\mu,
+$$
+
+其中 $c^\mu$ 是常矢量。先施加 $(\Lambda_1,c_1)$、再施加 $(\Lambda_2,c_2)$，合成变换为
+
+$$
+(\Lambda_2,c_2)(\Lambda_1,c_1)
+=(\Lambda_2\Lambda_1,\,\Lambda_2c_1+c_2).
+$$
+
+第一段平移也要受第二次 Lorentz 变换作用，因而总平移一般不是 $c_1+c_2$。本章建立了场在时空变换下的规则；具体运动方程还需由动力学原理给出。

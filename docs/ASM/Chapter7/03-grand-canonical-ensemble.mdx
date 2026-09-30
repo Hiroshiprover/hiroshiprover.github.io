@@ -1,0 +1,147 @@
+---
+title: 7.3 巨正则系综
+sidebar_position: 3
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 7.3 巨正则系综
+
+在物理学中，只允许能量交换的正则系综并不能涵盖所有情形。许多系统还会与周围环境交换粒子，这要求一个更一般的框架：*巨正则系综*。
+
+巨正则系综的相空间是粒子数为 $N = 0, 1, 2, \ldots$ 的各个系统相空间的并集。与正则系综不同，每个代表点现在都带有额外的标记 $N$，记作 $(q,p,N)$。为导出分布 $\rho(q,p,N)$，我们考虑体积为 $V_1$ 的一个小（但仍宏观的）子系统，它嵌在一个体积为 $V$、温度为 $T$、由正则系综描述的大系统中。其余部分体积为 $V_2 = V - V_1$，充当粒子库。设子系统中有 $N_1$ 个粒子，粒子库中有 $N_2 = N - N_1$ 个粒子，$N_1$ 与 $N_2$ 都是随机变量。
+
+按照构造，系统体积 $V_1$ 固定且远小于粒子库体积 $V_2$。因此平衡时 $N_1$ 的最概然值显著小于 $N_2$ 的最概然值，不过 $N_1$ 可以在从 0 到 $N$ 的整个范围内涨落。于是我们得到不等式：
+
+$$
+N_1 \ll N_2 \approx N,\quad V_1 \ll V_2 \approx V.
+$$
+
+总哈密顿量分解为：$\mathscr{H}(q,p) = \mathscr{H}_1(q_1,p_1)+\mathscr{H}_2(q_2,p_2)$，其中下标 1 与 2 分别指系统与粒子库。系统与粒子库之间的边界效应被忽略。
+
+正如我们在前面几节中推导的，整个系统的配分函数可以写成
+
+<Anchor id="eq-7-26" />
+$$
+\begin{aligned}
+Q_N(V,T) &= \frac{1}{N!h^{3N}}\int d^{3N}q\,d^{3N}p\,e^{-\beta\mathscr{H}(q,p)}\\
+&= \frac{1}{N!h^{3N}}\sum_{N_1=0}^{N}\frac{N!}{N_1!N_2!}\int_{V_1} d^{3N_1}q_1\,d^{3N_1}p_1\int_{V_2} d^{3N_2}q_2\,d^{3N_2}p_2\,e^{-\beta\mathscr{H}(q,p)}\\
+&= \sum_{N_1=0}^{N}\int_{V_1}\frac{d^{3N_1}q_1\,d^{3N_1}p_1}{N_1!h^{3N_1}}e^{-\beta\mathscr{H}_1(q_1,p_1)}\int_{V_2}\frac{d^{3N_2}q_2\,d^{3N_2}p_2}{N_2!h^{3N_2}}e^{-\beta\mathscr{H}_2(q_2,p_2)}\\
+&= \sum_{N_1=0}^{N} Q_{N_2}(V_2,T)\int_{V_1}\frac{d^{3N_1}q_1\,d^{3N_1}p_1}{N_1!h^{3N_1}}e^{-\beta\mathscr{H}_1(q_1,p_1)}.
+\end{aligned} \tag{7.26}
+$$
+
+系统的概率密度 $\rho$ 可以定义如下
+
+<Anchor id="eq-7-27" />
+$$
+\rho(q_1,p_1,N_1) = \frac{Q_{N_2}(V_2,T)}{Q_N(V,T)}\,e^{-\beta\mathscr{H}_1(q_1,p_1)} \tag{7.27}
+$$
+
+它按照式 [(7.26)](#eq-7-26) 是归一化的，
+
+<Anchor id="eq-7-28" />
+$$
+\sum_{N_1=0}^{N}\int_{V_1}\frac{d^{3N_1}q_1\,d^{3N_1}p_1}{N_1!h^{3N_1}}\,\rho(q_1,p_1,N_1) = 1. \tag{7.28}
+$$
+
+利用式 [(7.6)](./index.mdx#eq-7-6)，我们得到：
+
+<Anchor id="eq-7-29" />
+$$
+\frac{Q_{N_2}(V_2,T)}{Q_N(V,T)} = e^{-\beta[A(N_2,V_2,T)-A(N,V,T)]} \approx e^{\beta(N_1\mu - V_1P)}, \tag{7.29}
+$$
+
+其中化学势 $\mu$ 与压强 $P$ 定义为粒子库亥姆霍兹自由能的导数：
+
+<Anchor id="eq-7-30" />
+$$
+\mu = \left.\frac{\partial A(N_2,V,T)}{\partial N_2}\right|_{N_2=N}, \tag{7.30}
+$$
+
+<Anchor id="eq-7-31" />
+$$
+P = -\left.\frac{\partial A(N,V_2,T)}{\partial V_2}\right|_{V_2=V}. \tag{7.31}
+$$
+
+引入*逸度*：
+
+<Anchor id="eq-7-32" />
+$$
+z = e^{\beta\mu}, \tag{7.32}
+$$
+
+并把式 [(7.29)](#eq-7-29) 与 [(7.32)](#eq-7-32) 代入式 [(7.27)](#eq-7-27)，我们得到巨正则系综的概率分布：
+
+<Anchor id="eq-7-33" />
+$$
+\rho(q,p,N) = z^N e^{-\beta PV-\beta\mathscr{H}(q,p)}, \tag{7.33}
+$$
+
+这里为清晰起见省略了下标“1”。粒子库的影响由强度参量温度 $T$ 与化学势 $\mu$ 刻画。压强 $P$ 则由状态方程确定。[^1] 这个状态方程涉及四个热力学量 $(z,P,T,V)$，它由密度函数的归一化条件式 [(7.33)](#eq-7-33) 决定。因此，对一般热力学系统，这四个量中只有三个是独立的，并且其中之一必须是广延量 $V$。既然粒子库的广延性质不再重要，我们可以取它的热力学极限，让子系统的粒子数从 0 变到 $\infty$。
+
+为了导出所有热力学函数，我们定义*巨配分函数*：
+
+<Anchor id="eq-7-34" />
+$$
+\mathcal{Q}(z,V,T) = \sum_{N=0}^{\infty} z^N Q_N(V,T) = \sum_{N=0}^{\infty}\frac{z^N}{N!h^{3N}}\int_V d^{3N}q\,d^{3N}p\,e^{-\beta\mathscr{H}(q,p)}, \tag{7.34}
+$$
+
+它依赖于 $z$（或 $\mu$）、$V$ 与 $T$。把式 [(7.33)](#eq-7-33) 在相空间上积分并对 $N$ 求和，得到：
+
+$$
+1 = \sum_{N=0}^{\infty}\int_V\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,\rho(q,p,N) = e^{-\beta PV}\mathcal{Q}(z,V,T).
+$$
+
+于是状态方程由下式给出：
+
+<Anchor id="eq-7-35" />
+$$
+\frac{PV}{kT} = \ln\mathcal{Q}(z,V,T). \tag{7.35}
+$$
+
+系统的平均粒子数为：
+
+<Anchor id="eq-7-36" />
+$$
+\langle N\rangle = \sum_{N=0}^{\infty} N\frac{z^N Q_N(V,T)}{\mathcal{Q}(z,V,T)} = z\frac{\partial}{\partial z}\ln\mathcal{Q}(z,V,T), \tag{7.36}
+$$
+
+它也可以写成对 $\mu$ 的导数
+
+<Anchor id="eq-7-37" />
+$$
+\langle N\rangle = kT\frac{\partial}{\partial\mu}\ln\mathcal{Q}(e^{\beta\mu},V,T). \tag{7.37}
+$$
+
+内能由下式给出
+
+<Anchor id="eq-7-38" />
+$$
+U = \langle\mathscr{H}\rangle = \frac{\sum_{N=0}^{\infty} z^N \int \frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,\mathscr{H}\,e^{-\beta\mathscr{H}(q,p)}}{\mathcal{Q}(z,V,T)} = -\frac{\partial}{\partial\beta}\ln\mathcal{Q}(z,V,T). \tag{7.38}
+$$
+
+利用式 [(7.36)](#eq-7-36)，我们可以把式 [(7.38)](#eq-7-38) 中的逸度 $z$ 替换为平均粒子数。于是内能 $U$ 成为 $N$、$V$ 与 $T$ 的函数。其他热力学函数可以表示为
+
+$$
+C_V = \left(\frac{\partial U}{\partial T}\right)_{N,V},
+$$
+
+$$
+S = \int_0^T dT'\,\frac{C_V}{T'},\quad A = U - TS.
+$$
+
+由于式 [(7.33)](#eq-7-33) 中的密度函数是归一化的，香农熵由下式给出
+
+$$
+\begin{aligned}
+S_{\text{Shannon}} &= -k\sum_N\int\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,\rho(q,p,N)\ln\rho(q,p,N)\\
+&= -k\sum_N\int\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,\rho(q,p,N)(N\ln z - \beta PV - \beta\mathscr{H})\\
+&= \frac{U + PV - \mu\langle N\rangle}{T}.
+\end{aligned}
+$$
+
+由热力学欧拉关系 $U = TS - PV + \mu N$ 可知，这一香农熵与热力学熵相同。
+
+[^1]: 气体只有两个独立的强度参量。给定两个强度参量 $T$ 与 $\mu$ 后，其余强度参量 $P$ 由状态方程确定。

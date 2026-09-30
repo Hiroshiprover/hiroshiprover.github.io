@@ -1,0 +1,129 @@
+---
+title: 热力学的导出与能量均分定理
+sidebar_position: 3
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 热力学的导出与能量均分定理
+
+## 6.3 热力学的导出
+
+我们已经把系统的熵 $S$ 与温度 $T$ 定义为能量 $E$、体积 $V$ 与粒子数 $N$ 的函数。在随后的几节中，还将引入其他热力学函数。这些函数共同刻画系统的平衡态。关于组成粒子微观运动的详细动力学信息，只以统计的意义编码在这些函数之中，无法由它们反推回来。
+
+这些热力学函数的值随着系统从一个平衡态过渡到另一个平衡态而改变。除非另有说明，这种过程中的每一个中间态都被假定处于平衡。这可以通过无限缓慢地改变系统来实现；这样的过程在热力学中称为*准静态*。在整个准静态过程中，热力学函数在每一个阶段都保持良好定义。当然，真实的转变可能偏离平衡。在那种情况下，必须考虑系统的时间演化，热力学函数可能需要重新定义或推广。我们暂时不考虑非平衡态。
+
+考虑一个包含能量与体积无穷小变化的准静态过程，使得
+
+<Anchor id="eq-6-30" />
+$$
+dS(E,V) = \left(\frac{\partial S}{\partial E}\right)_V dE + \left(\frac{\partial S}{\partial V}\right)_E dV. \tag{6.30}
+$$
+
+我们可以把压强 $P$ 定义为
+
+<Anchor id="eq-6-31" />
+$$
+P = T\left(\frac{\partial S}{\partial V}\right)_E, \tag{6.31}
+$$
+
+并利用温度的定义得到
+
+<Anchor id="eq-6-32" />
+$$
+dS = \frac{1}{T}(dE + PdV),\quad \text{或}\quad dE = TdS - PdV. \tag{6.32}
+$$
+
+这就是基本热力学关系，它表达了可逆过程的热力学第一定律。由此，我们已经展示了如何用经典统计力学导出第零定律（关于温度与热平衡）、第一定律（关于能量守恒）以及第二定律（关于孤立系统的熵）。
+
+总之，现在我们给出一个实用的流程，用来确定 $E,V$ 与 $N$ 固定的微正则系综的所有热力学函数：
+
+1. 由哈密顿量计算系统的相体积 $\Sigma(E)$。
+
+2. 计算熵 $S(E, V) = k\ln\Sigma(E)$。
+
+3. 将 $E$ 反解为 $S$ 与 $V$ 的函数。所得函数被定义为系统的*内能*，通常用 $U(S,V)$（而非 $E$）表示。
+
+4. 其他热力学函数可以按如下方式计算
+
+    $$
+    \begin{aligned}T &= \left(\frac{\partial U}{\partial S}\right)_V, & \text{（绝对温度）}\\ P &= -\left(\frac{\partial U}{\partial V}\right)_S, & \text{（压强）}\\ A &= U - TS, & \text{（亥姆霍兹自由能）}\\ G &= U + PV - TS, & \text{（吉布斯势）}\\ C_V &= \left(\frac{\partial U}{\partial T}\right)_V, & \text{（定容热容）}\end{aligned}
+    $$
+
+5. 要研究系统的任何平衡性质，使用热力学。
+
+## 6.4 能量均分定理
+
+本节我们在微正则系综中证明能量均分定理。[^6]
+
+设 $x_{i}(i=1,\cdot \cdot \cdot,6N)$ 表示所有的哈密顿变量 $q_{i}$ 或 $p_{i}$。我们可以写出如下系综平均，
+
+$$
+\begin{aligned}\left\langle x_i\frac{\partial\mathscr{H}}{\partial x_j}\right\rangle &= \frac{1}{\Sigma(E)}\int_{E<\mathscr{H}<E+\Delta}\frac{dqdp}{h^{3N}}x_i\frac{\partial\mathscr{H}}{\partial x_j}\\ &= \frac{\Delta}{\Sigma(E)}\frac{\partial}{\partial E}\int_{\mathscr{H}<E}\frac{dqdp}{h^{3N}}x_i\frac{\partial\mathscr{H}}{\partial x_j}\\ &= \frac{\Delta}{\Sigma(E)}\frac{\partial}{\partial E}\int_{\mathscr{H}<E}\frac{dqdp}{h^{3N}}x_i\frac{\partial(\mathscr{H}-E)}{\partial x_j}\\ &= \frac{\Delta}{\Sigma(E)}\frac{\partial}{\partial E}\int_{\mathscr{H}<E}\frac{dqdp}{h^{3N}}\left\{\frac{\partial}{\partial x_j}[x_i(\mathscr{H}-E)] - \delta_{ij}(\mathscr{H}-E)\right\},\end{aligned}
+$$
+
+其中，$dqdp$ 是 $d^{3N}qd^{3N}p$ 的简写。右边的第一项在积分后为零，因为它化为在等能面 $\mathscr{H}(q, p) =E$ 上的积分。因此，我们得到
+
+$$
+\begin{aligned}\left\langle x_i\frac{\partial\mathscr{H}}{\partial x_j}\right\rangle &= \delta_{ij}\frac{\Delta}{\Sigma(E)}\frac{\partial}{\partial E}\int\frac{dqdp}{h^{3N}}(E-\mathscr{H})\theta(E-\mathscr{H})\\ &= \delta_{ij}\frac{\Delta}{\Sigma(E)}\int\frac{dqdp}{h^{3N}}[\theta(E-\mathscr{H}) + (E-\mathscr{H})\delta(E-\mathscr{H})]\\ &= \frac{\delta_{ij}}{\partial\Omega(E)/\partial E}\int_{\mathscr{H}<E}\frac{dqdp}{h^{3N}}\\ &= \delta_{ij}\left[\frac{\partial\ln\Omega(E)}{\partial E}\right]^{-1} = \delta_{ij}k\left(\frac{\partial S}{\partial E}\right)^{-1}\end{aligned}
+$$
+
+也就是说
+
+<Anchor id="eq-6-33" />
+$$
+\left\langle x_i\frac{\partial\mathscr{H}}{\partial x_j}\right\rangle = \delta_{ij}kT. \tag{6.33}
+$$
+
+这就是所谓的*广义能量均分定理*。
+
+当 $x_{i}$ 与 $x_{j}$ 都是 $p_{i}$ 时，我们有
+
+$$
+\left\langle p_i\frac{\partial\mathscr{H}}{\partial p_i}\right\rangle = kT.
+$$
+
+此外，当 $x_{i}$ 与 $x_{j}$ 都是 $q_{i}$ 时，我们也有
+
+$$
+\left\langle q_i\frac{\partial\mathscr{H}}{\partial q_i}\right\rangle = kT.
+$$
+
+注意到 $\dot{p}_{i} = -\frac{\partial\mathscr{H}}{\partial q_{i}}$，我们得到*维里定理*
+
+<Anchor id="eq-6-34" />
+$$
+\sum_{i=1}^{3N}\langle q_i\dot{p}_i\rangle = -3NkT. \tag{6.34}
+$$
+
+许多物理系统都可以通过适当的正则变换转化为一组解耦的谐振子
+
+<Anchor id="eq-6-35" />
+$$
+\mathscr{H} = \sum_{i=1}^{f}A_iP_i^2 + \sum_{i=1}^{f}B_iQ_i^2. \tag{6.35}
+$$
+
+这里 $f$ 是振子的数目。对于这种特殊形式的哈密顿量，我们有
+
+$$
+\sum_i Q_i\frac{\partial\mathscr{H}}{\partial Q_i} + \sum_i P_i\frac{\partial\mathscr{H}}{\partial P_i} = 2\mathscr{H},
+$$
+
+于是我们得到能量均分定理
+
+<Anchor id="eq-6-36" />
+$$
+U = \langle\mathscr{H}\rangle = \frac{1}{2}\sum_i\left\langle Q_i\frac{\partial\mathscr{H}}{\partial Q_i} + P_i\frac{\partial\mathscr{H}}{\partial P_i}\right\rangle = fkT. \tag{6.36}
+$$
+
+该方程给出热容
+
+<Anchor id="eq-6-37" />
+$$
+C_V = \frac{\partial U}{\partial T} = fk. \tag{6.37}
+$$
+
+这意味着热容与自由度数之间存在直接的关联。然而，这一结果只在高温下成立。在低温下，量子力学效应占主导，需要用量子力学处理来替代这一经典结果。
+
+[^6]: 在下一章中，我们将利用正则系综中的高斯积分给出该定理的另一种证明。

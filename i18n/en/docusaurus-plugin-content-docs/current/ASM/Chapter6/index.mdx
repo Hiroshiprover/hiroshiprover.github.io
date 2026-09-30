@@ -1,0 +1,144 @@
+---
+title: 6. Classical Statistical Mechanics
+sidebar_position: 1
+hide_title: true
+slug: /ASM/chapter-6
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 6. Classical Statistical Mechanics
+
+## Contents
+
+- [6.1 The postulate of Classical Statistical Mechanics](./index.mdx)
+- [6.2 Microcanonical Ensemble](./02-microcanonical-ensemble.mdx)
+- [6.3–6.4 Derivation of Thermodynamics and Equipartition](./03-thermodynamics-and-equipartition.mdx)
+- [6.5–6.6 Classical Ideal Gas and Gibbs Paradox](./04-ideal-gas-and-gibbs-paradox.mdx)
+
+## 6.1 The postulate of Classical Statistical Mechanics
+
+### Time average and Ensemble average
+
+Unlike mechanical laws, which focus on predicting the dynamical behavior of systems based on specified initial conditions, the main purpose of thermodynamics lies in describing the equilibrium properties of macroscopic systems. In a sense, it is primarily concerned with stationary states.
+
+From a measuring perspective, any measurement has time and spatial resolution. For example, the molecular density of room temperature air is approximately $10^{23}$ particles per liter, and the average molecular speed is about 400 m/s. If the spatial resolution of the measurement is $1\mu$m and the measurement duration is 1 ms, then the number of involved molecules in the experiment is approximately$10^{8}$, and each particle collides with another molecule$10^{7}$ times during the experiment process[^1]. Therefore, a thermodynamic measurement can be viewed as an average over time $T$ and volume $V$ that are significantly larger than the microscopic characteristic scales. In fact, we can send $T$ and $V$ to infinity, after all, a thermodynamic measurement may extend, as we wish, to larger volumes and last for longer times than the example given above. The only thing to be careful is that, when taking the volume $V$ to be approaching infinity, we also need to take the total number $N$ of particles to be approaching infinity as well
+
+<Anchor id="eq-6-1" />
+$$
+V \to \infty,\quad N \to \infty,\quad \frac{V}{N} = v \tag{6.1}
+$$
+
+where the specific volume $v$ remains unchanged. Eq. [(6.1)](#eq-6-1) defines the *thermodynamic limit*.
+
+In classical mechanics, the physical quantity $f$ is expressed as a function of Hamiltonian variables $q$ and $p.$ Then, the main task of classical statistical mechanics is to evaluate the following time average[^2]
+
+<Anchor id="eq-6-2" />
+$$
+\bar{f} = \lim_{T\to\infty}\frac{1}{T}\int_0^T f[q(t'),p(t')]dt'. \tag{6.2}
+$$
+
+The Hamiltonian variables $\{q(t), p(t)\}$ are determined by the Hamilton’s equation Eq. [(0.1)](../index.mdx#eq-0-1). As time evolves, it forms a trajectory in the phase space (spanned by $3N$ canonical coordinates and $3N$ canonical momenta). Since we are dealing with thermal equilibrium of $N$ molecules without bulk motion, it is reasonable to assume that this trajectory repeatedly pass through a volume element $d^{3N}qd^{3N}p$ located at $(q, p)$ many times provided that $T$ is sufficiently large. Let the time spent by the phase point inside this volume be denoted as $\tau,$ then we can define a *density function* (unnormalized)
+
+<Anchor id="eq-6-3" />
+$$
+\rho(q,p)\,d^{3N}q\,d^{3N}p = \lim_{T\to\infty}\frac{\tau}{T}. \tag{6.3}
+$$
+
+Next, we consider that the $6N$-dimensional phase space is populated by a fluid with density $\rho(q, p)$, where each point $(q, p)$ corresponds to a fictitious copy of our system under study. All these imaginary copies is known as an ensemble. Then, the time average $\bar{f}$ of a physical quantity $f$ can also be represented by the ensemble average
+
+<Anchor id="eq-6-4" />
+$$
+\langle f\rangle = \frac{\int d^{3N}q\,d^{3N}p\,\rho(q,p)f(q,p)}{\int d^{3N}q\,d^{3N}p\,\rho(q,p)}. \tag{6.4}
+$$
+
+We now recall *Liouville’s theorem*, which states that the fictitious fluid in phase space is incompressible $(d\rho/dt= 0),$
+
+<Anchor id="eq-6-5" />
+$$
+\frac{d\rho}{dt} = \frac{\partial\rho}{\partial t} + \sum_{i=1}^{3N}\left(\frac{\partial\rho}{\partial q_i}\frac{\partial\mathscr{H}}{\partial p_i} - \frac{\partial\rho}{\partial p_i}\frac{\partial\mathscr{H}}{\partial q_i}\right) = 0. \tag{6.5}
+$$
+
+Since in equilibrium the density function $\rho$ does not depend explicitly on time, Eq. [(6.5)](#eq-6-5) implies that the Poisson bracket $\{\rho,\mathscr{H}\}$ vanishes. Consequently, $\rho$ must be a function of the integrals of motion. In specific models there may exist many independent integrals of motion (for integrable systems, the number of such integrals is $3N).$ For realistic systems, however, the dynamics may be sufficiently complicated that only momentum, angular momentum, and energy can be identified as integrals of motion. Furthermore, by working in the center-of-mass frame and restricting attention to states with vanishing total momentum and angular momentum, we may effectively take the density function $\rho(q, p)$ to depend only on energy:
+
+<Anchor id="eq-6-6" />
+$$
+\rho(q,p) = \varrho[\mathscr{H}(q,p)]. \tag{6.6}
+$$
+
+It is emphasized that if the molecule number $N$ is allowed to vary, the density function may also depend on it.
+
+To further refine the form of $\rho,$ other considerations are required.
+
+### Postulate of Equal a Priori Probability
+
+In an isolated system of $10^{23}$ molecules, its trajectory resides on a surface of constant energy $E$ in phase space. Due to unavoidable perturbations (e.g., from measurement), this surface may be extended into a shell sandwiched between two surfaces of fixed energies $E$ and $E+\Delta.$ For sufficiently weak perturbations, we may assume
+
+<Anchor id="eq-6-7" />
+$$
+\Delta \ll E. \tag{6.7}
+$$
+
+In addition, from quantum mechanical perspective, there is an energy-time uncertainty, thus $\Delta$ is unavoidable due to finite lifespan of experiments. Therefore, $\Delta$ should be considered as a real small but finite quantity, not a purely mathematical infinitesimal.
+
+Given the intricate and chaotic molecular motion, it is attempting to assume that “every state” within the energy shell has been transiently visited for sufficiently long time $T$[^3]. This principle, known as the ergodic hypothesis[^4], underlies the postulate of equal a priori probability. It is beyond the scope of this course to discuss the details of ergodic hypotheses. Instead, we will take it as the starting point to explore how it can reconcile experimental observations, after all, a correct physical theory can only be confirmed by experiments. The density function $\rho$ is then assumed to have the following form
+
+<Anchor id="eq-6-8" />
+$$
+\rho(q,p) = \begin{cases} \text{const.}, & \text{if } E < \mathscr{H}(q,p) < E+\Delta, \\ 0, & \text{otherwise}. \end{cases} \tag{6.8}
+$$
+
+The corresponding ensemble is known as *Microcanonical ensemble.*
+
+### Fluctuations of Thermal quantities
+
+The ensemble average given in Eq. [(6.4)](#eq-6-4) is assumed to be some thermal quantities, which can be measured in experiments, connected to the phase function $f(q, p).$ Unlike classical quantities, which are deterministic, thermodynamic quantities are random variables with mean square fluctuations
+
+<Anchor id="eq-6-9" />
+$$
+\langle(\Delta f)^2\rangle = \langle(f-\langle f\rangle)^2\rangle = \langle f^2\rangle - \langle f\rangle^2. \tag{6.9}
+$$
+
+In thermodynamic systems comprising a vast number of particles, fluctuations are typically negligible compared to average values, thereby making statistical mechanics meaningful. In fact, we can prove
+
+<Anchor id="eq-6-10" />
+$$
+\frac{\sqrt{\langle(\Delta f)^2\rangle}}{\langle f\rangle} \approx \frac{1}{\sqrt{N}}. \tag{6.10}
+$$
+
+Essentially, the small relative fluctuation is due to the central limit theorem in probability theory. We shall present a simple argument to support this expression below.
+
+Let us assume that the quantity $f$ is *additive*. When we decompose the entire system into $N$ small parts, we find that
+
+<Anchor id="eq-6-11" />
+$$
+\langle f\rangle = \sum_{i=1}^{N}\langle f_i\rangle. \tag{6.11}
+$$
+
+Assuming these small portions, though individually small relative to the entire system, remain still large enough to be *statistically independent*, then for $j \ne k,$
+
+<Anchor id="eq-6-12" />
+$$
+\langle\Delta f_j\Delta f_k\rangle = \langle\Delta f_j\rangle\langle\Delta f_k\rangle = 0. \tag{6.12}
+$$
+
+Therefore,
+
+<Anchor id="eq-6-13" />
+$$
+\langle(\Delta f)^2\rangle = \sum_{i=1}^{N}\langle(\Delta f_i)^2\rangle + \sum_{j=1}^{N}\sum_{k\neq j,k=1}^{N}\langle(\Delta f_j)(\Delta f_k)\rangle = \sum_{i=1}^{N}\langle(\Delta f_i)^2\rangle, \tag{6.13}
+$$
+
+which indicates that $\langle(\Delta f)^{2}\rangle$ is proportional to $N.$ Notice that $\langle f\rangle$ is also proportional to $N,$ thus we obtain
+
+<Anchor id="eq-6-14" />
+$$
+\frac{\sqrt{\langle(\Delta f)^2\rangle}}{\langle f\rangle} \propto \frac{1}{\sqrt{N}}. \tag{6.14}
+$$
+
+Since the fluctuation is negligibly small, we are allowed to replace the ensemble average by the *most probable value* of the physical quantities, which is possessed by the largest number of systems in the ensemble, or has the greatest probability.
+
+[^1]: We assume the force range of each molecule to be $10^{-9}$ m.
+[^2]: The existence of this limit has been established by Birkhoff in 1931.
+[^3]: This ergodic idea was first proposed by Boltzmann.
+[^4]: Ergodic hypothesis stands as an important problem in mathematics, unproven from classical mechanical laws. While it has been established under certain assumptions such as the metrically indecomposability of the constant energy surface, these assumptions themselves, unfortunately, become new, unproven hypotheses.

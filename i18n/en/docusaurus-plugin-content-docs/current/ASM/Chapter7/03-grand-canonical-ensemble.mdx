@@ -1,0 +1,147 @@
+---
+title: 7.3 Grand Canonical Ensemble
+sidebar_position: 3
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 7.3 Grand Canonical Ensemble
+
+In physics, the canonical ensemble, which allows only energy exchange, does not cover all situations. Many systems also exchange particles with their surroundings, which calls for a more general framework: *the grand canonical ensemble*.
+
+The phase space of the grand canonical ensemble is the union of the phase spaces for systems with particle numbers $N = 0, 1, 2, \ldots$. Unlike the canonical ensemble, each representative point now carries an additional label $N$, written as $(q,p,N)$. To derive the distribution $\rho(q,p,N)$, we consider a small (but still macroscopic) subsystem of volume $V_1$ embedded in a larger system of volume $V$ and temperature $T$ described by a canonical ensemble. The remainder, of volume $V_2 = V - V_1$, acts as a particle reservoir. Let $N_1$ be the number of particles in the subsystem and $N_2 = N - N_1$ the number in the reservoir, with both $N_1$ and $N_2$ being random variables.
+
+By construction, the system volume $V_1$ is fixed and much smaller than the reservoir volume $V_2$. Consequently, the most probable value of $N_1$ is significantly smaller than that of $N_2$ in equilibrium, though $N_1$ may fluctuate over the entire range from 0 to $N$. Thus, we have the inequalities:
+
+$$
+N_1 \ll N_2 \approx N,\quad V_1 \ll V_2 \approx V.
+$$
+
+The total Hamiltonian decomposes as: $\mathscr{H}(q,p) = \mathscr{H}_1(q_1,p_1)+\mathscr{H}_2(q_2,p_2)$, where subscripts 1 and 2 refer to the system and reservoir, respectively. Boundary effects between the system and reservoir are neglected.
+
+As we have derived in the previous sections, the partition function of the entire system can be written as
+
+<Anchor id="eq-7-26" />
+$$
+\begin{aligned}
+Q_N(V,T) &= \frac{1}{N!h^{3N}}\int d^{3N}q\,d^{3N}p\,e^{-\beta\mathscr{H}(q,p)}\\
+&= \frac{1}{N!h^{3N}}\sum_{N_1=0}^{N}\frac{N!}{N_1!N_2!}\int_{V_1} d^{3N_1}q_1\,d^{3N_1}p_1\int_{V_2} d^{3N_2}q_2\,d^{3N_2}p_2\,e^{-\beta\mathscr{H}(q,p)}\\
+&= \sum_{N_1=0}^{N}\int_{V_1}\frac{d^{3N_1}q_1\,d^{3N_1}p_1}{N_1!h^{3N_1}}e^{-\beta\mathscr{H}_1(q_1,p_1)}\int_{V_2}\frac{d^{3N_2}q_2\,d^{3N_2}p_2}{N_2!h^{3N_2}}e^{-\beta\mathscr{H}_2(q_2,p_2)}\\
+&= \sum_{N_1=0}^{N} Q_{N_2}(V_2,T)\int_{V_1}\frac{d^{3N_1}q_1\,d^{3N_1}p_1}{N_1!h^{3N_1}}e^{-\beta\mathscr{H}_1(q_1,p_1)}.
+\end{aligned} \tag{7.26}
+$$
+
+The probability density of the system $\rho$ can be defined as follows
+
+<Anchor id="eq-7-27" />
+$$
+\rho(q_1,p_1,N_1) = \frac{Q_{N_2}(V_2,T)}{Q_N(V,T)}\,e^{-\beta\mathscr{H}_1(q_1,p_1)} \tag{7.27}
+$$
+
+which is normalized according to Eq. [(7.26)](#eq-7-26),
+
+<Anchor id="eq-7-28" />
+$$
+\sum_{N_1=0}^{N}\int_{V_1}\frac{d^{3N_1}q_1\,d^{3N_1}p_1}{N_1!h^{3N_1}}\,\rho(q_1,p_1,N_1) = 1. \tag{7.28}
+$$
+
+Using Eq. [(7.6)](./index.mdx#eq-7-6), we express:
+
+<Anchor id="eq-7-29" />
+$$
+\frac{Q_{N_2}(V_2,T)}{Q_N(V,T)} = e^{-\beta[A(N_2,V_2,T)-A(N,V,T)]} \approx e^{\beta(N_1\mu - V_1P)}, \tag{7.29}
+$$
+
+where the chemical potential $\mu$ and pressure $P$ are defined as derivatives of the reservoir’s Helmholtz free energy:
+
+<Anchor id="eq-7-30" />
+$$
+\mu = \left.\frac{\partial A(N_2,V,T)}{\partial N_2}\right|_{N_2=N}, \tag{7.30}
+$$
+
+<Anchor id="eq-7-31" />
+$$
+P = -\left.\frac{\partial A(N,V_2,T)}{\partial V_2}\right|_{V_2=V}. \tag{7.31}
+$$
+
+Introducing the *fugacity*:
+
+<Anchor id="eq-7-32" />
+$$
+z = e^{\beta\mu}, \tag{7.32}
+$$
+
+and substituting Eqs. [(7.29)](#eq-7-29) and [(7.32)](#eq-7-32) into Eq. [(7.27)](#eq-7-27), we obtain the probability distribution for the grand canonical ensemble:
+
+<Anchor id="eq-7-33" />
+$$
+\rho(q,p,N) = z^N e^{-\beta PV-\beta\mathscr{H}(q,p)}, \tag{7.33}
+$$
+
+where the subscript “1” has been omitted for clarity. The influence of the reservoir is captured by the intensive parameters temperature $T$ and chemical potential $\mu$. The pressure $P$ is then determined by the equation of state.[^1] This equation of state, which involves the four thermodynamic quantities $(z,P,T,V)$, is determined by the normalization of the density function, Eq. [(7.33)](#eq-7-33). Consequently, for a general thermodynamic system, only three of these quantities are independent, and one of them must be the extensive variable $V$. Since the extensive properties of the reservoir are no longer relevant, we may take its thermodynamic limit, allowing the particle number of the subsystem to range from 0 to $\infty$.
+
+To derive all thermodynamic functions, we define the *grand partition function*:
+
+<Anchor id="eq-7-34" />
+$$
+\mathcal{Q}(z,V,T) = \sum_{N=0}^{\infty} z^N Q_N(V,T) = \sum_{N=0}^{\infty}\frac{z^N}{N!h^{3N}}\int_V d^{3N}q\,d^{3N}p\,e^{-\beta\mathscr{H}(q,p)}, \tag{7.34}
+$$
+
+which depends on $z$ (or $\mu$), $V$, and $T$. Integrating Eq. [(7.33)](#eq-7-33) over phase space and summing over $N$ yields:
+
+$$
+1 = \sum_{N=0}^{\infty}\int_V\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,\rho(q,p,N) = e^{-\beta PV}\mathcal{Q}(z,V,T).
+$$
+
+Thus, the equation of state is given by:
+
+<Anchor id="eq-7-35" />
+$$
+\frac{PV}{kT} = \ln\mathcal{Q}(z,V,T). \tag{7.35}
+$$
+
+The average particle number in the system is:
+
+<Anchor id="eq-7-36" />
+$$
+\langle N\rangle = \sum_{N=0}^{\infty} N\frac{z^N Q_N(V,T)}{\mathcal{Q}(z,V,T)} = z\frac{\partial}{\partial z}\ln\mathcal{Q}(z,V,T), \tag{7.36}
+$$
+
+which can also be expressed as the derivative w.r.t. $\mu$
+
+<Anchor id="eq-7-37" />
+$$
+\langle N\rangle = kT\frac{\partial}{\partial\mu}\ln\mathcal{Q}(e^{\beta\mu},V,T). \tag{7.37}
+$$
+
+The internal energy is given by
+
+<Anchor id="eq-7-38" />
+$$
+U = \langle\mathscr{H}\rangle = \frac{\sum_{N=0}^{\infty} z^N \int \frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,\mathscr{H}\,e^{-\beta\mathscr{H}(q,p)}}{\mathcal{Q}(z,V,T)} = -\frac{\partial}{\partial\beta}\ln\mathcal{Q}(z,V,T). \tag{7.38}
+$$
+
+Using Eq. [(7.36)](#eq-7-36), we can replace the fugacity $z$ in Eq. [(7.38)](#eq-7-38) by the average particle number. Then, the internal energy $U$ becomes a function of $N$, $V$ and $T$. Other thermodynamic functions can be expressed as
+
+$$
+C_V = \left(\frac{\partial U}{\partial T}\right)_{N,V},
+$$
+
+$$
+S = \int_0^T dT'\,\frac{C_V}{T'},\quad A = U - TS.
+$$
+
+Since the density function in Eq. [(7.33)](#eq-7-33) is normalized, the Shannon entropy is given by
+
+$$
+\begin{aligned}
+S_{\text{Shannon}} &= -k\sum_N\int\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,\rho(q,p,N)\ln\rho(q,p,N)\\
+&= -k\sum_N\int\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,\rho(q,p,N)(N\ln z - \beta PV - \beta\mathscr{H})\\
+&= \frac{U + PV - \mu\langle N\rangle}{T}.
+\end{aligned}
+$$
+
+From the thermodynamic Euler relation, $U = TS - PV + \mu N$, it follows that this Shannon entropy is identical to the thermodynamic entropy.
+
+[^1]: A gas has only two independent intensive parameters. If two intensive parameters, $T$ and $\mu$, are given, the remaining intensive parameter $P$ is fixed by the equation of state.

@@ -1,0 +1,147 @@
+---
+title: 6.2 Microcanonical Ensemble
+sidebar_position: 2
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 6.2 Microcanonical Ensemble
+
+A microcanonical ensemble has a fixed molecule number $N$, a volume $V$, and an energy between $E$ and $E+ \Delta.$ We now define other thermodynamic quantities in this ensemble, of which the most important one is *entropy*.
+
+Let $\Omega(E)$ denote the volume in phase space enclosed by the surface with constant energy $E,$
+
+<Anchor id="eq-6-15" />
+$$
+\Omega(E) \equiv \frac{1}{h^{3N}}\int_{\mathscr{H}(q,p)<E} d^{3N}q\,d^{3N}p. \tag{6.15}
+$$
+
+It depends also on $V$ and $N.$ Notice that $\Omega(E)$ is given in unit of $h^{3N}$ with $h$ the Planck’s constant, such that $\Omega(E)$ is dimensionless. Thus, the phase volume occupied by the microcanonical ensemble is given by
+
+<Anchor id="eq-6-16" />
+$$
+\Sigma(E) = \Omega(E+\Delta) - \Omega(E) = \omega(E)\Delta, \tag{6.16}
+$$
+
+<Anchor id="eq-6-17" />
+$$
+\omega(E) \equiv \frac{\partial\Omega}{\partial E} = \int \frac{d^{3N}q\,d^{3N}p}{h^{3N}}\,\delta[E-\mathscr{H}(q,p)], \tag{6.17}
+$$
+
+where we introduce the density of state $\omega(E).$ Following Boltzmann, the *entropy* is defined formally as
+
+<Anchor id="eq-6-18" />
+$$
+S(E,V) = k\ln\Sigma(E), \tag{6.18}
+$$
+
+where $k$ is the Boltzmann constant. The quantities defined in Eqs. [(6.15)](#eq-6-15), [(6.16)](#eq-6-16), and [(6.17)](#eq-6-17) all grow exponentially with $N$, as will be demonstrated later for some specific systems such as ideal gases.
+
+We shall demonstrate the following statements about entropy thus defined
+
+- Entropy is an extensive quantity.
+- In the isolated system, entropy never decreases.
+
+Let us divide the isolated system at equilibrium into two subsystems by inserting a partition. The two subsystems contain $N_{1}$ and $N_{2}$ particles and occupy volumes $V_{1}$ and $V_{2},$ respectively. The energy of subsystem 1 lies between $E_{1}$ and $E_{1}+\Delta,$ while that of subsystem 2 lies between $E_{2}$ and $E_{2}+ \Delta.$ The two subsystems with their respective energy intervals are shown in Fig. 6.1.
+
+![Two subsystems with their particle numbers, volumes, and energy intervals.](/img/asm/chap06-two-subsystems.png)
+
+![Phase space energy shells of the two subsystems.](/img/asm/chap06-fig6-1.jpg)
+
+Figure 6.1: The microcanonical ensemble consisting of two subsystems.
+
+The corresponding phase volumes of these two subsystems are denoted as $\Sigma_{1}(E_{1})$ and $\Sigma_{2}(E_{2}),$ then their entropies can be expressed as
+
+<Anchor id="eq-6-19" />
+$$
+S_1(E_1) = k\ln\Sigma_1(E_1),\quad S_2(E_2) = k\ln\Sigma_2(E_2). \tag{6.19}
+$$
+
+For convenience, we omit the volumes $V_{1}$ and $V_{2}$ in these expressions. The total energy of the entire system lies between $E=E_{1}+E_{2}$ and $E+ 2\Delta.$ Its phase volume can be written as
+
+<Anchor id="eq-6-20" />
+$$
+\Sigma(E) = \sum_{E_1/\Delta=0}^{E/\Delta}\Sigma_1(E_1)\Sigma_2(E-E_1), \tag{6.20}
+$$
+
+where all energies are measured in units of $\Delta.$ Among the summands there is a maximum term; let the corresponding subsystem energies be denoted $\bar{E}_{1}$ and $\bar{E}_{2},$ with $\bar{E}_{2}=E-\bar{E}_{1}.$ We then obtain the following inequalities for the phase volumes and entropies of the subsystems:
+
+<Anchor id="eq-6-21" />
+$$
+\begin{aligned}\Sigma_1(\bar{E}_1)\Sigma_2(\bar{E}_2) < \Sigma(E) < \frac{E}{\Delta}\Sigma_1(\bar{E}_1)\Sigma_2(\bar{E}_2)\\ \Rightarrow \ln[\Sigma_1(\bar{E}_1)\Sigma_2(\bar{E}_2)] < \ln[\Sigma(E)] < \ln[\Sigma_1(\bar{E}_1)\Sigma_2(\bar{E}_2)] + \ln(E/\Delta). \end{aligned} \tag{6.21}
+$$
+
+Note that $\Delta$ is a fixed small constant, and
+
+<Anchor id="eq-6-22" />
+$$
+\ln\Sigma_1(\bar{E}_1) \propto N_1,\quad \ln\Sigma_2(\bar{E}_2) \propto N_2,\quad E \propto N_1 + N_2, \tag{6.22}
+$$
+
+therefore, we conclude that
+
+<Anchor id="eq-6-23" />
+$$
+\begin{aligned}S(E,V) &= S_1(\bar{E}_1,V_1) + S_2(\bar{E}_2,V_2) + O(\ln(N))\\ &\xrightarrow{N\to\infty} S_1(\bar{E}_1,V_2) + S_1(\bar{E}_2,V_2).\end{aligned} \tag{6.23}
+$$
+
+{/* Editor's note (not part of the original notes): in the limit on the second line, the second arguments of both terms are printed as $V_2$, and the subscript of the second entropy term is printed as 1. By the symmetry of the argument one would expect $S_1(\bar{E}_1,V_1) + S_2(\bar{E}_2,V_2)$. The equation is transcribed exactly as printed. */}
+
+In other word, the entropy defined in Eq. [(6.18)](#eq-6-18) is an extensive quantity in the thermodynamic limit.
+
+By an argument similar to that leading to inequality [(6.21)](#eq-6-21), we can also establish the inequality $\Sigma(E)\lt \Omega(E)\lt (E/\Delta) \Sigma(E),$ which, in the thermodynamic limit, yields the identities
+
+<Anchor id="eq-6-24" />
+$$
+S(E,V) = k\ln\Sigma(E) = k\ln\Omega(E) = k\ln\omega(E). \tag{6.24}
+$$
+
+We note that the dimension of $\omega(E)$ is immaterial in this limit. Identities of this kind are typical in statistical mechanics.[^5]
+
+Because, under the equal a priori probability hypothesis, the probability of a given energy partition is proportional to the corresponding number of microstates $\Sigma_{1}(E_{1})\Sigma_{2}(E_{2})$, inequality [(6.21)](#eq-6-21) implies that among all possible energy partitions, the most probable one—with subsystem energies $\bar{E}_{1}$ and $\bar{E}_{2}=E-\bar{E}_{1}$—is overwhelmingly more likely than all other partitions. In other words, when the partition is inserted, the most probable energy partition is realized with probability effectively equal to 1, while all other partitions occur with probability effectively equal to 0. We may compute the entropy associated with a non-typical partition, say one with $E_{1} \ne \bar{E}_{1}$ and $E_{2}=E-E_{1},$ as follows:
+
+$$
+\Sigma_1(E_1)\Sigma_2(E-E_1) < \Sigma_1(\bar{E}_1)\Sigma_2(\bar{E}_2)
+$$
+
+<Anchor id="eq-6-25" />
+$$
+\Rightarrow S_1(E_1,V_1) + S_2(E_2,V_2) < S_1(\bar{E}_1,V_1) + S_2(\bar{E}_2,V_2) = S(E,V). \tag{6.25}
+$$
+
+The resulting entropy is smaller than that of the most probable partition. Therefore, we discover that *the entropy of an isolated system does not decrease* (the probability of such a decrease is almost zero). This is the second law of thermodynamics.
+
+Notice that at the most probable values of the subsystem energies, the product $\Sigma_{1}(E_{1})\Sigma_{2}(E_{2})$ is maximized subject to the constraint $E_{1}+E_{2}=E,$ so that
+
+<Anchor id="eq-6-26" />
+$$
+\delta[\Sigma_1(E_1)\Sigma_2(E_2)] = 0,\quad \delta E_1 + \delta E_2 = 0. \tag{6.26}
+$$
+
+This gives rise to the condition
+
+<Anchor id="eq-6-27" />
+$$
+\left[\frac{\partial}{\partial E_1}\ln\Sigma_1(E_1)\right]_{E_1=\bar{E}_1} = \left[\frac{\partial}{\partial E_2}\ln\Sigma_2(E_2)\right]_{E_2=\bar{E}_2}, \tag{6.27}
+$$
+
+or equivalently,
+
+<Anchor id="eq-6-28" />
+$$
+\left[\frac{\partial}{\partial E_1}S_1(E_1,V_1)\right]_{E_1=\bar{E}_1} = \left[\frac{\partial}{\partial E_2}S_1(E_2,V_2)\right]_{E_2=\bar{E}_2}. \tag{6.28}
+$$
+
+{/* Editor's note (not part of the original notes): the entropy on the right-hand side is printed as $S_1$; by the symmetry of the argument one would expect $S_2(E_2,V_2)$. The equation is transcribed exactly as printed. */}
+
+Let us define the temperature of the system by
+
+<Anchor id="eq-6-29" />
+$$
+\frac{\partial S(E,V)}{\partial E} = \frac{1}{T}. \tag{6.29}
+$$
+
+Then, Eq. [(6.28)](#eq-6-28) is therefore equivalent to the statement that the two subsystems have the same temperature at equilibrium, a result known as the *zeroth law of thermodynamics*. If their energies deviate from the most probable values, the two temperatures will in general differ, and the subsystems are not in thermal equilibrium. When energy exchange between them is allowed, heat flows from one subsystem to the other, driving the combined system toward thermal equilibrium and thereby maximizing the entropy.
+
+[^5]: Let $\Omega(E) =\lambda^{E/\Delta},$ check the validity of Eq. [(6.24)](#eq-6-24).

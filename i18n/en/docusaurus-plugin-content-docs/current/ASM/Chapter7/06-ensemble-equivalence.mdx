@@ -1,0 +1,172 @@
+---
+title: 7.6 Equivalence of canonical Ensemble and Grand Canonical Ensemble
+sidebar_position: 6
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 7.6 Equivalence of canonical Ensemble and Grand Canonical Ensemble
+
+If $\partial P/\partial v < 0$, nearly all systems in the grand canonical ensemble have the same particle number $N$ as the relative density fluctuation remains small. In this case, the equivalence between the grand canonical and canonical ensembles is evident.
+
+To complete our investigation of the equivalence between the canonical and grand canonical ensembles, it is necessary to consider values of $v$ for which $\partial P/\partial v = 0$. It will be shown that in such cases the function $W(N)$ given in Eq. [(7.45)](./04-density-fluctuations.mdx#eq-7-45) no longer has a sharp maximum; nevertheless, the equation of state obtained from the grand canonical ensemble still agrees with that obtained from the canonical ensemble. In this broader sense, the two ensembles are always equivalent.
+
+Physically, the condition $\partial P/\partial v = 0$ correspond to the coexistence region of a first-order phase transition. In this region, Eq. [(7.44)](./04-density-fluctuations.mdx#eq-7-44) leads us to expect that the density fluctuations in a given volume of the system will be large. This is also physically reasonable, since in such a region the system consists of two or more phases of different densities. Consequently, the number of particles in any given volume can take a wide range of values, depending on the amounts of each phase present. At the critical point of a gas–liquid system (continuous phase transition), density fluctuations are likewise expected to be large, because throughout the system molecules are spontaneously forming large clusters and breaking up. Clearly, under these conditions the grand canonical ensemble must continue to yield thermodynamic predictions in agreement with those obtained from the canonical ensemble. Otherwise, the validity of either as a description of matter would be in doubt, since it is a basic experimental fact that the same thermodynamic information can be obtained whether we examine the whole system (corresponding to canonical ensemble) or only a subvolume of it (corresponding to grand canonical ensemble).
+
+Mathematically, given the canonical partition function $Q_N(V,T)$, we aim to compute the grand partition function:
+
+$$
+\mathcal{Q}(z,V,T) = \sum_{N=0}^{\infty} z^N Q_N(V,T)
+$$
+
+for specific values of $z$, $V$, and $T$, and address the following:
+
+(a) For a fixed $z$, does the approximation $\mathcal{Q}(z,V,T) \approx z^N Q_N(V,T)$ hold for some $N$?
+
+(b) Does there always exist a value of $z$ such that $N$ has any given positive value?
+
+Clearly, for an arbitrary function $Q_N(V,T)$, the answers to these questions are generally “no.” However, we are not interested in a general function $Q_N(V,T)$; rather, we are interested in those partition functions that correspond to real physical systems.
+
+To incorporate the salient features of a physical system while keeping the mathematics simple, we assume that our system has the following properties:
+
+- The molecules are modeled as hard spheres of finite diameter that also interact through a finite-range potential.
+
+- The Helmholtz free energy has the form
+
+    <Anchor id="eq-7-66" />
+    $$
+    A(N,V) = -\frac{1}{\beta}\ln Q_N(V) = -\frac{V}{\beta}f(v),\quad f(v) = -\frac{\beta}{v}a(v). \tag{7.66}
+    $$
+
+    The temperature $T$ will be fixed throughout our discussion and will not be displayed. The function $f(v)$ is an intensive quantity. According to Eq. [(7.42)](./04-density-fluctuations.mdx#eq-7-42), $P = -\partial_v a(v)$; hence $f(v)$ can be written as an integral of the pressure $P(v)$ of the canonical ensemble:
+
+    <Anchor id="eq-7-67" />
+    $$
+    f(v) = -\frac{\beta}{v}a(v) = \frac{1}{v}\int_{v_0}^{v}\beta P(v')dv'. \tag{7.67}
+    $$
+
+    Here, the integration is carried out along an isotherm and $v_0$ is an arbitrary constant corresponding to an arbitrary additive constant in the Helmholtz free energy.
+
+- It is reasonable to assume (or in other words, we only consider this physical situation)
+
+    <Anchor id="eq-7-68" />
+    $$
+    \frac{\partial P}{\partial v} \leq 0, \tag{7.68}
+    $$
+
+    which implies
+
+    <Anchor id="eq-7-69" />
+    $$
+    \frac{\partial^2 f(v)}{\partial(1/v)^2} = \beta v^3\frac{\partial P}{\partial v} \leq 0. \tag{7.69}
+    $$
+
+    The reason for making derivative of $f(v)$ w.r.t. $1/v$, instead of $v$, will soon be clear.
+
+With all these considerations in mind, we can rewrite the grand partition function in the following form
+
+<Anchor id="eq-7-70" />
+$$
+\mathcal{Q}(z,V) = \sum_{N=0}^{\infty} z^N Q_N(V) = \sum_{N=0}^{\infty} e^{N\ln z - \beta A_N(V)} = \sum_{N=0}^{\infty} e^{V\phi(V/N,z)}, \tag{7.70}
+$$
+
+where the function $\phi(v,z)$ is defined as
+
+<Anchor id="eq-7-71" />
+$$
+\phi(v,z) \equiv \frac{1}{V}[N\ln z - \beta A_N(V)] = \frac{1}{v}\ln z + f(v). \tag{7.71}
+$$
+
+Here, the fugacity $z$ is treated as a control parameter. Since we are considering a thermodynamic system with a large number of particles, the sum over particle number $N$ in Eq. [(7.70)](#eq-7-70) is dominated by terms with macroscopic $N$, while terms with small $N$ hardly contribute. This allows us to regard the Helmholtz free energy as an extensive quantity and to write it as $A_N(V) = Na(v) = -Vf(v)/\beta$. Substituting Eq. [(7.67)](#eq-7-67) into Eq. [(7.71)](#eq-7-71), we obtain
+
+<Anchor id="eq-7-72" />
+$$
+\phi(v,z) = \frac{1}{v}\ln z + \frac{1}{v}\int_{v_0}^{v}\beta P(v')dv'. \tag{7.72}
+$$
+
+By Eq. [(7.69)](#eq-7-69), we have
+
+<Anchor id="eq-7-73" />
+$$
+\frac{\partial^2\phi}{\partial(1/v)^2} = \frac{\partial^2 f}{\partial(1/v)^2} \leq 0,\quad\text{or}\quad \frac{\partial^2\phi}{\partial v^2} + \frac{2}{v}\frac{\partial\phi}{\partial v} \leq 0. \tag{7.73}
+$$
+
+We can now see why we take the derivative of $f(v)$ with respect to $1/v$ rather than with respect to $v$.
+
+Now let us calculate the grand partition function. Recall that the molecules are assumed to be hard spheres; therefore, in a finite volume $V$, the particle number cannot exceed an upper close-packing limit, denoted by $N_0(V)$. For sufficiently large volume, we can define a close-packing density $\mathfrak{a}$ by
+
+<Anchor id="eq-7-74" />
+$$
+N_0(V) = \mathfrak{a}V. \tag{7.74}
+$$
+
+Accordingly, *the grand partition function $\mathcal{Q}(z,V)$ is a polynomial of degree $N_0(V)$*. We denote the largest of the summands in the sum defining $\mathcal{Q}(z,V)$ by $e^{V\phi_0(z)}$ with
+
+<Anchor id="eq-7-75" />
+$$
+\phi_0(z) = \max\left[\phi\left(\frac{V}{N},z\right)\right],\quad (N = 0,1,2,\cdots,\mathfrak{a}V). \tag{7.75}
+$$
+
+Then the following inequality holds:
+
+<Anchor id="eq-7-76" />
+$$
+\begin{aligned}
+&e^{V\phi_0(z)} \leq \mathcal{Q}(z,V) \leq N_0(V)e^{V\phi_0(z)} = \mathfrak{a}Ve^{V\phi_0(z)},\\
+&\text{or}\quad \phi_0(z) \leq \frac{1}{V}\ln\mathcal{Q}(z,V) \leq \phi_0(z) + \frac{1}{V}\ln(\mathfrak{a}V).
+\end{aligned} \tag{7.76}
+$$
+
+In the thermodynamic limit $V \to \infty$, we obtain
+
+<Anchor id="eq-7-77" />
+$$
+\lim_{V\to\infty}\frac{1}{V}\ln\mathcal{Q}(z,V) = \phi_0(z). \tag{7.77}
+$$
+
+This provides an affirmative answer to problem (a) posed at the beginning of this section.
+
+Let $\bar{v}$ be a value of $v$ at where $\phi(v,z)$ assumes its largest possible value $\phi_0(z)$. Then the function $\phi(v,z)$ should satisfy the following two conditions:
+
+<Anchor id="eq-7-78" />
+$$
+\left(\frac{\partial\phi}{\partial v}\right)_{v=\bar{v}} = 0, \tag{7.78}
+$$
+
+<Anchor id="eq-7-79" />
+$$
+\left(\frac{\partial^2\phi}{\partial v^2}\right)_{v=\bar{v}} \leq 0. \tag{7.79}
+$$
+
+By virtue of Eq. [(7.73)](#eq-7-73), we find that the first condition alone is sufficient to determine the value of $\bar{v}$ that yields a large value of $\phi(v,z)$.
+
+Next, we show the relation between $\bar{v}$ and $z$. Taking derivative of Eq. [(7.72)](#eq-7-72) at $v = \bar{v}$, we find that
+
+<Anchor id="eq-7-80" />
+$$
+\begin{aligned}
+0 = \left(\frac{\partial\phi}{\partial v}\right)_{v=\bar{v}} &= -\frac{1}{\bar{v}^2}\ln z - \frac{1}{\bar{v}^2}\int_{v_0}^{\bar{v}}\beta P(v')dv' + \frac{1}{\bar{v}}\beta P(\bar{v})\\
+&\Rightarrow \int_{v_0}^{\bar{v}}P(v')dv' - \bar{v}P(\bar{v}) = -kT\ln z,\\
+&\text{or}\quad \left[\int_{v_0}^{\bar{v}}P(v')dv' - (\bar{v}-v_0)P(\bar{v})\right] - v_0P(\bar{v}) = -kT\ln z,
+\end{aligned} \tag{7.80}
+$$
+
+where $v_0$ is an arbitrary small parameter. The geometrical meaning of the condition in Eq. [(7.80)](#eq-7-80) is illustrated in Fig. 7.3. The term in square brackets is the area of the shaded region A, while the remaining term on the left-hand side of Eq. [(7.80)](#eq-7-80) is the area of the shaded region B. Thus, the value of $\bar{v}$ is such that the difference between the areas of regions A and B equals $-kT\ln z$.
+
+![Typical isotherm of a substance in the first-order phase transition.](/img/asm/chap07-fig7-3.png)
+
+Figure 7.3: Typical isotherm of a substance in the first-order phase transition.
+
+A subtle point is that Eq. [(7.80)](#eq-7-80) appears to imply that $\bar{v}$ depends on the choice of the initial specific volume $v_0$. Physically, however, $v_0$ merely sets the reference point for the Helmholtz free energy, and the equilibrium value $\bar{v}$ should remain unchanged. This is as it should be: $\bar{v}$ is an intrinsic property of the equilibrium state, determined by $T$ and $z$, not by the arbitrary reference volume $v_0$. Indeed, from Eq. [(7.42)](./04-density-fluctuations.mdx#eq-7-42), $P = -\partial_v a(v)$, changing $v_0$ to $v'_0$ shifts the Helmholtz free energy per particle $a(v) \equiv A(V)/N$ by a constant $\int_{v_0}^{v'_0}P(v')\,dv'$. From Eq. [(7.41)](./04-density-fluctuations.mdx#eq-7-41), $\mu = a(v) - v\partial_v a(v)$, the chemical potential is shifted by the same constant. Consequently, in Eq. [(7.72)](#eq-7-72), $\phi(v,z) = \frac{1}{v}\ln z + \frac{1}{v}\int_{v_0}^{v}\beta P(v')\,dv'$, the change in the integral is exactly compensated by the corresponding shift in $\ln z$, so that $\phi(v,z)$ itself remains invariant. Therefore, the equilibrium value $\bar{v}$ of $v$ that maximizes $\phi(v,z)$ does not depend on the choice of $v_0$.
+
+![The fugacity as a function of the specific volume.](/img/asm/chap07-fig7-4.png)
+
+Figure 7.4: The fugacity $z$ as a function of $\bar{v}$.
+
+Eq. [(7.80)](#eq-7-80) shows that to every value of $\bar{v}$ greater than the close-packing volume there corresponds a unique fugacity $z$. The result is shown in Fig. 7.4. Thus, problem (b) posed at the beginning of this section is also answered in the affirmative. *We emphasize that although the isotherm shown in Fig. 7.3 and the fugacity $z$ as a function of $\bar{v}$ shown in Fig. 7.4 are typical of a first-order phase transition, the general conclusions we have obtained hold for arbitrary isotherms.* Eq. [(7.80)](#eq-7-80) also shows that $\partial\ln z/\partial\bar{v} = 0$ for $v_1 < \bar{v} < v_2$ (as can be verified by direct calculation). Thus, all values of $\bar{v}$ in the interval $v_1 \leq \bar{v} \leq v_2$ correspond to the same value of $z$, as shown in Fig. 7.4. This common value, denoted by $z_0$, is therefore determined by setting $\bar{v} = v_1$:
+
+<Anchor id="eq-7-81" />
+$$
+\ln z_0 = \beta v_1 P_0 - \int_{v_0}^{v_1}dv'\,\beta P(v'). \tag{7.81}
+$$

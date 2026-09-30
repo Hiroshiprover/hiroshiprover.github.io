@@ -1,0 +1,485 @@
+---
+title: "Chapter 2: Manifolds and its Basic Structures"
+sidebar_position: 3
+hide_title: true
+date: 2026-05-15
+tags: [Differential Geometry, Fibre Bundle, Topology, Linear Algebra, Calculus]
+---
+# Chapter 2: Manifolds and its Basic Structures
+
+Before we start: Although the mathematical language we use is quite abstract, whenever you feel confused, just remember that the predecessor of differential geometry is essentially surface theory, which studies the calculus of curves and surfaces in $\R^n$. The fundamental purpose of differentiable manifolds is nothing more than to perform calculus on "surfaces" that lack geometric intuition. Therefore, whenever you get stuck, it's always helpful to imagine a sphere (or a donut, if you prefer).
+
+## 2.1 Differentiable Manifold
+
+The reader may have heard of differential geometry, differentiable manifolds, etc. Let's now formally introduce the concept of a manifold.
+
+::::tip[Differentiable Manifold]
+A topological space $(M, \mathscr{T})$ is called a smooth **$n$-dimensional differentiable manifold** if it satisfies:
+
+1. $M = \bigcup_\alpha O_\alpha$, where $\forall \alpha, O_\alpha \in \mathscr{T}$ (open sets);
+2. $\forall \alpha$, $\exists \psi_\alpha: O_\alpha \to \R^n$ a homeomorphism;
+3. If $O_\alpha \cap O_\beta \neq \varnothing$, then $\psi_\beta \circ \psi_\alpha^{-1}: \R^n \to \R^n \in C^{\infty}(\R^n)$.
+
+In the following, unless otherwise specified, we will simply refer to smooth $n$-dimensional manifolds as manifolds.
+:::note
+The notation $C^{\infty}(\R^n)$ denotes smooth functions defined on $\R^n$:
+
+$$
+\psi_\beta \circ \psi_\alpha^{-1} : \R^n\to\R^n,
+\begin{pmatrix}
+x^1\\x^2\\\vdots\\x^n
+\end{pmatrix} \mapsto
+\begin{pmatrix}x'^1(x^1,  x^2,  \cdots,  x^n)\\x'^2(x^1,  x^2,  \cdots,  x^n)\\\vdots\\x'^n(x^1,  x^2,  \cdots,  x^n)
+\end{pmatrix}
+$$
+
+i.e., $x'^\mu(x^1,  x^2,  \cdots,  x^n),  \mu = 1,  2,  \dots,  n$ are all smooth functions of $n$ variables.
+:::
+
+:::note
+Condition 1 requires that $M$ be completely covered by open sets, which avoids the issue of "boundary points". Because limits (or one-sided limits) are problematic at boundary points. For example, for the closed interval $[0,1]$ in $\R$, it is difficult to define limits and derivatives at $0$ and $1$. Of course, there are ways to define manifolds using closed sets, but we will not discuss them further.
+:::
+
+:::note
+Condition 2 may look mysterious, but it expresses something simple: near every point, the manifold looks sufficiently like ordinary Euclidean space $\R^n$. In other words, near a point you can always approximate the manifold by a "flat space", and this approximation converges.
+:::
+
+:::note
+Condition 3 is also called the **compatibility condition**. It ensures that your "differentiable structure" is well-defined. This is similar to the requirement when we discussed topological spaces: we cannot define a contradictory criterion. We will expand on this in more detail later.
+
+If we lower the requirement on the functions $\psi_\beta \circ \psi_\alpha^{-1}$ to $C^r(\R^n)$, then we call the manifold a $C^r$ manifold. In particular, $C^0$ manifolds are called topological manifolds.
+:::
+::::
+
+::::info
+For any point $p$ on a manifold $M$, we can always find an open neighborhood $O_\alpha$ of $p$. By the definition of a differentiable manifold, there exists a homeomorphism $\psi_\alpha$ to $\R^n$ such that the point $p$ corresponds to a point $\psi_\alpha(p) = (x_p^1, x_p^2, \dots, x_p^n)$ in $\R^n$. We call $\psi_\alpha(p)$ a set of **coordinates** of the point $p$. Of course, every point in $O_\alpha$ obtains a set of coordinates via this homeomorphism $\psi_\alpha$, so we call $(O_\alpha, \psi_\alpha)$ a (local) **coordinate system**, or mathematicians prefer to call it a **chart**. The collection $\{(O_\alpha, \psi_\alpha)\}$ of all coordinate systems on a manifold is called an **atlas**. This atlas is exactly the **differentiable structure** mentioned earlier.
+
+Of course, a point $p$ can have many open neighborhoods. Suppose there is another open neighborhood $O_\beta$, under the coordinate system $(O_\beta, \psi_\beta)$ the point $p$ obtains another coordinate: $\psi_\beta(p) = (x_p'^1, x_p'^2, \dots, x_p'^n)$. Due to the compatibility condition, we obtain a set of **coordinate transformations** $x_p'^\mu = \psi_\beta \circ \psi_\alpha^{-1}(x_p^\mu)$, and these coordinate transformations are smooth.
+
+:::note
+We usually assume an atlas is **maximally compatible**, meaning that the set $\{(O_\alpha, \psi_\alpha)\}$ includes all coordinate systems $(O_\alpha, \psi_\alpha)$ that satisfy the compatibility condition. This allows us to choose arbitrary coordinates at a point $p$ and always be able to smoothly transform to any other coordinate system. This is why we call the atlas a differentiable structure on the manifold $M$: it includes all possible coordinate transformations.
+
+If a manifold $M$ has more than one maximally compatible atlas (i.e., two different atlases whose coordinate systems are incompatible, for example $\psi_\beta \circ \psi_\alpha^{-1}$ is not smooth), we say that the manifold $M$ admits more than one differentiable structure. The reader may have heard of the infinitely many differentiable structures on four-dimensional manifolds, which is still an unsolved problem. Fortunately, we generally do not face this issue.
+:::
+::::
+
+:::note
+We will not give specific examples of manifolds here. Because almost any "nice" geometric object, curve, surface, or solid you can imagine can be a differentiable manifold (or at least a topological manifold). However, we can list some common names: the $n$-sphere $S^n$, the $n$-torus $T^n$, the trivial manifold $\R^n$ (trivial means it can be completely described by a single coordinate system).
+:::
+
+---
+
+## 2.2 Maps on Manifolds
+
+Unlike in topology, where we only talk about whether a map is continuous ($C^0$), the differentiable structure of a differentiable manifold allows us to talk about "nicer" maps, such as whether they are differentiable or even smooth.
+
+::::tip[$C^r$ Maps between Manifolds]
+Let $M$ be an $m$-dimensional manifold and $N$ an $n$-dimensional manifold, with atlases $\{(O_\alpha, \psi_\alpha)\}$ and $\{(O'_\alpha, \psi'_\alpha)\}$ respectively. Define a map $f: M\to N$. Consider a coordinate system $(O_\alpha, \psi_\alpha)$ near a point $p\in M$ and a coordinate system $(O'_\alpha, \psi'_\alpha)$ near the image $f(p)\in N$. If the map
+
+$$
+\psi'_\alpha \circ f \circ \psi_\alpha^{-1}: \R^m \to \R^n
+$$
+
+is $C^r$, then $f$ is called a $C^r$ map. In particular, $C^\infty$ maps are called smooth maps.
+:::note
+The maximal compatibility of the atlases ensures that this definition is independent of the choice of coordinate systems, hence it is well-defined. When we say something is well-defined, we mean that the definition is unambiguous.
+
+Of course, different atlases (differentiable structures) may give different $C^r$ classifications for the same map.
+:::
+::::
+
+In particular, the notion of homeomorphism defined in topological spaces can be naturally extended to differentiable manifolds:
+
+::::tip[Diffeomorphism]
+
+Let $M, N$ be manifolds. If there exists a map $f$ such that:
+
+1. $f$ is bijective;
+2. $f$ and $f^{-1}$ are both $C^\infty$ maps,
+
+then the two manifolds are said to be **diffeomorphic**, and $f$ is a diffeomorphism.
+
+:::note
+Diffeomorphism is the strongest classification we can give so far regarding the relationship between two manifolds. Try to imagine: homeomorphism means you can deform a donut into a coffee cup with a square mouth (continuous), while diffeomorphism means you can only deform it into one with an elliptical mouth (smooth).
+:::
+
+:::note
+Obviously, a necessary condition for two manifolds to be diffeomorphic is that they have the same dimension.
+:::
+::::
+
+### Scalar Fields
+
+If we consider the real numbers $\R$ as a manifold, then a map from a manifold $M$ to $\R$ is a simple and important example.
+
+:::tip[Scalar Field]
+A map $f: M \to \R$ is called a **scalar field**, or a **function**. Obviously, when $M$ is the trivial manifold, a scalar field is just the familiar multivariate function.
+
+In particular, we denote the set of all smooth functions on a manifold $M$ by $\mathscr{F}_M$, and omit the subscript when no confusion arises.
+:::
+
+:::info[Coordinates as Scalar Fields]
+Let $O \subset M$ be an open set. By the definition of a manifold, there exists a coordinate system $(O, \psi)$. We can then define scalar fields:
+
+$$
+x^\mu: O \to \R, \qquad x^\mu(p) = x^\mu_p \in \R，
+$$
+
+where $x^\mu_p$ is the $\mu$-th component of the coordinates of the point $p$ obtained from the coordinate system $(O, \psi)$.
+
+Specifically, we can view $x^\mu$ as the composition of two maps: $x^\mu = \text{proj}_\mu \circ \psi$, where $\text{proj}_\mu$ is the natural projection from the Cartesian product:
+
+$$
+\text{proj}_\mu (x^1, x^2, \dots) = x^\mu.
+$$
+:::
+
+---
+
+## 2.3 Curves on Manifolds
+
+Intuitively, we may think of a manifold $M$ as a surface and a curve as certain lines on that surface. Although intuitive, this description cannot precisely specify a given curve. We therefore **parametrise** curves: we define a **curve** as a map.
+
+:::tip[Curve]
+
+Let $I \subseteq \R$, and define a map
+
+$$
+\gamma: I \to M, \quad t \mapsto \gamma(t).
+$$
+
+We call $\gamma$ a **curve** on the manifold $M$, and $t$ a **parametrisation** of the curve.
+
+In particular, if the map (composed with coordinate charts) is of class $C^r$, we call it a $C^r$ curve. By default, curves are assumed to be $C^\infty$.
+:::
+
+:::note
+
+Defining a curve as a map leads to a subtle issue: the intuitive notion of a curve actually refers to the **image** of our map, i.e. the set $\{\gamma(t)\mid t\in I\}$, which is a (continuous) set of points on the manifold. This means that the same intuitive curve admits infinitely many different parametrisations.
+
+Concretely, for a curve $\gamma$, there always exist infinitely many other curves $\gamma': I'\to M$ such that their images coincide: $\gamma[I]=\gamma'[I']$. In other words, these maps all correspond to the same set of points on the manifold.
+
+To resolve this, observe that the only difference between two such maps is their domain: one is $I$, the other is $I'$. Hence, if we can find a map $\alpha: I\to I'$ satisfying:
+
+1. $\gamma = \gamma'\circ\alpha$,
+2. The derivative of $t'=\alpha(t)$ is everywhere non‑zero,
+
+then we say $\gamma'$ is a **reparametrisation** of $\gamma$.
+
+The second condition on $\alpha$ is required because if $\mathrm{d}t'/\mathrm{d}t$ vanished at some point $t_0$, then $t'$ would attain a local extremum there, causing $t'$ to "trace backwards" while drawing the curve, thereby assigning two different parameter values to the same point on the manifold.
+
+Of course, for self‑intersecting curves, some points will always correspond to at least two different parameter values, but self‑intersecting curves are a subtle matter in their own right. We will not discuss this in detail; interested readers may consult the literature.
+:::
+
+:::note
+
+You may wonder: since we have introduced curves, how do we describe geometric properties such as the length of a curve? Can a curve defined by an abstract map really possess such properties?
+
+This is a topic we will address later. For now, the structure currently available on a manifold is insufficient to describe the notion of "length".
+:::
+
+### Coordinate Curves
+
+A manifold always admits local coordinate systems $(O,\psi)$. Within a given coordinate system, we may consider a special family of curves obtained by fixing all but one coordinate. We call these **coordinate curves**. For example, the $x^1$-coordinate curve is
+
+$$
+\{p\in O\mid x^2(p)=\mathrm{const},\ \cdots,\ x^n(p)=\mathrm{const}\}.
+$$
+
+The above description merely gives the image of the coordinate curve $\gamma_\mu: I\to M$. In terms of a map, we define
+
+$$
+\gamma_\mu: I\to M,\qquad
+\gamma_\mu(x^\mu)=\psi^{-1}(c^1,c^2,\cdots,x^\mu,\cdots,c^n),
+$$
+
+where the parameter $x^\mu$ occupies the $\mu$-th slot and $c^1,c^2,\dots,c^n$ are fixed constants. The precise range $I$ is not particularly important, since one may always reparametrise $\gamma_\mu$ and thus change the interval.
+
+### Parametric Equations
+
+Generally speaking, it is difficult to find a coordinate system $(O,\phi)$ large enough to contain the whole (image of a) curve $\gamma(t)$. Nevertheless, we can always find a coordinate system $(O,\phi)$ that locally contains the curve $\gamma$. Composing the curve with this coordinate system yields a map $\R\to\R^n$:
+
+$$
+\psi\circ\gamma: I\to\R^n,\qquad
+t\mapsto
+\begin{pmatrix}
+x^1(t)\\ x^2(t)\\ \vdots\\ x^n(t)
+\end{pmatrix},
+$$
+
+i.e. we obtain $n$ functions of a single variable. This is called the **parametric equation** of the curve, exactly analogous to the familiar parametric equations of curves and surfaces in $\R^n$.
+
+---
+
+## 2.4 Tangent Vectors on Manifolds
+
+### Motivation
+
+Before introducing tangent vectors on manifolds, let us consider a familiar example to aid understanding. Consider a smooth function $f(x, y)$ defined on $\R^2$. At a point $p$, since $f$ is smooth, we can freely take derivatives. For example, the gradient:
+
+$$
+\nabla{f}=\left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}\right).
+$$
+
+Note that if we set $z=f(x,y)$ in $\R^3$, we obtain a 2‑dimensional surface $F(x, y, z) = f(x, y) - z$. According to multivariable calculus, the 3‑dimensional gradient vector is the normal vector to the tangent plane of this surface:
+
+$$
+\nabla{F} = \left(\frac{\partial F}{\partial x}, \frac{\partial F}{\partial y}, \frac{\partial F}{\partial z}\right) = \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, -1\right).
+$$
+
+The surface is 2‑dimensional, hence its tangent plane is also 2‑dimensional; vectors in it have two degrees of freedom. From the normal vector we can determine the general form of tangent vectors:
+
+$$
+\left(a, b, g(a,b)\right) \cdot \left(\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, -1\right) = 0 \Longrightarrow T = \left(a, b, a\frac{\partial f}{\partial x} + b \frac{\partial f}{\partial y}\right),
+$$
+
+from which we can obviously extract two basis vectors:
+
+$$
+r_x = \left(1, 0, \frac{\partial f}{\partial x} \right), \ r_y = \left(0, 1, \frac{\partial f}{\partial y}\right).
+$$
+
+If you are not familiar with this conclusion, try proving it yourself; consider only the origin, compute the tangent curves in the $x$‑ and $y$‑directions; these two curves determine the tangent plane, and you can write down the tangent vectors in the plane. The result is the same as here.
+
+Notice that this definition of the tangent plane does not actually depend on the choice of the function: for any smooth function, we can perform the above operation and the two basis vectors obtained have the same form. In other words, this suggests establishing a correspondence:
+
+$$
+r_x \to \frac{\partial}{\partial x}, \ r_y \to \frac{\partial}{\partial y}.
+$$
+
+:::note
+You might think this is completely unjustified, but it is in fact a very elegant shortcut: it is a very special isomorphism – an isomorphism between the geometric tangent plane and the space of (first‑order) directional derivatives (a very small subspace of a function space). Of course, for finite‑dimensional vector spaces, as long as the dimensions are the same, they are always isomorphic because they have the same number of basis vectors. However, the isomorphism here is actually independent of the choice of basis; the appearance of a basis here is only because we describe the surface using a parametrisation. It can be shown that for any parametrisation the difference is only a Jacobian matrix.
+:::
+
+:::note
+If you define the tangent plane using equivalence classes of curves through $p$, then you can completely eliminate the choice of basis and obtain a natural isomorphism. However, such an introduction requires some background in classical differential geometry and a certain familiarity with the language of abstract algebra, so we will not go into further detail here.
+
+Another illuminating viewpoint: you can think of the tangent plane as the best linear approximation to the surface at that point. This perspective is quite helpful for understanding Lie group theory.
+:::
+
+We shall see that for a general manifold it is difficult to find a geometric tangent plane, but given a smooth scalar field we can always find this space of derivatives, and thus naturally extend the concept to general manifolds.
+
+:::note
+When we only consider problems in $\R^3$, the tangent plane is not actually a vector (sub)space, but rather an element of a quotient space – a coset (which can be understood as a “translation” of a subspace). Therefore speaking of a “basis” of the tangent plane is actually imprecise. Formally, when we write two 3‑dimensional vectors as a basis for a 2‑dimensional plane, we are shifting the tangent plane back to the origin.
+
+Of course, these issues arise because we have “embedded” the surface in a 3‑dimensional Euclidean space, imposing a global coordinate system. This also explains why the tangent vectors we computed earlier take such a special, simple form: we chose the simplest embedding $z=f(x,y)$, which directly assigns the function value as the height over $\R^2$, and naturally obtain the simplest basis, namely $(0,1)$ and $(1,0)$.
+
+On a manifold, coordinates are local and the atlas is always maximal, so it is legitimate to call a tangent plane a vector space.
+:::
+
+:::note
+There is another way to understand vectors: purely consider the “differential” of a function, and then take its functional to obtain a vector. That approach is much clearer, but the price is that it requires very rigorous mathematics – a lot of abstract algebra and more rigorous analysis. We do not have sufficient mathematical background to adopt that approach. Curious readers may refer to Chern’s *Lectures on Differential Geometry*.
+:::
+
+### Tangent Vector
+
+Inspired by the initial example, we now define a **tangent vector** at a point on a manifold:
+
+:::tip[Tangent Vector]
+Let $v: \mathscr{F}_M \to \R$ be a map defined at a point $p$ on the manifold $M$ satisfying:
+
+1. $v(\alpha f + \beta g) = \alpha v(f) + \beta v(g), \quad \forall \alpha, \beta \in \R$ (linearity, homogeneity)
+2. $v(fg) = f(p)v(g) + v(f) g(p)$ (Leibniz rule)
+
+Then $v$ is called a **tangent vector** at $p$. The first property is naturally required for a vector, and the second property is required for a derivative. A map satisfying the second property is also called a derivation.
+:::
+
+:::note
+We emphasise here that the map is “defined at the point $p$”: a vector on a manifold is a local concept. Without further structure, we cannot compare vectors at two different points.
+
+In $\R^n$ we can perform such a comparison because $\R^n$ has a natural translation that relates vectors at different points – $\R^n$ is **flat**.
+:::
+
+:::note
+Some differential geometry textbooks, especially Liang Canbin’s *Differential Geometry and General Relativity*, like to directly call tangent vectors “vectors”. This is not very precise because in the context of fibre bundles, there are many other vectors on a manifold besides tangent vectors, for example vector bundles of Hilbert spaces over a parameter manifold. We will discuss this in detail later.
+:::
+
+### Tangent Space
+
+The set of all tangent vectors at a point $p$ on a manifold $M$ naturally forms a vector space, called the **tangent space** and denoted $T_pM$. According to our geometric intuition, the dimension of this tangent space should equal the dimension of the manifold. To verify this conjecture, we need to find a basis. And as suggested by the initial example, a natural choice is to consider partial derivatives. Note: once a coordinate system is given, any smooth scalar field $f$ corresponds to an $n$-variable function: $F = f \circ \psi_\alpha^{-1} = F(x^1, x^2, \dots, x^n)$. Therefore we take the basis vectors as:
+
+$$
+X_\mu: \mathscr{F}_M \to \R, \quad X_\mu(f) = \left.\frac{\partial F}{\partial x^\mu}\right|_{p}, \quad \mu = 1, 2, \dots, n,
+$$
+
+often abbreviated as $\partial_\mu(f)=\left.\frac{\partial f}{\partial x^\mu}\right|_{p}$. We call this basis the **coordinate basis**.
+
+:::note
+We have merely declared that $\{\partial_\mu\}$ can serve as a basis, but we have not proved this. Specifically, we need to prove:
+
+1. Linear independence of $\{\partial_\mu\}$: i.e., if there exist $\{\alpha^\mu\}$ such that $\alpha^\mu \partial_\mu = 0$, then $\alpha^\mu = 0$ for all $\mu$;
+
+2. Completeness of $\{\partial_\mu\}$: i.e., for any vector $v$, it can be expanded as a linear combination of $\{\partial_\mu\}$: $v = v^\mu \partial_\mu$, where $v^\mu = v(x^\mu)$ are the components of $v$ in the coordinate basis.
+
+As before, we omit the proofs. The proof of linear independence is obvious: use the coordinate functions $x^\mu$ themselves. The proof of completeness is long and not straightforward; we only sketch the idea: expand the $n$-variable function corresponding to a scalar field in a Taylor series up to first order, keeping an integral remainder (or some other form of remainder), and then show that any derivation (tangent vector) acting on the zeroth‑order term and the remainder yields zero.
+:::
+
+### Tangent Vector of a Curve
+
+Consider a curve $\gamma: I \to M$ and a point $\gamma(t)$ on it. Just as for curves in $\R^n$, there exists a vector tangent to the curve:
+
+::::tip[Tangent Vector of a Curve]
+
+$$
+\frac{\mathrm{d}}{\mathrm{d} t}: \mathscr{F}_M \to \R, \qquad
+\frac{\mathrm{d}}{\mathrm{d} t}(f) = \frac{\mathrm{d} (f\circ \gamma)}{\mathrm{d} t}.
+$$
+
+We call $\frac{\mathrm{d}}{\mathrm{d} t}$ the **tangent vector** of the curve at the point $\gamma(t_0)$.
+
+:::note
+The map $f\circ\gamma$ is simply a single‑variable function whose domain is the parameter interval $I$ and whose codomain is $\R$. We often denote it simply by $f$.
+:::
+
+:::info[Another perspective on the coordinate basis]
+
+In particular, when the curve $\gamma$ is taken to be the $x^\mu$-coordinate curve, we recover the basis vector $\partial_\mu$ defined earlier. Thus $\partial_\mu$ may be viewed either as the derivations induced by the $n$ coordinate functions of a chart, or as the tangent vectors of the $n$ coordinate curves defined by that chart.
+:::
+::::
+
+We stated earlier that $\{\partial_\mu\}$ forms a basis of the tangent space $T_pM$. Let us now expand the tangent vector of a curve in this basis:
+
+$$
+\frac{\mathrm{d}}{\mathrm{d} t} = \frac{\mathrm{d} x^\mu}{\mathrm{d} t} \, \partial_\mu,
+$$
+
+where $x^\mu$ refers to the parametric equation of the curve in the given coordinate system. The proof is straightforward and we omit it. Formally, this is consistent with the expression for tangent vectors in $\R^n$.
+
+:::note
+
+This is in fact an alternative definition of a [tangent vector](#tangent-vector): the equivalence class of "velocities" of curves through a point. Since curves passing through $p$ are defined independently of any choice of coordinates, this definition is canonical, and it is both more intuitive and simpler. You may try to prove, under this definition, that the coordinate basis $\{\partial_\mu\}$ indeed forms a basis — the proof is much simpler than under the derivation approach.
+
+Of course, the simplicity of this definition does not mean it is superior to the derivation viewpoint in all respects. When we later consider cotangent vectors, this approach would force us to introduce a considerable amount of additional machinery, such as germs of functions. Interested readers may consult Chern's *Lectures on Differential Geometry*.
+:::
+
+:::info[Parallel tangent vectors]
+
+In $\R^n$, we normally regard a curve as having infinitely many tangent vectors at a point — an entire tangent line: if $v$ is tangent to the curve $\gamma$, then any non‑zero scalar multiple $\alpha v$ should also be tangent to it. On a manifold, however, we defined the tangent vector via a map; given a scalar field $f$, the composition $f\circ\gamma$ yields a unique single‑variable function, which seems to suggest that the tangent vector of a curve at a point is unique. How do we reconcile this?
+
+Consider a reparametrisation $\gamma'$ of $\gamma$. At the point where $\gamma(t)=\gamma'(t')$, for any scalar field $f$ we have
+
+$$
+f[\gamma(t)] = f[\gamma'(t')].
+$$
+
+Since $\gamma'$ is a reparametrisation of $\gamma$, there exists a relation $t'=t'(t)$. Applying the tangent vector of $\gamma$ to $f$ gives
+
+$$
+\frac{\mathrm{d}}{\mathrm{d} t}(f)
+= \frac{\mathrm{d}f}{\mathrm{d} t'} \cdot \frac{\mathrm{d} t'}{\mathrm{d} t}
+= \frac{\mathrm{d}t'}{\mathrm{d} t}\,\frac{\mathrm{d}}{\mathrm{d} t'}.
+$$
+
+Thus the tangent vector of $\gamma'$ at that point is merely a scalar multiple of the tangent vector of $\gamma$; the two tangent vectors are **parallel**.
+:::
+
+### Cotangent Space and Tensors
+
+The cotangent vector is a natural idea: since we have a tangent space $T_pM$ which is a vector space, we naturally consider its dual space $T^*_pM$. Because we only deal with finite‑dimensional manifolds, the tangent space is finite‑dimensional, and its dual enjoys all the properties we discussed earlier. If you have forgotten them, you may review [Dual Vector Spaces](./01-mathematical-foundations.mdx#dual-vector-spaces).
+
+Formally, nothing is missing. But this does not help us understand what the elements of the cotangent space actually are. We therefore look for a basis of the cotangent space. If we can express elements of $T^*_pM$ in this basis, everything becomes clear.
+
+Recall that once a local coordinate system $(O,\psi)$ is chosen, it induces a coordinate basis $\{\partial_\mu\}$. We naturally consider its dual basis:
+
+::::tip[Dual basis of the coordinate basis]
+
+Define
+
+$$
+\mathrm{d} x^\mu: T_pM \to \R, \qquad
+\mathrm{d} x^\mu(\partial_\nu) = \delta^\mu{}_\nu,
+$$
+
+as the dual basis to $\{\partial_\mu\}$. Here $x^\mu$ is the [coordinate scalar field](#scalar-fields) introduced earlier, and the differential operator $\mathrm{d}$ is defined by
+
+$$
+\mathrm{d}: \mathscr{F}_M \to T^*M, \qquad
+\mathrm{d}f(v) := v(f).
+$$
+
+:::note
+The notation $TM$ and $T^*M$ stand for the tangent bundle and cotangent bundle, which we will encounter later. For now, you may think of them as the union of all tangent spaces and cotangent spaces over the manifold.
+:::
+::::
+
+Once we have a dual space and the original space, tensors can be defined in exactly the same way as in the linear algebra section. We shall not repeat the discussion. If you have forgotten, you may review [Tensors](./01-mathematical-foundations.mdx#13-tensors). The only difference is that the bases are now written as $\{\partial_\mu\}$ and $\{\mathrm{d} x^\nu\}$.
+
+### Coordinate Transformations
+
+Let $p$ be a point on the manifold, and suppose there exist two coordinate systems $(O_\alpha,\psi_\alpha)$ and $(O_\beta,\psi_\beta)$ with $p\in O_\alpha\cap O_\beta$. Then the tangent space at $p$ contains two coordinate bases. We now investigate how these two bases are related.
+
+Since $p\in O_\alpha\cap O_\beta$, the point $p$ receives two sets of coordinates, which we denote by $\{x^\mu\}$ and $\{y^\nu\}$. By the compatibility of the atlas, the coordinate transformation between them is smooth: $y^\mu=y^\mu(x^1,x^2,\dots,x^n)$ is a smooth function. Now apply the coordinate basis of $(O_\alpha,\psi_\alpha)$ at $p$ to an arbitrary smooth scalar field:
+
+$$
+\partial_\mu(f) = \left.\frac{\partial F}{\partial x^\mu}\right|_{p},
+$$
+
+where $F$ on the right‑hand side denotes the multivariable function obtained by composing the scalar field $f$ with the chart $(O_\alpha,\psi_\alpha)$. Composing $f$ with the other chart $(O_\beta,\psi_\beta)$ yields a different multivariable function $F'$, and we have
+
+$$
+F(x^\mu) = F'(y^\mu(x^\nu)) = f(p).
+$$
+
+By the chain rule for multivariable functions,
+
+$$
+\frac{\partial F}{\partial x^\mu}
+= \frac{\partial F'}{\partial y^\nu} \frac{\partial y^\nu}{\partial x^\mu},
+$$
+
+we obtain
+
+$$
+\partial_\mu(f)
+= \left.\left(\frac{\partial F'}{\partial y^\nu} \frac{\partial y^\nu}{\partial x^\mu}\right)\right|_{p}
+= \frac{\partial y^\nu}{\partial x^\mu}\,\partial'_\nu(f),
+$$
+
+i.e.
+
+$$
+\partial_\mu = \frac{\partial y^\nu}{\partial x^\mu}\,\partial'_\nu,
+$$
+
+where $\frac{\partial y^\nu}{\partial x^\mu}$ is simply the Jacobian matrix. To express the new basis in terms of the old one, multiply both sides by the inverse:
+
+$$
+\partial'_\mu = \frac{\partial x^\nu}{\partial y^\mu}\,\partial_\nu.
+$$
+
+We have thus obtained a basis transformation matrix of the kind discussed in [Section 1.4](./01-mathematical-foundations.mdx#14-more-about-indices-basis-transformation):
+
+$$
+\frac{\partial x^\nu}{\partial y^\mu} \equiv \Lambda^\nu{}_\mu.
+$$
+
+For an arbitrary vector $v$, its components transform as
+
+$$
+v'^\nu = \frac{\partial y^\nu}{\partial x^\mu}\,v^\mu,
+$$
+
+confirming that the vector is contravariant, in agreement with our earlier discussion.
+
+Similarly, the dual basis and covector components satisfy
+
+$$
+\mathrm{d}x'^\mu = \frac{\partial y^\mu}{\partial x^\nu}\,\mathrm{d}x^\nu,
+\qquad
+\omega'_\mu = \frac{\partial x^\nu}{\partial y^\mu}\,\omega_\nu.
+$$
+
+The same pattern holds for more general tensors: simply replace the transformation of each index accordingly. See [Basis transformations](./01-mathematical-foundations.mdx#14-more-about-indices-basis-transformation) for a review.
+
+:::note
+
+The attentive reader may notice that this appears completely reversed compared to our earlier discussion: the basis vectors $\{\partial_\mu\}$ transform with the inverse Jacobian, while the (contravariant) vector components $v^\mu$ transform with the Jacobian itself. This is not a contradiction, because in our initial discussion we simply posited a basis transformation matrix
+
+$$
+e'_\mu = \Lambda^\nu{}_\mu e_\nu,
+$$
+
+without asking where $\Lambda^\nu{}_\mu$ came from. What we have just carried out is effectively solving for that matrix. In any case, the matrix that transforms upper indices and the matrix that transforms lower indices are always mutual inverses — that fact remains unchanged.
+:::
+
+---

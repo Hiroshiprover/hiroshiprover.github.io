@@ -1,0 +1,208 @@
+---
+title: 7.5 化学势
+sidebar_position: 5
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 7.5 化学势
+
+## 热力学
+
+在正则系综中，亥姆霍兹自由能 $A$ 是 $N$、$V$ 与 $T$ 的函数，其中 $N$ 固定。在巨正则系综中允许粒子数变化，因此化学势 $\mu$ 通过附加项 $\mu\,dN$ 进入。把这些依赖关系考虑进来，我们得到：
+
+<Anchor id="eq-7-47" />
+$$
+dA = -PdV - SdT + \mu dN. \tag{7.47}
+$$
+
+利用勒让德变换 $U = A + TS$，我们得到一般形式的热力学第一定律：
+
+<Anchor id="eq-7-48" />
+$$
+dU = TdS - PdV + \mu dN. \tag{7.48}
+$$
+
+吉布斯自由能由另一个勒让德变换定义：$G = A + PV$。它的微分形式为：
+
+<Anchor id="eq-7-49" />
+$$
+dG = VdP - SdT + \mu dN. \tag{7.49}
+$$
+
+由式 [(7.47)](#eq-7-47)–[(7.49)](#eq-7-49)，我们得到不同条件下化学势 $\mu$ 的如下表达式：
+
+<Anchor id="eq-7-50" />
+$$
+\mu = \left(\frac{\partial U}{\partial N}\right)_{V,S} = \left(\frac{\partial A}{\partial N}\right)_{V,T} = \left(\frac{\partial G}{\partial N}\right)_{P,T}. \tag{7.50}
+$$
+
+作为一个例子，我们来推导理想气体的化学势。对于 $N$ 个粒子的系统，其正则配分函数由下式给出：
+
+<Anchor id="eq-7-51" />
+$$
+Q_N(V,T) = \frac{1}{N!h^{3N}}\int d^{3N}q\,d^{3N}p\,e^{-\beta\sum_{i=1}^{3N}p_i^2/(2m)} = \frac{1}{N!}\left(\frac{V}{\lambda^3}\right)^N, \tag{7.51}
+$$
+
+<Anchor id="eq-7-52" />
+$$
+\lambda = \sqrt{\frac{2\pi\hbar^2}{mkT}},\quad (\text{热波长}). \tag{7.52}
+$$
+
+那么巨配分函数为：
+
+<Anchor id="eq-7-53" />
+$$
+\mathcal{Q}(z,V,T) = \sum_{N=0}^{\infty} z^N Q_N(V,T) = \sum_{N=0}^{\infty}\frac{1}{N!}\left(\frac{zV}{\lambda^3}\right)^N = e^{zV/\lambda^3}. \tag{7.53}
+$$
+
+平均粒子数可以由式 [(7.36)](./03-grand-canonical-ensemble.mdx#eq-7-36) 得到
+
+<Anchor id="eq-7-54" />
+$$
+\langle N\rangle = z\frac{\partial}{\partial z}\ln\mathcal{Q}(z,V,T) = \frac{zV}{\lambda^3}. \tag{7.54}
+$$
+
+最后，我们得到如下形式的理想气体化学势
+
+<Anchor id="eq-7-55" />
+$$
+\mu = kT\ln(\lambda^3 n),\quad n = \langle N\rangle/V. \tag{7.55}
+$$
+
+此外，理想气体著名的状态方程也可以导出：$PV/(kT) = \ln\mathcal{Q}(z,V,T) = zV/\lambda^3 = \langle N\rangle$。
+
+回忆一下，当气体的等温压缩系数有限时，巨配分函数 $\mathcal{Q}(z,V,T)$ 可以用它的最大项 $W(\bar{N})$ 很好地近似。我们将用理想气体模型来说明这一点。注意，使 $\ln W(N)$ 取极大值的条件由下式给出：
+
+$$
+\delta\ln W(N) = 0 \quad\Leftrightarrow\quad \ln W(N+1) - \ln W(N) = \ln\left[\frac{z^{N+1}Q_{N+1}(V,T)}{z^N Q_N(V,T)}\right] = 0.
+$$
+
+把式 [(7.51)](#eq-7-51) 代入该式，我们得到
+
+$$
+\bar{N} + 1 = \frac{zV}{\lambda^3}.
+$$
+
+因此，在热力学极限下 $\bar{N} \approx \langle N\rangle$。然后，
+
+$$
+\begin{aligned}
+\ln W(\bar{N}) &= \ln\left[\frac{1}{\bar{N}!}\left(\frac{zV}{\lambda^3}\right)^{\bar{N}}\right] = \ln\left[\frac{(\bar{N}+1)^{\bar{N}}}{\bar{N}!}\right]\\
+&\approx \bar{N}\ln(\bar{N}+1) - \bar{N}\ln\bar{N} + \bar{N} = \bar{N}\ln\left(1+\frac{1}{\bar{N}}\right) + \bar{N}\\
+&= 1 + \bar{N} = \frac{zV}{\lambda^3} = \ln\mathcal{Q}(z,V,T).
+\end{aligned}
+$$
+
+这一方程证实了巨配分函数可以用 $W(N)$ 的最概然值来近似的结论
+
+$$
+\mathcal{Q}(z,V,T) = \sum_{N=0}^{\infty} W(N) \approx W(\bar{N}).
+$$
+
+## 粒子数守恒
+
+在这一部分，我们探讨统计物理在粒子物理中的一个有趣应用。
+
+正如前面所确认的，在热力学极限下巨正则系综与正则系综等价，因为对大量系统而言粒子数的相对涨落消失。实际上，即使粒子数严格守恒，巨正则系综也提供了对正则系综的方便近似；此时化学势充当拉格朗日乘子，以保证平均粒子数固定。
+
+在粒子物理中，重子数守恒是一条基本定律：重子（例如质子、中子）总数减去反重子数是守恒的。例如，一个质子可以伴随一个反质子而产生或湮灭。因此，质子数本身并不守恒。然而在低温下，热能不足以产生重子–反重子对，反重子不存在。在这一区域，质子（以及中子）数实际上是守恒的。
+
+电子也有类似的情况。在低温下，电子–正电子对产生可以忽略，正电子基本不存在，因此电子数是有效守恒的。在高温下，当热能超过电子静止能量 $mc^2$ 时，守恒量则变为电子数与正电子数之差。
+
+现在我们用巨正则系综来分析允许粒子–反粒子对产生与湮灭的系统的平衡。有效哈密顿量为：
+
+<Anchor id="eq-7-56" />
+$$
+\mathscr{H} = \mathscr{H}_1 + \mathscr{H}_2 - \mu(N_1 - N_2), \tag{7.56}
+$$
+
+其中下标“1”与“2”分别表示粒子与反粒子，$\mu$ 作为拉格朗日乘子引入，使得 $N_1$ 与 $N_2$ 可以当作无约束变量。巨配分函数为：
+
+<Anchor id="eq-7-57" />
+$$
+\begin{aligned}
+\mathcal{Q} &= \sum_{N_1=0}^{\infty}\sum_{N_2=0}^{\infty} e^{\beta\mu(N_1-N_2)} Q_{N_1} Q_{N_2}\\
+&= \sum_{N_1=0}^{\infty}\sum_{N_2=0}^{\infty} e^{-\beta[A(N_1)+A(N_2)-\mu(N_1-N_2)]}\\
+&\approx e^{-\beta[A(\bar{N}_1)+A(\bar{N}_2)-\mu(\bar{N}_1-\bar{N}_2)]},
+\end{aligned} \tag{7.57}
+$$
+
+其中只保留了主导项。$\bar{N}_1$ 与 $\bar{N}_2$ 的值通过最小化指数来确定：
+
+<Anchor id="eq-7-58" />
+$$
+\frac{\partial A(N_1)}{\partial N_1} = \mu,\quad \frac{\partial A(N_2)}{\partial N_2} = -\mu. \tag{7.58}
+$$
+
+为计算亥姆霍兹自由能 $A(N_1)$ 与 $A(N_2)$，相对论性处理会更合适。但为简单起见，我们采用非相对论极限，此时包括静止能量在内的能量由 $E = mc^2 + \frac{p^2}{2m}$ 给出。把式 [(7.55)](#eq-7-55) 用于化学势加上静止能量移动的情形，我们得到：
+
+<Anchor id="eq-7-59" />
+$$
+kT\ln(\lambda^3 n_1) + mc^2 = \mu,\quad kT\ln(\lambda^3 n_2) + mc^2 = -\mu, \tag{7.59}
+$$
+
+其中 $n_1$ 与 $n_2$ 分别是粒子与反粒子的最概然密度。把这两个方程相加，得到：
+
+<Anchor id="eq-7-60" />
+$$
+\lambda^6 n_1 n_2 = e^{-2mc^2/(kT)}. \tag{7.60}
+$$
+
+电子静止能量对应的温度约为 $6\times10^9$ K，而质子静止能量对应的温度约高 2000 倍。因此，在通常温度下式 [(7.60)](#eq-7-60) 右端可以忽略，这意味着 $n_1$ 与 $n_2$ 中至少有一个极其微小。这解释了为什么当 $kT \ll mc^2$ 时可以放心地忽略反粒子。
+
+## 化学平衡
+
+在这一部分，我们展示统计物理在化学中的应用。
+
+考虑一个非常熟悉的化学反应
+
+$$
+2\mathrm{H}_2 + \mathrm{O}_2 = 2\mathrm{H}_2\mathrm{O}.
+$$
+
+它也可以改写为
+
+$$
+2\mathrm{H}_2 + \mathrm{O}_2 - 2\mathrm{H}_2\mathrm{O} = 0.
+$$
+
+相应地，一般的反应可以表示为
+
+<Anchor id="eq-7-61" />
+$$
+\sum_{i=1}^{K}\nu_i X_i = 0, \tag{7.61}
+$$
+
+其中对反应物 $\nu_i > 0$，对产物 $\nu_i < 0$。
+
+该反应的守恒定律为
+
+<Anchor id="eq-7-62" />
+$$
+\frac{\delta N_1}{\nu_1} = \frac{\delta N_2}{\nu_2}\cdots = \frac{\delta N_K}{\nu_K}, \tag{7.62}
+$$
+
+其中 $\delta N_i$ 是第 $i$ 种粒子的数目变化。于是我们可以写出
+
+<Anchor id="eq-7-63" />
+$$
+\delta N_i = \nu_i\delta N,\quad i = 1,\cdots,K. \tag{7.63}
+$$
+
+当反应在恒定 $V$ 与 $T$ 下达到平衡时，总亥姆霍兹自由能应当最小，
+
+<Anchor id="eq-7-64" />
+$$
+0 = \delta A = \sum_{i=1}^{K}\delta A_i = \sum_{i=1}^{K}\frac{\partial A_i}{\partial N_i}\delta N_i = \sum_{i=1}^{K}\mu_i\nu_i\delta N. \tag{7.64}
+$$
+
+由于 $\delta N \neq 0$，反应平衡条件为
+
+<Anchor id="eq-7-65" />
+$$
+\sum_{i=1}^{K}\mu_i\nu_i = 0, \tag{7.65}
+$$
+
+其中 $\mu_i$ 是分子 $K_i$ 的化学势。如果反应在恒定 $P$ 与 $T$ 下进行，我们可以等价地使用吉布斯自由能，得到相同的条件。

@@ -1,0 +1,125 @@
+---
+title: 7.2 Energy Fluctuation in Canonical Ensemble
+sidebar_position: 2
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 7.2 Energy Fluctuation in Canonical Ensemble
+
+Although the canonical ensemble technically allows energy fluctuations, these fluctuations are negligible for macroscopic thermodynamic systems. As a result, the vast majority of systems in the ensemble reside within an extremely narrow energy range centered at the value determined by the temperature $T$. Hence, the canonical ensemble becomes equivalent to the microcanonical ensemble.
+
+Consider the following expression
+
+<Anchor id="eq-7-15" />
+$$
+\int\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,[U-\mathscr{H}(q,p)]\,e^{\beta[A(V,T)-\mathscr{H}(q,p)]} = 0, \tag{7.15}
+$$
+
+where $U = \langle\mathscr{H}\rangle$ is determined by $T$ and $V$. Differentiating both sides of Eq. [(7.15)](#eq-7-15) with respect to $\beta$, we find
+
+<Anchor id="eq-7-16" />
+$$
+\frac{\partial U}{\partial\beta} + \int\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}(U-\mathscr{H})\left(A-\mathscr{H}+\beta\frac{\partial A}{\partial\beta}\right)e^{\beta(A-\mathscr{H})} = 0. \tag{7.16}
+$$
+
+Because $\beta\frac{\partial A}{\partial\beta} = -T\frac{\partial A}{\partial T} = TS$, Eq. [(7.16)](#eq-7-16) can be written as
+
+<Anchor id="eq-7-17" />
+$$
+\frac{\partial U}{\partial\beta} + \left\langle(U-\mathscr{H})^2\right\rangle = 0. \tag{7.17}
+$$
+
+It gives rise to the mean square fluctuation of energy
+
+<Anchor id="eq-7-18" />
+$$
+\langle\mathscr{H}^2\rangle - \langle\mathscr{H}\rangle^2 = \left\langle(U-\mathscr{H})^2\right\rangle = -\frac{\partial U}{\partial\beta} = kT^2\left(\frac{\partial U}{\partial T}\right)_V = kT^2C_V. \tag{7.18}
+$$
+
+This identity connects the energy fluctuation with the heat capacity of the system. It is an example of the *fluctuation-dissipation theorem*. For a macroscopic system, both $\langle\mathscr{H}\rangle$ and $C_V$ are proportional to the particle number $N$. In the thermodynamic limit $N \to \infty$, the relative energy fluctuation becomes negligible. Consequently, nearly all system replicas in the ensemble share the same energy value - the system’s internal energy $U$. This result is expected, as we have previously established that relative fluctuations of extensive quantities become negligible.
+
+In what follows, we will present another heuristic derivation of the energy fluctuation, which shows a connection between the definitions of entropy in the microcanonical and canonical ensembles. We start with the partition function
+
+<Anchor id="eq-7-19" />
+$$
+\begin{aligned}
+\int\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,e^{-\beta\mathscr{H}(q,p)} &= \int_0^\infty dE\,\omega(E)e^{-\beta E} = \int_0^\infty dE\,e^{-\beta E+\ln\omega(E)}\\
+&= \int_0^\infty dE\,e^{\beta[TS(E)-E]},
+\end{aligned} \tag{7.19}
+$$
+
+where $\omega(E)$ is the density of state at fixed volume $V$ and $S(E) = k\ln\omega(E)$ gives the entropy for a microcanonical ensemble at fixed energy $E$. It is emphasized that the function $S(E)$ is not yet the entropy of our canonical ensemble, but only a function of $E$ in the present form.
+
+![Illustration of energy dependence of the density of states, the Boltzmann factor, and their product.](/img/asm/chap07-fig7-2.png)
+
+Figure 7.2: Illustration of energy dependence of the density of states $\omega(E)$, Boltzmann factor $e^{-\beta E}$, and their product $\omega(E)e^{-\beta E}$.
+
+In the light of the ideal gas example with $N$ particles (Chapter 6), the density of states $\omega(E)$ grows rapidly with energy, typically as $\omega(E) \propto E^N$, while the Boltzmann factor $e^{-\beta E}$ decreases exponentially. Consequently, the integrand in Eq. [(7.19)](#eq-7-19) exhibits a sharp peak at the most probable value of energy $E$. The width $\Delta E$ of the peak represents the relative energy fluctuation, which become negligible for macroscopic systems in the thermodynamic limit. Fig. 7.2 illustrates the energy dependence of these competing factors in the integrand.
+
+In fact, the maximum of the integrand occurs at $E = \bar{E}$, where $\bar{E}$ satisfies the condition
+
+<Anchor id="eq-7-20" />
+$$
+T\left(\frac{\partial S}{\partial E}\right)_{E=\bar{E}} = 1, \tag{7.20}
+$$
+
+<Anchor id="eq-7-21" />
+$$
+\left(\frac{\partial^2 S}{\partial E^2}\right)_{E=\bar{E}} < 0, \tag{7.21}
+$$
+
+where the partial derivative of $S(E)$ is evaluated at constant volume.
+
+Recall that in the framework of the microcanonical ensemble, the partial derivative $\frac{\partial S}{\partial E}$ yields the inverse of temperature which is assumed uniformly by all macroscopic subsystems of an isolated system with a given energy. In the current discussion of canonical ensemble, the temperature $T$ is prescribed by the heat reservoir. The first condition Eq. [(7.20)](#eq-7-20) consequently determines the most probable energy value $\bar{E}$, which we identify as the internal energy $U$ of the system. In any case, Eq. [(7.20)](#eq-7-20) can be interpreted as defining an implicit functional relationship between $U$ and $T$ at constant system volume.
+
+Next, to ensure the integrand reaches its maximum at $E = \bar{E} = U$, we must additionally verify the second condition given by Eq. [(7.21)](#eq-7-21). In fact, we note that $\bar{E}$ (or $U$) is an implicit function of $T$ determined by Eq. [(7.20)](#eq-7-20), therefore,
+
+<Anchor id="eq-7-22" />
+$$
+\left(\frac{\partial^2 S}{\partial E^2}\right)_{E=\bar{E}} = \left(\frac{\partial T^{-1}}{\partial E}\right)_{E=\bar{E}} = -\frac{1}{T^2}\left(\frac{\partial T}{\partial E}\right)_{E=\bar{E}} = -\frac{1}{T^2C_V}. \tag{7.22}
+$$
+
+Since the heat capacity is always positive for realistic physical systems, the second condition Eq. [(7.21)](#eq-7-21) is satisfied automatically.
+
+We now expand $TS - E$ around the most probable energy $\bar{E}$ (or $U$)
+
+<Anchor id="eq-7-23" />
+$$
+\begin{aligned}
+TS(E) - E &= [TS(\bar{E}) - \bar{E}] + \frac{1}{2}(E-\bar{E})^2T\left(\frac{\partial^2 S}{\partial E^2}\right)_{E=\bar{E}} + \cdots\\
+&= [TS(U) - U] - \frac{1}{2TC_V}(E-U)^2 + \cdots.
+\end{aligned} \tag{7.23}
+$$
+
+This expansion shows that in the canonical ensemble the energy distribution is Gaussian, centered around the mean energy $U$ with width
+
+<Anchor id="eq-7-24" />
+$$
+\Delta E = \sqrt{2kT^2C_V}. \tag{7.24}
+$$
+
+Clearly, the relative fluctuation $\Delta E/U$ scales as $N^{-1/2}$, indicating that the energy distribution approaches to a Dirac $\delta$-function in the thermodynamic limit $N \to \infty$, as illustrated in Fig. 7.2.
+
+Substituting Eq. [(7.23)](#eq-7-23) into Eq. [(7.19)](#eq-7-19) and integrating over $E$, we obtain
+
+$$
+\begin{aligned}
+Q_N(V,T) &= \int_0^\infty dE\,e^{\beta[TS(E)-E]} \approx e^{\beta[TS(U)-U]}\int_0^\infty dE\,e^{-(E-U)^2/(2kT^2C_V)}\\
+&= e^{\beta[TS(U)-U]}\int_{-\infty}^{\infty} dx\,e^{-x^2/(2kT^2C_V)} = e^{\beta[TS(U)-U]}\sqrt{2\pi kT^2C_V},
+\end{aligned}
+$$
+
+<Anchor id="eq-7-25" />
+$$
+A(V,T) \approx U - TS(U) - \frac{1}{2}kT\ln C_V \xrightarrow{\text{thermo. limit}} U - TS(U). \tag{7.25}
+$$
+
+Since the first two terms are extensive (scaling with $N$), the third term—which scales as $\ln N$—becomes negligible in the thermodynamic limit. Neglecting this logarithmic contribution and comparing with Eq. [(7.12)](./index.mdx#eq-7-12), we find that the canonical entropy defined in Eq. [(7.13)](./index.mdx#eq-7-13) coincides with the microcanonical entropy evaluated at the internal energy $U$ of the canonical ensemble:
+
+$$
+S = k\ln\omega(U) = -\left(\frac{\partial A}{\partial T}\right)_V.
+$$
+
+**External and random quantities.** For an isolated system, its total energy is a strictly conserved quantity that does not exhibit thermal fluctuations (note that the small $\Delta$ in the definition of the microcanonical ensemble represents an energy resolution width rather than thermal fluctuations). This energy is fixed and can only be adjusted through external means. We refer to such parameters as external quantities. When considering its subsystems, each subsystem’s energy may fluctuate around their mean values (the most probable values) while preserving the total energy conservation. We call such quantities as random variables. The temperature, being determined by the equilibrium condition (most probable state) among all subsystems, likewise constitutes a random variable. In contrast, a system in the canonical ensemble can be viewed as a macroscopic subsystem of an isolated system. Consequently, its internal energy behaves as a random variable, while the temperature remains fixed by the external heat reservoir (its fluctuation can be ignored), thereby serving as an external parameter.

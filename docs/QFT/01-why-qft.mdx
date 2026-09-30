@@ -1,0 +1,174 @@
+---
+title: 引言：为什么量子场论是必要的
+sidebar_position: 2
+hide_title: true
+---
+# 引言：为什么量子场论是必要的
+
+对于自由粒子，薛定谔方程为[^1]：
+$$
+i \frac{\partial}{\partial t} \psi= -\frac{1}{2m} \nabla^2 \psi = \hat{H}\psi, \qquad \hat{H} = \frac{\hat{p}^2}{2m}, \qquad \hat{p} = -i\nabla,
+$$
+显然，这里使用的哈密顿量是非相对论的，在相对论极限下会出现问题。因此我们需要对薛定谔方程进行修正。
+
+## 1. 第一次尝试：Salpeter 方程
+
+狭义相对论的能量动量关系为 $E^2=\vec p^{\,2}+m^2$。取正能量支，在 $|\vec p|\ll m$ 的非相对论极限下展开为
+$$
+E = \sqrt{\vec p^{\,2} + m^2} = m + \frac{\vec p^{\,2}}{2m} + \cdots,
+$$
+因此我们尝试使用如下形式的哈密顿量：
+$$
+\hat{H} = \sqrt{\hat{p}^2 + m^2} = \sqrt{- \nabla^2 + m^2}.
+$$
+现在，我们有“相对论性的薛定谔方程”：
+$$
+i \frac{\partial}{\partial t} \psi = \sqrt{-\nabla^2 + m^2} \psi,
+$$
+这个方程被称为 Salpeter 方程。这个方程有一个麻烦：它不是**局域的**。也就是说，要知道波函数在某一点接下来怎样变化，光知道这一点附近的情况还不够，还要用到其他位置的波函数值。
+
+我们把在 $x$ 处的结果只依赖任意小邻域内函数值的算符称为局域算符，有限阶微分算符是例子；平移算符 $f(x)\mapsto f(x+a)$ 则会读取另一个位置的值。平方根算符的积分核及其非局域性证明放在[附录 A](./appendix-mathematical-tools.mdx#a-局域算符与平方根算符的非局域性)。
+
+
+## 2. 第二次尝试：Klein-Gordon 方程
+
+按照先前的讨论，我们写出了：
+$$
+i \frac{\partial}{\partial t} \psi = \sqrt{-\nabla^2 + m^2} \psi,
+$$
+显然，这个方程非局域性的来源是这个根号。因此，我们考虑对两边的算符进行平方：
+$$
+\left(i \frac{\partial}{\partial t}\right)^2 \psi = (-\nabla^2 + m^2) \psi,
+$$
+也就是大名鼎鼎的 Klein-Gordon 方程：
+$$
+\nabla^2\psi - \frac{\partial^2}{\partial t^2} \psi = m^2 \psi.
+$$
+
+:::tip[达朗贝尔算子]
+定义：
+$$
+\Box \equiv -\frac{\partial^2}{\partial t^2} + \nabla^2,
+$$
+于是 K-G 方程可写作：
+$$
+\Box \psi - m^2 \psi = 0.
+$$
+
+不同于多数量子场论/粒子物理教材的符号约定，Seb 采用了广义相对论和宇宙学更喜欢的 $(-+++)$ 的度规符号约定，可能跟他本人是做黑洞的有关系。这里我们沿用。一般量子场论教材则会写成 $(\Box+m^2)\psi=0$。
+:::
+
+这是一个带质量项的波动方程。代入平面波解可以得到色散关系：
+$$
+\psi=C e^{-i\omega t+i\vec{k}\cdot\vec{x}},\qquad \omega=\pm\sqrt{\vec{k}^2+m^2}.
+$$
+对一个固定的波矢 $\vec{k}$，通解为：
+$$
+\psi = A e^{-i\sqrt{\vec{k}^2 + m^2} t} e^{i\vec{k}\cdot\vec{x}} + B e^{i\sqrt{\vec{k}^2 + m^2} t} e^{i\vec{k}\cdot\vec{x}} = \psi_A + \psi_B,
+$$
+其中前半部分称为 $\psi_A$，后半部分称为 $\psi_B$。方程完整的解是所有 $\vec{k}$ 的线性组合（傅里叶积分）。
+
+就像 $x=1$ 平方后变成 $x^2=1$，两个方程共享 $x=1$ 这个解，而后者还允许 $x=-1$。类比这里，我们可以验证 $\psi_A$ 同样满足 Salpeter 方程，而 $\psi_B$ 只满足 K–G 方程，不满足原方程。
+
+这看起来我们已经写出了相对论性量子力学的根本方程，接下来一切的事情都是关于如何解这个方程了。但是很快我们就会发现相当多的问题。
+
+## 3. Klein-Gordon 方程的问题
+
+### 负能量问题
+
+对负频率平面波 $\psi_B$，时间平移生成元的本征值为：
+
+$$
+i \frac{\partial}{\partial t} \psi_B = -\sqrt{\vec{k}^2 + m^2} \psi_B.
+$$
+这里的负号来自 $i\partial_t$ 对负频率解的本征值；它不满足前面定义的正平方根一阶方程，却满足平方后的 KG 方程。在把 KG 的两支都解释为单粒子波函数时，会得到没有下界的单粒子能量谱。这说明这种波函数解释遇到困难，不等于后面量子化后的场论能量没有下界。
+
+### 波函数概率诠释问题
+
+我们知道量子力学中，薛定谔方程可以给出一个流守恒方程：
+$$
+\frac{\partial}{\partial t} \left|\psi\right|^2 = - \nabla \cdot \vec{J}, \qquad \vec{J} = \frac{i}{2m}\left(\psi \nabla \psi^* - \psi^* \nabla \psi\right),
+$$
+这说明波函数的模方可以诠释为粒子出现在空间中某处的概率密度，概率流是守恒的。自然地我们期望 K-G 方程会给出相同形式的流守恒方程。
+
+但 K–G 方程给出的是二阶时间导数，并不能直接确定 $\partial_t\psi$。因此我们考虑最开始的 Salpeter 方程，它对时间是一阶导数。虽然这样只检查了 K–G 方程的一部分解 $\psi_A$，但我们的目的只是展示会遇到的困难，并不会影响结论。
+
+按部就班地进行计算：
+$$
+\frac{\partial}{\partial t} \left|\psi\right|^2 = \psi^* \frac{\partial \psi}{\partial t} + \psi \frac{\partial \psi^*}{\partial t} = -i\left[ \psi^* \sqrt{-\nabla^2 + m^2} \psi - \psi \sqrt{-\nabla^2 + m^2} \psi^* \right].
+$$
+
+我们尝试将等号右侧写成某个散度 $-\nabla\cdot\vec{j}$ 的形式。这个计算太过复杂，我们不做讨论地给出结果[^2]：
+
+$$
+\vec{j}(\vec{x},t)
+=\frac{1}{(2\pi)^3}\int d^3p\,d^3q\,
+\frac{\vec{p}+\vec{q}}{E_{\vec{p}}+E_{\vec{q}}}
+\tilde{\psi}(\vec{p},t)\tilde{\psi}^{*}(\vec{q},t)
+e^{i(\vec{p}-\vec{q})\cdot\vec{x}}
+,
+\qquad E_{\vec{p}}\equiv\sqrt{\vec{p}^{\,2}+m^2}.
+$$
+
+这里采用与附录 A 相同的对称傅里叶变换约定：
+$$
+\tilde{\psi}(\vec{p},t)
+=\frac{1}{(2\pi)^{3/2}}\int d^3y\,
+e^{-i\vec{p}\cdot\vec{y}}\psi(\vec{y},t).
+$$
+验证它只需注意：
+$$
+(\vec{p}-\vec{q})\cdot
+\frac{\vec{p}+\vec{q}}{E_{\vec{p}}+E_{\vec{q}}}
+=\frac{\vec{p}^{\,2}-\vec{q}^{\,2}}{E_{\vec{p}}+E_{\vec{q}}}
+=E_{\vec{p}}-E_{\vec{q}}.
+$$
+对流求散度会得到 $i(E_{\vec{p}}-E_{\vec{q}})$，而由 $i\partial_t\tilde{\psi}(\vec{p},t)=E_{\vec{p}}\tilde{\psi}(\vec{p},t)$，对密度求时间导数给出相反的一项，因此 $\partial_t|\psi|^2+\nabla\cdot\vec{j}=0$。交换积分变量 $\vec{p},\vec{q}$ 还可以验证 $\vec{j}^{\,*}=\vec{j}$。
+
+我们可以看到：它是一个依赖于 $\psi$ 的积分泛函：计算某一点的流，需要用到全空间的波函数，因此是非局域的。所以，对于满足 Salpeter 方程的正频率解，$\rho=|\psi|^2$ 确实可以配上一个守恒流，代价是这个流不再局域。
+
+不过，K-G 方程的确存在一个局域的流守恒方程，定义：
+$$
+\rho \equiv i\left( \psi^* \frac{\partial \psi}{\partial t} - \psi \frac{\partial \psi^*}{\partial t} \right),
+$$
+
+对它求时间导数：
+$$
+\frac{\partial \rho}{\partial t} = i\left[ \frac{\partial \psi^*}{\partial t} \frac{\partial \psi}{\partial t} + \psi^* \frac{\partial^2 \psi}{\partial t^2} - \frac{\partial \psi}{\partial t} \frac{\partial \psi^*}{\partial t} - \psi \frac{\partial^2 \psi^*}{\partial t^2} \right] = i\left( \psi^* \frac{\partial^2 \psi}{\partial t^2} - \psi \frac{\partial^2 \psi^*}{\partial t^2} \right),
+$$
+
+而由 K-G 方程，我们可以消去等号右侧的二阶时间导数：
+$$
+\frac{\partial \rho}{\partial t} = i\left[ \psi^* (\nabla^2 - m^2) \psi - \psi (\nabla^2 - m^2) \psi^* \right] = i\left( \psi^* \nabla^2 \psi - \psi \nabla^2 \psi^* \right),
+$$
+
+利用乘积法则：
+$$
+\frac{\partial \rho}{\partial t} = i \nabla \cdot \left( \psi^* \nabla \psi - \psi \nabla \psi^* \right) = -\nabla \cdot \left[ i\left( \psi \nabla \psi^* - \psi^* \nabla \psi \right) \right],
+$$
+
+于是有连续性方程：
+$$
+\frac{\partial \rho}{\partial t} = -\nabla \cdot \vec{j}, \qquad \vec{j} = i\left( \psi \nabla \psi^* - \psi^* \nabla \psi \right),
+$$
+
+:::note
+KG 流的空间分量与薛定谔概率流含有相同的场与梯度双线性组合，但 KG 的密度依赖时间导数，并不等于 $|\psi|^2$；整体乘一个常数也不能把它变成正定概率密度。
+:::
+
+这看起来还不错，但我们注意到 $\rho$ 并不是正定的，没有办法解释成粒子在空间中的概率分布。因此之前的尝试又失败了。
+
+不过我们后面会发现，对于复标量场，$\rho$ 可以解释为守恒荷的密度，$\vec{j}$ 是相应的流；若这个荷是电荷，就得到电荷密度与电流，因此出现负数是被允许的。
+
+## 4. 结论
+
+我们试了两条路：保留根号，方程是非局域的；平方去掉根号，得到的 K–G 方程虽然是局域的，但把它的解直接当作普通波函数，又会遇到负能量和负概率密度的问题。
+
+还需要考虑一个更实际的问题：粒子可以产生，也可以湮灭。如果一直只用“一个粒子的位置波函数”，就无法描述粒子数发生变化的过程。
+
+这些困难针对上面尝试的单粒子概率解释，并不是排除所有相对论单粒子描述的定理。K–G 方程仍可作为经典场的运动方程；量子化这个场后，粒子将作为场的激发出现。下一篇先从非相对论多体系统建立容纳不同粒子数的态空间和场算符语言。
+
+不过，量子场论本身并不以相对论为前提，存在描述非相对论系统的量子场论，通常在凝聚态理论中使用。
+
+[^1]: 我们默认使用自然单位制，即 $c=\hbar=1$。
+[^2]: 可参见 [Salpeter 方程与概率流的讨论](https://arxiv.org/abs/1110.5146)。

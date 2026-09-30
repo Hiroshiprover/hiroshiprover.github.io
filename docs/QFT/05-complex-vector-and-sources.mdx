@@ -1,0 +1,292 @@
+---
+title: 经典场论（2）：复场、矢量场与外源
+sidebar_position: 6
+hide_title: true
+---
+# 经典场论（2）：复场、矢量场与外源
+
+## 1. 复标量场
+
+复标量场可以写成两个实场的组合
+$$
+\phi=\phi_1+i\phi_2.
+$$
+这里取实值的 $\mathcal L$，并进一步要求全局相位对称性 $\phi\mapsto e^{i\alpha}\phi$。在不含导数相互作用的情形下，这给出
+$$
+\boxed{
+\mathcal L=-\partial^\mu\phi^*\partial_\mu\phi-V(|\phi|^2),
+}
+$$
+其中 $|\phi|$ 是复模，势 $V$ 是 $|\phi|^2$ 的实函数。*只要求 $\mathcal L$ 为实数并不能推出这一形式；一般也可有破坏相位对称性的实组合，如 $\phi^2+\phi^{*2}$。这里沿用板书 $\phi=\phi_1+i\phi_2$ 的约定，两个实场的动能系数都是 $-1$；若要各自写成 $-1/2$，需相应重标度实场。* 对 $\phi_1,\phi_2$ 的 EL 方程，等价于把 $\phi$ 与 $\phi^*$ 当作独立变量得到的 EL 方程；下面用后一种做法。
+
+对 $\phi^*$ 变分（$\phi$ 不动）：
+$$
+\delta_{\phi^*}S
+=\int d^4x\left[
+-\partial^\mu\delta\phi^*\,\partial_\mu\phi
+-\frac{dV}{d(|\phi|^2)}\,\delta|\phi|^2
+\right].
+$$
+由 $|\phi|^2=\phi^*\phi$ 得 $\delta|\phi|^2=\phi\,\delta\phi^*$，代入后把第一项分部积分（边界项为零）：
+$$
+\delta_{\phi^*}S
+=\int d^4x\left[
+\Box\phi
+-\frac{dV}{d(|\phi|^2)}\,\phi
+\right]\delta\phi^*.
+$$
+$\delta\phi^*$ 任意，于是
+$$
+\boxed{
+\Box\phi=\frac{dV}{d(|\phi|^2)}\,\phi.
+}
+$$
+这就是**复 Klein–Gordon 方程**。对复标量场，板书给了三条注记。
+
+① 在这里采用的解析性与 U(1) 对称性假设下，$V$ 应在 $|\phi|^2=0$ 附近展开为整数幂，而不是只在 $|\phi|$ 上作幂展开。反例：
+$$
+V=|\phi|^3=|\phi|^2|\phi|=\phi^*\phi\sqrt{\phi^*\phi}
+$$
+它在 $\phi_1=\phi_2=0$ 处不具备实解析的 Taylor 展开，不属于这里讨论的解析势。*这里的“解析”指实场分量的实解析性；$V(\phi^*\phi)$ 本来就依赖 $\phi^*$，并非复分析中的全纯函数。*
+
+② 对 $\phi^*$ 的 EL 方程取复共轭，就是对 $\phi$ 的 EL 方程：
+$$
+\Box\phi^*=\frac{dV}{d(|\phi|^2)}\,\phi^*.
+$$
+
+③ “对 $\phi,\phi^*$ 变分”与“对 $\phi_1,\phi_2$ 变分”确实等价。验证：由链式法则，
+$$
+\frac{\partial\mathcal L}{\partial\phi_1}
+=\frac{\partial\mathcal L}{\partial\phi}\frac{\partial\phi}{\partial\phi_1}
++\frac{\partial\mathcal L}{\partial\phi^*}\frac{\partial\phi^*}{\partial\phi_1}
+=\frac{\partial\mathcal L}{\partial\phi}
++\frac{\partial\mathcal L}{\partial\phi^*},
+$$
+同理（练习）
+$$
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi_1)}
+=\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
++\frac{\partial\mathcal L}{\partial(\partial_\mu\phi^*)}.
+$$
+两项相减，
+$$
+\frac{\partial\mathcal L}{\partial\phi_1}
+-\partial_\mu\frac{\partial\mathcal L}{\partial(\partial_\mu\phi_1)}
+=
+\left(\frac{\partial\mathcal L}{\partial\phi}
+-\partial_\mu\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\right)
++\left(\frac{\partial\mathcal L}{\partial\phi^*}
+-\partial_\mu\frac{\partial\mathcal L}{\partial(\partial_\mu\phi^*)}\right),
+$$
+即对 $\phi_1$ 的 EL 方程等于对 $\phi$ 与对 $\phi^*$ 的 EL 方程之和。对 $\phi_2$ 同理，所以两套方程等价。
+
+## 2. 矢量场：Proca 与 Maxwell
+
+对实矢量场 $A_\mu(x)$，先定义 **Faraday 张量**（Maxwell 场强）
+$$
+F_{\mu\nu}\equiv\partial_\mu A_\nu-\partial_\nu A_\mu.
+$$
+描述自由有质量自旋 1 粒子的 Proca 拉格朗日量为
+$$
+\mathcal L=-\frac14F^{\mu\nu}F_{\mu\nu}-\frac{m^2}{2}A^\mu A_\mu,
+$$
+质量项也可以看成势的最低阶项：
+$$
+V(A^\mu A_\mu)=\frac{m^2}{2}A^\mu A_\mu+V_{\mathrm{int}}(A^\mu A_\mu).
+$$
+$A^\mu A_\mu$ 是由 $A_\mu$ 构成、不含导数的标量。*仅凭 Lorentz 不变性与二次阶要求，还可以写出 $(\partial_\mu A^\mu)^2$；这里选择 Proca 形式，不引入额外的标量传播模。*
+
+{/* 已核实（IMG_8319、IMG_8360、IMG_8363）：L=-F²/4-V 时，V 的质量项须为 +m²A²/2，才能给出下文 ∂νF^{νμ}-m²A^μ=0；复习页势中的负号有误。 */}
+
+以 $A_\mu$ 为独立分量进行变分。拉格朗日量的变化为
+$$
+\delta_{A_\mu}S
+=\int d^4x\left[
+-\frac12F^{\mu\nu}\delta F_{\mu\nu}
+-m^2A^\mu\,\delta A_\mu
+\right],
+$$
+其中 $1/2$ 来自对二次项的求导。第一项里 $\delta F_{\mu\nu}=\partial_\mu\delta A_\nu-\partial_\nu\delta A_\mu$；由于 $F^{\mu\nu}$ 反对称，两项可以合并：
+$$
+-\frac12F^{\mu\nu}\delta F_{\mu\nu}
+=-\frac12F^{\mu\nu}
+\left(\partial_\mu\delta A_\nu-\partial_\nu\delta A_\mu\right)
+=F^{\mu\nu}\partial_\nu\delta A_\mu,
+$$
+这里用了 $F^{\mu\nu}\partial_\mu\delta A_\nu=-F^{\mu\nu}\partial_\nu\delta A_\mu$。于是
+$$
+\delta_{A_\mu}S
+=\int d^4x\left[
+F^{\mu\nu}\partial_\nu\delta A_\mu
+-m^2A^\mu\,\delta A_\mu
+\right].
+$$
+分部积分并扔掉边界项：
+$$
+\delta_{A_\mu}S
+=\int d^4x\left[
+-\partial_\nu F^{\mu\nu}
+-m^2A^\mu
+\right]\delta A_\mu.
+$$
+$\delta A_\mu$ 任意，方括号只能为零：
+$$
+-\partial_\nu F^{\mu\nu}-m^2A^\mu=0
+\quad\Longrightarrow\quad
+\boxed{\partial_\nu F^{\nu\mu}-m^2A^\mu=0,}
+$$
+即 **Proca 方程**。若 $m^2=0$，它退化为
+$$
+\boxed{\partial_\nu F^{\nu\mu}=0,}
+$$
+即无源 Maxwell 方程之一。
+
+Maxwell 方程的另一半是
+$$
+\boxed{
+\partial_\mu F_{\nu\rho}
++\partial_\nu F_{\rho\mu}
++\partial_\rho F_{\mu\nu}=0,
+}
+$$
+它由 $F_{\mu\nu}=\partial_\mu A_\nu-\partial_\nu A_\mu$ 自动成立（对任意 $A_\mu$ 都是恒等式），不是 EL 方程。
+
+当质量不为零时，对 Proca 方程作用 $-\partial_\mu$：
+$$
+-\partial_\mu\partial_\nu F^{\nu\mu}+m^2\partial_\mu A^\mu=0.
+$$
+$\partial_\mu\partial_\nu$ 关于 $\mu\leftrightarrow\nu$ 对称，而 $F^{\nu\mu}$ 反对称；对称与反对称缩并为零（一般地，若 $M_{\mu\nu}$ 反对称、$N_{\mu\nu}$ 对称，则 $M_{\mu\nu}N^{\mu\nu}=0$），所以上式只剩下
+$$
+\boxed{\partial_\mu A^\mu=0.}
+$$
+这是 **Lorenz 条件**。对于 $m\ne0$ 的 Proca 场，它是运动方程推出的约束，必须在整个演化中成立，也限制可选的初始数据；它不是可以任意选择的规范条件。
+
+再回到 Proca 方程：
+$$
+\partial_\nu F^{\nu\mu}
+=\partial_\nu(\partial^\nu A^\mu-\partial^\mu A^\nu)
+=\Box A^\mu-\partial^\mu\partial_\nu A^\nu
+=\Box A^\mu,
+$$
+最后一步用了 $\partial_\nu A^\nu=0$。于是
+$$
+\boxed{\Box A^\mu-m^2A^\mu=0,}
+$$
+又是 Klein–Gordon 形式的波动方程。
+
+三条注记：
+
+① 对这里的自由理论，若 $m=0$，便有规范对称性 $A_\mu\mapsto A_\mu+\partial_\mu\chi$。此时 Lorenz 条件可以作为规范条件施加，方程化为 $\Box A_\mu=0$，描述电磁波。
+
+② 对描述确定质量 $m$ 的自由粒子的场，物理分量满足质量壳条件，相应的波动方程具有 Klein–Gordon 形式：
+$$
+\Box\psi_{\mu_1\cdots\mu_s}-m^2\psi_{\mu_1\cdots\mu_s}=0.
+$$
+
+它并不意味着任意张量场都自动满足这一方程，也不足以单独确定自旋；还需要相应的约束或规范条件。相互作用场的方程一般也不再是这个自由形式。
+
+③ 场的指标结构本身不足以确定其物理自由度；通常还需结合运动方程与约束条件。这里先集中讨论标量场和矢量场。
+
+Lecture 5 暂不引入的导数相互作用还包括
+$$
+(\partial_\mu A^\mu)^3
+\quad\text{或}\quad
+(F^{\mu\nu}F_{\mu\nu})^2
+$$
+这样的项。*它们分别含三个和四个导数因子，但只涉及 $A_\mu$ 的一阶导数，不能仅凭这个计数判定它们产生高阶运动方程或不允许存在。$(F^{\mu\nu}F_{\mu\nu})^2$ 是规范不变的，可出现在低能有效场论中；$(\partial_\mu A^\mu)^3$ 则不具有 Maxwell 的规范不变性，并可能改变矢量场的约束结构，必须另作分析。*
+
+{/* 参考：Euler–Heisenberg 有效作用量中的 F⁴ 项，https://arxiv.org/abs/hep-th/0406216。这里保留板书列出的项，但修正把导数总数当成普遍禁令的说法。 */}
+
+### Maxwell 方程的协变性
+
+电磁场可以用反对称的 Faraday 张量 $F_{\mu\nu}$ 描述。板书给出的无源 Maxwell 方程为
+$$
+\partial_\mu F_{\rho\sigma}
++\partial_\rho F_{\sigma\mu}
++\partial_\sigma F_{\mu\rho}=0,
+$$
+$$
+\partial_\mu F^{\mu\nu}=0.
+$$
+第一式左边是三阶协变张量；第二式缩并了 $\mu$，只剩下自由指标 $\nu$，因而是逆变矢量。例如第二式的变换为
+$$
+\begin{aligned}
+\partial'_\mu F'^{\mu\nu}(x')
+&=\Lambda_\mu{}^\alpha\Lambda^\mu{}_\rho
+\Lambda^\nu{}_\sigma\partial_\alpha F^{\rho\sigma}(x)\\
+&=\Lambda^\nu{}_\sigma\partial_\rho F^{\rho\sigma}(x).
+\end{aligned}
+$$
+若原式为零，变换后也为零。第一式同理，所以这组方程在 Lorentz 变换下保持形式不变。
+
+*板书把第一式标作 Gauss' equation；这里保留原式，称为齐次 Maxwell 方程。它同时包含磁场的 Gauss 定律与 Faraday 感应定律。第二式的右边为零，对应无源情形。*
+
+现在可以更准确地表述相对性原理：**物理定律在不同惯性系中应当具有相同的形式**。用张量写方程的好处正是在这里：只要等式两边按相同的规则变换，在一个惯性系中成立的方程，就在另一个惯性系中成立。板书将这种性质称为 Lorentz invariant。
+
+*对带自由指标的方程，通常也称 Lorentz 协变；这里沿用板书“不变”的说法，指方程的形式不变，而不是各分量的数值不变。*
+
+## 3. 给定外源
+
+场也可以与一个预先给定的源耦合。这里把 $J(x)$ 当作已知函数，只对场 $\phi$ 变分；源本身的动力学不在本节讨论。对电磁场，相应的外电流写作 $J^\mu(x)$。它与下一篇将定义的诺特流是不同的量，靠上下文区分。
+
+### 外电流下的 Maxwell 方程
+
+在外电流 $J^\mu$ 下，取
+
+$$
+\mathcal L_{\rm tot}=-\frac14F^{\mu\nu}F_{\mu\nu}+A_\mu J^\mu.
+$$
+
+源保持不变，对 $A_\nu$ 变分并分部积分，有
+$$
+\delta S=\int d^4x\,\left(\partial_\mu F^{\mu\nu}+J^\nu\right)\delta A_\nu.
+$$
+由 $\delta A_\nu$ 的任意性得到
+
+$$
+\partial_\mu F^{\mu\nu}+J^\nu=0.
+$$
+
+沿用本课程的分量约定 $F^{0i}=E^i$、$F^{ij}=\varepsilon^{ij}{}_kB^k$ 和 $J^0=\rho$，取 $\varepsilon^{123}=+1$。取 $\nu=0$，利用 $F^{i0}=-E^i$ 得到 $\nabla\cdot\vec E=\rho$；取 $\nu=j$，得到
+
+$$
+\frac{\partial\vec E}{\partial t}-\nabla\times\vec B+\vec J=0.
+$$
+
+由于 $F^{\mu\nu}$ 反对称，对场方程再取散度得到 $\partial_\nu J^\nu=0$。因此给定外电流须满足电荷连续性方程。若 $J^\mu$ 显含时空坐标，不能直接把无外源理论的平移守恒结论照搬过来；静态点源保留时间平移，但通常破坏空间平移。
+
+### 静态标量点源与汤川解
+
+考虑自由实标量场与静态点源 $J(\vec x)=\alpha\delta^{(3)}(\vec x)$ 的耦合：
+
+$$
+\mathcal L_{\rm tot}=-\frac12(\partial\phi)^2-\frac{m^2}{2}\phi^2+\phi J.
+$$
+
+对 $\phi$ 作变分，先得到含源场方程 $(\Box-m^2)\phi=-J$。对静态解，$\partial_t\phi=0$，于是
+
+$$
+(\nabla^2-m^2)\phi(\vec x)=-\alpha\delta^{(3)}(\vec x).
+$$
+
+取在无穷远衰减的静态解，使用本节约定的空间 Fourier 变换
+
+$$
+\phi(\vec x)=\int\frac{d^3k}{(2\pi)^3}\,\phi_{\vec k}e^{i\vec k\cdot\vec x},\qquad\phi_{\vec k}=\int d^3x\,\phi(\vec x)e^{-i\vec k\cdot\vec x},
+$$
+
+方程化为 $-(\vec k^{\,2}+m^2)\phi_{\vec k}=-\alpha$，所以
+
+$$
+\phi(\vec x)=\alpha\int\frac{d^3k}{(2\pi)^3}\frac{e^{i\vec k\cdot\vec x}}{\vec k^{\,2}+m^2}.
+$$
+
+球对称性使结果只依赖 $r=|\vec x|$。角积分和径向留数计算见[附录 D](./appendix-mathematical-tools.mdx#d-汤川积分与留数定理)；对 $m>0$ 得
+
+$$
+\phi(r)=\frac{\alpha}{4\pi}\frac{e^{-mr}}{r}.
+$$
+
+它在距离 $m^{-1}$ 的尺度上衰减。取无质量极限 $m\to0^+$，得到 $\phi(r)=\alpha/(4\pi r)$ 的库仑型长程形式。这里求得的是经典标量场的静态剖面；将它解释为测试粒子的势能还需要指定测试粒子与场的耦合。
+
+{/* Lecture 6 来源：IMG_8438–8440 为固定外源及 Maxwell 分量；IMG_8441–8444 为静态标量点源、Fourier 化与汤川解。角积分误读的修正及详细求值见附录 D。 */}

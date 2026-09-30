@@ -1,0 +1,167 @@
+---
+title: Classical Ideal Gas and Gibbs Paradox
+sidebar_position: 4
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# Classical Ideal Gas and Gibbs Paradox
+
+## 6.5 Classical Ideal Gas
+
+In this section, we utilize the classical ideal gas model as an example to illustrate how the statistical mechanics works. Some puzzling points in previous sections will be clarified in this concrete example.
+
+Consider a gas with $N$ monatomic molecules in a volume $V$ with mutual interaction ignored. The phase volume of this gas is given by
+
+<Anchor id="eq-6-38" />
+$$
+\Omega(E) = \frac{V^N}{h^{3N}}\int_{\sum_{i=1}^{3N}\frac{p_i^2}{2m}<E} d^{3N}p = \frac{(2\pi mE)^{3N/2}V^N}{h^{3N}\Gamma[(3N/2)+1]}. \tag{6.38}
+$$
+
+Using the property of $\Gamma$-function,
+
+$$
+\Gamma(z+1) = \sqrt{2\pi z}\,e^{z(\ln z-1)}\left(1 + \frac{1}{12z} + \cdots\right)
+$$
+
+we find that
+
+<Anchor id="eq-6-39" />
+$$
+\ln[\Gamma(3N/2+1)] = \left(\frac{3N}{2}\right)\ln\left(\frac{3N}{2e}\right) + \ln\sqrt{3\pi N} + o(1/N). \tag{6.39}
+$$
+
+Hence, the entropy is given by
+
+<Anchor id="eq-6-40" />
+$$
+S(E,V) = Nk\ln\left[\left(\frac{4\pi mE}{3Nh^2}\right)^{3/2}V\right] + \frac{3}{2}Nk + o(\ln N). \tag{6.40}
+$$
+
+We recognize that this result is just the entropy for the classical ideal monatomic gases as we have learned in undergraduate thermodynamics. Using Eq. [(6.38)](#eq-6-38), it is easy to show that
+
+<Anchor id="eq-6-41" />
+$$
+\omega(E) = \frac{d\Omega}{dE} = \left(\frac{3N}{2E}\right)\Omega(E),\quad \Sigma(E) = \omega(E)\Delta. \tag{6.41}
+$$
+
+Clearly, the entropy defined by taking the logarithm of $\Sigma(E)$ differs from Eq. [(6.40)](#eq-6-40) by a term of $\ln(N\Delta/E)$, which can be safely ignored for sufficiently large $N.$ Because $\Delta$ is a constant energy, we can also take the following expression a legitimate definition of entropy in the thermodynamic limit
+
+<Anchor id="eq-6-42" />
+$$
+S(E,V) = k\ln\omega(E), \tag{6.42}
+$$
+
+though the density of state $\omega(E)$ has the dimension of energy. Thus, Eq. [(6.24)](./02-microcanonical-ensemble.mdx#eq-6-24) is proved to be valid for classical ideal gases. It further implies that the probability weight of $\Omega(E)$ is predominantly localized on the energy edge $\sim E,$ reflecting a fundamental property of statistical mechanics which persists even in the presence of interactions.
+
+From Eq. [(6.40)](#eq-6-40), we can solve the internal energy of ideal gas as
+
+<Anchor id="eq-6-43" />
+$$
+U(S,V) = \left(\frac{3h^2}{4\pi em}\right)\frac{N}{V^{2/3}}e^{\frac{2S}{3Nk}}. \tag{6.43}
+$$
+
+The temperature is given by
+
+<Anchor id="eq-6-44" />
+$$
+T = \left(\frac{\partial U}{\partial S}\right)_V = \frac{2U}{3Nk},\quad \text{or}\quad U = \frac{3}{2}NkT, \tag{6.44}
+$$
+
+which leads to
+
+<Anchor id="eq-6-45" />
+$$
+C_V = \left(\frac{\partial U}{\partial T}\right)_V = \frac{3}{2}Nk. \tag{6.45}
+$$
+
+Finally, the pressure is calculated as
+
+<Anchor id="eq-6-46" />
+$$
+p = -\left(\frac{\partial U}{\partial V}\right)_S = \frac{2U}{3V} = \frac{NkT}{V}. \tag{6.46}
+$$
+
+This is the well known equation of state of ideal gas.
+
+## 6.6 Gibbs Paradox
+
+Let
+
+<Anchor id="eq-6-47" />
+$$
+u \equiv \frac{E}{N} = \frac{3}{2}kT,\quad \text{and}\quad s_0 = \frac{3k}{2}\left(1 + \ln\frac{4\pi m}{3h^2}\right). \tag{6.47}
+$$
+
+The entropy given in Eq. [(6.40)](#eq-6-40) can be rewritten as
+
+<Anchor id="eq-6-48" />
+$$
+\begin{aligned}S &= Nk\ln(Vu^{3/2}) + Nk\ln\left(\frac{4\pi m}{3h^2}\right)^{3/2} + \frac{3}{2}Nk\\ &= Nk\ln(Vu^{3/2}) + Ns_0.\end{aligned} \tag{6.48}
+$$
+
+Consider two ideal gases initially separated by a partition in a chamber. The two gases have the same temperature and density, but contain $N_{1}$ and $N_{2}$ particles and occupy volumes $V_{1}$ and $V_{2},$ respectively. The partition is then removed, allowing the two gases to mix throughout the entire chamber. The temperature remains unchanged after mixing.
+
+If the two gases are of different types with atomic masses being $m_{1}$ and $m_{2}$ respectively, their entropy increases are given by
+
+<Anchor id="eq-6-49" />
+$$
+\Delta S_i = \left[N_ik\ln(Vu^{3/2}) + N_is_{0i}\right] - \left[N_ik\ln(V_iu^{3/2}) + N_is_{0i}\right] = N_ik\ln\left(\frac{V}{V_i}\right) \tag{6.49}
+$$
+
+where $s_{0i}= (3k/2)[1 + \ln(4\pi m_{i}/3h^{2})]$ with $i= 1,2.$ The entropy change of the whole isolated system is given by
+
+<Anchor id="eq-6-50" />
+$$
+\frac{\Delta S}{k} = N_1\ln\left(\frac{V}{V_1}\right) + N_2\ln\left(\frac{V}{V_2}\right). \tag{6.50}
+$$
+
+This result is experimentally correct. Notice that the mixing process of two different ideal gases is irreversible.
+
+The Gibbs paradox arises when the two gases are identical. While applying the same formula would still yield an entropy change $\Delta S$ given by Eq. [(6.50)](#eq-6-50), this result is physically unacceptable. The thermodynamic properties of the gas - including particle density, temperature, and pressure - remain unchanged despite the partition is present or removed. Consequently, a finite entropy change would be unphysical.
+
+Gibbs resolved this paradox by modifying the state counting rule, introducing an additional factor of $1/N!$ in the expression for $\Omega(E)$
+
+<Anchor id="eq-6-51" />
+$$
+\Omega(E) = \frac{1}{h^{3N}N!}\int_{\mathscr{H}<E}d^{3N}q\,d^{3N}p. \tag{6.51}
+$$
+
+Indeed, the inclusion of the permutation factor $N!$ is essential within Boltzmann’s definition of entropy to ensure its extensivity. Consider dividing a gas of identical atoms into two subsystems with $N_{1}$ particles in volume $V_{1}$ and $N_{2}$ particles in volume $V_{2},$ such that both subsystems share the same density and temperature. If the atoms are treated as distinguishable—meaning each permutation is considered a distinct microscopic state—then the inequality in Eq. [(6.21)](./02-microcanonical-ensemble.mdx#eq-6-21) must be modified as follows:
+
+<Anchor id="eq-6-52" />
+$$
+N!\frac{\Sigma_1'(\bar{E}_1)}{N_1!}\frac{\Sigma_2'(\bar{E}_2)}{N_2!} < \Sigma'(E) < \frac{E}{\Delta}\left[N!\frac{\Sigma_1'(\bar{E}_1)}{N_1!}\frac{\Sigma_2'(\bar{E}_2)}{N_2!}\right], \tag{6.52}
+$$
+
+where $\Sigma'$ represents the phase volume of distinguishable atoms. Clearly, this form does not lead to an extensive entropy if the entropy is defined as $k\ln\Sigma'.$ A resolution is to assume that permutations among identical particles do not produce new microscopic states. In this case, the phase volume is given by $\Sigma'(E)/N!\equiv\Sigma(E).$ This reasoning gives rise to the correct Boltzmann counting factor in Eq. [(6.51)](#eq-6-51). Under this assumption, Eq. [(6.52)](#eq-6-52) becomes:
+
+<Anchor id="eq-6-53" />
+$$
+\frac{\Sigma_1'(\bar{E}_1)}{N_1!}\frac{\Sigma_2'(\bar{E}_2)}{N_2!} < \frac{\Sigma'(E)}{N!} < \frac{E}{\Delta}\left[\frac{\Sigma_1'(\bar{E}_1)}{N_1!}\frac{\Sigma_2'(\bar{E}_2)}{N_2!}\right], \tag{6.53}
+$$
+
+<Anchor id="eq-6-54" />
+$$
+\text{or}\quad \Sigma_1(\bar{E}_1)\Sigma_2(\bar{E}_2) < \Sigma(E) < \frac{E}{\Delta}\Sigma_1(\bar{E}_1)\Sigma_2(\bar{E}_2) \tag{6.54}
+$$
+
+which is exactly Eq. [(6.21)](./02-microcanonical-ensemble.mdx#eq-6-21). The extensiveness of the entropy holds true.
+
+Using Stirling’s formula $\ln N! = N\ln N-N$, we obtain the modified formula of the entropy
+
+<Anchor id="eq-6-55" />
+$$
+S_{ST}(N,V,T) = Nk\ln\left(\frac{V}{N}u^{3/2}\right) + \frac{3}{2}Nk\left(\frac{5}{3} + \ln\frac{4\pi m}{3h^2}\right). \tag{6.55}
+$$
+
+This is the correct entropy for an ideal gas at high temperature, known as the *Sackur-Tetrode equation.*
+
+When the gases are separated by a partition, their entropies are given by $S_{ST}(N_{1}, V_{1}, T)$ and $S_{ST}(N_{2}, V_{2}, T)$, respectively - a result not relying on the gas types. Upon removing the partition, the entropies of two different gases become $S_{ST}(N_{1}, V, T)$ and $S_{ST}(N_{2}, V, T),$ with the total entropy increase still described by Eq. [(6.50)](#eq-6-50).
+
+For identical gases, however, the total entropy cannot be obtained by summing individual contributions as done for distinct gases. Rather, we must consider the mixed system as a single gas described by $S_{ST}(N, V, T).$ Since the particle density remains constant $(N/V=N_{1}/V_{1}=N_{2}/V_{2}),$ the entropy remains invariant under mixing - precisely as expected for identical gases.
+
+The rule of counting the number of states by Gibbs (see Eq. [(6.51)](#eq-6-51)) is known as “correct Boltzmann counting”. It can neither be understood nor be derived within the classical statistical mechanics. In fact, it is a consequence of the indistinguishability of identical particles, which is a pure quantum effect. Later, we shall show that the entropy derived from quantum statistics, when being pushed to the high temperature limit, reduces to the form of Eq. [(6.55)](#eq-6-55) with “correct Boltzmann counting”.
+
+Statistical mechanics has some mysterious connection with quantum mechanics.

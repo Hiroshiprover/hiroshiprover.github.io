@@ -1,0 +1,129 @@
+---
+title: Derivation of Thermodynamics and Equipartition Theorem
+sidebar_position: 3
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# Derivation of Thermodynamics and Equipartition Theorem
+
+## 6.3 Derivation of Thermodynamics
+
+We have defined the entropy $S$ and temperature $T$ of a system as functions of its energy $E,$ volume $V,$ and particle number $N.$ In subsequent sections, other thermodynamic functions will be introduced. Together, these functions characterize the equilibrium state of the system. The detailed dynamical information about the microscopic motion of the constituent particles is encoded in these functions only in a statistical sense, and cannot be retrieved from them.
+
+The values of these thermodynamic functions change as the system passes from one equilibrium state to another. Unless otherwise specified, each intermediate state during such a process is assumed to be in equilibrium. This can be realized by varying the system arbitrarily slowly; such a process is called *quasistatic* in thermodynamics. Throughout a quasistatic process, the thermodynamic functions remain well-defined at every stage. Of course, a real transition may deviate from equilibrium. In that case, the time evolution of the system must be taken into account, and the thermodynamic functions may need to be redefined or extended. We shall not consider non-equilibrium states for the time being.
+
+Consider a quasistatic process involving infinitesimal changes in energy and volume, such that
+
+<Anchor id="eq-6-30" />
+$$
+dS(E,V) = \left(\frac{\partial S}{\partial E}\right)_V dE + \left(\frac{\partial S}{\partial V}\right)_E dV. \tag{6.30}
+$$
+
+We may define the pressure $P$ as
+
+<Anchor id="eq-6-31" />
+$$
+P = T\left(\frac{\partial S}{\partial V}\right)_E, \tag{6.31}
+$$
+
+and, using the definition of temperature, we obtain
+
+<Anchor id="eq-6-32" />
+$$
+dS = \frac{1}{T}(dE + PdV),\quad \text{or}\quad dE = TdS - PdV. \tag{6.32}
+$$
+
+This is the fundamental thermodynamic relation, which expresses *the first law of thermodynamics* for reversible processes. Thus, we have shown how classical statistical mechanics can be used to derive the zeroth law (concerning temperature and thermal equilibrium), the first law (concerning energy conservation), and the second law (concerning the entropy of an isolated system).
+
+In summary, we now give a practical recipe for determining all thermodynamic functions of a microcanonical ensemble with $E,V,$ and $N$ fixed:
+
+1. Calculate the phase volume of the system $\Sigma(E)$ from the Hamiltonian.
+
+2. Calculate the entropy $S(E, V) = k\ln\Sigma(E)$.
+
+3. Solve $E$ in terms of $S$ and $V.$ The resulting function is defined as the *internal energy* of the system and usually represented by $U(S, V)$(not $E).$
+
+4. Other thermodynamic functions can be calculated as follows
+
+    $$
+    \begin{aligned}T &= \left(\frac{\partial U}{\partial S}\right)_V, & \text{(absolute temperature)}\\ P &= -\left(\frac{\partial U}{\partial V}\right)_S, & \text{(pressure)}\\ A &= U - TS, & \text{(Helmholtz free energy)}\\ G &= U + PV - TS, & \text{(Gibbs potential)}\\ C_V &= \left(\frac{\partial U}{\partial T}\right)_V, & \text{(heat capacity at constant volume)}\end{aligned}
+    $$
+
+5. To study any equilibrium properties of the system, use thermodynamics.
+
+## 6.4 Equipartition Theorem
+
+In this section, we prove the equipartition theorem in the microcanonical ensemble.[^6]
+
+Let $x_{i}(i=1,\cdot \cdot \cdot,6N)$ represent all the Hamiltonian variables $q_{i}$ or $p_{i}.$ We can write the following ensemble average,
+
+$$
+\begin{aligned}\left\langle x_i\frac{\partial\mathscr{H}}{\partial x_j}\right\rangle &= \frac{1}{\Sigma(E)}\int_{E<\mathscr{H}<E+\Delta}\frac{dqdp}{h^{3N}}x_i\frac{\partial\mathscr{H}}{\partial x_j}\\ &= \frac{\Delta}{\Sigma(E)}\frac{\partial}{\partial E}\int_{\mathscr{H}<E}\frac{dqdp}{h^{3N}}x_i\frac{\partial\mathscr{H}}{\partial x_j}\\ &= \frac{\Delta}{\Sigma(E)}\frac{\partial}{\partial E}\int_{\mathscr{H}<E}\frac{dqdp}{h^{3N}}x_i\frac{\partial(\mathscr{H}-E)}{\partial x_j}\\ &= \frac{\Delta}{\Sigma(E)}\frac{\partial}{\partial E}\int_{\mathscr{H}<E}\frac{dqdp}{h^{3N}}\left\{\frac{\partial}{\partial x_j}[x_i(\mathscr{H}-E)] - \delta_{ij}(\mathscr{H}-E)\right\},\end{aligned}
+$$
+
+where, $dqdp$ is shorthand for $d^{3N}qd^{3N}p.$ The first term on r.h.s. vanishes after integration, because it reduces to an integral on the surface of constant energy defined by $\mathscr{H}(q, p) =E.$ Therefore, we obtain
+
+$$
+\begin{aligned}\left\langle x_i\frac{\partial\mathscr{H}}{\partial x_j}\right\rangle &= \delta_{ij}\frac{\Delta}{\Sigma(E)}\frac{\partial}{\partial E}\int\frac{dqdp}{h^{3N}}(E-\mathscr{H})\theta(E-\mathscr{H})\\ &= \delta_{ij}\frac{\Delta}{\Sigma(E)}\int\frac{dqdp}{h^{3N}}[\theta(E-\mathscr{H}) + (E-\mathscr{H})\delta(E-\mathscr{H})]\\ &= \frac{\delta_{ij}}{\partial\Omega(E)/\partial E}\int_{\mathscr{H}<E}\frac{dqdp}{h^{3N}}\\ &= \delta_{ij}\left[\frac{\partial\ln\Omega(E)}{\partial E}\right]^{-1} = \delta_{ij}k\left(\frac{\partial S}{\partial E}\right)^{-1}\end{aligned}
+$$
+
+that is
+
+<Anchor id="eq-6-33" />
+$$
+\left\langle x_i\frac{\partial\mathscr{H}}{\partial x_j}\right\rangle = \delta_{ij}kT. \tag{6.33}
+$$
+
+This is the so-called *generalized equipartition theorem.*
+
+When both $x_{i}$ and $x_{j}$ are $p_{i},$ we have
+
+$$
+\left\langle p_i\frac{\partial\mathscr{H}}{\partial p_i}\right\rangle = kT.
+$$
+
+In addition, when both $x_{i}$ and $x_{j}$ are $q_{i},$ we also have
+
+$$
+\left\langle q_i\frac{\partial\mathscr{H}}{\partial q_i}\right\rangle = kT.
+$$
+
+Notice that $\dot{p}_{i} = -\frac{\partial\mathscr{H}}{\partial q_{i}}$, we obtain the *virial theorem*
+
+<Anchor id="eq-6-34" />
+$$
+\sum_{i=1}^{3N}\langle q_i\dot{p}_i\rangle = -3NkT. \tag{6.34}
+$$
+
+Many physical systems can be transferred to a collection of decoupled harmonic oscillators via suitable canonical transformation
+
+<Anchor id="eq-6-35" />
+$$
+\mathscr{H} = \sum_{i=1}^{f}A_iP_i^2 + \sum_{i=1}^{f}B_iQ_i^2. \tag{6.35}
+$$
+
+Here, $f$ is the number of oscillators. With this particular form of the Hamiltonian, we have
+
+$$
+\sum_i Q_i\frac{\partial\mathscr{H}}{\partial Q_i} + \sum_i P_i\frac{\partial\mathscr{H}}{\partial P_i} = 2\mathscr{H},
+$$
+
+thus we obtain the *theorem of equipartition of energy*
+
+<Anchor id="eq-6-36" />
+$$
+U = \langle\mathscr{H}\rangle = \frac{1}{2}\sum_i\left\langle Q_i\frac{\partial\mathscr{H}}{\partial Q_i} + P_i\frac{\partial\mathscr{H}}{\partial P_i}\right\rangle = fkT. \tag{6.36}
+$$
+
+This equation gives rise to the heat capacity
+
+<Anchor id="eq-6-37" />
+$$
+C_V = \frac{\partial U}{\partial T} = fk. \tag{6.37}
+$$
+
+This implies a direct correlation between the heat capacity and the number of degrees of freedom. However, this result holds true only at high temperatures. At low temperatures, the quantum mechanical effects dominate, requiring a replacement of this classical result with the quantum mechanical treatment.
+
+[^6]: In the next chapter, we will present an alternative proof of this theorem using Gaussian integrals in the canonical ensemble.

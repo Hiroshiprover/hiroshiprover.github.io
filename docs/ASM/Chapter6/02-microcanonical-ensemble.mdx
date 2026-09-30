@@ -1,0 +1,156 @@
+---
+title: 6.2 微正则系综
+sidebar_position: 2
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 6.2 微正则系综
+
+微正则系综具有固定的分子数 $N$、体积 $V$，以及介于 $E$ 与 $E+ \Delta$ 之间的能量。下面我们在这个系综中定义其他的热力学量，其中最重要的一个是*熵*。
+
+设 $\Omega(E)$ 为密度函数（式 6.8）在全相空间的积分，也即相空间中被等能面 $E$ 所包围的体积，
+
+<Anchor id="eq-6-15" />
+$$
+\Omega(E) \equiv \frac{1}{h^{3N}}\int_{\mathscr{H}(q,p)<E} d^{3N}q\,d^{3N}p. \tag{6.15}
+$$
+
+它同时依赖于 $V$ 与 $N$。注意 $d^{3N}q\,d^{3N}p$ 以 $h^{3N}$ 为单位给出，其中 $h$ 是普朗克常数，因此 $\Omega(E)$ 是无量纲的。于是，微正则系综所占据的相体积为
+
+<Anchor id="eq-6-16" />
+$$
+\Sigma(E) = \Omega(E+\Delta) - \Omega(E) = \omega(E)\Delta, \tag{6.16}
+$$
+
+<Anchor id="eq-6-17" />
+$$
+\omega(E) \equiv \frac{\partial\Omega}{\partial E} = \int \frac{d^{3N}q\,d^{3N}p}{h^{3N}}\,\delta[E-\mathscr{H}(q,p)], \tag{6.17}
+$$
+
+其中我们引入了态密度 $\omega(E)$。仿照玻尔兹曼，*熵*被形式地定义为
+
+<Anchor id="eq-6-18" />
+$$
+S(E,V) = k\ln\Sigma(E), \tag{6.18}
+$$
+
+其中 $k$ 是玻尔兹曼常数。式 [(6.15)](#eq-6-15)、[(6.16)](#eq-6-16) 与 [(6.17)](#eq-6-17) 中定义的这些量都随 $N$ 指数增长，这一点稍后将在一些具体系统（如理想气体）中展示。
+
+我们将说明关于如此定义的熵的以下陈述
+
+- 熵是广延量。
+- 在孤立系统中，熵永不减少。
+
+让我们通过插入一个隔板，把处于平衡态的孤立系统分成两个子系统。两个子系统分别含有 $N_{1}$ 与 $N_{2}$ 个粒子，分别占据体积 $V_{1}$ 与 $V_{2}$。子系统 1 的能量介于 $E_{1}$ 与 $E_{1}+\Delta$ 之间，而子系统 2 的能量介于 $E_{2}$ 与 $E_{2}+ \Delta$ 之间。这两个子系统及其各自的能量区间如图 6.1 所示。
+
+![两个子系统及其粒子数、体积与能量区间。](/img/asm/chap06-two-subsystems.png)
+
+![两个子系统的相空间能量壳层。](/img/asm/chap06-fig6-1.jpg)
+
+图 6.1：由两个子系统组成的微正则系综。
+
+这两个子系统的相应相体积记为 $\Sigma_{1}(E_{1})$ 与 $\Sigma_{2}(E_{2})$，那么它们的熵可以表示为
+
+<Anchor id="eq-6-19" />
+$$
+S_1(E_1) = k\ln\Sigma_1(E_1),\quad S_2(E_2) = k\ln\Sigma_2(E_2). \tag{6.19}
+$$
+
+为方便起见，我们在这些表达式中省略体积 $V_{1}$ 与 $V_{2}$。整个系统的总能量介于 $E=E_{1}+E_{2}$ 与 $E+ 2\Delta$ 之间。它的相体积可以写成
+
+<Anchor id="eq-6-20" />
+$$
+\Sigma(E) = \sum_{E_1/\Delta=0}^{E/\Delta}\Sigma_1(E_1)\Sigma_2(E-E_1), \tag{6.20}
+$$
+
+其中所有能量都以 $\Delta$ 为单位度量。出于方便考虑，两个子系统的能量展宽被取为同一个 $\Delta$，原则上它们可以不同，但可以证明这并不会影响我们对于熵的讨论。
+
+求和项中存在一个最大项；设对应的子系统能量为 $\bar{E}_{1}$ 与 $\bar{E}_{2}$，且 $\bar{E}_{2}=E-\bar{E}_{1}$。于是我们得到如下关于子系统相体积与熵的不等式：
+
+<Anchor id="eq-6-21" />
+$$
+\begin{aligned}
+&\Sigma_1(\bar{E}_1)\Sigma_2(\bar{E}_2) < \Sigma(E) < \frac{E}{\Delta}\Sigma_1(\bar{E}_1)\Sigma_2(\bar{E}_2)\\
+\Rightarrow &\ln[\Sigma_1(\bar{E}_1)\Sigma_2(\bar{E}_2)] < \ln[\Sigma(E)] < \ln[\Sigma_1(\bar{E}_1)\Sigma_2(\bar{E}_2)] + \ln(E/\Delta).
+\end{aligned} \tag{6.21}
+$$
+
+注意 $\Delta$ 是一个固定的小常量，并且
+
+<Anchor id="eq-6-22" />
+$$
+\ln\Sigma_1(\bar{E}_1) \propto N_1,\quad \ln\Sigma_2(\bar{E}_2) \propto N_2,\quad E \propto N_1 + N_2, \tag{6.22}
+$$
+
+因此我们得出结论
+
+<Anchor id="eq-6-23" />
+$$
+\begin{aligned}S(E,V) &= S_1(\bar{E}_1,V_1) + S_2(\bar{E}_2,V_2) + O(\ln(N))\\ &\xrightarrow{N\to\infty} S_1(\bar{E}_1,V_1) + S_2(\bar{E}_2,V_2).\end{aligned} \tag{6.23}
+$$
+
+换句话说，式 [(6.18)](#eq-6-18) 所定义的熵在热力学极限下是一个广延量。
+
+:::note
+
+以上关于广延量的部分是叶飞老师给出的原文，我没有进行修改。我个人认为这段内容有一些误导性：这里只是声明了 $\Sigma$ 是按照 $N$ 指数增长的，这等价于声明 $\ln \Sigma$ 正比于 $N$，也就等价于说单系统的熵是正比于 $N$ 的。
+
+换句话说，我们并没有证明熵是 $O(N)$ 的，这是一个假设。我们真正证明的事情是两个子系统混合时，总系统的熵主项是 $O(N)$ 的，而修正项是 $O(\ln(N))$ 的，因此在 $N\to \infty$ 时，修正项相对于主项而言可忽略。
+
+:::
+
+通过与导出不等式 [(6.21)](#eq-6-21) 相类似的论证，我们还可以建立不等式 $\Sigma(E)\lt \Omega(E)\lt (E/\Delta) \Sigma(E)$，它在热力学极限下给出恒等式
+
+<Anchor id="eq-6-24" />
+$$
+S(E,V) = k\ln\Sigma(E) = k\ln\Omega(E) = k\ln\omega(E). \tag{6.24}
+$$
+
+我们注意到 $\omega(E)$ 的量纲在这个极限下无关紧要。这类恒等式在统计力学中是很典型的。[^5]
+
+因为根据等概率假设，某一给定能量分配的权重正比于相应的微观状态数 $\Sigma_{1}(E_{1})\Sigma_{2}(E_{2})$，不等式 [(6.21)](#eq-6-21) 表明：在所有可能的能量分配中，最可能的那个——即子系统能量为 $\bar{E}_{1}$ 与 $\bar{E}_{2}=E-\bar{E}_{1}$ 的分配——比所有其他分配都压倒性地更加可能。换句话说，当隔板插入后，最可能的能量分配以实际上等于 1 的概率实现，而所有其他分配出现的概率实际上等于 0。我们可以计算与某个非典型分配——比如一个满足 $E_{1} \ne \bar{E}_{1}$ 且 $E_{2}=E-E_{1}$ 的分配——相对应的熵，如下：
+
+$$
+\Sigma_1(E_1)\Sigma_2(E-E_1) < \Sigma_1(\bar{E}_1)\Sigma_2(\bar{E}_2)
+$$
+
+<Anchor id="eq-6-25" />
+$$
+\Rightarrow S_1(E_1,V_1) + S_2(E_2,V_2) < S_1(\bar{E}_1,V_1) + S_2(\bar{E}_2,V_2) = S(E,V). \tag{6.25}
+$$
+
+由此得到的熵小于最可能分配的熵。因此我们发现，*孤立系统的熵不会减少*（出现这种减少的概率几乎为零）。这就是热力学第二定律。
+
+注意在子系统能量的最可能取值处，乘积 $\Sigma_{1}(E_{1})\Sigma_{2}(E_{2})$ 在约束 $E_{1}+E_{2}=E$ 下取极大，于是
+
+<Anchor id="eq-6-26" />
+$$
+\delta[\Sigma_1(E_1)\Sigma_2(E_2)] = 0,\quad \delta E_1 + \delta E_2 = 0. \tag{6.26}
+$$
+
+这给出条件
+
+<Anchor id="eq-6-27" />
+$$
+\left[\frac{\partial}{\partial E_1}\ln\Sigma_1(E_1)\right]_{E_1=\bar{E}_1} = \left[\frac{\partial}{\partial E_2}\ln\Sigma_2(E_2)\right]_{E_2=\bar{E}_2}, \tag{6.27}
+$$
+
+或者等价地，
+
+<Anchor id="eq-6-28" />
+$$
+\left[\frac{\partial}{\partial E_1}S_1(E_1,V_1)\right]_{E_1=\bar{E}_1} = \left[\frac{\partial}{\partial E_2}S_2(E_2,V_2)\right]_{E_2=\bar{E}_2}. \tag{6.28}
+$$
+
+让我们通过下式定义系统的温度
+
+<Anchor id="eq-6-29" />
+$$
+\frac{\partial S(E,V)}{\partial E} = \frac{1}{T}. \tag{6.29}
+$$
+
+于是，式 [(6.28)](#eq-6-28) 就等价于说两个子系统在平衡时具有相同的温度，这一结果被称为*热力学第零定律*。如果它们的能量偏离最可能值，两个温度一般会不同，两个子系统便不处于热平衡。当允许它们之间交换能量时，热量会从一个子系统流向另一个，驱动整个系统趋向热平衡，从而使熵达到极大。
+
+[^5]: 设 $\Omega(E) =\lambda^{E/\Delta}$，验证式 [(6.24)](#eq-6-24) 的成立。

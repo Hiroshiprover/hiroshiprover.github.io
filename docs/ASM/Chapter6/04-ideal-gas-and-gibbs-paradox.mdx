@@ -1,0 +1,169 @@
+---
+title: 经典理想气体与吉布斯佯谬
+sidebar_position: 4
+hide_title: true
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 经典理想气体与吉布斯佯谬
+
+## 6.5 经典理想气体
+
+本节我们以经典理想气体模型为例，说明统计力学是如何运作的。前面几节中的一些令人困惑之处将在这个具体的例子中得到澄清。
+
+考虑一个体积为 $V$、含有 $N$ 个单原子分子的气体，忽略分子间的相互作用。该气体的相体积为
+
+<Anchor id="eq-6-38" />
+$$
+\Omega(E) = \frac{V^N}{h^{3N}}\int_{\sum_{i=1}^{3N}\frac{p_i^2}{2m}<E} d^{3N}p = \frac{(2\pi mE)^{3N/2}V^N}{h^{3N}\Gamma[(3N/2)+1]}. \tag{6.38}
+$$
+
+利用 $\Gamma$ 函数的性质，
+
+$$
+\Gamma(z+1) = \sqrt{2\pi z}\,e^{z(\ln z-1)}\left(1 + \frac{1}{12z} + \cdots\right)
+$$
+
+我们发现
+
+<Anchor id="eq-6-39" />
+$$
+\ln[\Gamma(3N/2+1)] = \left(\frac{3N}{2}\right)\ln\left(\frac{3N}{2e}\right) + \ln\sqrt{3\pi N} + o(1/N). \tag{6.39}
+$$
+
+于是熵为
+
+<Anchor id="eq-6-40" />
+$$
+S(E,V) = Nk\ln\left[\left(\frac{4\pi mE}{3Nh^2}\right)^{3/2}V\right] + \frac{3}{2}Nk + o(\ln N). \tag{6.40}
+$$
+
+我们认出，这个结果正是我们在本科热力学中学过的经典理想单原子气体的熵。利用式 [(6.38)](#eq-6-38)，容易证明
+
+<Anchor id="eq-6-41" />
+$$
+\omega(E) = \frac{d\Omega}{dE} = \left(\frac{3N}{2E}\right)\Omega(E),\quad \Sigma(E) = \omega(E)\Delta. \tag{6.41}
+$$
+
+显然，对 $\Sigma(E)$ 取对数所定义的熵与式 [(6.40)](#eq-6-40) 相差一个 $\ln(N\Delta/E)$ 项，对于足够大的 $N$ 这一项可以安全地忽略。因为 $\Delta$ 是一个常数能量，我们也可以把下面的表达式作为热力学极限下熵的一个合理定义
+
+<Anchor id="eq-6-42" />
+$$
+S(E,V) = k\ln\omega(E), \tag{6.42}
+$$
+
+尽管态密度 $\omega(E)$ 具有能量的量纲。于是，式 [(6.24)](./02-microcanonical-ensemble.mdx#eq-6-24) 被证明对经典理想气体成立。它还进一步表明，$\Omega(E)$ 的概率权重主要集中在能量边缘 $\sim E$ 处，这反映了统计力学的一个基本性质，即使在存在相互作用时也依然成立。
+
+由式 [(6.40)](#eq-6-40)，我们可以解出理想气体的内能
+
+<Anchor id="eq-6-43" />
+$$
+U(S,V) = \left(\frac{3h^2}{4\pi em}\right)\frac{N}{V^{2/3}}e^{\frac{2S}{3Nk}}. \tag{6.43}
+$$
+
+温度由下式给出
+
+<Anchor id="eq-6-44" />
+$$
+T = \left(\frac{\partial U}{\partial S}\right)_V = \frac{2U}{3Nk},\quad \text{或}\quad U = \frac{3}{2}NkT, \tag{6.44}
+$$
+
+由此得到
+
+<Anchor id="eq-6-45" />
+$$
+C_V = \left(\frac{\partial U}{\partial T}\right)_V = \frac{3}{2}Nk. \tag{6.45}
+$$
+
+最后，压强计算为
+
+<Anchor id="eq-6-46" />
+$$
+p = -\left(\frac{\partial U}{\partial V}\right)_S = \frac{2U}{3V} = \frac{NkT}{V}. \tag{6.46}
+$$
+
+这就是众所周知的理想气体状态方程。
+
+## 6.6 吉布斯佯谬
+
+令
+
+<Anchor id="eq-6-47" />
+$$
+u \equiv \frac{E}{N} = \frac{3}{2}kT,\quad \text{且}\quad s_0 = \frac{3k}{2}\left(1 + \ln\frac{4\pi m}{3h^2}\right). \tag{6.47}
+$$
+
+式 [(6.40)](#eq-6-40) 给出的熵可以改写为
+
+<Anchor id="eq-6-48" />
+$$
+\begin{aligned}S &= Nk\ln(Vu^{3/2}) + Nk\ln\left(\frac{4\pi m}{3h^2}\right)^{3/2} + \frac{3}{2}Nk\\ &= Nk\ln(Vu^{3/2}) + Ns_0.\end{aligned} \tag{6.48}
+$$
+
+考虑一个容器中最初被隔板分开的两种理想气体。两种气体具有相同的温度与密度，但分别含有 $N_{1}$ 与 $N_{2}$ 个粒子、分别占据体积 $V_{1}$ 与 $V_{2}$。随后移除隔板，让两种气体在整个容器中混合。混合后温度保持不变。
+
+如果这两种气体是不同类型的，原子质量分别为 $m_{1}$ 与 $m_{2}$，则它们的熵增分别为
+
+<Anchor id="eq-6-49" />
+$$
+\Delta S_i = \left[N_ik\ln(Vu^{3/2}) + N_is_{0i}\right] - \left[N_ik\ln(V_iu^{3/2}) + N_is_{0i}\right] = N_ik\ln\left(\frac{V}{V_i}\right) \tag{6.49}
+$$
+
+其中 $s_{0i}= (3k/2)[1 + \ln(4\pi m_{i}/3h^{2})]$，$i= 1,2$。整个孤立系统的熵变由下式给出
+
+<Anchor id="eq-6-50" />
+$$
+\frac{\Delta S}{k} = N_1\ln\left(\frac{V}{V_1}\right) + N_2\ln\left(\frac{V}{V_2}\right). \tag{6.50}
+$$
+
+这一结果在实验上是正确的。注意两种不同理想气体的混合过程是不可逆的。
+
+当两种气体全同的时候，吉布斯佯谬就出现了。虽然套用同一公式仍然会给出由式 [(6.50)](#eq-6-50) 给出的熵变 $\Delta S$，但这一结果在物理上是不可接受的。气体的热力学性质——包括粒子密度、温度与压强——在隔板存在或移除时保持不变。因此，有限的熵变将是不物理的。
+
+吉布斯通过修改状态计数规则解决了这个佯谬，在 $\Omega(E)$ 的表达式中引入了一个额外的因子 $1/N!$
+
+<Anchor id="eq-6-51" />
+$$
+\Omega(E) = \frac{1}{h^{3N}N!}\int_{\mathscr{H}<E}d^{3N}q\,d^{3N}p. \tag{6.51}
+$$
+
+确实，在玻尔兹曼的熵定义中引入置换因子 $N!$ 对于保证熵的广延性是必不可少的。考虑把一个由全同原子组成的气体分成两个子系统，$N_{1}$ 个粒子在体积 $V_{1}$ 中， $N_{2}$ 个粒子在体积 $V_{2}$ 中，使得两个子系统具有相同的密度与温度。如果把原子视为可分辨的——也就是说，把每个置换都看作一个不同的微观状态——那么式 [(6.21)](./02-microcanonical-ensemble.mdx#eq-6-21) 中的不等式必须修改如下：
+
+<Anchor id="eq-6-52" />
+$$
+N!\frac{\Sigma_1'(\bar{E}_1)}{N_1!}\frac{\Sigma_2'(\bar{E}_2)}{N_2!} < \Sigma'(E) < \frac{E}{\Delta}\left[N!\frac{\Sigma_1'(\bar{E}_1)}{N_1!}\frac{\Sigma_2'(\bar{E}_2)}{N_2!}\right], \tag{6.52}
+$$
+
+其中 $\Sigma'$ 表示可分辨原子的相体积。显然，如果把熵定义为 $k\ln\Sigma'$，这一形式并不能给出广延的熵。
+
+一种解决方式是假设全同粒子之间的置换不产生新的微观状态。在这种情况下，相体积由 $\Sigma'(E)/N! \equiv \Sigma(E)$ 给出。这一推理给出了式 [(6.51)](#eq-6-51) 中正确的玻尔兹曼计数因子。在这一假设下，式 [(6.52)](#eq-6-52) 变为：
+
+<Anchor id="eq-6-53" />
+$$
+\frac{\Sigma_1'(\bar{E}_1)}{N_1!}\frac{\Sigma_2'(\bar{E}_2)}{N_2!} < \frac{\Sigma'(E)}{N!} < \frac{E}{\Delta}\left[\frac{\Sigma_1'(\bar{E}_1)}{N_1!}\frac{\Sigma_2'(\bar{E}_2)}{N_2!}\right], \tag{6.53}
+$$
+
+<Anchor id="eq-6-54" />
+$$
+\text{或}\quad \Sigma_1(\bar{E}_1)\Sigma_2(\bar{E}_2) < \Sigma(E) < \frac{E}{\Delta}\Sigma_1(\bar{E}_1)\Sigma_2(\bar{E}_2) \tag{6.54}
+$$
+
+这恰是式 [(6.21)](./02-microcanonical-ensemble.mdx#eq-6-21)。熵的广延性成立。
+
+利用斯特林公式 $\ln N! = N\ln N-N$，我们得到熵的修正表达式
+
+<Anchor id="eq-6-55" />
+$$
+S_{ST}(N,V,T) = Nk\ln\left(\frac{V}{N}u^{3/2}\right) + \frac{3}{2}Nk\left(\frac{5}{3} + \ln\frac{4\pi m}{3h^2}\right). \tag{6.55}
+$$
+
+这是高温下理想气体的正确熵，被称为*萨库尔–特特罗德方程*。
+
+当气体被隔板分开时，它们的熵分别由 $S_{ST}(N_{1}, V_{1}, T)$ 与 $S_{ST}(N_{2}, V_{2}, T)$ 给出——这一结果不依赖于气体的种类。移除隔板后，两种不同气体的熵分别变为 $S_{ST}(N_{1}, V, T)$ 与 $S_{ST}(N_{2}, V, T)$，总熵增仍由式 [(6.50)](#eq-6-50) 描述。
+
+然而对于全同气体，总熵不能像不同气体那样通过简单相加各自的贡献得到。相反，我们必须把混合后的系统看作一个由 $S_{ST}(N, V, T)$ 描述的单种气体。由于粒子密度保持不变 $(N/V=N_{1}/V_{1}=N_{2}/V_{2})$，熵在混合下保持不变——这正是全同气体应有的行为。
+
+吉布斯给出的状态计数规则（见式 [(6.51)](#eq-6-51)）被称为“正确的玻尔兹曼计数”。它既不能在经典统计力学中被理解，也不能在经典统计力学中被推导出来。事实上，它是全同粒子不可分辨性的结果，而这是一种纯粹的量子效应。稍后我们将说明，由量子统计导出的熵在取高温极限时，会约化为带有“正确的玻尔兹曼计数”的式 [(6.55)](#eq-6-55) 的形式。
+
+统计力学与量子力学之间存在某种神秘的联系。

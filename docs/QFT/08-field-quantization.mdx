@@ -1,0 +1,95 @@
+---
+title: 场量子化（1）：自由实标量场的模展开
+sidebar_position: 9
+hide_title: true
+---
+# 场量子化（1）：自由实标量场的模展开
+
+前一篇把平移生成元与能量、动量联系起来。本篇从自由 Klein–Gordon 方程开始，先把经典场拆成各个动量模式；目前的 $a_{\vec p}$ 仍是复数系数，算符对易关系和量子哈密顿量留待后续课程。
+
+## 1. 空间 Fourier 展开
+
+先考虑 $m>0$ 的自由实标量场，其方程为
+
+$$
+(\Box-m^2)\phi(x)=0,\qquad \Box=-\partial_t^2+\nabla^2.
+$$
+
+沿用本节课的非对称 Fourier 约定，
+
+$$
+\phi(t,\vec x)=\int\frac{d^3p}{(2\pi)^3}\,\phi_{\vec p}(t)e^{i\vec p\cdot\vec x},
+\qquad
+\phi_{\vec p}(t)=\int d^3x\,\phi(t,\vec x)e^{-i\vec p\cdot\vec x}.
+$$
+
+代入 KG 方程并利用 $\nabla^2 e^{i\vec p\cdot\vec x}=-\vec p^{\,2}e^{i\vec p\cdot\vec x}$，得到
+$$
+\int\frac{d^3p}{(2\pi)^3}\left[-\ddot\phi_{\vec p}(t)-(\vec p^{\,2}+m^2)\phi_{\vec p}(t)\right]e^{i\vec p\cdot\vec x}=0.
+$$
+由 Fourier 展开的唯一性，每个动量模式独立满足
+
+$$
+\ddot\phi_{\vec p}(t)+\omega_p^2\phi_{\vec p}(t)=0,
+\qquad \omega_p\equiv\sqrt{\vec p^{\,2}+m^2}.
+$$
+
+这与频率为 $\omega_p$ 的简谐振子方程同形，所以一般解有两个独立的时间频率系数：
+
+$$
+\phi_{\vec p}(t)=A_{\vec p}e^{-i\omega_pt}+B_{\vec p}e^{i\omega_pt}.
+$$
+
+此处的 $A_{\vec p},B_{\vec p}$ 可随完整的动量矢量变化；频率只依赖 $|\vec p|$。将其代回空间 Fourier 展开，得到
+
+$$
+\phi(x)=\int\frac{d^3p}{(2\pi)^3}
+\left[A_{\vec p}e^{-i\omega_pt+i\vec p\cdot\vec x}
++B_{\vec p}e^{i\omega_pt+i\vec p\cdot\vec x}\right].
+$$
+
+## 2. 选取模系数的归一化
+
+为后续计算方便，将 $1/\sqrt{2\omega_p}$ 从两个频率系数中提出，定义复数 $a_{\vec p},b_{\vec p}$：
+
+$$
+A_{\vec p}\equiv\frac{a_{\vec p}}{\sqrt{2\omega_p}},
+\qquad
+B_{\vec p}\equiv\frac{b_{\vec p}}{\sqrt{2\omega_p}}.
+$$
+
+KG 方程并不要求这个归一化；这是对任意积分常数的重新命名。它与之后量子化时常用的模归一化相配，但这里尚未把系数提升为算符。
+
+## 3. 实场条件与正负频率系数
+
+场为实值要求 $\phi^*(x)=\phi(x)$。先对展开式取复共轭，再在积分中作变量替换 $\vec p\mapsto-\vec p$：
+
+$$
+\phi^*(x)=\int\frac{d^3p}{(2\pi)^3\sqrt{2\omega_p}}
+\left[b^*_{-\vec p}e^{-i\omega_pt+i\vec p\cdot\vec x}
++a^*_{-\vec p}e^{i\omega_pt+i\vec p\cdot\vec x}\right].
+$$
+
+与原展开中正、负频率项的系数逐一比较，得到
+
+$$
+b_{-\vec p}^*=a_{\vec p},\qquad a_{-\vec p}^*=b_{\vec p}.
+$$
+
+对其中一个关系取复共轭，再将 $\vec p\mapsto-\vec p$，就得到另一个关系；它们并非两组独立条件。消去 $b_{\vec p}$ 后，实 KG 场的一般解写为
+
+$$
+\boxed{
+\phi(x)=\int\frac{d^3p}{(2\pi)^3\sqrt{2\omega_p}}
+\left[a_{\vec p}e^{-i\omega_pt+i\vec p\cdot\vec x}
++a^*_{\vec p}e^{i\omega_pt-i\vec p\cdot\vec x}\right].
+}
+$$
+
+这里 $a_{\vec p}$ 是经典复数，星号表示复共轭。下一步才会讨论把模式系数提升为产生、湮灭算符，并确定相应的正则对易关系。
+
+本节沿用板书的 Fourier 测度 $(2\pi)^{-3}d^3p$；它不同于引言中波函数所用的对称 Fourier 约定。对同一个函数，两种动量空间系数满足 $\phi_{\vec p}=(2\pi)^{3/2}\widetilde\phi(\vec p)$。
+
+对 $m=0$，上述写法仍适用于 $\omega_p=|\vec p|>0$ 的模式；若保留空间常数零模，其方程为 $\ddot\phi_{\vec0}=0$，应单独处理。
+
+{/* Lecture 6 来源：IMG_8445–8446 为 Fourier 展开与时间方程，IMG_8447 为系数重定义，IMG_8449–8450 为实场条件与最终展开。原板书复用系数符号；正文以 A、B 区分重定义前的系数，未将其当作算符。 */}

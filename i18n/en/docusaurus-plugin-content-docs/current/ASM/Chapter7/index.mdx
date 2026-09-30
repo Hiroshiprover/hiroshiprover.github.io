@@ -1,0 +1,215 @@
+---
+title: 7. Canonical and Grand Canonical Ensembles
+sidebar_position: 1
+hide_title: true
+slug: /ASM/chapter-7
+---
+
+import Anchor from '@theme/MDXComponents/A';
+
+# 7. Canonical Ensemble and Grand Canonical Ensemble
+
+## Contents
+
+- [7.1 Canonical Ensemble](./index.mdx)
+- [7.2 Energy Fluctuation in Canonical Ensemble](./02-energy-fluctuations.mdx)
+- [7.3 Grand Canonical Ensemble](./03-grand-canonical-ensemble.mdx)
+- [7.4 Density Fluctuation in Grand Canonical Ensemble](./04-density-fluctuations.mdx)
+- [7.5 Chemical Potential](./05-chemical-potential.mdx)
+- [7.6 Equivalence of canonical Ensemble and Grand Canonical Ensemble](./06-ensemble-equivalence.mdx)
+- [7.7 Behavior of W(N)](./07-behavior-of-w.mdx)
+- [7.8 The Meaning of the Maxwell Construction](./08-maxwell-construction.mdx)
+
+## 7.1 Canonical Ensemble
+
+In practice, most systems are not isolated but instead maintained in thermal equilibrium with a much larger heat reservoir. The reservoir is sufficiently large that its thermodynamic state remains unchanged despite variations in the system. In this chapter, we will explore the ensemble suitable for this scenario.
+
+![System in thermal equilibrium with a heat reservoir. They form an isolated system.](/img/asm/chap07-fig7-1.png)
+
+Figure 7.1: System in thermal equilibrium with a heat reservoir. They form an isolated system.
+
+As illustrated in the figure, the system contains $N_1$ particles with Hamiltonian $\mathscr{H}_1(q_1,p_1)$, and the reservoir has $N_2$ particles with Hamiltonian $\mathscr{H}_2(q_2,p_2)$. Together, they form an isolated composite system with total particle number $N = N_1 + N_2$ and total energy $E_1 + E_2$ in the range:
+
+<Anchor id="eq-7-1" />
+$$
+E < E_1 + E_2 < E + 2\Delta. \tag{7.1}
+$$
+
+Let $\Sigma_1(E_1)$ and $\Sigma_2(E_2)$ denote the phase space volumes occupied by the system and heat reservoir, respectively. The total phase space volume $\Sigma(E)$ of the entire isolated system is given by:
+
+$$
+\Sigma(E) = \sum_{E_1=0}^{E}\Sigma_1(E_1)\Sigma_2(E-E_1),
+$$
+
+where the sum is taken over energy intervals of width $\Delta$. The dominant contribution to this sum arises from the most probable energies $\bar{E}_1$ and $\bar{E}_2 = E - \bar{E}_1$, yielding:
+
+$$
+\Sigma(E) \approx \Sigma_1(\bar{E}_1)\Sigma_2(\bar{E}_2),
+$$
+
+or equivalently,
+
+$$
+S(E,V) = S_1(\bar{E}_1,V_1) + S_2(\bar{E}_2,V_2),
+$$
+
+where $S = k\ln\Sigma$ is the entropy. The values $\bar{E}_1$ and $\bar{E}_2$ are determined by thermal equilibrium conditions:
+
+$$
+\left.\frac{\partial S_1(E_1,V_1)}{\partial E_1}\right|_{E_1=\bar{E}_1} = \left.\frac{\partial S_2(E_2,V_2)}{\partial E_2}\right|_{E_2=\bar{E}_2} = \frac{1}{T}.
+$$
+
+Given that $E_1 \ll E_2 \sim E$ by assumption, the reservoir’s temperature remains unchanged by energy fluctuations of order $E_1$. Thus, we expand:
+
+<Anchor id="eq-7-2" />
+$$
+\begin{aligned}
+k\ln\Sigma_2(E-E_1) &= S_2(E-E_1,V_2)\\
+&\approx S_2(E,V_2) - E_1\left.\frac{\partial S_2(E_2,V_2)}{\partial E_2}\right|_{E_2=E}\\
+&\approx S_2(E,V_2) - \frac{E_1}{T},\\
+\Rightarrow\ \ \Sigma_2(E-E_1) &\approx \exp\left[\frac{1}{k}S_2(E,V_2)\right]\exp\left(-\frac{E_1}{kT}\right).
+\end{aligned} \tag{7.2}
+$$
+
+The first exponential factor is constant with respect to $E_1$ when the system is sufficiently small.
+
+**Canonical Ensemble.** For a microscopic state of the system with coordinates $(q_1,p_1)$ and energy $E_1 = \mathscr{H}_1(q_1,p_1)$, the probability is then proportional to the phase space volume accessible to the heat reservoir at energy $E - E_1$
+
+<Anchor id="eq-7-3" />
+$$
+\rho(q_1,p_1) \propto \Sigma_2[E-\mathscr{H}(q_1,p_1)]. \tag{7.3}
+$$
+
+In light of Eq. [(7.2)](#eq-7-2), we may define the ensemble density of the system as
+
+<Anchor id="eq-7-4" />
+$$
+\rho(q,p) = \exp\left[-\mathscr{H}(q,p)/(kT)\right], \tag{7.4}
+$$
+
+where we omit the subscript “1” labeling the system. Eq. [(7.4)](#eq-7-4) defines a new ensemble, *canonical ensemble*, which describes a system in thermal equilibrium with a heat reservoir at a fixed temperature.
+
+**Partition function.** For a gas with $N$ identical particles and in volume $V$, the *partition function* is defined as the integral of $\rho(q,p)$ over the system’s entire phase space:
+
+<Anchor id="eq-7-5" />
+$$
+Q_N(V,T) = \int\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,e^{-\beta\mathscr{H}(q,p)} \tag{7.5}
+$$
+
+where $\beta = 1/(kT)$.
+
+**Comment:** You may note that in Eq. [(7.5)](#eq-7-5), the system’s energy could theoretically exceed the total energy of the combined system (system + reservoir). Although this seems to contradict initial assumptions, it is justified because the dominant contributions to the integral come from macroscopic states where the energy $\mathscr{H}(q,p)$ lies within the physically allowable range. Moreover, energy fluctuations become negligible in the thermodynamic limit. We will prove this assertion in the following section. Next, we turn to the thermodynamics of the system.
+
+**Helmholtz free energy** can be obtained from the partition function
+
+<Anchor id="eq-7-6" />
+$$
+A(V,T) = -kT\ln Q_N(V,T) \quad\text{or}\quad Q_N(V,T) = e^{-\beta A(V,T)}. \tag{7.6}
+$$
+
+We shall show that
+
+1. $A$ is an extensive quantity.
+2. $A = U - TS$.
+
+{/* Editor’s note (not part of the original notes): the second item is printed as $A = U + TS$; Eqs. (7.12) and (7.13) give $A = U - TS$, which is used here. */}
+
+Consider partitioning the system into two subsystems with volumes $V_1$ and $V_2$. For a single particle, the phase space integral decomposes as:
+
+$$
+\int_V d^3q\,d^3p = \int_{V_1} d^3q\,d^3p + \int_{V_2} d^3q\,d^3p,
+$$
+
+depending on which volume contains the particle’s position. For $N$ distinguishable particles, this generalizes to:
+
+<Anchor id="eq-7-7" />
+$$
+\int_V d^{3N}q\,d^{3N}p = \sum_{N_1=0}^{N}\frac{N!}{N_1!N_2!}\int_{V_1} d^{3N_1}q_1\,d^{3N_1}p_1\int_{V_2} d^{3N_2}q_2\,d^{3N_2}p_2, \tag{7.7}
+$$
+
+where $N_2 = N - N_1$. The combinatorial factor $\frac{N!}{N_1!N_2!}$ accounts for the number of ways to distribute $N_1$ particles into $V_1$ and the remaining $N_2$ particles into $V_2$. Consequently, the partition function for $N$ identical particles can be expressed as a sum over all possible particle distributions between the two subsystems:
+
+<Anchor id="eq-7-8" />
+$$
+\begin{aligned}
+Q_N(V,T) &= \sum_{N_1=0}^{N} Q_{N_1}(V_1,T)\,Q_{N-N_1}(V_2,T)\\
+&= \sum_{N_1=0}^{N} \exp\left\{-\beta\left[A(N_1,V_1,T) + A(N_2,V_2,T)\right]\right\},
+\end{aligned} \tag{7.8}
+$$
+
+where $N_2 = N - N_1$. Interactions at the boundary between $V_1$ and $V_2$ are negligible compared to the bulk contributions in the thermodynamic limit.
+
+Analogous to the argument for entropy extensivity, the right-hand side of Eq. [(7.8)](#eq-7-8) is dominated by the term corresponding to the most probable particle numbers $\bar{N}_1$ and $\bar{N}_2 = N - \bar{N}_1$. These values are determined by minimizing the function $\ln\left[Q_{N_1}(V_1,T)Q_{N_2}(V_2,T)\right]$ with respect to $N_1$ and $N_2$, subject to the constraint $N_1 + N_2 = N$:
+
+<Anchor id="eq-7-9" />
+$$
+\delta\ln\left[Q_{N_1}(V_1,T)Q_{N_2}(V_2,T)\right] = 0,\quad \delta(N_1 + N_2) = 0. \tag{7.9}
+$$
+
+This yields the particle balance condition:
+
+<Anchor id="eq-7-10" />
+$$
+\left.\frac{\partial\ln Q_{N_1}(V_1,T)}{\partial N_1}\right|_{N_1=\bar{N}_1} = \left.\frac{\partial\ln Q_{N_2}(V_2,T)}{\partial N_2}\right|_{N_2=\bar{N}_2}. \tag{7.10}
+$$
+
+For macroscopic systems, the relative fluctuations in $N_1$ and $N_2$ are negligible. Consequently, the Helmholtz free energy is extensive:
+
+<Anchor id="eq-7-11" />
+$$
+\begin{aligned}
+\ln Q_N(V,T) &= \ln Q_{\bar{N}_1}(V_1,T) + \ln Q_{\bar{N}_2}(V_2,T),\\
+A(N,V,T) &= A(\bar{N}_1,V_1,T) + A(\bar{N}_2,V_2,T).
+\end{aligned} \tag{7.11}
+$$
+
+The **internal energy** $U$ is given by the ensemble average of the Hamiltonian:
+
+<Anchor id="eq-7-12" />
+$$
+\begin{aligned}
+U = \langle\mathscr{H}\rangle &= \frac{1}{Q_N(V,T)}\int\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,\mathscr{H}(q,p)e^{-\beta\mathscr{H}(q,p)}\\
+&= -\frac{\partial}{\partial\beta}\ln Q_N(V,T) = \frac{\partial}{\partial\beta}[\beta A(V,T)]\\
+&= A(V,T) + \beta\frac{\partial A(V,T)}{\partial\beta}\\
+&= A(V,T) - T\frac{\partial A(V,T)}{\partial T}.
+\end{aligned} \tag{7.12}
+$$
+
+The **thermodynamic entropy** in the canonical ensemble is defined as:
+
+<Anchor id="eq-7-13" />
+$$
+S = -\left(\frac{\partial A}{\partial T}\right)_V. \tag{7.13}
+$$
+
+It follows immediately that $A = U - TS$, and the pressure is given by:
+
+$$
+P = -\left(\frac{\partial U}{\partial V}\right)_S = -\left(\frac{\partial A}{\partial V}\right)_T.
+$$
+
+These relations are standard in thermodynamics.
+
+### Shannon Entropy
+
+The equivalence between the entropy definition in Eq. [(7.13)](#eq-7-13) in the canonical ensemble and Boltzmann’s definition in the microcanonical ensemble will be demonstrated in the next section. Here, we show how these definitions are connected to Shannon entropy, which is defined in terms of the normalized probability $\tilde{\rho}(q,p) = e^{-\beta\mathscr{H}}/Q_N(V,T)$ of a microscopic state $(q,p)$:
+
+$$
+\begin{aligned}
+S_{\text{Shannon}} &= -k\int\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\,\tilde{\rho}(q,p)\ln\tilde{\rho}(q,p)\\
+&= k\beta U + k\ln Q_N = \frac{U-A}{T} = S,
+\end{aligned}
+$$
+
+which matches exactly the entropy defined in Eq. [(7.12)](#eq-7-12) and Eq. [(7.13)](#eq-7-13).
+
+Similarly, the total phase volume $\Sigma(E)$ in the microcanonical ensemble is obtained by integrating the density function over the energy shell, and can thus be regarded as a form of “partition function” for that ensemble. Within the energy range $E < \mathscr{H}(q,p) < E + \Delta$, the normalized probability for each microscopic state is constant: $\tilde{\rho} = 1/\Sigma(E)$. The corresponding Shannon entropy is then
+
+<Anchor id="eq-7-14" />
+$$
+S_{\text{Shannon}} = -k\int_{E<\mathscr{H}(q,p)<E+\Delta}\frac{d^{3N}q\,d^{3N}p}{N!h^{3N}}\cdot\frac{1}{\Sigma}\cdot\ln\left(\frac{1}{\Sigma}\right) = k\ln\Sigma(E), \tag{7.14}
+$$
+
+which is also equal to the Boltzmann entropy.
+
+Thus, we have shown that the different definitions of entropy in different ensembles—including the grand canonical ensemble, which will be introduced later—can all be cast into the general formula given by Shannon. Of course, Shannon entropy was itself inspired by the concept of entropy in physics.
