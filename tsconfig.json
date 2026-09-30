@@ -8,5 +8,8 @@
     "ignoreDeprecations": "6.0",
     "strict": true
   },
+  "mdx": {
+    "plugins": ["remark-math"]
+  },
   "exclude": [".docusaurus", "build"]
 }
