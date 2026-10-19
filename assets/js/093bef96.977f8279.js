@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_site=self.webpackChunkmy_site||[]).push([["8650"],{4226(e){e.exports=JSON.parse('{"tag":{"label":"Quantum Field Theory","permalink":"/docs/tags/quantum-field-theory","allTagsPath":"/docs/tags","count":1,"items":[{"id":"QFT/index","title":"\u524D\u8A00","description":"\u524D\u8A00","permalink":"/docs/QFT"}],"unlisted":false}}')}}]);
