@@ -1,13 +1,13 @@
 ---
-title: "Chapter 3: Fields: Tangent Bundle and Sections"
-sidebar_position: 4
+title: "Chapter 2: Fields: Tangent Bundle and Sections"
+sidebar_position: 3
 hide_title: true
 date: 2026-05-15
 tags: [Differential Geometry, Fibre Bundle, Topology, Linear Algebra, Calculus]
 ---
-# Chapter 3: Fields: Tangent Bundle and Sections
+# Chapter 2: Fields: Tangent Bundle and Sections
 
-## 3.1 Tangent Bundle
+## 2.1 Tangent Bundle
 
 We use the tangent bundle to motivate the definition of a fibre bundle. The tangent bundle itself is motivated by the need for vector fields.
 
@@ -22,7 +22,7 @@ To define a tangent vector field on a manifold rigorously, we must first answer 
 
 ::::tip[Tangent Bundle]
 
-Recall: at every point $p$ of a manifold $M$ there is an associated [tangent space](./02-manifolds.mdx#tangent-space) $T_pM$. The tangent bundle is the space obtained by "collecting together" the tangent spaces of all points:
+Recall: at every point $p$ of a manifold $M$ there is an associated [tangent space](./01-manifolds.mdx#tangent-space) $T_pM$. The tangent bundle is the space obtained by "collecting together" the tangent spaces of all points:
 
 $$
 TM := \bigcup_{p\in M} \{p\} \times T_pM.
@@ -95,7 +95,7 @@ This condition merely rules out pathological behaviour, such as mapping a tangen
 :::
 ::::
 
-You will find that defining a vector field as a map is very convenient. After all, it is simply a map from an $n$-dimensional manifold to a $2n$-dimensional manifold, and we have already defined [smoothness of maps between manifolds](./02-manifolds.mdx#22-maps-on-manifolds). We denote the set of all smooth vector fields by $\Gamma(TM)$.
+You will find that defining a vector field as a map is very convenient. After all, it is simply a map from an $n$-dimensional manifold to a $2n$-dimensional manifold, and we have already defined [smoothness of maps between manifolds](./01-manifolds.mdx#13-maps-on-manifolds). We denote the set of all smooth vector fields by $\Gamma(TM)$.
 
 :::note
 
@@ -104,7 +104,7 @@ Lest you get lost in the mathematics: up to this point, all we have done is to m
 
 ### Operations on Tangent Vector Fields
 
-Now that we have rigorously defined tangent vector fields, let us consider some of their operational properties. Recall that we originally defined a [tangent vector](./02-manifolds.mdx#tangent-vector) as a derivation, so a vector field should have a natural action on scalar fields:
+Now that we have rigorously defined tangent vector fields, let us consider some of their operational properties. Recall that we originally defined a [tangent vector](./01-manifolds.mdx#tangent-vector) as a derivation, so a vector field should have a natural action on scalar fields:
 
 ::::tip[Action of a vector field on a scalar field]
 
@@ -202,7 +202,7 @@ Note: a ring $R$ is itself an abelian group under its own addition, so a ring ca
 From the definitions above, it is easy to see that under the addition and scalar multiplication defined earlier, the vector fields $\Gamma(TM)$ form a $C^\infty(M)$-module.
 ::::
 
-## 3.2 Introduction to Fibre Bundles
+## 2.2 Introduction to Fibre Bundles
 
 Continuing from the previous section, we now give the rigorous definition of a fibre bundle.
 

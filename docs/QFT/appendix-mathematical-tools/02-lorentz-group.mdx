@@ -1,0 +1,198 @@
+---
+title: "Lorentz 群的数学补充"
+sidebar_position: 3
+hide_title: true
+---
+
+# Lorentz 群的数学补充
+
+**对应 02 §2–5。**[返回正文](../02-lorentz-group.mdx)。Lorentz 矩阵满足 $\Lambda^Tg\Lambda=g$。下面补充群结构、连通分支及无穷小变换的计算，主线只使用其变换规则。
+
+## 1. Lorentz 群
+
+所有可能的洛伦兹变换组成 **Lorentz 群** $O(3,1)$，其中 $3$ 和 $1$ 对应度规的三个正号、一个负号。我们验证其群结构。
+
+单位元为：
+
+$$
+\Lambda^\mu{}_\nu=\delta^\mu{}_\nu,\qquad x'^\mu=x^\mu.
+$$
+
+这里 $\delta^\mu{}_\nu$ 是 Kronecker $\delta$。
+
+其次，连续做两个 Lorentz 变换，结果仍然是 Lorentz 变换。若先做 $\Lambda_1$，再做 $\Lambda_2$，总变换为 $\Lambda_2\Lambda_1$，并且
+
+$$
+(\Lambda_2\Lambda_1)^Tg(\Lambda_2\Lambda_1)
+=\Lambda_1^T\Lambda_2^Tg\Lambda_2\Lambda_1
+=\Lambda_1^Tg\Lambda_1=g.
+$$
+
+对于逆元，由 $\Lambda^Tg\Lambda=g$，左乘 $g^{-1}$，得到
+
+$$
+(g^{-1}\Lambda^Tg)\Lambda=I,
+$$
+
+所以逆变换为
+
+$$
+\Lambda^{-1}=g^{-1}\Lambda^Tg.
+$$
+
+把 $\Lambda^Tg\Lambda=g$ 两边分别左乘 $(\Lambda^{-1})^T$、右乘 $\Lambda^{-1}$，也得到
+
+$$
+(\Lambda^{-1})^Tg\Lambda^{-1}=g.
+$$
+
+因此逆变换本身也是 Lorentz 变换。再加上矩阵乘法本来就满足结合律，这些变换就组成了群。
+
+## 2. Lorentz 群的结构
+
+### 行列式：proper 与 improper
+
+对 $\Lambda^Tg\Lambda=g$ 两边取行列式，
+$$
+(\det\Lambda)^2\det g=\det g
+\quad\Longrightarrow\quad
+\det\Lambda=\pm1.
+$$
+我们称 $\det\Lambda=+1$ 的变换为 **proper（正）Lorentz 变换**，$\det\Lambda=-1$ 的为 **improper（非正）Lorentz 变换**。正 Lorentz 变换组成子群：
+$$
+SO(3,1)=\{\Lambda\in O(3,1)\mid\det\Lambda=1\}.
+$$
+这是因为单位元的行列式为 $1$，两个行列式为 $1$ 的矩阵相乘或取逆后，行列式仍为 $1$。
+
+### 时间方向：orthochronous 与 non-orthochronous
+
+在 Lorentz 条件
+$$
+g_{\mu\nu}\Lambda^\mu{}_\rho\Lambda^\nu{}_\sigma=g_{\rho\sigma}
+$$
+中取 $\rho=\sigma=0$，得到
+$$
+-(\Lambda^0{}_0)^2+\delta_{ij}\Lambda^i{}_0\Lambda^j{}_0=-1.
+$$
+因此
+$$
+(\Lambda^0{}_0)^2
+=1+\sum_{i=1}^{3}(\Lambda^i{}_0)^2\ge1,
+$$
+也就是
+$$
+\Lambda^0{}_0\ge1
+\qquad\text{或}\qquad
+\Lambda^0{}_0\le-1.
+$$
+前者称为 **orthochronous（保时向）变换**，它保持未来指向的类时矢量仍然指向未来；后者则反转这个时间方向。保时向变换组成子群 $O^+(3,1)$。
+
+同时满足 proper 与 orthochronous 的变换组成
+$$
+SO^+(3,1)
+=\{\Lambda\in O(3,1)\mid
+\det\Lambda=1,\ \Lambda^0{}_0\ge1\},
+$$
+称为**正保时 Lorentz 群**，它是 $O(3,1)$ 中包含单位元的连通分支。在我们的课程中提到 Lorentz 群时，一般指的都是 $SO^+(3, 1)$，而不是整个 $O(3, 1)$。
+
+完整 Poincaré 群还包括四维平移，其 Lorentz 部分可以取整个 $O(3,1)$；正文讨论连续生成元时，只取 $SO^+(3,1)$ 与平移组成的单位元连通分支。
+
+## 3. Lorentz 群的李代数
+
+考虑单位元附近的 Lorentz 变换：
+$$
+\Lambda^\mu{}_\nu
+=\delta^\mu{}_\nu+\epsilon\Omega^\mu{}_\nu,
+$$
+其中 $\epsilon$ 是无穷小参数。很容易注意到：
+$$
+(I-\epsilon\Omega)(I+\epsilon\Omega)
+=I+O(\epsilon^2),
+$$
+
+因此其逆（在保留到一阶小量的意义下）为：
+$$
+(\Lambda^{-1})^\mu{}_\nu
+=\delta^\mu{}_\nu-\epsilon\Omega^\mu{}_\nu.
+$$
+
+现在降低 $\Lambda$ 的第一个指标：
+$$
+\Lambda_{\mu\nu}=g_{\mu\nu}+\epsilon\Omega_{\mu\nu},
+\qquad
+\Omega_{\mu\nu}\equiv g_{\mu\rho}\Omega^\rho{}_\nu.
+$$
+考虑到 $\Lambda_\mu{}^\nu=(\Lambda^{-1})^\nu{}_\mu$，再降低 $\nu$，有
+$$
+\Lambda_{\mu\nu}=(\Lambda^{-1})_{\nu\mu},
+$$
+代入展开式，
+$$
+g_{\mu\nu}+\epsilon\Omega_{\mu\nu}
+=g_{\nu\mu}-\epsilon\Omega_{\nu\mu}.
+$$
+由于度规对称，得到
+$$
+\Omega_{\mu\nu}=-\Omega_{\nu\mu}.
+$$
+也就是说，$\Omega_{\mu\nu}$ 是一个反对称矩阵（注意：不是 $\Omega^\mu{}_\nu$ 本身）。一个 $4\times4$ 反对称矩阵只有 $6$ 个独立分量，因此 Lorentz 群有六个连续参数。其中 $\Omega_{ij}$ 的三个独立分量对应空间旋转，$\Omega_{0i}$ 的三个分量对应三个空间方向上的 boost。这给定了 Lorentz 群的生成元。原则上，利用指数映射与生成元可以得到单位元附近的群元素。
+
+除了与单位元连续相连的变换，我们还需要两个离散变换来描述整个 Lorentz 群：
+$$
+P^\mu{}_\nu=\operatorname{diag}(1,-1,-1,-1),
+\qquad
+T^\mu{}_\nu=\operatorname{diag}(-1,1,1,1).
+$$
+$P$ 是**空间反演（parity）**，将 $(t,\vec{x})$ 变成 $(t,-\vec{x})$；$T$ 是**时间反演（time reversal）**，将 $(t,\vec{x})$ 变成 $(-t,\vec{x})$。
+
+它们都满足 Lorentz 条件，但 $\det P=\det T=-1$。$P$ 保时向，$T$ 不保时向，而 $PT=-I$ 的行列式为 $+1$，却不保时向。完整 Lorentz 群的四个连通分支可以写成：
+$$
+SO^+(3,1),\qquad
+P\,SO^+(3,1),\qquad
+T\,SO^+(3,1),\qquad
+PT\,SO^+(3,1).
+$$
+
+
+
+## 4. 指标变换与张量例子
+
+Lorentz 条件还给出升降指标后变换矩阵与逆矩阵的关系：
+
+$$
+\Lambda_\mu{}^\nu\equiv g_{\mu\rho}\Lambda^\rho{}_\sigma g^{\sigma\nu}
+=(\Lambda^{-1})^\nu{}_\mu.
+$$
+
+因此对同一事件，逆变矢量 $V^\mu$ 和协变矢量 $W_\mu$ 的缩并保持不变：
+
+$$
+V'^\mu(x')W'_\mu(x')=V^\mu(x)W_\mu(x).
+$$
+
+更高阶张量的每个上指标各乘一个 $\Lambda$，每个下指标各乘一个 $\Lambda_\mu{}^\nu$。例如：
+
+$$
+D'^{\mu\nu}{}_{\rho\sigma\tau}(x')
+=\Lambda^\mu{}_\alpha\Lambda^\nu{}_\beta
+\Lambda_\rho{}^\gamma\Lambda_\sigma{}^\delta
+\Lambda_\tau{}^\epsilon D^{\alpha\beta}{}_{\gamma\delta\epsilon}(x).
+$$
+
+## 5. 加入平移：Poincaré 变换
+
+本章仍将 Lorentz 部分限于与恒等变换连续相连的正保时分支。加上平移后，得到这里使用的连续 Poincaré 变换：
+
+$$
+x'^\mu=\Lambda^\mu{}_\nu x^\nu+c^\mu,
+$$
+
+其中 $c^\mu$ 是常矢量。先施加 $(\Lambda_1,c_1)$、再施加 $(\Lambda_2,c_2)$，合成变换为
+
+$$
+(\Lambda_2,c_2)(\Lambda_1,c_1)
+=(\Lambda_2\Lambda_1,\,\Lambda_2c_1+c_2).
+$$
+
+第一段平移也要受第二次 Lorentz 变换作用，因而总平移一般不是 $c_1+c_2$。本章建立了场在时空变换下的规则；具体运动方程还需由动力学原理给出。
+

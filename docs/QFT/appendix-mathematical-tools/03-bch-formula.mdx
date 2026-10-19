@@ -1,0 +1,20 @@
+---
+title: "C. 算符指数与 BCH 公式"
+sidebar_position: 5
+hide_title: true
+---
+
+# C. 算符指数与 BCH 公式
+
+**对应 06 平移生成元一节。**[返回正文](../06-quantum-symmetry.mdx)。平移生成元彼此对易时，有限平移的指数可以直接合并。对不对易算符 $A,B$，一般 $e^Ae^B\ne e^{A+B}$；其乘积由 Baker–Campbell–Hausdorff（BCH）公式给出：
+
+$$
+e^Ae^B=\exp\left(A+B+\frac12[A,B]
++\frac1{12}\bigl([A,[A,B]]+[B,[B,A]]\bigr)+\cdots\right).
+$$
+
+当 $[A,B]=0$ 时，对易子项全消失。若 $[A,B]$ 与 $A,B$ 都对易，级数在 $\tfrac12[A,B]$ 处终止。更一般的高阶项可按嵌套对易子逐阶求得。
+
+旧量子对称性页的板书缺失一页，以上 BCH 级数为依上下文补写；保留此来源标记。
+
+human review: 放回正文

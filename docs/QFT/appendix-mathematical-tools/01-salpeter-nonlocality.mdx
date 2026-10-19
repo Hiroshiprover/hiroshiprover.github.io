@@ -1,0 +1,290 @@
+---
+title: "Salpeter 方程的非局域性与概率流"
+sidebar_position: 2
+hide_title: true
+---
+
+# Salpeter 方程的非局域性与概率流
+
+我们来详细讨论正文中提到的非局域性。
+
+## 局域性
+
+我们先来严格地定义局域性：
+
+:::tip[局域性]
+平移不变的线性算符，对于一些性质足够好的测试函数的作用可以写成：
+$$
+(\hat Df)(\vec x)=\int d^3y\,K(\vec x-\vec y)f(\vec y),
+$$
+其中 $K$ 称为积分核，它可以是普通函数，也可以是 Dirac delta 函数及其导数这样的分布。如果 $K$ 只在原点有支撑（粗略地讲，仅在原点值非零），就称这个算符是**局域的**。
+:::
+
+举几个例子：
+1. 单位算符的核是 $\delta^{(3)}(\vec x-\vec y)$，显然局域。
+2. 导数算符的核是 $\partial_{i}\delta^{(3)}(\vec x-\vec y)$，也是局域的。因此任意有限阶导数算符的线性组合也都是局域的。
+3. 平移：$f(\vec x)\mapsto f(\vec x+\vec a)$ 的核则是 $\delta^{(3)}(\vec x-\vec y+\vec a)$，当 $\vec a\ne0$ 时，它会读取另一点的函数值，因此非局域。
+
+## Fourier 变换
+:::info[Fourier 变换约定]
+本文采用如下 Fourier 变换约定：
+$$
+\widetilde f(\vec k)=\int d^3x\,f(\vec x)e^{-i\vec k\cdot\vec x},
+\qquad
+f(\vec x)=\int\frac{d^3k}{(2\pi)^3}\,\widetilde f(\vec k)e^{i\vec k\cdot\vec x}.
+$$
+:::
+
+接下来我们要先证明一个有用的引理。数学家告诉我们，只支撑在原点的分布可以写成有限多个 delta 函数导数的线性组合
+$$
+f(\vec x)=\sum_{n=0}^{N}a^{j_1\cdots j_n}
+\partial_{j_1}\cdots\partial_{j_n}\delta^{(3)}(\vec x),
+$$
+其中每个 $j_r$ 取 $1,2,3$，重复指标求和；$n=0$ 项就是 delta 函数本身。如果你不知道爱因斯坦求和约定，可以先参考[这一部分](../02-lorentz-group.mdx)。
+
+因此其 Fourier 变换为
+$$
+\widetilde{f}(\vec k) = \sum_{n=0}^{N} \int d^3x\, a^{j_1\cdots j_n} \partial_{j_1}\cdots\partial_{j_n}\delta^{(3)}(\vec x) e^{-i\vec k\cdot\vec x},
+$$
+根据 delta 函数导数的定义（提取出该点函数的对应阶导数），我们有
+$$
+\widetilde{f}(\vec k) = \sum_{n=0}^{N} i^n a^{j_1\cdots j_n} k_{j_1}\cdots k_{j_n},
+$$
+所以 $\widetilde f(\vec k)$ 只是 $k$ 的有限阶多项式。
+
+:::note
+应该说，delta 函数的导数是用分部积分来定义的。
+:::
+
+反过来，对于 $k$ 的任意幂次（一维）我们可以计算其逆变换：
+$$
+\begin{aligned}
+\int\frac{dk}{2\pi}\, k^m e^{ik\cdot x} 
+&= (-i)^m \int \frac{dk}{2\pi}\, (ik)^m e^{ik\cdot x}\\
+&= (-i)^m \int \frac{dk}{2\pi}\, \left(\frac{\partial}{\partial x}\right)^m e^{ik\cdot x} \\
+&= (-i)^m  \left(\frac{d}{d x}\right)^m \int \frac{dk}{2\pi}\, e^{ik\cdot x} \\
+&= (-i)^m \delta^{(m)}(x),
+\end{aligned} 
+$$
+因此任意 $k$ 的有限阶多项式的逆变换都只包含 delta 函数及其有限阶导数。对于三维的推广是自然（但很麻烦）的，我们不在这里展开详细计算了。
+
+因此我们有引理：
+$$
+\boxed{
+f(\vec x) \text{ 只支撑在原点}
+\quad\Longleftrightarrow\quad
+\widetilde f(\vec k)\text{ 是有限阶多项式}.
+}
+$$
+
+注意一定是有限阶的。反例很好举：比如 $\sum_{n=0}^{\infty}\delta^{(n)}(x)/n!$ 的逆变换会给出 $e^{ik}$，这并不是多项式。
+
+:::note
+关于分布的无穷级数是一件很微妙的事情，这里我们只是形式上把它写出来了。事实上，它通常来讲不会收敛；即使收敛，也通常无法收敛到我们考虑的空间中，这里不再展开。
+:::
+
+我们再回顾先前的局域性定义，利用 Fourier 变换可以将其写成另一种更好看的形式：
+$$
+\begin{aligned}
+(\hat Df)(\vec x)&=\int d^3y\,K(\vec x-\vec y)f(\vec y)\\
+&=\int d^3y\,K(\vec x-\vec y)\int\frac{d^3k}{(2\pi)^3}\,\widetilde f(\vec k)e^{i\vec k\cdot\vec y}\\
+&=\int\frac{d^3k}{(2\pi)^3}\,\int d^3y\,K(\vec x-\vec y)\widetilde f(\vec k)e^{i\vec k\cdot\vec y}\\
+&=\int\frac{d^3k}{(2\pi)^3}\, \widetilde f(\vec k) e^{i\vec k \cdot \vec x}\int d^3y\,K(\vec x-\vec y)e^{-i\vec k\cdot\left(\vec x - \vec y\right)}\\
+&=\int\frac{d^3k}{(2\pi)^3}\, \widetilde{K}(\vec k) \widetilde f(\vec k) e^{i\vec k \cdot \vec x}.
+\end{aligned} 
+$$
+注意我们偷偷用了 $\int d^3y = \int d^3(y-x) = \int d^3(x-y)$，其中积分对全空间进行。这是因为 $x$ 有限大，不会改变积分上下限的无穷，且交换 $x, y$ 产生的负号会被积分上下限的交换吸收。这个技巧我们应该会经常使用，最好记住。
+
+## 平方根算符的非局域性
+
+Salpeter 方程写作
+$$
+i\partial_t\psi=\sqrt{-\nabla^2+m^2}\,\psi,
+$$
+
+我们在正文部分只是形式上写出了这个等式，并没有给出其严格的定义，我们需要先定义平方根算符如何作用在函数上，才有进一步讨论的可能。回忆有限维线性代数，我们知道，对于厄米算子，存在谱分解：
+$$
+\hat{A}=\sum_n a_n |n\rangle\langle n|,
+$$
+如果 $\hat{A}$ 是正算子：其每个本征值 $a_n$ 都非负，那么存在一个唯一的正平方根算符：
+$$
+\sqrt{\hat{A}} \equiv \sum_n \sqrt{a_n} |n\rangle\langle n|.
+$$
+
+对于无穷维，问题要微妙的多。但我们仅考虑波函数光滑且在无穷远处衰减足够快的情况，此时 $-\nabla^2+m^2$ 的确是正算子。考虑到我们笔记的宝宝性，我们不去展开这个证明，直接利用这个结论。首先注意到：
+$$
+\left(-\nabla^2 +m^2\right)e^{i\vec k\cdot\vec x}= (k^{2}+m^2) e^{i\vec k\cdot\vec x}
+$$
+因此 $-\nabla^2 +m^2$ 具有本征值 $k^{2}+m^2$，且本征矢为 $e^{i\vec k\cdot\vec x}$，因此我们定义平方根算子的作用：
+$$
+\sqrt{-\nabla^2+m^2}\,e^{i\vec k\cdot\vec x}
+\equiv\sqrt{k^2+m^2}\,e^{i\vec k\cdot\vec x}.
+$$
+现在我们将 $\psi$ 作 Fourier 展开，得到
+$$
+\sqrt{-\nabla^2+m^2}\,\psi(\vec x,t)
+=\int\frac{d^3k}{(2\pi)^3}\,
+\sqrt{k^2+m^2}\,\widetilde\psi(\vec k,t)e^{i\vec k\cdot\vec x}.
+$$
+与刚才得到的局域性表达式比较，就有
+$$
+\widetilde K(\vec k)=\sqrt{k^2+m^2}.
+$$
+根据我们先前证明的引理， $\sqrt{k^2+m^2}$ 不是 $k$ 的有限阶多项式，因此 $K$ 不可能只支撑在原点，故平方根算符是非局域的。
+
+## 总概率守恒
+
+以下的讨论建立在我们将 $\psi$ 诠释为单粒子的空间概率分布上。我们知道对于非相对论性的量子力学而言有
+$$
+\frac{d}{dt}\int d^3x\,|\psi|^2 = 0, \qquad \frac{\partial}{\partial t} |\psi|^2 + \nabla \cdot \vec j = 0, \qquad \vec{j} = \frac{i}{2m}\left(\psi^* \nabla \psi - \psi \nabla \psi^*\right).
+$$
+
+因此对于 Salpeter 方程我们尝试寻找同样的结果。由运动方程及其复共轭，
+$$
+\partial_t\psi=-i\sqrt{-\nabla^2+m^2}\,\psi,
+\qquad
+\partial_t\psi^*=i\sqrt{-\nabla^2+m^2}\,\psi^*,
+$$
+可得
+$$
+\frac{d}{dt}\int d^3x\,|\psi|^2
+=i\int d^3x\,\left[
+\bigl(\sqrt{-\nabla^2+m^2}\,\psi^*\bigr)\psi
+-\psi^*\bigl(\sqrt{-\nabla^2+m^2}\,\psi\bigr)
+\right].
+$$
+
+我们算第二项的积分：
+$$
+\begin{aligned}
+I&\equiv\int d^3x\,\psi^*\bigl(\sqrt{-\nabla^2+m^2}\,\psi\bigr)\\
+&=\int d^3x\,\int \frac{d^3 q}{(2\pi)^3} \widetilde{\psi}^*\bigl(\vec q , t\bigr) e^{-i\vec q \cdot \vec x} \int\frac{d^3k}{(2\pi)^3}\,
+\sqrt{k^2+m^2}\,\widetilde\psi\bigl(\vec k , t\bigr) e^{i\vec k\cdot\vec x}\\
+&=\int\frac{d^3k\,d^3q}{(2\pi)^6}\,
+\sqrt{k^2+m^2}\,\widetilde\psi^*\bigl(\vec q , t\bigr) \widetilde\psi\bigl(\vec k , t\bigr)
+\int d^3x\,e^{i(\vec k-\vec q)\cdot\vec x}\\
+&=\int\frac{d^3k\,d^3q}{(2\pi)^6}\,
+\sqrt{k^2+m^2}\,\widetilde\psi^* \widetilde\psi \cdot 
+(2\pi)^3 \delta(\vec k - \vec q) \\
+&=\int\frac{d^3k}{(2\pi)^3}\,
+\sqrt{k^2+m^2}\,|\widetilde\psi(\vec k,t)|^2\in\mathbb R.
+\end{aligned}
+$$
+注意 $\psi^*$ 的 Fourier 变换中 $e^{i \vec q \cdot \vec x}$ 也要变。
+
+注意到第一项的积分是 $I^*$，而 $I$ 为实数，因此
+$$
+\frac{d}{dt}\int d^3x\,|\psi|^2=i(I^*-I)=0.
+$$
+对于 Saltpeter 方程而言，总概率是守恒的。我们因此可以尝试去寻找一个概率流。
+
+## 双线性概率流及其局域性
+
+$|\psi|^2$ 及其时间导数都是 $\psi^*$、$\psi$ 的双线性表达式，如果流守恒方程成立，那么 $\vec{j}$ 必然对于 $\psi^*$、$\psi$ 也是双线性的。因此我们将流写作
+$$
+\vec j(t,\vec x)=\int d^3y\,d^3z\,
+\vec K(\vec x-\vec y,\vec x-\vec z)\psi^*(t,\vec y)\psi(t,\vec z).
+$$
+这里 $\vec K$ 是矢量值的。若 $\vec K(\vec x,\vec y)$ 只支撑在 $\vec x=\vec y=\vec0$，计算流就只需同一点的波函数及其有限阶导数，我们称这样的流是局域的。
+
+两个变量的 Fourier 变换定义为
+$$
+\widetilde{\vec K}(\vec p,\vec q)
+=\int d^3x\,d^3y\,\vec K(\vec x,\vec y)
+e^{-i\vec p\cdot\vec x}e^{-i\vec q\cdot\vec y}.
+$$
+与单变量情形一样，只支撑在原点的核可写为
+$$
+\vec K(\vec x,\vec y)
+=\sum_{m=0}^{M}\sum_{n=0}^{N}
+\vec a^{j_1\cdots j_m;k_1\cdots k_n}
+\bigl[\partial_{x^{j_1}}\cdots\partial_{x^{j_m}}\delta^{(3)}(\vec x)\bigr]
+\bigl[\partial_{y^{k_1}}\cdots\partial_{y^{k_n}}\delta^{(3)}(\vec y)\bigr].
+$$
+对两个变量分别作分部积分，每个导数带来一个 $ip_i$ 或 $iq_j$，所以
+$$
+\widetilde{\vec K}(\vec p,\vec q)
+=\sum_{m,n}\vec a^{j_1\cdots j_m;k_1\cdots k_n}
+(ip_{j_1})\cdots(ip_{j_m})(iq_{k_1})\cdots(iq_{k_n})
+$$
+是有限阶矢量值多项式。反过来，多项式的逆变换也只包含 delta 函数及其有限阶导数。因此如果概率流是局域的，$\widetilde{\vec K}(\vec p,\vec q)$ 必须是有限阶多项式。
+
+## 求解连续性方程
+
+按照我们先前的计算
+$$
+\begin{aligned}
+\partial_t|\psi|^2 &= i\left[
+\bigl(\sqrt{-\nabla^2+m^2}\,\psi^*\bigr)\psi
+-\psi^*\bigl(\sqrt{-\nabla^2+m^2}\,\psi\bigr)
+\right]\\
+&=i\int\frac{d^3p\,d^3q}{(2\pi)^6}\,
+\left(\sqrt{p^2+m^2}-\sqrt{q^2+m^2}\right)
+\widetilde\psi^*(\vec p,t)\widetilde\psi(\vec q,t)
+e^{i(\vec q-\vec p)\cdot\vec x} 
+\end{aligned}
+$$
+
+对流的核作逆 Fourier 变换，再完成 $\vec y,\vec z$ 积分，得到
+$$
+\begin{aligned}
+\vec j(t,\vec x)
+&=\int\frac{d^3p\,d^3q}{(2\pi)^6}\,
+\widetilde{\vec K}(\vec p,\vec q)e^{i(\vec p+\vec q)\cdot\vec x}
+\left[\int d^3y\,e^{-i\vec p\cdot\vec y}\psi^*(t,\vec y)\right]
+\left[\int d^3z\,e^{-i\vec q\cdot\vec z}\psi(t,\vec z)\right]\\
+&=\int\frac{d^3p\,d^3q}{(2\pi)^6}\,
+\widetilde{\vec K}(\vec p,\vec q)\widetilde\psi^*(-\vec p,t)
+\widetilde\psi(\vec q,t)e^{i(\vec p+\vec q)\cdot\vec x}\\
+&=\int\frac{d^3p\,d^3q}{(2\pi)^6}\,
+\widetilde{\vec K}(-\vec p,\vec q)\widetilde\psi^*(\vec p,t)
+\widetilde\psi(\vec q,t)e^{i(\vec q-\vec p)\cdot\vec x}.
+\end{aligned}
+$$
+最后一行 $\vec p$ 换元成 $-\vec p$。再求散度，有：
+$$
+\nabla \cdot \vec{j}=i\int\frac{d^3p\,d^3q}{(2\pi)^6}\,
+\widetilde{\vec K}(-\vec p,\vec q)\cdot(\vec q-\vec p)\,\widetilde\psi^*(\vec p,t)
+\widetilde\psi(\vec q,t)\,e^{i(\vec q-\vec p)\cdot\vec x}.
+$$
+连续性方程写作：
+$$
+\partial_t |\psi|^2 = - \nabla \cdot \vec{j}
+$$
+比较等式两端，就得到
+$$
+\boxed{
+(\vec p-\vec q)\cdot\widetilde{\vec K}(-\vec p,\vec q)
+=\sqrt{p^2+m^2}-\sqrt{q^2+m^2}.
+}
+$$
+利用平方差，
+$$
+\sqrt{p^2+m^2}-\sqrt{q^2+m^2}
+=\frac{(\vec p-\vec q)\cdot(\vec p+\vec q)}
+{\sqrt{p^2+m^2}+\sqrt{q^2+m^2}},
+$$
+因此最方便的选择是
+$$
+\widetilde{\vec K}(-\vec p,\vec q)
+=\frac{\vec p+\vec q}{\sqrt{p^2+m^2}+\sqrt{q^2+m^2}},
+$$
+即
+$$
+\widetilde{\vec K}(\vec p,\vec q)
+=\frac{\vec q-\vec p}{\sqrt{p^2+m^2}+\sqrt{q^2+m^2}}.
+$$
+对应的概率流为
+$$
+\vec j(t,\vec x)=\int\frac{d^3p\,d^3q}{(2\pi)^6}\,
+\frac{\vec p+\vec q}{\sqrt{p^2+m^2}+\sqrt{q^2+m^2}}
+\widetilde\psi^*(\vec p,t)\widetilde\psi(\vec q,t)
+e^{i(\vec q-\vec p)\cdot\vec x}.
+$$
+交换 $\vec p,\vec q$ 可验证 $\vec j^*=\vec j$，它是实概率流，并且满足连续性方程。但核的 Fourier 变换不是多项式，因此这个流非局域。
+
+事实上，我们还可以给概率流加上无散度的部分，因此上述选择并不唯一。不过，这种自由度不能产生局域的双线性流：如果 $\widetilde{\vec K}(-\vec p,\vec q)$ 是多项式，那么 $(\vec p-\vec q)\cdot\widetilde{\vec K}(-\vec p,\vec q)$ 也必须是多项式，而连续性方程右边的平方根之差不是。这个矛盾说明，对于密度 $|\psi|^2$，不存在满足上述局域性条件的平移不变双线性概率流。
+
+所以，Salpeter 方程保持总概率守恒，也确实有概率流，但概率流不是局域的，这又回到我们正文论述过的问题。
+
+[返回正文](../01-why-qft.mdx)

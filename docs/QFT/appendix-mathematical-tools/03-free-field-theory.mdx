@@ -1,0 +1,205 @@
+---
+title: "从作用量原理到自由场论"
+sidebar_position: 4
+hide_title: true
+---
+
+# 从作用量原理到自由场论
+
+我们现在尝试从作用量原理出发，推导出自由场论的拉格朗日密度形式。
+
+回忆前面推导 Euler–Lagrange 方程时使用的变分方法。给定一个场 $\phi_0(x)$，我们考虑它附近的一族场：
+$$
+\phi_\varepsilon(x)=\phi_0(x)+\varepsilon\eta(x),
+$$
+其中 $\eta(x)$ 是任意满足适当边界条件的光滑函数，$\varepsilon\in\mathbb R$ 是一个参数。
+我们研究当 $\varepsilon$ 足够小时，作用量对应的变化。
+
+为了方便，我们可以定义一个关于 $\varepsilon$ 的普通函数：
+$$
+f(\varepsilon)\equiv S[\phi_\varepsilon]
+=S[\phi_0+\varepsilon\eta].
+$$
+假设作用量在我们考虑的场构型附近足够光滑，并且允许交换展开与积分，那么就可以直接对 $f(\varepsilon)$ 进行 Taylor 展开：
+$$
+S[\phi_0+\varepsilon\eta]
+=S[\phi_0]
++\varepsilon\left.\frac{dS[\phi_\varepsilon]}{d\varepsilon}\right|_{\varepsilon=0}
++\frac{\varepsilon^2}{2}
+\left.\frac{d^2S[\phi_\varepsilon]}{d\varepsilon^2}\right|_{\varepsilon=0}
++O(\varepsilon^3).
+$$
+这只是 $f(\varepsilon)$的 Taylor 展开，并没有什么特别的。
+
+## 一阶项
+
+零阶项显然只是原场的作用量。因此我们先考察展开中的一阶项。我们仍然假设拉格朗日密度只依赖于场及其一阶导数：
+$$
+S[\phi]=\int d^4x\,\mathcal L(\phi,\partial_\mu\phi).
+$$
+由于
+$$
+\frac{d\phi_\varepsilon}{d\varepsilon}=\eta,
+\qquad
+\frac{d(\partial_\mu\phi_\varepsilon)}{d\varepsilon}
+=\partial_\mu\eta,
+$$
+根据链式法则，我们有
+$$
+\frac{dS[\phi_\varepsilon]}{d\varepsilon}
+=\int d^4x\,\bigg[
+\frac{\partial\mathcal L}{\partial\phi_\varepsilon}\eta
++\frac{\partial\mathcal L}
+{\partial(\partial_\mu\phi_\varepsilon)}
+\partial_\mu\eta
+\bigg].
+$$
+与我们推导 E-L 方程时一样，对第二项进行分部积分，并利用 $\eta$ 在边界处为零的条件，就得到
+$$
+\left.\frac{dS[\phi_\varepsilon]}{d\varepsilon}\right|_{\varepsilon=0}
+=\int d^4x\,
+\bigg[
+\frac{\partial\mathcal L}{\partial\phi}-\partial_\mu\left(\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\right)
+\bigg]_{\phi=\phi_0}\eta.
+$$
+我们还要求 $\phi_0$ 本身满足 E-L 方程，那么
+$$
+\left[
+\frac{\partial\mathcal L}{\partial\phi}
+-\partial_\mu\left(
+\frac{\partial\mathcal L}
+{\partial(\partial_\mu\phi)}
+\right)
+\right]_{\phi_0}=0.
+$$
+因此，
+$$
+\left.\frac{dS[\phi_\varepsilon]}{d\varepsilon}\right|_{\varepsilon=0}=0.
+$$
+于是，作用量的 Taylor 展开就简化为
+$$
+S[\phi_0+\varepsilon\eta]
+=S[\phi_0]
++\frac{\varepsilon^2}{2}
+\left.\frac{d^2S[\phi_\varepsilon]}{d\varepsilon^2}\right|_{\varepsilon=0}
++O(\varepsilon^3).
+$$
+这意味着，在一个经典运动方程的解附近，作用量关于扰动的一阶变化为零，最低阶的非平凡变化通常来自二次项。这个结果并不令人意外，毕竟我们要求了最小作用量原理。不过，截止到这里，我们得到的还只是关于参数 $\varepsilon$ 的二次项。它和正文中讨论的关于场的二次型拉格朗日密度有什么关系？我们继续进行计算。
+
+## 二阶项
+
+对作用量再求一次关于 $$\varepsilon$$ 的导数，并在 $$\varepsilon=0$$ 处取值，就有
+$$
+\left.\frac{d^2S[\phi_\varepsilon]}{d\varepsilon^2}\right|_{\varepsilon=0}
+=\int d^4x\,
+\bigg[
+\frac{\partial^2\mathcal L}{\partial\phi^2}\eta^2
++2\frac{\partial^2\mathcal L}
+{\partial\phi\,\partial(\partial_\mu\phi)}
+\eta\partial_\mu\eta
++\frac{\partial^2\mathcal L}
+{\partial(\partial_\mu\phi)\partial(\partial_\nu\phi)}
+\partial_\mu\eta\partial_\nu\eta
+\bigg]_{\phi=\phi_0}.
+$$
+这里默认对重复的指标求和。尽管这个表达式看起来稍微复杂了一些，但仔细观察就可以发现，其中全都只是 $\eta$ 的二次项：
+$$
+\eta^2,\qquad
+\eta\partial_\mu\eta,\qquad
+\partial_\mu\eta\partial_\nu\eta.
+$$
+前面的偏导数已经在 $\phi=\phi_0$ 处取值了，只是一些系数。因此，我们将其打包为一个新的拉格朗日密度：
+$$
+\mathcal L^{(2)}[\eta]
+=\frac12\bigg[
+\frac{\partial^2\mathcal L}{\partial\phi^2}\eta^2+2\frac{\partial^2\mathcal L}
+{\partial\phi\,\partial(\partial_\mu\phi)}
+\eta\partial_\mu\eta+\frac{\partial^2\mathcal L}
+{\partial(\partial_\mu\phi)\partial(\partial_\nu\phi)}
+\partial_\mu\eta\partial_\nu\eta
+\bigg]_{\phi=\phi_0}.
+$$
+这样，原来的作用量就可以写成
+$$
+S[\phi_0+\varepsilon\eta]
+=S[\phi_0]
++\varepsilon^2\int d^4x\,\mathcal L^{(2)}[\eta]
++O(\varepsilon^3).
+$$
+由于 $$\mathcal L^{(2)}$$ 是关于扰动场及其导数的齐次二次表达式，因而满足
+$$
+\mathcal L^{(2)}[\varepsilon\eta]
+=\varepsilon^2\mathcal L^{(2)}[\eta],
+$$
+因此我们可以将 $$\varepsilon\eta$$ 整体视为一个新的场：
+$$
+S[\phi_0+\varepsilon\eta] = S[\phi_0] + S^{(2)}[\varepsilon\eta] + O(\varepsilon^3).
+$$
+于是，当我们只保留二次近似时，就可以直接研究 $\mathcal L^{(2)}$。$\varepsilon$ 本身只是一种标记，它标识着我们的近似是第几阶的。
+
+这就解释了为什么二次型的拉格朗日密度会出现在自由场论中：它其实是原场在微扰下的、最低阶的非零近似。由于 $$\mathcal L^{(2)}$$ 关于扰动场及其导数是二次的，它对应的 E-L 方程就是线性的。因此，不同的扰动满足线性叠加原理，与正文中的讨论完全一致。
+
+不过，虽然我们得到的运动方程是线性的，但如果原场 $\phi_0(x)$ 不是常数场，那么 $\mathcal L^{(2)}$ 中的系数一般也会依赖于 $x$。此时，理论未必具有时空平移不变性。
+
+## 自由实标量场
+
+最后我们来看看以上推导如何与正文中构造的拉格朗日密度联系起来。假设原来的理论满足 Lorentz 不变性和时空平移不变性，并且我们选取的经典背景是一个常数场：
+$$
+\phi_0(x)=\phi_0.
+$$
+由于 $\phi_0$ 是常数，它的所有导数都为零。因此，$\mathcal{L}[\phi_0(x), \partial_\mu \phi_0(x)]=\mathcal{L}(\phi_0, 0)$，也就是一个函数在固定点处的取值，其 Taylor 展开的各项系数（也就是前文那三个偏导数）一定都是常数。进一步地，由于 $\phi_0$ 本身是一个 Lorentz 标量，因此这些系数也应具有 Lorentz 不变性。
+
+回忆刚才得到的三种二次项：
+$$
+\eta^2,\qquad
+\eta\partial_\mu\eta,\qquad
+\partial_\mu\eta\partial_\nu\eta.
+$$
+其中，第一项本身就是 Lorentz 标量。
+
+第二项带有一个自由的 Lorentz 指标。正如我们正文讨论的那样，我们无法用一个非零的 Lorentz 不变系数将它收缩成标量，我们就只能舍去这一项。即使人为引入一个常矢量（破坏 Lorentz 不变性）作为系数，这一项也只会贡献一个全微分。
+
+至于第三项，我们可以利用 Minkowski 度规收缩两个指标，得到
+$$
+\partial_\mu\eta\partial^\mu\eta.
+$$
+你也可以认为是前面的偏导数应只是度规的常数倍。
+
+因此满足我们正文限制的、并且二次近似下的拉格朗日密度只能具有如下形式：
+$$
+\mathcal L^{(2)}[\eta]
+=a\,\partial_\mu\eta\partial^\mu\eta
++b\eta^2,
+$$
+其中 $a,b$ 是实常数。这恰好就是正文中构造的自由实标量场拉格朗日密度！
+
+不过，与正文中最初考虑的一般二次型相比，这里没有出现 $c\eta$ 这样的线性项。原因是我们要求 $\phi_0$ 本身就是 E-L 方程的解，此时作用量的一阶变分必然为零。在正文中我们并没有这个要求，所以才允许拉格朗日密度包含 $$c\phi$$。而后面通过场的重定义消去这一项，就是对应这里选取一个满足运动方程的常数场。
+
+为了更直观地理解这个结果，我们还可以考虑一个具体的例子。假设原来的拉格朗日密度为
+$$
+\mathcal L
+=-\frac12\partial_\mu\phi\partial^\mu\phi
+-\frac12m^2\phi^2
+-\frac{\lambda}{4!}\phi^4.
+$$
+其中最后一项描述了场与自身的相互作用。显然，$\phi_0=0$ 是一个满足 E-L 方程的常数背景。因此我们取 $\phi_\varepsilon=\varepsilon\eta$，代入原来的拉格朗日密度：
+$$
+\mathcal L[\phi_\varepsilon]
+=-\frac{\varepsilon^2}{2}
+\partial_\mu\eta\partial^\mu\eta
+-\frac{\varepsilon^2}{2}m^2\eta^2
+-\frac{\varepsilon^4\lambda}{4!}\eta^4.
+$$
+可以看到，原来的四次相互作用项直到 $$\varepsilon^4$$ 阶才会出现。因此，如果我们只保留到 $$\varepsilon^2$$ 阶，得到的就是
+$$
+\mathcal L^{(2)}
+=-\frac12\partial_\mu\eta\partial^\mu\eta
+-\frac12m^2\eta^2.
+$$
+这正是自由实标量场的标准拉格朗日密度。
+
+当然，当扰动逐渐增大时，更高阶的项就可能变得不可忽略，二次近似也会随之失效。因此，自由场论既可以作为一个独立的理论，也可以作为研究一般相互作用场论时的最低阶近似。
+
+最后还有一点值得强调：我们在整个推导过程中，只要求背景场 $$\phi_0$$ 是作用量的驻点，并没有要求它是稳定的。一个不稳定的经典解同样可以作为展开点，它附近的二次型理论也同样具有线性运动方程。只不过，此时某些微小扰动可能随时间指数增长，使得二次近似只能在有限的时间范围内适用。这正是我们在正文中讨论的快子不稳定性的一种来源。
+
+[返回正文](/QFT/03-classical-field-theory.mdx)

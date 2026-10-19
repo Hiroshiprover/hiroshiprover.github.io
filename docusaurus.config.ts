@@ -3,6 +3,7 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import {katexOptions} from './src/config/katex';
 
 const config: Config = {
   title: 'Hiroshiprover',
@@ -46,7 +47,7 @@ const config: Config = {
         docs: {
           sidebarPath: undefined,
           remarkPlugins: [remarkMath],
-          rehypePlugins: [rehypeKatex],
+          rehypePlugins: [[rehypeKatex, katexOptions]],
           routeBasePath: '/docs',
           includeCurrentVersion: true,
         },
@@ -56,7 +57,7 @@ const config: Config = {
           showReadingTime: true,
           blogSidebarCount: 0,
           remarkPlugins: [remarkMath],
-          rehypePlugins: [rehypeKatex],
+          rehypePlugins: [[rehypeKatex, katexOptions]],
           feedOptions: {
             type: ['rss', 'atom'],
             xslt: true,
@@ -67,7 +68,7 @@ const config: Config = {
         },
         pages: {
           remarkPlugins: [remarkMath],
-          rehypePlugins: [rehypeKatex],
+          rehypePlugins: [[rehypeKatex, katexOptions]],
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -77,11 +78,6 @@ const config: Config = {
   ],
 
   stylesheets: [
-    {
-      href: 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css',
-      type: 'text/css',
-      crossorigin: 'anonymous',
-    },
     'https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&family=Schibsted+Grotesk:wght@500;700&family=IBM+Plex+Mono&display=swap',
   ],
 

@@ -1,13 +1,13 @@
 ---
 title: 量子态与场算符
-sidebar_position: 8
+sidebar_position: 7
 hide_title: true
 ---
 # 量子态与场算符
 
 ## 1. 量子态上的 Lorentz 变换：群表示
 
-[前文](./03-lorentz-group.mdx)建立了经典场在时空变换下的规则，[经典场论（3）](./06-hamiltonian-and-noether.mdx)又把平移与能量、动量联系起来。现在考虑这些连续变换在量子态空间中的实现，用幺正算符 $U(\Lambda)$ 表示；本节限于满足下列乘法规则的变换：
+[前文](./02-lorentz-group.mdx)建立了经典场在时空变换下的规则，[经典场论（3）](./05-hamiltonian-and-noether.mdx)又把平移与能量、动量联系起来。现在考虑这些连续变换在量子态空间中的实现，用幺正算符 $U(\Lambda)$ 表示；本节限于满足下列乘法规则的变换：
 $$
 U(\Lambda_1\Lambda_2)=U(\Lambda_1)U(\Lambda_2),
 \qquad U(I)=I,
@@ -107,10 +107,10 @@ $$
 $$
 i\,\partial_t\hat\phi=[\hat\phi,\hat H].
 $$
-这就是[二次量子化](./02-second-quantization.mdx)中判断粒子数守恒时用到的海森堡运动方程。若算符还具有显式的时间依赖，运动方程中须另加该显式导数项。
+这就是海森堡运动方程，后面也会用它[判断粒子数是否守恒](./08-canonical-quantization.mdx#particle-number-change)。若算符还具有显式的时间依赖，运动方程中须另加该显式导数项。
 
 ## 4. BCH 公式
 
-两个不对易的生成元一般不能把有限变换的指数直接合并。Baker–Campbell–Hausdorff（BCH）公式给出相应的对易子展开；公式及本节用到的特殊情形见[附录 C](./appendix-mathematical-tools.mdx#c-算符指数与-bch-公式)。板书推导页缺失，附录中的级数为按上下文补写，并保留来源说明。
+两个不对易的生成元一般不能把有限变换的指数直接合并。Baker–Campbell–Hausdorff（BCH）公式给出相应的对易子展开；公式及本节用到的特殊情形见[附录 C](./appendix-mathematical-tools/03-bch-formula.mdx)。板书推导页缺失，附录中的级数为按上下文补写，并保留来源说明。
 
 本篇给出了量子场应满足的协变关系和生成元方程，还没有从经典诺特荷构造出具体的量子算符。下一篇从自由 KG 方程求出经典实场的模展开，为这种构造准备模式变量。

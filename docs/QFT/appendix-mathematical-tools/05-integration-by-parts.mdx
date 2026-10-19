@@ -1,0 +1,52 @@
+---
+title: "E. 二次量子化中的分部积分"
+sidebar_position: 7
+hide_title: true
+---
+
+# E. 二次量子化中的分部积分
+
+**对应 08 §7。**[返回正文](../08-canonical-quantization.mdx#nonrelativistic-hamiltonian)。在全空间积分并假设边界通量消失时，普通函数满足
+
+$$
+\int d^3x\,A\nabla^2B=\int d^3x\,(\nabla^2A)B.
+$$
+
+从乘积求导开始：
+
+$$
+\nabla\cdot(A\nabla B)=(\nabla A)\cdot(\nabla B)+A\nabla^2B,\qquad
+\nabla\cdot(B\nabla A)=(\nabla B)\cdot(\nabla A)+B\nabla^2A.
+$$
+
+相减后梯度乘积相消，得到
+
+$$
+A\nabla^2B-B\nabla^2A=\nabla\cdot(A\nabla B-B\nabla A).
+$$
+
+积分右侧是无穷远边界上的通量；边界项为零后，且普通函数可交换，便得到所需等式。
+
+若 $A,B$ 是算符值函数，不能交换次序。此时要证明保持顺序的等式
+
+$$
+\int d^3x\,A\nabla^2B=\int d^3x\,(\nabla^2A)B.
+$$
+
+展开下面这两个散度：
+
+$$
+\nabla\cdot(A\nabla B)=(\nabla A)\cdot(\nabla B)+A\nabla^2B,\qquad
+\nabla\cdot\bigl((\nabla A)B\bigr)=(\nabla A)\cdot(\nabla B)+(\nabla^2A)B.
+$$
+
+交叉项次序相同，相减得
+
+$$
+A\nabla^2B-(\nabla^2A)B
+=\nabla\cdot\bigl(A\nabla B-(\nabla A)B\bigr).
+$$
+
+边界通量消失后积分即可。关键是两项都让 $B$ 留在右边；通常不能把右端写成 $B\nabla^2A$。这正是 08 中把 Laplacian 依次移到产生算符和波函数上时所用的等式。
+
+human review: 放回正文

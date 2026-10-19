@@ -36,6 +36,24 @@ npm run build
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
+## Math commands
+
+Custom KaTeX macros are defined in `src/config/katex.ts` and shared by Chinese
+and English docs, blog posts, and MDX pages. Use them inside `$...$` or multiline
+`$$` blocks. KaTeX styles and fonts are bundled locally with the site.
+
+| Command | Meaning |
+| --- | --- |
+| `\bra{a}`, `\ket{b}` | Bra and ket |
+| `\braket{a}{b}` | Inner product ⟨a∣b⟩; two required arguments |
+| `\ketbra{a}{b}` | Outer product ∣a⟩⟨b∣; two required arguments |
+| `\abs{x}`, `\norm{v}` | Absolute value and norm |
+| `\C`, `\F`, `\R`, `\N`, `\Z`, `\Q` | Blackboard bold C, F, R, N, Z, Q |
+
+The delimiters resize to fit their contents. For a projector, write
+`\ketbra{\psi}{\psi}`. For an operator matrix element, write
+`\bra{\psi} A \ket{\phi}`.
+
 ## Deployment
 
 The website is hosted using GitHub Pages. 

@@ -1,0 +1,530 @@
+---
+title: 场量子化（2）：自由实标量场的量子化与粒子态
+sidebar_position: 9
+hide_title: true
+---
+
+# 场量子化（2）：自由实标量场的量子化与粒子态
+
+[上一篇](./07-field-quantization.mdx)将自由实标量场拆成了频率为 $\omega_p=\sqrt{\vec p^{\,2}+m^2}$ 的振子模式。本篇继续考虑 $m>0$；量子化时，我们把每个模式的复振幅提升为升降算符，再用它们在 Fock 空间中构造场算符、粒子态和哈密顿量，并与非相对论多粒子波函数的描述联系起来。从这里开始，$\phi$、$\pi$ 和 $a_{\vec p}$ 都是算符，沿用板书省略帽号；度规仍为 $(-+++)$，并取 $\hbar=1$。
+
+## 1. 模式算符与真空
+
+将经典展开中的 $a_{\vec p},a^*_{\vec p}$ 分别替换为湮灭算符 $a_{\vec p}$ 和产生算符 $a^\dagger_{\vec p}$，并规定
+
+$$
+[a_{\vec p},a_{\vec k}]=[a^\dagger_{\vec p},a^\dagger_{\vec k}]=0,
+\qquad
+[a_{\vec p},a^\dagger_{\vec k}]=(2\pi)^3\delta^{(3)}(\vec p-\vec k).
+$$
+
+右侧的 $(2\pi)^3$ 与模展开采用的积分测度 $d^3p/(2\pi)^3$ 相配。真空定义为被所有湮灭算符消去的态：
+
+$$
+a_{\vec p}|0\rangle=0\quad\text{for all }\vec p,
+\qquad \langle0|0\rangle=1.
+$$
+
+取厄米共轭可得 $\langle0|a^\dagger_{\vec p}=0$。稍后计算 $H$，就能验证这个态确实是自由场的最低能量态。
+
+## 2. 场算符与等时正则对易关系
+
+量子场沿用经典解的模展开，只将复共轭改为厄米共轭：
+
+$$
+\phi(x)=\int\frac{d^3p}{(2\pi)^3\sqrt{2\omega_p}}
+\left[a_{\vec p}e^{-i\omega_pt+i\vec p\cdot\vec x}
++a^\dagger_{\vec p}e^{i\omega_pt-i\vec p\cdot\vec x}\right].
+$$
+
+这个展开满足 $\phi^\dagger(x)=\phi(x)$ 和自由 KG 方程。它是 Heisenberg 绘景中的场算符；这里的 $a_{\vec p}$、$a^\dagger_{\vec p}$ 是在 $t=0$ 定义的模式算符，显式时间依赖由指数承担。由[实标量场的正则动量](./05-hamiltonian-and-noether.mdx)，$\pi=\dot\phi$，所以
+
+$$
+\pi(x)=-i\int\frac{d^3p}{(2\pi)^3}\sqrt{\frac{\omega_p}{2}}
+\left[a_{\vec p}e^{-i\omega_pt+i\vec p\cdot\vec x}
+-a^\dagger_{\vec p}e^{i\omega_pt-i\vec p\cdot\vec x}\right].
+$$
+
+在 $t=0$，对产生算符项作 $\vec p\mapsto-\vec p$，就能把两项写在同一个空间指数下：
+
+$$
+\begin{aligned}
+\phi(0,\vec x)
+&=\int\frac{d^3p}{(2\pi)^3\sqrt{2\omega_p}}
+(a_{\vec p}+a^\dagger_{-\vec p})e^{i\vec p\cdot\vec x},\\
+\pi(0,\vec x)
+&=-i\int\frac{d^3p}{(2\pi)^3}\sqrt{\frac{\omega_p}{2}}
+(a_{\vec p}-a^\dagger_{-\vec p})e^{i\vec p\cdot\vec x}.
+\end{aligned}
+$$
+
+这与单个振子的 $\hat x=(\hat a+\hat a^\dagger)/\sqrt{2\omega}$、$\hat p=-i\sqrt{\omega/2}(\hat a-\hat a^\dagger)$ 结构相同；实场的 Fourier 系数把 $\vec p$ 和 $-\vec p$ 两个标签联系起来。
+
+我们需要验证，模式算符的对易关系确实给出场与正则动量的对易关系。关键的算符组合为
+
+$$
+\begin{aligned}
+[a_{\vec p}+a^\dagger_{-\vec p},a_{\vec k}-a^\dagger_{-\vec k}]
+&=-[a_{\vec p},a^\dagger_{-\vec k}]+[a^\dagger_{-\vec p},a_{\vec k}]\\
+&=-2(2\pi)^3\delta^{(3)}(\vec p+\vec k).
+\end{aligned}
+$$
+
+将其代入双重积分，并利用 $\omega_{-p}=\omega_p$，得到
+
+$$
+\begin{aligned}
+[\phi(0,\vec x),\pi(0,\vec y)]
+&=-\frac{i}{2}\int\frac{d^3p\,d^3k}{(2\pi)^6}
+\sqrt{\frac{\omega_k}{\omega_p}}
+\left[-2(2\pi)^3\delta^{(3)}(\vec p+\vec k)\right]
+e^{i\vec p\cdot\vec x+i\vec k\cdot\vec y}\\
+&=i\int\frac{d^3p}{(2\pi)^3}e^{i\vec p\cdot(\vec x-\vec y)}
+=i\delta^{(3)}(\vec x-\vec y).
+\end{aligned}
+$$
+
+对于两个 $\phi$ 或两个 $\pi$，交叉项的符号相反，因而相消：
+
+$$
+[a_{\vec p}\pm a^\dagger_{-\vec p},a_{\vec k}\pm a^\dagger_{-\vec k}]=0.
+$$
+
+在任意共同时间 $t$ 计算时，非零交叉项中的时间相位也在 delta 函数的约束下抵消，因此得到等时正则对易关系
+
+$$
+\boxed{
+\begin{aligned}
+[\phi(t,\vec x),\pi(t,\vec y)]&=i\delta^{(3)}(\vec x-\vec y),\\
+[\phi(t,\vec x),\phi(t,\vec y)]&=[\pi(t,\vec x),\pi(t,\vec y)]=0.
+\end{aligned}}
+$$
+
+## 3. 自由场的量子哈密顿量
+
+自由实标量场的哈密顿量为
+
+$$
+H=\int d^3x\left[\frac12\pi^2+\frac12(\nabla\phi)^2+\frac{m^2}{2}\phi^2\right].
+$$
+
+由于 $H$ 守恒，可以在 $t=0$ 计算。由前面的展开，
+
+$$
+\nabla\phi(0,\vec x)=i\int\frac{d^3p}{(2\pi)^3\sqrt{2\omega_p}}
+\vec p\,(a_{\vec p}+a^\dagger_{-\vec p})e^{i\vec p\cdot\vec x}.
+$$
+
+分别代入 $\pi^2$、$(\nabla\phi)^2$ 和质量项，保留算符的原有顺序：
+
+$$
+\begin{aligned}
+H=\int d^3x\int\frac{d^3p\,d^3k}{(2\pi)^6}
+e^{i(\vec p+\vec k)\cdot\vec x}\bigg[&
+-\frac{\sqrt{\omega_p\omega_k}}{4}
+(a_{\vec p}-a^\dagger_{-\vec p})(a_{\vec k}-a^\dagger_{-\vec k})\\
+&+\frac{m^2-\vec p\cdot\vec k}{4\sqrt{\omega_p\omega_k}}
+(a_{\vec p}+a^\dagger_{-\vec p})(a_{\vec k}+a^\dagger_{-\vec k})\bigg].
+\end{aligned}
+$$
+
+空间积分产生 $(2\pi)^3\delta^{(3)}(\vec p+\vec k)$。对 $\vec k$ 积分后，$\vec k=-\vec p$，于是梯度和质量项的系数成为
+
+$$
+\frac{m^2-\vec p\cdot(-\vec p)}{4\sqrt{\omega_p\omega_{-p}}}
+=\frac{\omega_p}{4}.
+$$
+
+哈密顿量随之化为
+
+$$
+\begin{aligned}
+H=\int\frac{d^3p}{(2\pi)^3}\frac{\omega_p}{4}\big[&
+-(a_{\vec p}-a^\dagger_{-\vec p})(a_{-\vec p}-a^\dagger_{\vec p})\\
+&+(a_{\vec p}+a^\dagger_{-\vec p})(a_{-\vec p}+a^\dagger_{\vec p})\big].
+\end{aligned}
+$$
+
+展开两组乘积，$aa$ 和 $a^\dagger a^\dagger$ 项相消，剩下
+
+$$
+H=\frac12\int\frac{d^3p}{(2\pi)^3}\omega_p
+\left(a_{\vec p}a^\dagger_{\vec p}+a^\dagger_{-\vec p}a_{-\vec p}\right).
+$$
+
+对第二项重新标记 $\vec p\mapsto-\vec p$，便得到各个量子振子的哈密顿量之和：
+
+$$
+\boxed{H=\frac12\int\frac{d^3p}{(2\pi)^3}\omega_p
+\left(a_{\vec p}a^\dagger_{\vec p}+a^\dagger_{\vec p}a_{\vec p}\right).}
+$$
+
+## 4. 零点能与能量零点的选择
+
+利用 $a_{\vec p}a^\dagger_{\vec p}=a^\dagger_{\vec p}a_{\vec p}+(2\pi)^3\delta^{(3)}(\vec0)$，可将 $H$ 改写为
+
+$$
+H=\int\frac{d^3p}{(2\pi)^3}\omega_p a^\dagger_{\vec p}a_{\vec p}
++\frac12\int\frac{d^3p}{(2\pi)^3}\omega_p(2\pi)^3\delta^{(3)}(\vec0).
+$$
+
+形式上，$\int d^3x\,e^{i\vec0\cdot\vec x}=(2\pi)^3\delta^{(3)}(\vec0)$，所以板书将最后一项写为 $\rho_0V$，其中
+
+$$
+\rho_0\equiv\frac12\int\frac{d^3p}{(2\pi)^3}\omega_p,
+\qquad V\equiv\int d^3x=(2\pi)^3\delta^{(3)}(\vec0).
+$$
+
+每个振子贡献 $\omega_p/2$ 的零点能，$\rho_0$ 是这些贡献的单位体积总和。$\rho_0$ 的大动量积分发散，$V$ 则在无限空间中发散。不严谨地说，可以先把系统放在有限体积的盒子里，再给动量加上截止，使它们暂时有限；上面的 delta 函数记号是连续动量极限的形式写法。
+
+在当前固定平直背景的自由场中，可以给哈密顿量密度加一个常数 $C$，选择能量零点：
+
+$$
+\mathcal H'=\mathcal H+C,
+\qquad
+H'=H+CV
+=\int\frac{d^3p}{(2\pi)^3}\omega_p a^\dagger_{\vec p}a_{\vec p}
++(\rho_0+C)V.
+$$
+
+常数不影响场的运动方程；在量子理论中，它与所有算符对易，也不改变 Heisenberg 方程。取 $C=-\rho_0$，就在上述有限体积、动量截止下减去真空能。板书将这一步称为真空能的重整化。对这里的自由二次哈密顿量，它也等价于正规排序：将产生算符移到湮灭算符左边，并不计交换产生的常数项，以此定义 $:H:$。
+
+以下把减除后的 $H'$ 仍记为 $H$：
+
+$$
+\boxed{H=\int\frac{d^3p}{(2\pi)^3}\omega_p a^\dagger_{\vec p}a_{\vec p},
+\qquad H|0\rangle=0.}
+$$
+
+由于 $\omega_p>0$ 且 $a^\dagger_{\vec p}a_{\vec p}$ 为非负算符，真空是最低能量态。
+
+## 5. 粒子态、能量与粒子数 {/* #particles-and-number */}
+
+从真空出发，用产生算符构造态
+
+$$
+|\vec p_1,\ldots,\vec p_N\rangle
+\equiv a^\dagger_{\vec p_1}\cdots a^\dagger_{\vec p_N}|0\rangle.
+$$
+
+沿用板书，这里省略归一化；连续动量下，它们是广义本征态。由于产生算符彼此对易，交换任意两个动量标签都不改变态，这与玻色子的统计一致。
+
+要确定这些激发的能量，将 $H$ 中的湮灭算符依次移过产生算符串。每移过一个 $a^\dagger_{\vec p_j}$，就产生一个 $(2\pi)^3\delta^{(3)}(\vec p-\vec p_j)$，而最后作用在真空上的 $a_{\vec p}$ 给出零。因此
+
+$$
+a_{\vec p}a^\dagger_{\vec p_1}\cdots a^\dagger_{\vec p_N}|0\rangle
+=(2\pi)^3\sum_{j=1}^N\delta^{(3)}(\vec p-\vec p_j)
+\left(\prod_{\ell\ne j}a^\dagger_{\vec p_\ell}\right)|0\rangle.
+$$
+
+代入哈密顿量后，对 $\vec p$ 积分，前面的 $a^\dagger_{\vec p}$ 恰好补回第 $j$ 个产生算符：
+
+$$
+\begin{aligned}
+H|\vec p_1,\ldots,\vec p_N\rangle
+&=\sum_{j=1}^N\int d^3p\,\omega_p\,
+\delta^{(3)}(\vec p-\vec p_j)
+a^\dagger_{\vec p}\left(\prod_{\ell\ne j}a^\dagger_{\vec p_\ell}\right)|0\rangle\\
+&=\left(\sum_{j=1}^N\omega_{p_j}\right)|\vec p_1,\ldots,\vec p_N\rangle.
+\end{aligned}
+$$
+
+因此，一个模式的激发能量为 $\omega_p=\sqrt{\vec p^{\,2}+m^2}$，自由多粒子态的能量是各个粒子能量的总和。$a^\dagger_{\vec p}$ 每作用一次，就增加一个该模式的粒子。
+
+与能量的计算类似，定义粒子数算符
+
+$$
+\hat N=\int\frac{d^3p}{(2\pi)^3}\,a^\dagger_{\vec p}a_{\vec p}.
+$$
+
+将刚才湮灭算符作用于算符串的结果代入，便得到
+
+$$
+\begin{aligned}
+\hat N|\vec p_1,\ldots,\vec p_N\rangle
+&=\sum_{j=1}^N\int d^3p\,\delta^{(3)}(\vec p-\vec p_j)
+a^\dagger_{\vec p}\left(\prod_{\ell\ne j}a^\dagger_{\vec p_\ell}\right)|0\rangle\\
+&=N|\vec p_1,\ldots,\vec p_N\rangle.
+\end{aligned}
+$$
+
+因此，$\hat N$ 在 $\mathcal H_N$ 上的本征值就是 $N$；含有不同粒子数成分的态则未必有确定的粒子数。产生、湮灭算符与它的对易关系为
+
+$$
+[\hat N,a^\dagger_{\vec k}]=a^\dagger_{\vec k},\qquad
+[\hat N,a_{\vec k}]=-a_{\vec k}.
+$$
+
+用 $[AB,C]=A[B,C]+[A,C]B$ 展开第一个对易子，可直接验证：
+
+$$
+\begin{aligned}
+[\hat N,a^\dagger_{\vec k}]
+&=\int\frac{d^3p}{(2\pi)^3}
+\left(a^\dagger_{\vec p}[a_{\vec p},a^\dagger_{\vec k}]
++[a^\dagger_{\vec p},a^\dagger_{\vec k}]a_{\vec p}\right)\\
+&=\int\frac{d^3p}{(2\pi)^3}\,a^\dagger_{\vec p}(2\pi)^3
+\delta^{(3)}(\vec p-\vec k)=a^\dagger_{\vec k}.
+\end{aligned}
+$$
+
+第二个式子同理，由 $[a^\dagger_{\vec p},a_{\vec k}]=-(2\pi)^3\delta^{(3)}(\vec p-\vec k)$ 得到负号。这两个结果说明产生算符使粒子数加一，湮灭算符使粒子数减一。
+
+## 6. 位置表象与多粒子波函数 {/* #position-space */}
+
+也可以把湮灭算符作空间 Fourier 变换，定义
+
+$$
+a(\vec x)=\int\frac{d^3p}{(2\pi)^3}\,a_{\vec p}e^{i\vec p\cdot\vec x}.
+$$
+
+它满足
+
+$$
+\begin{aligned}
+[a(\vec x),a^\dagger(\vec y)]
+&=\int\frac{d^3p\,d^3k}{(2\pi)^6}
+e^{i\vec p\cdot\vec x-i\vec k\cdot\vec y}
+(2\pi)^3\delta^{(3)}(\vec p-\vec k)\\
+&=\int\frac{d^3p}{(2\pi)^3}e^{i\vec p\cdot(\vec x-\vec y)}
+=\delta^{(3)}(\vec x-\vec y).
+\end{aligned}
+$$
+
+这里的 $a(\vec x)$ 是 $t=0$ 模式算符的空间 Fourier 变换，满足 $a(\vec x)|0\rangle=0$。它与局域实标量场 $\phi(x)$ 是不同的对象：$\phi(x)$ 同时含有产生、湮灭算符，并带有 $1/\sqrt{2\omega_p}$ 的权重。在非相对论多粒子描述中，$a^\dagger(\vec x)$ 可以用来构造位置表象的态。
+
+完整的位置空间代数为
+
+$$
+[a(\vec x),a(\vec y)]=[a^\dagger(\vec x),a^\dagger(\vec y)]=0,
+\qquad [a(\vec x),a^\dagger(\vec y)]=\delta^{(3)}(\vec x-\vec y).
+$$
+
+这里 $\delta^{(3)}$ 满足 $\int d^3x\,\delta^{(3)}(\vec x-\vec y)f(\vec x)=f(\vec y)$。于是 $a^\dagger(\vec x)|0\rangle$ 是单粒子位置态，$a^\dagger(\vec x)a^\dagger(\vec y)|0\rangle$ 是两粒子位置态；它们与确定动量的态一样都是广义态。两个产生算符可以交换顺序，因而交换两个位置标签不改变态，符合玻色统计。
+
+以下采用薛定谔绘景，把时间依赖放在态和展开系数中，$a(\vec x)$、$a^\dagger(\vec x)$ 本身不随时间变化。用对称的系数函数叠加位置态，得到一般的 $N$ 粒子态：
+
+$$
+|\Psi_N(t)\rangle\equiv\frac{1}{\sqrt{N!}}\int d^3x_1\cdots d^3x_N\,
+\Psi(\vec x_1,\ldots,\vec x_N;t)
+a^\dagger(\vec x_1)\cdots a^\dagger(\vec x_N)|0\rangle.
+$$
+
+这里 $\Psi$ 采用通常的归一化 $\int d^{3N}x\,|\Psi|^2=1$；前面的 $1/\sqrt{N!}$ 抵消玻色对称态内积中出现的 $N!$。$\Psi$ 是态在 $N$ 粒子配置空间中的展开系数，$a(\vec x)$ 则是作用于 Fock 空间的算符，$\vec x$ 只是它的位置标签。
+
+:::info[计算技巧]
+为了把湮灭算符作用到产生算符串上，使用位置空间的对易关系：
+
+$$
+a(\vec{x})a^\dagger(\vec{x}_1)
+=\delta^{(3)}(\vec{x}-\vec{x}_1)
++a^\dagger(\vec{x}_1)a(\vec{x}).
+$$
+
+将等式作用于真空，右边第二项中的湮灭算符直接作用于真空，因而为零：
+
+$$
+a(\vec{x})a^\dagger(\vec{x}_1)|0\rangle
+=\delta^{(3)}(\vec{x}-\vec{x}_1)|0\rangle.
+$$
+
+有两个粒子时，我们把湮灭算符一步步往右移：
+
+$$
+\begin{aligned}
+&a(\vec{x})a^\dagger(\vec{x}_1)a^\dagger(\vec{x}_2)|0\rangle\\
+= \ &\delta^{(3)}(\vec{x}-\vec{x}_1)a^\dagger(\vec{x}_2)|0\rangle
++a^\dagger(\vec{x}_1)a(\vec{x})a^\dagger(\vec{x}_2)|0\rangle\\
+= \ &\delta^{(3)}(\vec{x}-\vec{x}_1)a^\dagger(\vec{x}_2)|0\rangle
++\delta^{(3)}(\vec{x}-\vec{x}_2)a^\dagger(\vec{x}_1)|0\rangle.
+\end{aligned}
+$$
+
+每一项对应湮灭其中一个粒子。对一般的 $N$ 粒子态，反复使用对易关系，得到：
+
+$$
+a(\vec{x})\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle
+=\sum_{j=1}^{N}\delta^{(3)}(\vec{x}-\vec{x}_j)
+\prod_{k\ne j}a^\dagger(\vec{x}_k)|0\rangle.
+$$
+
+其中 $\prod_{k\ne j}$ 表示略去第 $j$ 个产生算符。最后移到最右边的湮灭算符作用于真空，贡献为零。
+:::
+
+粒子数算符也可以用位置空间算符表示。代入 Fourier 展开，对位置积分，得到
+
+$$
+\begin{aligned}
+\int d^3x\,a^\dagger(\vec x)a(\vec x)
+&=\int\frac{d^3p\,d^3k}{(2\pi)^6}\,
+a^\dagger_{\vec p}a_{\vec k}\int d^3x\,e^{i(\vec k-\vec p)\cdot\vec x}\\
+&=\int\frac{d^3p}{(2\pi)^3}\,a^\dagger_{\vec p}a_{\vec p}=\hat N.
+\end{aligned}
+$$
+
+从算符串的作用公式也能看出，$\hat N$ 先湮灭一个粒子，再在同一位置产生一个粒子，并对位置积分；求和中的每一项都恢复原态，因此仍有 $\hat N|\Psi_N\rangle=N|\Psi_N\rangle$。对模式算符的对易关系作 Fourier 变换，还得到
+
+$$
+[\hat N,a^\dagger(\vec x)]=a^\dagger(\vec x),\qquad
+[\hat N,a(\vec x)]=-a(\vec x).
+$$
+
+## 7. 非相对论极限与多体哈密顿量 {/* #nonrelativistic-hamiltonian */}
+
+自由场的能量 $\omega_p=\sqrt{\vec p^{\,2}+m^2}$ 在 $|\vec p|\ll m$ 时可以展开为
+
+$$
+\omega_p=m+\frac{\vec p^{\,2}}{2m}
++O\!\left(\frac{|\vec p|^4}{m^3}\right).
+$$
+
+对只含低动量粒子的自由态，静质量项给出 $m\hat N$。自由演化保持粒子数，在固定 $N$ 子空间中这只是一个能量常数；减去它并保留动能的最低阶，得到非相对论哈密顿量
+
+$$
+H_{\mathrm{NR}}=\int\frac{d^3p}{(2\pi)^3}\,
+\frac{\vec p^{\,2}}{2m}a^\dagger_{\vec p}a_{\vec p}.
+$$
+
+下面验证它在 $\mathcal H_N$ 上给出通常的 $N$ 粒子薛定谔方程。
+
+对于 $N$ 个自由、无相互作用的非相对论粒子，波函数满足
+$$
+i\frac{\partial\Psi}{\partial t}=\hat H_s\Psi,\qquad
+\hat H_s=-\frac{1}{2m}\sum_{j=1}^{N}\nabla_j^2,
+$$
+其中下标 $s$ 标出它作用于固定粒子数的薛定谔波函数，$\nabla_j^2$ 对第 $j$ 个粒子的坐标 $\vec x_j$ 求导。沿用上一节的薛定谔绘景。
+
+为了把 $H_{\mathrm{NR}}$ 写到位置空间，代入 $a(\vec x)$ 的 Fourier 展开，并使用 $\nabla_{\vec x}^2e^{i\vec p\cdot\vec x}=-\vec p^{\,2}e^{i\vec p\cdot\vec x}$：
+
+$$
+\begin{aligned}
+\int d^3x\,a^\dagger(\vec x)
+\left(-\frac{\nabla_{\vec x}^2}{2m}\right)a(\vec x)
+&=\int\frac{d^3p\,d^3k}{(2\pi)^6}\,
+\frac{\vec k^{\,2}}{2m}a^\dagger_{\vec p}a_{\vec k}
+\int d^3x\,e^{i(\vec k-\vec p)\cdot\vec x}\\
+&=\int\frac{d^3p}{(2\pi)^3}\,
+\frac{\vec p^{\,2}}{2m}a^\dagger_{\vec p}a_{\vec p}
+=H_{\mathrm{NR}}.
+\end{aligned}
+$$
+
+这里的 $\nabla_{\vec{x}}^2$ 作用在它右边的 $a(\vec{x})$ 上。直观上，$H_{\mathrm{NR}}$ 湮灭一个粒子，对它施加单粒子的动能算符，再产生一个粒子；对所有位置积分，因此看起来的确是系统的能量。我们要证明：把第 6 节的态展开式代进去，这个算符给出的恰好是：
+
+$$
+i\frac{\partial}{\partial t}|\Psi_N(t)\rangle=H_{\mathrm{NR}}|\Psi_N(t)\rangle.
+$$
+
+为了少写一些符号，暂记
+
+$$
+dX\equiv d^3x_1\cdots d^3x_N,\qquad
+\Psi\equiv\Psi(\vec{x}_1,\ldots,\vec{x}_N;t).
+$$
+
+为了把 Laplacian 从湮灭算符移到产生算符，再移到波函数上，需要对算符值函数分部积分。边界条件与保持算符次序的完整证明见[附录 E](./appendix-mathematical-tools/05-integration-by-parts.mdx)；这里直接使用该等式。
+
+把态具体形式代入 $H_{\mathrm{NR}}|\Psi_N\rangle$，应用上面的积分等式：
+
+$$
+\begin{aligned}
+H_{\mathrm{NR}}|\Psi_N\rangle
+&=-\frac{1}{2m\sqrt{N!}}\int dX\,d^3x\,
+\Psi\,a^\dagger(\vec{x})
+\bigl(\nabla_{\vec{x}}^2a(\vec{x})\bigr)
+\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle\\
+&=-\frac{1}{2m\sqrt{N!}}\int dX\,d^3x\,
+\Psi\,\bigl(\nabla_{\vec{x}}^2a^\dagger(\vec{x})\bigr)
+a(\vec{x})\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle.
+\end{aligned}
+$$
+
+用上一节得到的湮灭算符作用公式，再做 $\vec{x}$ 积分，$\delta$ 函数会把 $\vec{x}$ 换成 $\vec{x}_j$：
+
+$$
+H_{\mathrm{NR}}|\Psi_N\rangle
+=-\frac{1}{2m\sqrt{N!}}\sum_{j=1}^{N}\int dX\,
+\Psi\,\bigl(\nabla_j^2a^\dagger(\vec{x}_j)\bigr)
+\prod_{k\ne j}a^\dagger(\vec{x}_k)|0\rangle.
+$$
+
+现在再对 $\Psi\,\bigl(\nabla_j^2a^\dagger(\vec{x}_j)\bigr)$ 部分应用积分等式（因为后面连乘中没有算符依赖于 $x_j$），并把产生算符排回原来的顺序：
+
+$$
+\begin{aligned}
+H_{\mathrm{NR}}|\Psi_N\rangle
+&=\frac{1}{\sqrt{N!}}\int dX\,
+\left(-\frac{1}{2m}\sum_{j=1}^{N}\nabla_j^2\Psi\right)
+\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle\\
+&=\frac{1}{\sqrt{N!}}\int dX\,
+(\hat H_s\Psi)\prod_{k=1}^{N}a^\dagger(\vec{x}_k)|0\rangle\\
+&=i\frac{\partial}{\partial t}|\Psi_N(t)\rangle.
+\end{aligned}
+$$
+
+最后一步用了波函数的薛定谔方程，以及前面说明的薛定谔绘景约定。
+
+所以 $\hat H_s$ 和 $H_{\mathrm{NR}}$ 给出的是同一个多粒子动力学，只是写法不同。前者作用在 $N$ 粒子波函数上，后者作用在 Fock 空间中的态上。
+
+:::note[哈密顿量厄米性的验证]
+
+对 $H_{\mathrm{NR}}$ 本身分部积分一次，可写成
+$$
+H_{\mathrm{NR}}=\frac{1}{2m}\int d^3x\,
+\sum_{i=1}^{3}\bigl(\partial_i a^\dagger(\vec{x})\bigr)
+\bigl(\partial_i a(\vec{x})\bigr).
+$$
+
+每一项都是 $B^\dagger B$ 的形式，因此在上述边界条件下，
+
+$$
+H_{\mathrm{NR}}^\dagger=H_{\mathrm{NR}}.
+$$
+:::
+
+## 8. 粒子数守恒与粒子数变化 {/* #particle-number-change */}
+
+Fock 空间容纳不同粒子数的态，并不意味着粒子数一定随时间变化。对于第 4 节的自由相对论哈密顿量，由 $[\hat N,a^\dagger_{\vec p}a_{\vec p}]=a^\dagger_{\vec p}a_{\vec p}-a^\dagger_{\vec p}a_{\vec p}=0$，得到 $[\hat N,H]=0$。非相对论哈密顿量也有同样的性质。$\hat N$ 不依赖位置标签 $\vec x$，可以把空间导数放到对易子外：
+
+$$
+\begin{aligned}
+[\hat N,H_{\mathrm{NR}}]
+&=-\frac{1}{2m}\int d^3x\,
+\left([\hat N,a^\dagger]\nabla^2a
++a^\dagger\nabla^2[\hat N,a]\right)\\
+&=-\frac{1}{2m}\int d^3x\,
+\left(a^\dagger\nabla^2a-a^\dagger\nabla^2a\right)=0.
+\end{aligned}
+$$
+
+哈密顿量生成的时间演化保持各个 $\mathcal H_N$，所以自由体系的粒子数守恒。
+
+也可以用海森堡运动方程表达守恒。由[时间平移的生成元](./06-quantum-symmetry.mdx)，对于本身没有显式时间依赖的可观测量，
+
+$$
+\frac{d\hat O_H}{dt}=i[H,\hat O_H],
+$$
+
+因此 $[\hat N,H]=0$ 就给出 $d\hat N_H/dt=0$。
+
+作为粒子数变化的形式例子，考虑加入下面的相互作用项：
+
+$$
+\hat H_{\mathrm{int}}
+=\alpha\int d^3x\,
+\left(a^\dagger a^2+(a^\dagger)^2a\right).
+$$
+
+其中 $\alpha$ 为实数。这里仍使用位置空间的产生、湮灭算符，所有算符都在同一个位置 $\vec{x}$；这个例子只用来考察粒子数，不假定它给出 Lorentz 协变的相互作用。第二项是第一项的厄米共轭，也可简写为 $a^\dagger a^2+\text{h.c.}$。
+
+$a^\dagger a^2$ 使粒子数净减少一，$(a^\dagger)^2a$ 则使粒子数净增加一。由刚才的对易关系，
+
+$$
+[\hat N,\hat H_{\mathrm{int}}]
+=\alpha\int d^3x\,
+\left(-a^\dagger a^2+(a^\dagger)^2a\right),
+$$
+
+一般不为零。因此这样的相互作用可以使态在不同粒子数的子空间之间演化。不过，并不是所有相互作用都改变粒子数，仍要看具体的哈密顿量。这个三次项只作为粒子数改变的形式例子：厄米性并不保证能量有下界，单独加入它还不能构成稳定的完整理论。
+
+{/* Lecture 7 来源：4.jpg 为模式 CCR 与真空；5.jpg 为位置空间湮灭算符；6–8.jpg 为场、正则动量及等时 CCR；9–10.jpg 为 H 的模展开；11–12.jpg 为零点能密度、体积及密度常数 C；13–14.jpg 为减除后的真空与 N 粒子能量。补充了有限体积/动量截止的解释以及当前固定平直背景的适用范围。原板书未单独定义正规排序，正文只说明自由二次 H 的等价关系。 */}
