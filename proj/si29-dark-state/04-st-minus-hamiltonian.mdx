@@ -1,0 +1,766 @@
+---
+title: 从超精细相互作用到 S–T₋ 有效哈密顿量
+slug: /si29-dark-state/st-minus-hamiltonian
+sidebar_key: st-minus-hamiltonian
+sidebar_position: 5
+---
+
+在上一篇笔记中，我们从双量子点的 Hubbard 模型出发，研究了电子之间的隧穿与库仑相互作用，并得到了交换耦合 $J(\varepsilon)$。加入外磁场后，两个有效电子的单重态与三重态发生能级分裂，而且可以通过调节失谐 $\varepsilon$，使单重态 $S$ 与三重态 $T_-$ 接近简并。
+
+现在我们把之前得到的电子—核自旋超精细相互作用加入模型，计算它在单重态与三重态之间的矩阵元，进而构造 $S$–$T_-$ 子空间中的有效哈密顿量。
+
+## 1. 电子—核自旋系统的哈密顿量
+
+### 1.1 电子与核自旋自由度
+
+先回顾上一篇得到的有效双电子哈密顿量：
+
+$$
+H_{\mathrm e}
+=J(\varepsilon)\left(
+\mathbf s_1\cdot\mathbf s_2-\frac14
+\right)
++E_Z(s_1^z+s_2^z),
+$$
+
+其中 $E_Z=g\mu_BB>0$，并且我们约定磁场沿 $+z$ 方向。
+
+它的四个自旋本征态为
+
+$$
+\begin{aligned}
+|S\rangle&=\frac{
+|\uparrow\downarrow\rangle-
+|\downarrow\uparrow\rangle}{\sqrt2},\\
+|T_+\rangle&=|\uparrow\uparrow\rangle,\\
+|T_0\rangle&=\frac{
+|\uparrow\downarrow\rangle+
+|\downarrow\uparrow\rangle}{\sqrt2},\\
+|T_-\rangle&=|\downarrow\downarrow\rangle.
+\end{aligned}
+$$
+
+相应的能量为
+
+$$
+\begin{aligned}
+E_S&=-J(\varepsilon),\\
+E_{T_+}&=E_Z,\\
+E_{T_0}&=0,\\
+E_{T_-}&=-E_Z.
+\end{aligned}
+$$
+
+这里已经将未分裂的三重态能量作为零点。
+
+另一方面，在均匀耦合近似下，电子与核自旋的超精细相互作用为
+
+$$
+H_{\mathrm{hf}}
+=\sum_{i=1}^{2}
+\frac{\mathcal A_i}{N_i}
+\mathbf s_i\cdot\mathbf J_i,
+$$
+
+其中
+
+$$
+\mathbf J_i=\sum_{k=1}^{N_i}\mathbf I_{ik}
+$$
+
+是第 $i$ 个量子点内的集体核自旋算符。
+
+为了简化记号，定义单核耦合系数
+
+$$
+a_i=\frac{\mathcal A_i}{N_i},
+$$
+
+于是
+
+$$
+\boxed{
+H_{\mathrm{hf}}
+=a_1\mathbf s_1\cdot\mathbf J_1
++a_2\mathbf s_2\cdot\mathbf J_2.
+}
+$$
+
+这里所有角动量算符均采用无量纲约定，$a_i$ 具有能量量纲。
+
+我们还需要考虑核自旋在外磁场中的 Zeeman 能量：
+
+$$
+H_{\mathrm n}
+=-g_n\mu_NB(J_1^z+J_2^z),
+$$
+
+其中 $g_n$ 和 $\mu_N$ 分别是核的 $g$ 因子和核磁子。对于 $^{29}\mathrm{Si}$，$g_n$ 为负，因此它的磁矩与核自旋方向相反[^cai2025]。
+
+这样，整个电子—核自旋系统的哈密顿量就可以写成
+
+$$
+\boxed{
+H=H_{\mathrm e}+H_{\mathrm{hf}}+H_{\mathrm n}.
+}
+$$
+
+这里省略了各项之间的张量积单位算符。例如，$H_{\mathrm e}$ 只作用于电子自旋空间，而 $H_{\mathrm n}$ 只作用于核自旋空间。
+
+### 1.2 超精细相互作用的分解
+
+为了研究电子自旋跃迁，我们把超精细相互作用中的纵向分量与横向分量分开。
+
+定义通常的角动量升降算符
+
+$$
+s_i^\pm=s_i^x\pm is_i^y,\qquad
+J_i^\pm=J_i^x\pm iJ_i^y.
+$$
+
+由此可得
+
+$$
+\mathbf s_i\cdot\mathbf J_i
+=s_i^zJ_i^z
++\frac12\left(
+s_i^+J_i^-+s_i^-J_i^+
+\right).
+$$
+
+因此，
+
+$$
+\boxed{
+\begin{aligned}
+H_{\mathrm{hf}}
+={}&\sum_{i=1}^{2}a_i s_i^zJ_i^z\\
+&+\frac12\sum_{i=1}^{2}a_i
+\left(s_i^+J_i^-+s_i^-J_i^+\right).
+\end{aligned}
+}
+$$
+
+第一项描述电子与核自旋的纵向耦合。它不改变电子与核自旋各自的 $z$ 分量。
+
+第二项包含电子与核自旋之间的角动量交换。例如，$s_i^-J_i^+$ 使电子自旋降低一个单位，同时使核自旋升高一个单位。
+
+这种过程称为 flip-flop 相互作用。
+
+特别地，我们注意到电子的单重态和 $T_-$ 满足
+
+$$
+S^z|S\rangle=0,\qquad
+S^z|T_-\rangle=-|T_-\rangle,
+$$
+
+其中 $S^z=s_1^z+s_2^z$。
+
+所以，从 $S$ 跃迁到 $T_-$ 时，电子的总自旋 $z$ 分量减少一个单位。超精细相互作用中的 $s_i^-J_i^+$ 正好可以实现这种跃迁。
+
+## 2. 超精细相互作用的矩阵元
+
+### 2.1 S–T₋ 之间的非对角矩阵元
+
+我们现在计算
+
+$$
+\langle T_-|H_{\mathrm{hf}}|S\rangle.
+$$
+
+由于 $S$ 与 $T_-$ 的总自旋 $z$ 分量不同，纵向项 $s_i^zJ_i^z$ 对这个矩阵元没有贡献。能够产生跃迁的只有 $s_i^-J_i^+$。
+
+先考虑电子 1。根据单重态的定义，
+
+$$
+\begin{aligned}
+s_1^-|S\rangle
+&=\frac1{\sqrt2}
+s_1^-\left(
+|\uparrow\downarrow\rangle-
+|\downarrow\uparrow\rangle
+\right)\\
+&=\frac1{\sqrt2}|\downarrow\downarrow\rangle\\
+&=\frac1{\sqrt2}|T_-\rangle.
+\end{aligned}
+$$
+
+因此
+
+$$
+\langle T_-|s_1^-|S\rangle
+=\frac1{\sqrt2}.
+$$
+
+对于电子 2，同样计算得到
+
+$$
+\begin{aligned}
+s_2^-|S\rangle
+&=\frac1{\sqrt2}
+s_2^-\left(
+|\uparrow\downarrow\rangle-
+|\downarrow\uparrow\rangle
+\right)\\
+&=-\frac1{\sqrt2}|\downarrow\downarrow\rangle.
+\end{aligned}
+$$
+
+所以
+
+$$
+\langle T_-|s_2^-|S\rangle
+=-\frac1{\sqrt2}.
+$$
+
+现在代回超精细哈密顿量：
+
+$$
+\begin{aligned}
+\langle T_-|H_{\mathrm{hf}}|S\rangle
+&=\frac12\sum_{i=1}^{2}
+a_i\langle T_-|s_i^-|S\rangle J_i^+\\
+&=\frac{1}{2\sqrt2}
+\left(a_1J_1^+-a_2J_2^+\right).
+\end{aligned}
+$$
+
+定义算符
+
+$$
+\boxed{
+L=\frac{1}{2\sqrt2}
+\left(a_1J_1^+-a_2J_2^+\right).
+}
+$$
+
+于是
+
+$$
+\boxed{
+\langle T_-|H_{\mathrm{hf}}|S\rangle=L.
+}
+$$
+
+由哈密顿量的厄米性，反向跃迁的矩阵元为
+
+$$
+\langle S|H_{\mathrm{hf}}|T_-\rangle
+=L^\dagger,
+$$
+
+其中
+
+$$
+L^\dagger
+=\frac{1}{2\sqrt2}
+\left(a_1J_1^--a_2J_2^-\right).
+$$
+
+这里假设超精细耦合系数 $a_i$ 为实数。
+
+注意这个结果中出现了两个量子点核自旋升降算符的差。
+
+其来源是单重态中两个自旋分量的相对负号：
+
+$$
+|S\rangle
+=\frac{|\uparrow\downarrow\rangle
+-|\downarrow\uparrow\rangle}{\sqrt2}.
+$$
+
+两个电子分别发生自旋翻转时，它们对 $S\to T_-$ 跃迁振幅的贡献符号相反。因此，决定跃迁的是两个量子点之间的横向超精细耦合差异。
+
+例如，如果两个量子点受到完全相同的横向核场，它们对单重态的作用就会相消。
+
+### 2.2 纵向超精细耦合
+
+接下来计算对角矩阵元。
+
+先考虑单重态。由于
+
+$$
+\langle S|s_1^z|S\rangle
+=\langle S|s_2^z|S\rangle=0,
+$$
+
+所以
+
+$$
+\boxed{
+\langle S|H_{\mathrm{hf}}|S\rangle=0.
+}
+$$
+
+再考虑 $T_-$。因为它的两个电子自旋都向下，
+
+$$
+\langle T_-|s_i^z|T_-\rangle
+=-\frac12.
+$$
+
+所以
+
+$$
+\begin{aligned}
+\langle T_-|H_{\mathrm{hf}}|T_-\rangle
+&=-\frac12
+\left(a_1J_1^z+a_2J_2^z\right).
+\end{aligned}
+$$
+
+定义
+
+$$
+\boxed{
+b_z=-\frac12
+\left(a_1J_1^z+a_2J_2^z\right).
+}
+$$
+
+因此
+
+$$
+\boxed{
+\langle T_-|H_{\mathrm{hf}}|T_-\rangle=b_z.
+}
+$$
+
+这就是纵向核自旋对 $T_-$ 能量产生的修正，通常称为纵向 Overhauser 场所产生的能量偏移。
+
+于是，超精细相互作用对 $S-T_-$ 子空间产生了两种不同的影响：
+
+- 纵向核自旋通过 $b_z$ 改变两个电子态的能量差。
+- 横向核自旋通过 $L$ 和 $L^\dagger$ 产生两个电子态之间的跃迁。
+
+### 2.3 为什么可以只保留 S 和 T₋？
+
+到目前为止，我们一直把电子态限制在 $S$ 与 $T_-$ 之间。但原来的双电子自旋空间还有 $T_0$ 和 $T_+$。
+
+实际上，超精细相互作用也会耦合其他电子自旋态。
+
+例如，可以计算
+
+$$
+\boxed{
+\langle T_0|H_{\mathrm{hf}}|S\rangle
+=\frac12
+\left(a_1J_1^z-a_2J_2^z\right).
+}
+$$
+
+所以两个量子点之间的纵向核场差异会耦合 $S$ 和 $T_0$。
+
+但我们关心的是交换能接近电子 Zeeman 能量的情况：
+
+$$
+J(\varepsilon)\approx E_Z.
+$$
+
+在这个区域，$S$ 与 $T_-$ 接近简并，而 $T_0$ 和 $T_+$ 仍然与它们存在大约 $E_Z$ 或更大的能量间隔。
+
+当超精细耦合相对于这些能级间隔足够弱时，我们可以将电子空间投影到
+
+$$
+\mathcal H_{ST}
+=\operatorname{span}\{|T_-\rangle,|S\rangle\}.
+$$
+
+对应的投影算符为
+
+$$
+P=|T_-\rangle\langle T_-|
++|S\rangle\langle S|.
+$$
+
+我们的有效哈密顿量就是将原来的哈密顿量限制到这个子空间：
+
+$$
+H^{ST}=PHP.
+$$
+
+下面将它的各个矩阵元组合起来。
+
+## 3. S–T₋ 有效哈密顿量
+
+### 3.1 构造二维电子哈密顿量
+
+选择电子态的有序基底
+
+$$
+\mathcal B=\{|T_-\rangle,|S\rangle\}.
+$$
+
+由于
+
+$$
+E_{T_-}=-E_Z,\qquad E_S=-J(\varepsilon),
+$$
+
+所以两者的能量差为
+
+$$
+\boxed{
+\Delta E_{ST}(\varepsilon)
+=E_{T_-}-E_S
+=J(\varepsilon)-E_Z.
+}
+$$
+
+以单重态的能量为零点，电子哈密顿量可写成
+
+$$
+H_{\mathrm e}^{ST}
+=\begin{pmatrix}
+\Delta E_{ST}&0\\
+0&0
+\end{pmatrix}.
+$$
+
+再加入刚才计算的超精细耦合：
+
+$$
+H_{\mathrm{hf}}^{ST}
+=\begin{pmatrix}
+b_z&L\\
+L^\dagger&0
+\end{pmatrix}.
+$$
+
+因此，得到
+
+$$
+\boxed{
+H^{ST}
+=\begin{pmatrix}
+\Delta E_{ST}+b_z&L\\
+L^\dagger&0
+\end{pmatrix}.
+}
+$$
+
+其中
+
+$$
+\boxed{
+\begin{aligned}
+L&=\frac{1}{2\sqrt2}
+\left(a_1J_1^+-a_2J_2^+\right),\\
+b_z&=-\frac12
+\left(a_1J_1^z+a_2J_2^z\right).
+\end{aligned}
+}
+$$
+
+这已经是我们需要的 $S-T_-$ 有效哈密顿量。
+
+这里还有一个与普通二能级系统不同的地方：矩阵中的 $L$ 和 $b_z$ 本身也是作用于核自旋 Hilbert 空间的算符。
+
+所以这个矩阵虽然只有两行两列，但它描述的是电子与核自旋共同组成的量子系统。
+
+如果把核自旋的 Zeeman 项也加入，完整的有效哈密顿量可以写成
+
+$$
+\boxed{
+H_{\mathrm{tot}}^{ST}
+=
+\begin{pmatrix}
+\Delta E_{ST}+b_z&L\\
+L^\dagger&0
+\end{pmatrix}
++\mathbb1_{\mathrm e}\otimes H_{\mathrm n}.
+}
+$$
+
+其中第一个矩阵的各个元素均作用于核自旋空间，$\mathbb1_{\mathrm e}$ 是二维电子空间上的单位算符。
+
+### 3.2 与蔡老师论文的记号对应
+
+现在对照蔡老师论文 Methods 中的 Simulation 和 Theoretical model 两节[^cai2025]。
+
+论文采用的电子基底顺序同样是
+
+$$
+\{|T_-\rangle,|S\rangle\},
+$$
+
+并将哈密顿量写成
+
+$$
+\boxed{
+H^{ST}
+=\begin{pmatrix}
+\Delta E_{ST}+v^z&v^+\\
+v^-&0
+\end{pmatrix}.
+}
+$$
+
+这里先只比较电子哈密顿量以及超精细耦合部分；核自身的进动在论文的核自旋动力学方程中另外处理。
+
+论文还定义了两个量子点中核自旋的平均角动量：
+
+$$
+\mathbf I_i=\frac1{N_i}\sum_{k=1}^{N_i}\mathbf I_{ik}
+=\frac{\mathbf J_i}{N_i}.
+$$
+
+另外，论文中的升降分量采用了如下归一化：
+
+$$
+I_i^\pm=\frac{I_i^x\pm iI_i^y}{\sqrt2}.
+$$
+
+因此，与我们之前使用的标准角动量升降算符相比，这里多了一个 $1/\sqrt2$。
+
+如果取两个量子点相同的有效总超精细参数
+
+$$
+\mathcal A_1=\mathcal A_2=\bar A,
+$$
+
+那么
+
+$$
+\begin{aligned}
+L
+&=\frac{\bar A}{2\sqrt2}
+\left(
+\frac{J_1^+}{N_1}
+-\frac{J_2^+}{N_2}
+\right)\\
+&=\frac{\bar A}{2}
+\left(I_1^+-I_2^+\right).
+\end{aligned}
+$$
+
+同样，
+
+$$
+b_z=-\frac{\bar A}{2}
+\left(I_1^z+I_2^z\right).
+$$
+
+于是我们得到了论文的表达式：
+
+$$
+\boxed{
+\begin{aligned}
+v^\pm&=\frac{\bar A}{2}
+\left(I_1^\pm-I_2^\pm\right),\\
+v^z&=-\frac{\bar A}{2}
+\left(I_1^z+I_2^z\right).
+\end{aligned}
+}
+$$
+
+这与论文 Methods 中的公式一致。
+
+需要注意本文此前用 $\mathcal A_i$ 表示能量单位的耦合参数，而论文的数值模拟将能量以 GHz 频率表示。之后如果直接使用论文给出的 $\bar A$ 数值，需要统一能量、频率以及时间的单位。
+
+### 3.3 电子轨道与超精细矩阵元
+
+我们这里从局域的双电子自旋模型出发，直接得到了 $L$ 和 $b_z$。
+
+回忆上一篇笔记，靠近 $(1,1)$–$(2,0)$ 电荷转移区时，低能单重态实际上还包含电荷混合：
+
+$$
+|S_g\rangle
+=\cos\theta\,|S(1,1)\rangle
++\sin\theta\,|S(2,0)\rangle.
+$$
+
+因此，在更完整的模型中，超精细矩阵元还会受到电子轨道空间分布的影响。
+
+蔡老师论文的 Theoretical model 部分先使用单重态和三重态的空间波函数计算超精细矩阵元，然后引入核位置上的轨道权重，最后采用不重叠的 box-like 电子波函数，得到上面的 $v^\pm$ 和 $v^z$。
+
+也就是说，论文使用的 $\bar A$ 和核自旋平均量，已经是在一定轨道近似下得到的有效模型参数。
+
+我们后续进行核自旋量子计算时，可以先沿用论文的均匀耦合模型，把这些参数作为输入。
+
+## 4. 有效哈密顿量的物理意义
+
+### 4.1 纵向核场改变共振位置
+
+我们现在得到了
+
+$$
+H^{ST}
+=\begin{pmatrix}
+\Delta E_{ST}+b_z&L\\
+L^\dagger&0
+\end{pmatrix}.
+$$
+
+先考虑纵向核场。
+
+如果暂时将核自旋看作具有确定方向的经典矢量，$b_z$ 就是一个实数。此时两个电子态的有效能量差为
+
+$$
+\delta_{\mathrm{eff}}
+=\Delta E_{ST}+b_z.
+$$
+
+因此，两个电子态发生共振的条件变成
+
+$$
+\boxed{
+J(\varepsilon)-E_Z+b_z=0.
+}
+$$
+
+在没有核极化时，共振位置由 $J(\varepsilon)=E_Z$ 决定。
+
+随着核自旋的纵向极化发生变化，$b_z$ 也会改变，从而移动共振位置。
+
+这正是实验中可以通过测量 $S-T_-$ 共振位置，观察动态核极化的原因之一[^cai2025]。
+
+### 4.2 横向耦合产生避免交叉
+
+现在考虑横向超精细耦合。
+
+同样先把核场当作固定的经典量，记非对角耦合为复数 $v$。于是得到普通的二能级哈密顿量
+
+$$
+H_{\mathrm{cl}}^{ST}
+=\begin{pmatrix}
+\delta_{\mathrm{eff}}&v\\
+v^*&0
+\end{pmatrix}.
+$$
+
+它的两个本征值为
+
+$$
+E_\pm
+=\frac{\delta_{\mathrm{eff}}
+\pm\sqrt{\delta_{\mathrm{eff}}^2+4|v|^2}}{2}.
+$$
+
+因此能级间隔为
+
+$$
+\boxed{
+E_+-E_-=
+\sqrt{\delta_{\mathrm{eff}}^2+4|v|^2}.
+}
+$$
+
+在共振位置 $\delta_{\mathrm{eff}}=0$，能级间隔达到最小值：
+
+$$
+\boxed{
+E_+-E_-=2|v|.
+}
+$$
+
+所以，横向超精细耦合使原来的 $S-T_-$ 能级交叉变成避免交叉。
+
+蔡老师论文中将横向耦合的绝对值记为
+
+$$
+\Delta_{ST}=|v^\pm|.
+$$
+
+按照这一约定，避免交叉的最小能隙为 $2\Delta_{ST}$[^cai2025]。
+
+由于两个量子点的横向核场可以随着时间改变，$\Delta_{ST}$ 也会随之变化。
+
+现在如果恢复核自旋的量子描述，非对角项就是之前定义的算符 $L$。我们需要在电子—核联合 Hilbert 空间中求解动力学，不能直接把算符 $L$ 当成固定的复数代入上面的二能级能谱。
+
+不过这个经典二能级结果仍然非常有用，因为它告诉我们电子跃迁主要受到哪些物理量的控制。
+
+### 4.3 电子与核自旋之间的角动量转移
+
+最后，我们再观察一次非对角耦合：
+
+$$
+L=\frac1{2\sqrt2}
+\left(a_1J_1^+-a_2J_2^+\right).
+$$
+
+整个电子—核自旋系统的总 $z$ 分量为
+
+$$
+M^z=s_1^z+s_2^z+J_1^z+J_2^z.
+$$
+
+对于目前考虑的交换、Zeeman 和各向同性超精细相互作用，可以直接验证
+
+$$
+\boxed{
+[H,M^z]=0.
+}
+$$
+
+这说明在没有额外自旋非守恒相互作用的情况下，电子与核自旋之间可以交换角动量，但整个系统的总 $z$ 分量守恒。
+
+例如，电子从单重态跃迁到 $T_-$：
+
+$$
+|S\rangle\longrightarrow|T_-\rangle.
+$$
+
+电子的总自旋 $z$ 分量变化为
+
+$$
+\Delta S^z=-1.
+$$
+
+相应地，核自旋系统需要满足
+
+$$
+\Delta J^z=+1.
+$$
+
+这正好对应 $L$ 中的核自旋升算符。
+
+所以每一次通过超精细相互作用发生的 $S\to T_-$ 跃迁，都伴随着核自旋角动量的变化。
+
+如果我们反复把电子初始化到 $S$，再驱动它发生 $S\to T_-$ 跃迁，就可以不断地向核自旋系统转移角动量。
+
+这就是双量子点中动态核极化（dynamic nuclear polarization，DNP）的基本机制。
+
+## 5. 下一步：含时扫描
+
+至此，我们已经得到了蔡老师论文使用的核心电子有效哈密顿量：
+
+$$
+\boxed{
+H^{ST}
+=\begin{pmatrix}
+\Delta E_{ST}+v^z&v^+\\
+v^-&0
+\end{pmatrix}.
+}
+$$
+
+其中
+
+$$
+\Delta E_{ST}=J(\varepsilon)-E_Z.
+$$
+
+由于 $J$ 依赖于栅极控制的失谐 $\varepsilon$，如果让失谐随时间变化，
+
+$$
+\varepsilon=\varepsilon(t),
+$$
+
+那么电子态之间的能量差也会随时间变化：
+
+$$
+\Delta E_{ST}(t)
+=J[\varepsilon(t)]-E_Z.
+$$
+
+这样就得到一个含时二能级问题。
+
+如果扫描经过 $S-T_-$ 共振位置，系统就可能通过横向超精细耦合，在两个电子态之间发生跃迁。
+
+这种扫描可以使用 Landau–Zener 理论描述。下一篇我们将从普通的含时二能级模型出发，推导跃迁概率与扫描速度、耦合强度之间的关系，再讨论如何将这一过程用于反复泵浦核自旋。
+
+[^cai2025]: X. Cai, H. Y. Walelign, and J. M. Nichol,
+    *The formation of a nuclear-spin dark state in silicon*,
+    Nature Physics **21**, 536–541 (2025).
+    [DOI](https://doi.org/10.1038/s41567-024-02773-w)；[arXiv 全文](https://arxiv.org/html/2405.14922v2)。

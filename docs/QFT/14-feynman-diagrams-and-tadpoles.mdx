@@ -1,0 +1,187 @@
+---
+title: 微扰展开、Feynman 图与蝌蚪项
+sidebar_position: 15
+hide_title: true
+---
+
+# 微扰展开、Feynman 图与蝌蚪项
+
+[上一篇](./13-schwinger-dyson-ward-wick.mdx)从 Schwinger–Dyson 方程得到了自由场关联函数的配对规则。现在加入相互作用，看看怎样用自由场的传播子逐阶计算关联函数。我们先算 $\phi^3$ 理论中的二点函数，再把结果写成 Feynman 图，最后讨论如何满足之前使用的真空期望值条件 $\langle\Omega|\phi|\Omega\rangle=0$。
+
+## 1. 从二点函数开始
+
+取标准动能项和三次相互作用，
+
+$$
+\mathcal L=-\frac12(\partial\phi)^2-\frac{m^2}{2}\phi^2-V_{\rm int}(\phi),
+\qquad
+V_{\rm int}=\frac{g}{3!}\phi^3,
+\qquad
+V'_{\rm int}=\frac{g}{2}\phi^2.
+$$
+
+$g$ 称为耦合常数，$1/3!$ 是方便计数组合因子的约定。本节把 $g$ 当作微扰展开参数，先在 $g=0$ 的自由理论中计算，再逐阶加入相互作用。这里的实 $\phi^3$ 势作为形式微扰的例子；其势能无下界，计算不依赖把它当作完整的稳定理论。四维中 $g$ 有质量量纲，微扰是否适用要与问题中的能量尺度比较。
+
+沿用上一篇的记号：$\phi_x=\phi(x)$，$D_{xy}=D_F(x-y)$；尖括号表示相互作用真空中归一化的编时关联函数，重复的连续坐标表示积分。自由真空的关联函数另记为 $\langle\cdots\rangle_0$。传播子满足
+
+$$
+(\Box_x-m^2)D_{xy}=\ii\delta^{(4)}(x-y).
+$$
+
+在 Feynman 边界条件下，将上一篇的传播子恒等式和 Schwinger–Dyson 方程用于二点函数，得到
+
+$$
+\begin{aligned}
+\langle\phi_1\phi_2\rangle
+&=-\ii D_{x1}(\Box_x-m^2)\langle\phi_x\phi_2\rangle\\
+&=-\ii D_{x1}\left(\frac g2\langle\phi_x^2\phi_2\rangle
++\ii\delta_{x2}\right)\\
+&=D_{12}-\frac{\ii g}{2}D_{x1}\langle\phi_x^2\phi_2\rangle.
+\end{aligned}
+$$
+
+右边的三点函数仍属于相互作用理论。再对其中 $x_2$ 处的场应用同样的方法：
+
+$$
+\begin{aligned}
+\langle\phi_x^2\phi_2\rangle
+&=-\ii D_{y2}(\Box_y-m^2)\langle\phi_x^2\phi_y\rangle\\
+&=-\frac{\ii g}{2}D_{y2}\langle\phi_x^2\phi_y^2\rangle
++2D_{x2}\langle\phi_x\rangle.
+\end{aligned}
+$$
+
+接触项前的 $2$ 来自 $y$ 处的场可以分别碰到 $\phi_x^2$ 中的两个场。代回去，
+
+$$
+\langle\phi_1\phi_2\rangle
+=D_{12}-\frac{g^2}{4}D_{x1}D_{y2}\langle\phi_x^2\phi_y^2\rangle
+-\ii gD_{x1}D_{x2}\langle\phi_x\rangle.
+$$
+
+要得到 $g^2$ 阶结果，只需知道四点函数的零阶和单点函数的一阶。单点函数的场方程给出
+
+$$
+\begin{aligned}
+\langle\phi_x\rangle
+&=-\ii D_{xy}(\Box_y-m^2)\langle\phi_y\rangle\\
+&=-\frac{\ii g}{2}D_{xy}\langle\phi_y^2\rangle_0+O(g^2)
+=-\frac{\ii g}{2}D_{xy}D_{yy}+O(g^2).
+\end{aligned}
+$$
+
+四点函数的零阶则由 Wick 定理计算。同点场先分别视为参与配对的两个场，最后再令坐标相同：
+
+$$
+\langle\phi_x^2\phi_y^2\rangle_0
+=D_{xx}D_{yy}+2D_{xy}^2.
+$$
+
+第一项是 $x$ 点的两个场彼此配对、$y$ 点的两个场彼此配对；后两种配对都连接 $x$ 和 $y$，所以给出系数 $2$。代回后得到
+
+$$
+\boxed{
+\begin{aligned}
+\langle\phi_1\phi_2\rangle
+=D_{12}-g^2\biggl[&\frac14 D_{x1}D_{y2}D_{xx}D_{yy}
++\frac12 D_{x1}D_{y2}D_{xy}^2\\
+&+\frac12 D_{x1}D_{x2}D_{xy}D_{yy}\biggr]+O(g^3).
+\end{aligned}}
+$$
+
+这还是未加入线性 counterterm 的结果。$D_{xx}=D_F(0)$ 是同点传播子，包含紫外发散；上面的同点乘积和积分应先采用同一种正则化，再讨论重整化。
+
+## 2. 从公式到图
+
+将每个传播子 $D_{ab}$ 画成连接 $a$、$b$ 的线，三次相互作用则对应三条线相接的顶点。上式中三个 $g^2$ 项依次对应下图；端点 $1,2$ 是固定的外点，内部顶点 $x,y$ 要积分。
+
+<svg viewBox="0 0 840 180" role="img" aria-label="三次相互作用二点函数的三个二阶图：两个分离蝌蚪、两条内部线组成的环、带蝌蚪支路的连通图" style={{maxWidth: '100%', height: 'auto'}}>
+  <g fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M 25 95 L 100 95 M 175 95 L 250 95" />
+    <circle cx="100" cy="70" r="25" /><circle cx="175" cy="70" r="25" />
+    <path d="M 300 95 L 350 95 M 440 95 L 490 95 M 350 95 Q 395 20 440 95 M 350 95 Q 395 170 440 95" />
+    <path d="M 550 95 L 720 95 M 635 95 L 635 55" /><circle cx="635" cy="30" r="25" />
+  </g>
+  <g fill="currentColor">
+    <circle cx="25" cy="95" r="3" /><circle cx="100" cy="95" r="3" /><circle cx="175" cy="95" r="3" /><circle cx="250" cy="95" r="3" />
+    <circle cx="300" cy="95" r="3" /><circle cx="350" cy="95" r="3" /><circle cx="440" cy="95" r="3" /><circle cx="490" cy="95" r="3" />
+    <circle cx="550" cy="95" r="3" /><circle cx="635" cy="95" r="3" /><circle cx="635" cy="55" r="3" /><circle cx="720" cy="95" r="3" />
+  </g>
+  <g fill="currentColor" fontSize="16" textAnchor="middle">
+    <text x="25" y="120">1</text><text x="100" y="120">x</text><text x="175" y="120">y</text><text x="250" y="120">2</text>
+    <text x="300" y="120">1</text><text x="350" y="120">x</text><text x="440" y="120">y</text><text x="490" y="120">2</text>
+    <text x="550" y="120">1</text><text x="635" y="120">x</text><text x="655" y="55">y</text><text x="720" y="120">2</text>
+    <text x="138" y="155">(a) S = 4</text><text x="395" y="155">(b) S = 2</text><text x="635" y="155">(c) S = 2</text>
+  </g>
+</svg>
+
+图 (a) 有两个各自连接一个外点的部分，因此是非连通图；它对应 $\langle\phi_1\rangle\langle\phi_2\rangle$ 的最低阶贡献。图 (b) 的两条内部线给出 $D_{xy}^2$。图 (c) 的 $y$ 点有一条两端都落在自身的线，给出 $D_{yy}$。图中线的形状可以改变，重要的是哪些点由线连接。
+
+这些图的系数可以直接从前面的 Wick 收缩得到，也可以用下面的图规则计算。对于 $V_{\rm int}=g\phi^n/n!$，要计算 $N$ 点函数到给定阶数：
+
+1. 画出带有固定标签的 $N$ 个外点；每个外点接一条线。第 $v$ 阶画 $v$ 个内部顶点，每个顶点接 $n$ 条线，列出不同的连接方式。
+2. 每条连接 $a,b$ 的线给出 $D_{ab}$，每个内部顶点给出 $-\ii g$，并对每个内部坐标积分。
+3. 将每张图的结果除以它的**对称因子** $S$，再把各图相加。
+
+这里计算归一化的关联函数：没有任何外点的真空泡与真空归一化抵消；像图 (a) 这样各部分都含外点的非连通图仍要保留。若只计算连通关联函数，则只取连通图。对于多个不同的实标量场，顶点由相互作用项决定；例如 $g\phi^n\chi^m/(n!m!)$ 的顶点有 $n$ 条 $\phi$ 线和 $m$ 条 $\chi$ 线。它们各自的传播子以及能否相互收缩由自由理论决定。
+
+## 3. 对称因子
+
+把外点标签固定，$S$ 统计保持图的连接关系及线的种类不变的内部置换，包括交换相同的内部线，以及交换自环的两个端点。相互作用中的 $1/n!$ 已经抵消了每个顶点处同种场排列的一部分计数；剩下的重复由 $S$ 处理。
+
+在上面的例子里：
+
+- 图 (a) 的两个自环各有两种端点交换，故 $S=2\times2=4$。
+- 图 (b) 中连接 $x,y$ 的两条线可以交换，故 $S=2$。
+- 图 (c) 的自环有两种端点交换，故 $S=2$。
+
+于是每张图的两个顶点贡献 $(-\ii g)^2=-g^2$，再除以各自的 $S$，就得到第 1 节的 $1/4$、$1/2$ 和 $1/2$。其他例子也可以这样数：两个固定外点之间，若两个内部顶点由三条相同的线连接，则这三条线可任意交换，$S=3!$；如果一条单独支路的末端有两个相同的自环，则两个自环各能翻转、还可以彼此交换，给出 $S=2\cdot2\cdot2=8$。这些例子中的顶点阶数由各自相互作用决定。
+
+## 4. 蝌蚪项抵消
+
+第 1 节的单点函数给出了一个问题：纯 $\phi^3$ 相互作用产生
+
+$$
+\langle\phi_x\rangle
+=-\frac{\ii g}{2}D_{xy}D_{yy}+O(g^2),
+$$
+
+这一般不为零。它的图是一条从外点通向顶点的线，顶点上的另外两条腿彼此收缩成自环，形状像蝌蚪。为了施加[LSZ 讨论](./12-lsz-formula.mdx)中采用的归一化条件 $\langle\Omega|\phi(x)|\Omega\rangle=0$，在拉格朗日量中加入线性 counterterm：
+
+$$
+\mathcal L=-\frac12(\partial\phi)^2-\frac{m^2}{2}\phi^2
+-\frac{g}{3!}\phi^3+Y\phi.
+$$
+
+将 $Y$ 视为从 $g$ 阶开始的系数。新的单腿顶点给出 $+\ii Y$；到一阶时，单点函数成为
+
+$$
+\langle\phi_x\rangle
+=-\frac{\ii g}{2}D_{xy}D_{yy}+\ii YD_{xy}+O(g^2).
+$$
+
+在保持平移不变的正则化下，$D_{yy}=D_F(0)$ 与 $y$ 无关。选择
+
+$$
+\boxed{Y=\frac g2 D_F(0)+O(g^2)}
+$$
+
+就抵消了这一阶的单点函数。这是 **tadpole cancellation**（蝌蚪项抵消）；更高阶需要继续按同一条件确定 $Y$。形式上，板书中的同点传播子写为
+
+$$
+D_F(0)=-\ii\int\frac{\dd^4p}{(2\pi)^4}
+\frac{1}{p^2+m^2-\ii\epsilon}.
+$$
+
+这个积分发散，所以 $Y$ 的表达式需要与传播子使用同一正则化；不能把 $D_F(0)$ 当成未经处理的有限常数。
+
+把新顶点也计入二点函数时，$Y$ 的贡献会抵消第 2 节图 (a) 和图 (c) 中相应的单点蝌蚪子图。在当前所写的相互作用和这一阶下，剩下的是自由传播子和图 (b) 的环修正：
+
+$$
+\langle\phi_1\phi_2\rangle
+=D_{12}-\frac{g^2}{2}D_{x1}D_{y2}D_{xy}^2+O(g^3).
+$$
+
+这一步也说明，施加 $\langle\phi\rangle=0$ 要靠选择相应的参数；直接从未加 counterterm 的 $\phi^3$ 拉格朗日量出发时，不能预先把单点函数设为零。
+
+{/* Lecture 14 板书：IMG_8792–8793 复习 Wick 定理；8796–8800 推导二点函数及图；8802–8806 给出图规则和对称因子；8806–8810 讨论蝌蚪抵消。编号有跳号，以上为目录中实际存在的全部照片；公式中的图形解释、正则化与形式微扰说明为整理时补充。 */}

@@ -1,5 +1,688 @@
 ---
 title: "Classical Field Theory (1): Real Scalar Field"
+sidebar_position: 4
+hide_title: true
 ---
+# Classical Field Theory (1): Real Scalar Field
 
-{/* English translation placeholder. */}
+## 1. Action and Lagrangian Density
+
+In the previous chapter we introduced the concept of a field, and how Lorentz transformations act on fields. Now we come back to the dynamics of the field. Following the example given at the very beginning of the previous chapter, we introduce the Lagrangian density:
+$$
+L[\phi]=\int d^3x\,\mathcal L[\phi],
+$$
+Unlike in the previous chapter, here we do not start from a concrete physical model to write down the Lagrangian; instead we start from an arbitrary abstract field. To get the action we still have to integrate over time, so the action is a functional of the field:
+$$
+S[\phi]=\int dt\,L[\phi]
+=\int dt\,d^3x\,\mathcal L[\phi]
+=\int d^4x\,\mathcal L[\phi].
+$$
+
+Most generally, $\mathcal L$ can depend on $\phi$, on derivatives of various orders, and on the coordinates:
+$$
+\mathcal L=\mathcal L(\phi,\partial_\mu\phi,\partial_\mu\partial_\nu\phi,\dots,x^\mu)
+$$
+This does not mean that $\mathcal{L}$ is restricted to a polynomial in the coordinates, $\phi$ and its derivatives: it can perfectly well be an infinite series, converging to some particular function (or even failing to converge outright). For example:
+$$
+\mathcal{L}[\phi] = e^{\phi} = \sum_{n=0}^\infty \frac{(\phi)^n}{n!},
+$$
+Here, for simplicity, we have temporarily ignored the question of dimensions. Although the right-hand side contains infinitely many terms, each term depends only on the field value at the same point, so it is still a local Lagrangian density. For a real scalar field it is even Lorentz invariant. Whether it can on its own give a sensible dynamical theory is another question.
+
+We can even take a Lagrangian density of functional form, for example:
+$$
+\mathcal{L}[\phi](x) = \frac{1}{V} \int_{B_r(x)} d^4y\, \phi(y),
+$$
+where $B_r(x)$ is the four-dimensional (Euclidean) ball centred at the point $x$ with radius $r$, divided by the volume $V$ for normalization. Formally it can also be written as a series in derivatives of the field of various orders; we will not write it out.
+
+But this functional Lagrangian is usually not the physical choice: it violates the locality discussed in our first chapter; and the second example is not even Lorentz invariant, because the four-dimensional ball of the integration region changes shape under a Lorentz transformation. Although certain nonlocal Lagrangian densities can serve as the starting point of some effective theories, our baby course will not consider such cases. So we need to restrict the form of the Lagrangian density.
+
+:::note
+In fact, the Lagrangian density need not even be related to a field: consider a classical point particle with position $\mathbf q(t)$ and Lagrangian
+$$
+L(\mathbf q,\dot{\mathbf q},t)
+=\frac12m\dot{\mathbf q}^{\,2}-V(\mathbf q,t).
+$$
+We define a Lagrangian density in the form of a distribution:
+$$
+\mathcal L(t,\mathbf x)
+=L(\mathbf q(t),\dot{\mathbf q}(t),t)
+\delta^{(3)}(\mathbf x-\mathbf q(t)).
+$$
+Here $\delta^{(3)}$ is the three-dimensional Dirac $\delta$ function. This Lagrangian density obviously gives the single-particle Lagrangian of classical mechanics, so it is a legitimate definition; it is just unrelated to a field. A relativistic Lagrangian density for a point particle can also be constructed in a similar way.
+
+More generally, if a Lagrangian density satisfying the requirements given below also contains $\delta(x)$, we can sometimes regard it as the system having a "point source". We will discuss this in detail later.
+:::
+
+### Locality
+
+Locality requires the value of the Lagrangian density at a point to depend only on the field at that point and its derivatives up to finite order. For example,
+$$
+\mathcal L=\phi^2(x)+\partial_0\phi(x)+\phi(x)\partial_1\phi(x)
+$$
+is local; whereas
+$$
+\mathcal L=\phi(x)\phi(x+a)
+$$
+depends on the field at two different positions at once, and is therefore nonlocal.
+
+Note that although some nonlocal expressions can be formally expanded as a series in the field and its derivatives of infinite order, this does not mean they are local (take the example from the beginning). The local Lagrangian densities we consider here depend only on derivatives up to finite order.
+
+### Order of Derivatives
+For a local Lagrangian density, following the hint from the crystal example of the previous chapter, we further require that it depend at most on first derivatives of the field:
+$$
+\mathcal L=\mathcal L(x^\mu,\phi,\partial_\mu\phi).
+$$
+In fact there is no reason for this requirement (); it is only because we want the equations of motion to be at most second order. From the Euler–Lagrange equation of classical mechanics:
+$$
+\frac{\partial L}{\partial q} - \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}}\right) = 0
+$$
+you can see that: if the Lagrangian contains higher derivatives of the generalized coordinates, and is non-degenerate (the counterexample is adding just a $\ddot{q}$, which is merely an ordinary total derivative and disappears on variation), then in general the second term produces higher time derivatives in the equation of motion. The situation in field theory is similar; we will derive the E–L equation for fields later.
+
+Equations of motion of higher order are not in principle unsolvable, but they require more initial conditions, hence more degrees of freedom; and the solutions may have stability problems. In particular, for non-degenerate theories with higher time derivatives, Ostrogradsky's theorem shows that the Hamiltonian is unbounded below, so instabilities are very likely.
+
+We can of course cleverly construct a Lagrangian such that, even if it contains higher-derivative terms, it still gives second-order equations of motion; in some effective theories higher-derivative terms also frequently appear as corrections to the low-energy approximation. But this is not what our baby course is concerned with. We therefore restrict the discussion for the moment to Lagrangian densities containing at most first derivatives.
+
+:::note
+Strictly speaking, if the Lagrangian contains higher derivatives, we should not use this E–L equation at all: the neat form relies on our having assumed, when varying, that $L$ depends on $q$ only up to first derivatives. For example: if $L=L(q, \dot{q}, \ddot{q}, t)$, then the E–L equation reads
+$$
+\frac{\partial L}{\partial q}-\frac{d}{dt} \left(\frac{\partial L}{\partial \dot{q}}\right) +\frac{d^2}{dt^2}\left(\frac{\partial L}{\partial \ddot{q}}\right)=0.
+$$
+You can see that if $L$ does not contain $\ddot{q}$, it reduces to the ordinary E–L equation; the same holds for fields. We will not carry out this derivation.
+:::
+
+### Translation Invariance
+
+Translation invariance requires the action to be invariant under spacetime translations. For a local Lagrangian density, a simple sufficient condition is that it not contain the spacetime coordinates $x^\mu$ explicitly, i.e.
+$$
+\mathcal L=\mathcal L(\phi,\partial_\mu\phi).
+$$
+For example,
+$$
+\mathcal L=\phi^2(x)+t\phi(x)
+$$
+contains the time coordinate explicitly, and therefore generally breaks time-translation invariance.
+What is meant here by "not containing the coordinates explicitly" is that the Lagrangian density has no coordinate dependence independent of the field and its derivatives. The field itself is of course still a function of $x^\mu$.
+:::note
+More generally, if under a spacetime translation the Lagrangian density changes only by a total divergence, then under suitable boundary conditions the action still has translation invariance. We will explain this further in the discussion of Noether's theorem.
+:::
+
+### Lorentz Invariance
+
+Lorentz invariance requires the action to be invariant under Lorentz transformations. Since the four-dimensional integration measure $d^4x$ of spacetime is invariant under Lorentz transformations, it suffices for the Lagrangian density to be a Lorentz scalar to guarantee that the action is Lorentz invariant.
+For example, for a real scalar field, $\phi$ itself is a Lorentz scalar while $\partial_\mu\phi$ is a covariant four-vector. Therefore,
+$$
+\mathcal L=\phi^2+\partial_\mu\phi\,\partial^\mu\phi
+$$
+is a Lorentz scalar; but
+$$
+\mathcal L=\phi^2+\partial_0\phi\,\partial_1\phi
+$$
+the second term singles out two particular components of a four-vector, and does not have Lorentz invariance.
+
+## 2. The Euler–Lagrange Equation
+
+As in classical mechanics, the true evolution of a field should also satisfy the principle of least action: the true field makes the action stationary, i.e. $\delta S=0$.
+
+To this end, we consider an infinitesimal perturbation of the field:
+$$
+\phi(x)\longrightarrow\phi_\varepsilon(x)
+=\phi(x)+\varepsilon\eta(x),
+$$
+
+where $\varepsilon$ is a real parameter and $\eta(x)$ is an arbitrary smooth function satisfying the boundary conditions. We require $\eta(x)$ to vanish on the boundary of the integration region (the integration region is usually all of spacetime); this is analogous to fixing the initial and final times in classical mechanics.
+
+The variation of the action can be defined as
+$$
+\delta S
+=\left.\frac{d}{d\varepsilon}
+S[\phi+\varepsilon\eta]\right|_{\varepsilon=0},
+$$
+
+Since we have restricted the Lagrangian density to the local form $\mathcal L=\mathcal L(\phi,\partial_\mu\phi)$, after fixing a spacetime point $x$ it can be regarded as an ordinary function of the several variables $\phi$ and $\partial_\mu\phi$. We can therefore apply the chain rule for functions of several variables directly:
+$$
+\begin{aligned}
+\delta S
+&=\left.\frac{d}{d\varepsilon}
+\int d^4x\,\mathcal L(\phi_\varepsilon,\partial_\mu\phi_\varepsilon)
+\right|_{\varepsilon=0}\\
+&=\int d^4x\left[
+\frac{\partial\mathcal L}{\partial\phi}
+\left.\frac{d\phi_\varepsilon}{d\varepsilon}\right|_{\varepsilon=0}
++\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+\left.\frac{d(\partial_\mu\phi_\varepsilon)}{d\varepsilon}\right|_{\varepsilon=0}
+\right]\\
+&=\int d^4x\left[
+\frac{\partial\mathcal L}{\partial\phi}\eta
++\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+\partial_\mu\eta
+\right].
+\end{aligned}
+$$
+Here we used:
+$$
+\frac{d\phi_\varepsilon}{d\varepsilon}=\eta, \qquad \frac{d}{d\varepsilon}(\partial_\mu\phi_\varepsilon)
+=\partial_\mu\eta.
+$$
+Next we integrate the second term by parts:
+$$
+\begin{aligned}
+\int d^4x\,
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+\partial_\mu\eta
+&=\int d^4x\,\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+\eta\right)
+-\int d^4x\,
+\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+\right)\eta\\
+&=-\int d^4x\,
+\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+\right)\eta.
+\end{aligned}
+$$
+where the second equality holds because the first term is a total divergence, which becomes a boundary term after integration, and this term vanishes since we require $\eta$ to vanish on the boundary.
+Substituting the result back into the variation of the action:
+$$
+\delta S=\int d^4x\left[
+\frac{\partial\mathcal L}{\partial\phi}
+-\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+\right)
+\right]\eta.
+$$
+By the principle of least action, $\delta S=0$. Since $\eta$ can be chosen arbitrarily inside the integration region (as long as suitable smoothness conditions are met), we obtain:
+$$
+\boxed{
+\frac{\partial\mathcal L}{\partial\phi}
+-\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+\right)=0
+}
+$$
+This is the Euler–Lagrange equation for the field, which gives the general method for determining the equation of motion of a field from its Lagrangian density.
+
+:::note
+In fact $\eta$ is just the function usually denoted $\delta\phi$ in the calculus of variations; we have merely written it out explicitly in a more elementary and more concrete way.
+
+Here we treat $\mathcal{L}$ as an ordinary function of the several variables $\phi$ and $\partial_\mu \phi$. In fact, this holds only because we required $\mathcal L$ to be local and to contain at most first derivatives. For a more general Lagrangian density (such as the integral functional mentioned at the beginning), this treatment no longer applies. One then needs functional derivatives to describe how the action changes with the entire field configuration. We will not go into the definition of functional derivatives.
+:::
+
+Let us compute, in passing, the equation of motion of the toy model given in the previous chapter. The Lagrangian density:
+$$
+\mathcal L
+=\frac12\rho(\partial_t\phi)^2
+-\frac12k(\partial_x\phi)^2.
+$$
+Note first that
+$$
+\frac{\partial\mathcal L}{\partial\phi}=0,\qquad
+\frac{\partial\mathcal L}{\partial(\partial_t\phi)}
+=\rho\partial_t\phi,\qquad
+\frac{\partial\mathcal L}{\partial(\partial_x\phi)}
+=-k\partial_x\phi.
+$$
+Substituting into the E–L equation gives
+$$
+\begin{aligned}
+0&=\frac{\partial\mathcal L}{\partial\phi}
+-\partial_t\left(\frac{\partial\mathcal L}
+{\partial(\partial_t\phi)}\right)
+-\partial_x\left(\frac{\partial\mathcal L}
+{\partial(\partial_x\phi)}\right)\\
+&=-\rho\partial_t^2\phi+k\partial_x^2\phi.
+\end{aligned}
+$$
+Therefore the equation of motion of this field is
+$$
+\partial_t^2\phi-v^2\partial_x^2\phi=0,
+\qquad v^2=\frac{k}{\rho}.
+$$
+This is just the one-dimensional wave equation, which describes the propagation of small disturbances in a continuous elastic medium. The result is not surprising; we have all seen it in solid state physics.
+
+We computed this example to show that the Euler–Lagrange equation for fields does not require the theory to be Lorentz invariant. It is merely the natural generalization of the variational principle to continuous degrees of freedom, and applies equally to non-relativistic systems.
+
+:::note
+In fact you may regard this equation as invariant under the Lorentz transformation for which $v=\sqrt{k/\rho}$ is the speed of light, in $1+1$ dimensions; this counts as a kind of "emergent" Lorentz invariance.
+
+From solid state physics we know that the exact dispersion relation of this toy model is
+$$
+\omega^2(q)=\frac{4K}{m}\sin^2\left(\frac{qa}{2}\right),
+$$
+and only in the long-wavelength limit $qa\ll1$ does it reduce to
+$$
+\omega^2\approx v^2q^2.
+$$
+So this Lorentz symmetry is only an effective symmetry in the continuous long-wavelength limit.
+:::
+## 3. Free Real Scalar Field and Expansion Point
+
+### Free Field Theory: Lagrangian Density up to Quadratic Order
+
+In Section 1 we already listed many restrictions on the Lagrangian density; now let us consider concrete constructions satisfying them. Here we consider only a real scalar field. A simple starting point is this: if a construction is cut off at quadratic order in $\phi$, that is, the Lagrangian density is merely a linear combination of
+$$
+1,\qquad
+\phi,\qquad
+\phi^2,\qquad
+\partial_\mu\phi\,\partial^\mu\phi
+$$
+these terms, then the equation of motion is linear. If we eliminate the inhomogeneous term in some way, the resulting homogeneous equation satisfies the superposition principle: a linear combination of any two solutions is again a solution. Under suitable conditions we can further obtain the general solution by Fourier transform.
+
+This is also why we usually call such a theory a free field theory: different field perturbations satisfy the linear superposition principle, different modes of the field do not disturb one another, i.e. there is no interaction.
+
+You may wonder why we do not include
+$$
+c^\mu \partial_\mu \phi, \qquad d^\mu \phi \partial_\mu \phi
+$$
+where $c^\mu, d^\mu$ are constant vectors. But constant vectors are not Lorentz invariant in themselves, so they are outside our discussion to begin with. Moreover they are both total derivatives, which also become boundary terms and vanish upon variation. And if they were themselves some field, so as to preserve Lorentz invariance, then we would have introduced extra degrees of freedom that cannot be determined by $\phi$. Apart from that there may also be interactions between fields, which are outside the scope of our present discussion.
+
+In addition, a constant term does not enter the equations of motion either, so it can be dropped. We thus obtain the general form of the Lagrangian density (up to quadratic order):
+$$
+\mathcal L
+=a\,\partial_\mu\phi\,\partial^\mu\phi
++b\phi^2+c\phi,
+$$
+where $a,b,c$ are all real constants. Next we substitute into the E–L equation:
+$$
+\frac{\partial\mathcal L}{\partial\phi}
+-\partial_\mu\left(
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+\right)=0.
+$$
+Compute the two terms separately:
+$$
+\frac{\partial\mathcal L}{\partial\phi}=2b\phi+c,
+\qquad
+\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+=2a\partial^\mu\phi.
+$$
+Therefore,
+$$
+2b\phi+c-2a\partial_\mu\partial^\mu\phi=0.
+$$
+Or, introducing the d'Alembertian, we can write it as
+$$
+2a\Box\phi-2b\phi-c=0.
+$$
+We can see that this equation is indeed linear in $\phi$. However, since it still contains the constant term $c$, it is still inhomogeneous for now, so the complete solution also requires a particular solution. But we can eliminate this inhomogeneity next.
+
+Of course, this starting point is admittedly very low (put diplomatically: down-to-earth), and a theoretical physicist with aspirations would protest strongly. So we give a more "first-principles" derivation in the [appendix](./appendix-mathematical-tools/03-free-field-theory.mdx), and will not expand on it in the main text. In fact, we can start from a general action and study small perturbations around a given solution $\phi_0(x)$. Since the background field itself satisfies the equation of motion, the first variation of the action vanishes automatically, so its lowest-order nontrivial contribution usually comes from the quadratic term.
+
+### Redefining the Field
+
+We have already noticed the inhomogeneity caused by the constant $c$. To solve this problem, we look at the original Lagrangian density:
+$$
+\mathcal L
+=a\,\partial_\mu\phi\,\partial^\mu\phi
++b\phi^2+c\phi,
+$$
+Clearly this $c$ is there because the linear term $c\phi$ appears in the Lagrangian density. If we can eliminate this linear term, the equation of motion will have no inhomogeneity problem. This naturally reminds us of completing the square: try
+$$
+b\phi^2+c\phi = b\left(\phi^2 + \frac{c}{b} \phi + \frac{c^2}{4b^2}\right) - \frac{c^2}{4b} = b\left(\phi + \frac{c}{2b}\right)^2 - \frac{c^2}{4b}
+$$
+You can see that the linear term disappears, while the constant term does not affect the equations of motion. So if we **redefine**:
+$$
+\tilde\phi\equiv \phi+\frac{c}{2b},
+$$
+we can write the Lagrangian as
+$$
+\begin{aligned}
+\mathcal L
+&=a\,\partial_\mu\phi\,\partial^\mu\phi
++b\left(\tilde\phi-\frac{c}{2b}\right)^2
++c\left(\tilde\phi-\frac{c}{2b}\right)\\
+&=a\,\partial_\mu\tilde\phi\,\partial^\mu\tilde\phi
++b\tilde\phi^2-\frac{c^2}{4b} \\
+&\simeq a\,\partial_\mu\tilde\phi\,\partial^\mu\tilde\phi
++b\tilde\phi^2.
+\end{aligned}
+$$
+
+In fact, we can understand this redefinition as rechoosing the zero of the field: try to find a constant field $\phi_0$ that satisfies the equation of motion. For a constant field all derivatives vanish, so the equation of motion reduces to
+$$
+2b\phi_0+c=0,
+$$
+i.e.
+$$
+\phi_0=-\frac{c}{2b}.
+$$
+You can see that this constant field is exactly the constant introduced earlier when completing the square, up to a sign. From the point of view of differential equations, $\phi_0$ is in fact a particular solution of the original inhomogeneous equation. By the properties of linear inhomogeneous differential equations, its general solution can be written as the sum of a particular solution and the general solution of the corresponding homogeneous equation:
+$$
+\phi = \phi_0 + \tilde \phi
+$$
+And this is exactly the field redefinition we performed earlier: since every solution can be written in this form, we may as well rechoose the zero of the field, taking the original constant solution $\phi_0$ as the new zero. Then the new field variable $\tilde\phi$ satisfies a homogeneous linear differential equation. Of course, we have not changed the original physical system, only the field variables used to describe it.
+
+:::note
+If $b=0$, the above change of variables cannot be used. In that case the equation becomes
+$$
+2a\square \phi = c
+$$
+If $a\neq 0$ and $c\neq 0$ there are of course still solutions, but this is not within our scope: it is a massless scalar field with a constant external source.
+
+Here we require that $b=0$ implies $c=0$, which guarantees the existence of a constant field $\phi_0$.
+
+As for $a=0$, in that case either there are only constant solutions, or the equation is simply $0=0$; we will not discuss it. In what follows we always assume $a\neq 0$.
+:::
+
+At this point we can write the quadratic Lagrangian density uniformly as
+$$
+\boxed{
+\mathcal L
+=a\,\partial_\mu\phi\,\partial^\mu\phi+b\phi^2.
+}
+$$
+To simplify the notation we continue to use $\phi$. The corresponding Euler–Lagrange equation is
+$$
+2a\Box\phi-2b\phi=0.
+$$
+Dividing both sides by $2a$ gives
+$$
+\boxed{
+\Box\phi-\frac ba\phi=0.
+}
+$$
+We can see that this equation already has the form of the Klein–Gordon equation. But we cannot yet directly interpret $b/a$ as the (square of the) mass, because it has not been determined what conditions these two coefficients should satisfy. Next we do exactly that.
+
+## 4. Stability and Canonical Normalization
+
+The equation of motion reads
+$$
+\Box\phi-\frac ba\phi=0.
+$$
+As we discussed earlier, this is a typical wave equation, and one solution is
+$$
+\phi(x)=Ae^{-i\omega t+i \vec k\cdot \vec x}.
+$$
+For the time being we use complex exponentials in the calculation; at the end we just take the real part of the result. With the metric convention we adopt,
+$$
+\Box=-\frac{\partial^2}{\partial t^2}+\nabla^2,
+$$
+therefore
+$$
+\Box\phi=(\omega^2- k^2)\phi.
+$$
+Substituting into the equation of motion gives
+$$
+\left(\omega^2- k^2-\frac ba\right)\phi=0.
+$$
+For a nonzero plane-wave solution we must have
+$$
+\boxed{
+\omega^2=k^2+\frac ba.
+}
+$$
+This is the dispersion relation of the free real scalar field, which gives the oscillation frequency corresponding to each wave vector.
+
+### Dynamical Stability
+
+Now let us examine the sign of $b/a$: if $b/a>0$, then for any wave vector $\vec k$ we have $\omega^2>0$. The frequency is then real, and the plane-wave solution oscillates in time; if $b/a=0$, the dispersion relation reduces to $\omega^2=\vec k^2$, and the corresponding equation of motion is the massless wave equation.
+
+None of the above is problematic. But if $b/a<0$, the situation is different. When the modulus of the wave vector satisfies
+$$
+k^2<-\frac ba
+$$
+the dispersion relation gives $\omega^2<0$. This means the corresponding frequency is purely imaginary:
+$$
+\omega=\pm i\sqrt{-k^2-\frac ba}.
+$$
+So the time dependence of the field is no longer just oscillation; for the branch with the minus sign there appears
+$$
+\phi\propto
+\exp\left(
+\sqrt{-k^2-\frac ba}\,t
+\right)
+$$
+an exponentially growing solution of this form. That is, even if there is only a very small perturbation to begin with, it may grow with time, so that the field rapidly departs from the background we chose. This phenomenon is called tachyonic instability.
+
+Therefore, if we want the free field to have no such exponentially growing mode at any wavelength, we require
+$$
+\frac ba\geq0.
+$$
+But this condition only examines stability in the neighbourhood of the zero we chose. If the complete Lagrangian density also contains higher-order terms, it may be stable at other positions. In that case we should expand perturbations around the new field and construct the free field theory as a second-order approximation.
+
+### Sign of the Kinetic Term
+
+However, $b/a\geq0$ is still not enough to determine a physically suitable Lagrangian density, because it only constrains the ratio of the two coefficients. Let us examine the sign of $a$ itself.
+Expanding the derivative term in the Lagrangian density gives
+$$
+\begin{aligned}
+\mathcal L
+&=a\,\partial_\mu\phi\,\partial^\mu\phi+b\phi^2\\
+&=-a(\partial_t\phi)^2
++a(\nabla\phi)^2+b\phi^2.
+\end{aligned}
+$$
+Recall the form $L=T-V$ of the Lagrangian in classical mechanics, where the kinetic term ($\propto \dot{q}^2$) naturally corresponds to our time-derivative term here. We therefore expect it to have a positive coefficient, i.e. $a<0$. Combining the stability requirement $b/a\geq0$ obtained earlier with the choice $a<0$ here, we have
+$$
+a<0,\qquad b\leq0,
+$$
+in which case the spatial gradient term and the $\phi^2$ term both have negative coefficients, corresponding to the potential energy term of classical mechanics.
+
+If we took $a>0$, then correspondingly the kinetic term in the Hamiltonian would also become negative, so the energy of the system would be interpreted as negative. Although from the equation of motion of the free field alone, multiplying the whole Lagrangian density by $-1$ does not change the solutions, once we consider its coupling to other normal degrees of freedom, the relative sign of the two kinetic terms becomes a problem. The result produced by this freedom in the sign of the kinetic term is usually called a ghost.
+
+We will deal with the explicit computation of the Hamiltonian of the field later.
+
+### Canonical Normalization
+
+By now we have determined the signs of the coefficients, but the concrete values of $a$ and $b$ are still arbitrary. But since the field itself can be redefined, we can simplify the Lagrangian density further: consider
+$$
+\mathcal L
+=a\,\partial_\mu\phi\,\partial^\mu\phi+b\phi^2,
+\qquad a<0.
+$$
+Define a new field
+$$
+\tilde\phi\equiv\sqrt{-2a}\,\phi.
+$$
+Since $a$ is a constant, we have
+$$
+\partial_\mu\phi
+=\frac{1}{\sqrt{-2a}}\partial_\mu\tilde\phi.
+$$
+Substituting this back into the Lagrangian density:
+$$
+\begin{aligned}
+\mathcal L
+&=\frac{a}{-2a}
+\partial_\mu\tilde\phi\,\partial^\mu\tilde\phi
++\frac{b}{-2a}\tilde\phi^2\\
+&=-\frac12
+\partial_\mu\tilde\phi\,\partial^\mu\tilde\phi
+-\frac12\frac ba\tilde\phi^2.
+\end{aligned}
+$$
+In this way we have fixed the coefficient of the kinetic term to $1/2$ (note that it is negative). We call this operation canonical normalization.
+
+Next we can define a non-negative constant
+$$
+m^2\equiv\frac ba\geq0.
+$$
+Renaming $\tilde\phi$ back to $\phi$, we finally obtain
+$$
+\boxed{
+\mathcal L
+=-\frac12\partial_\mu\phi\,\partial^\mu\phi
+-\frac12m^2\phi^2.
+}
+$$
+This is the standard Lagrangian density of the free real scalar field.
+:::note
+This is also why particle physics, when it uses quantum field theory, generally adopts the $(+---)$ metric convention: in that convention the Lagrangian density reads
+$$
+\mathcal L
+=\frac12\partial_\mu\phi\,\partial^\mu\phi
+-\frac12m^2\phi^2,
+$$
+the first term has no minus sign, so it looks nicer formally. There is really no difference elsewhere. In any case, we continue to use the $(-+++)$ sign convention.
+:::
+Its corresponding equation of motion:
+$$
+\boxed{
+(\Box-m^2)\phi=0.
+}
+$$
+This is exactly the familiar Klein–Gordon equation.
+The corresponding dispersion relation can also be written as
+$$
+\boxed{
+\omega^2= k^2+m^2.
+}
+$$
+In natural units $\hbar=c=1$ it has the same form as the energy–momentum relation $E^2=p^2+m^2$ of a relativistic particle. This is also why we call the parameter $m$ the mass of the field; after quantization it will be the mass of the particle described by the field.
+
+In particular, when $m=0$ the Lagrangian density simplifies further to
+$$
+\mathcal L
+=-\frac12\partial_\mu\phi\,\partial^\mu\phi,
+$$
+and the corresponding equation of motion is $\Box\phi=0$, describing a massless real scalar field.
+At this point, starting from a general local real scalar field, under the quadratic approximation and the stability requirement, we have obtained the standard form of the free real scalar field.
+
+## 5. Interactions and the Potential
+
+Above we kept only the quadratic terms in the field and its derivatives in the Lagrangian density, so the resulting equation of motion is linear. But for a general field theory, the Lagrangian density can contain higher-order terms. Then the equation of motion is usually nonlinear, and different field perturbations no longer satisfy a simple linear superposition principle. We call these contributions beyond quadratic order interaction terms.
+
+For example, for a real scalar field, once canonical normalization has been carried out, we may consider
+$$
+\begin{aligned}
+\mathcal L
+={}&-\frac12\partial_\mu\phi\,\partial^\mu\phi
+-\frac12m^2\phi^2\\
+&-\frac{g}{3!}\phi^3
+-\frac{\lambda}{4!}\phi^4+\cdots,
+\end{aligned}
+$$
+where $g,\lambda$ are the coupling constants of the interaction.
+The cubic and quartic terms here are both Lorentz scalars and also satisfy the locality requirement we proposed earlier, so they can legitimately appear in the Lagrangian density.
+
+Taking the quartic term as an example, if we take
+$$
+\mathcal L
+=-\frac12(\partial\phi)^2
+-\frac12m^2\phi^2
+-\frac{\lambda}{4!}\phi^4,
+$$
+then the Euler–Lagrange equation gives
+$$
+\Box\phi-m^2\phi-\frac{\lambda}{3!}\phi^3=0.
+$$
+Since $\phi^3$ appears in the equation, it is obviously a nonlinear partial differential equation, so a linear combination of two solutions is in general no longer a solution of the original equation. This is the direct manifestation of interaction terms in classical field theory.
+
+Note: interaction terms need not contain only powers of the field itself; one can also construct interactions containing derivatives, for example
+$$
+\phi^2\partial_\mu\phi\,\partial^\mu\phi,
+\qquad
+(\partial_\mu\phi\,\partial^\mu\phi)^2.
+$$
+Note that the Lagrangian density here still depends only up to first derivatives $\partial_\mu\phi$; it is just that they appear in the form of powers.
+For example, taking the interaction to be
+$$
+\mathcal L_{\mathrm{int}} = \lambda (\partial_\mu\phi\,\partial^\mu\phi)^2
+$$
+we can compute directly
+$$
+\frac{\partial\mathcal L_{\mathrm{int}}}
+{\partial(\partial_\mu\phi)}
+=4\lambda (\partial_\nu\phi\,\partial^\nu\phi)
+\cdot \partial^\mu\phi.
+$$
+Therefore its contribution to the E–L equation is
+$$
+-4\lambda\partial_\mu
+\left((\partial_\nu\phi\,\partial^\nu\phi)
+ \partial^\mu\phi\right).
+$$
+Expanding the derivative, at most second derivatives of $\phi$ appear, the same as in the earlier discussion.
+
+### The Potential Function
+For the moment we consider only interaction terms that contain no derivatives. In this case the interaction can be written uniformly as a function of the field. Recall the form $L=T-V$ in classical mechanics; we call the part of the Lagrangian that contains no derivatives of the field the potential of the field, denoted $V(\phi)$. Then the Lagrangian density of a real scalar field can be written as
+$$
+\boxed{
+\mathcal L
+=-\frac12\partial_\mu\phi\,\partial^\mu\phi
+-V(\phi).
+}
+$$
+Substituting into the Euler–Lagrange equation gives
+$$
+-\frac{dV}{d\phi}
++\partial_\mu\partial^\mu\phi=0.
+$$
+Therefore,
+$$
+\boxed{
+\Box\phi=\frac{dV}{d\phi}.
+}
+$$
+This is the equation of motion of a real scalar field containing a general potential, usually called the nonlinear Klein–Gordon equation.
+When $V(\phi)=m^2\phi^2/2$ it naturally reduces to the free Klein–Gordon equation we obtained earlier. And if $V$ contains cubic, quartic and other higher-order terms, then nonlinear terms in $\phi$ appear on the right-hand side.
+
+If we want to study perturbations of the field around some constant background $\phi_0$, and assume that $V$ is analytic near that background, we can expand the potential as
+$$
+V(\phi)=V(\phi_0)+V'(\phi_0)(\phi-\phi_0)
++\frac12V''(\phi_0)(\phi-\phi_0)^2+\cdots.
+$$
+But we want the background we choose to be itself a field configuration satisfying the classical equation of motion. Recall the equation of motion obtained just now
+$$
+\Box\phi-V'(\phi)=0,
+$$
+for a constant field $\phi=\phi_0$ it reduces to
+$$
+V'(\phi_0)=0.
+$$
+Therefore the linear term of the potential vanishes automatically.
+
+:::note
+Here we have in fact also excluded further choices, such as $V(\phi) = |\phi-\phi_0|^3$ or $V(\phi) = (\phi-\phi_0)^{5/2}$, because none of them is analytic. There is no special reason for this; it is just that these non-analytic interaction potentials are hard to handle. We will not discuss them in depth.
+:::
+
+Now we can redefine the field variable:
+$$
+\tilde\phi\equiv\phi-\phi_0.
+$$
+This is in fact the same operation as rechoosing the zero of the field by completing the square in the free field part earlier.
+Since the constant term $V(\phi_0)$ does not affect the Euler–Lagrange equation here, we can drop it. Then,
+$$
+V(\phi_0+\tilde\phi)
+=\frac12V''(\phi_0)\tilde\phi^2
++\sum_{n=3}^\infty
+\frac{V^{(n)}(\phi_0)}{n!}\tilde\phi^n.
+$$
+Finally, renaming $\tilde\phi$ back to $\phi$, we obtain
+$$
+\boxed{
+V(\phi)=\frac12m_{\text{eff}}^2\phi^2+V_{\mathrm{int}}(\phi),
+}
+$$
+where
+$$
+m_{\text{eff}}^2=V''(\phi_0),\qquad
+V_{\mathrm{int}}(\phi)
+=\sum_{n=3}^\infty\frac{V^{(n)}(\phi_0)}{n!}\phi^n.
+$$
+If $V''(\phi_0)>0$, then $\phi_0$ is a local minimum of the potential, and interpreting it as the (square of the) mass is physically meaningful, with small perturbations having real frequencies in the free field approximation. But if $V''(\phi_0)<0$, then the tachyonic instability we discussed earlier appears near $\phi_0$. In this case $\phi_0$ is a local maximum of the potential, and the field can leave this background under an arbitrarily small perturbation.
+
+As a simple example, consider
+$$
+V(\phi)
+=-\frac{\mu^2}{2}\phi^2
++\frac{\lambda}{4}\phi^4,
+\qquad \mu^2>0,\quad\lambda>0.
+$$
+Clearly $\phi=0$ is a stationary point of the potential, but
+$$
+V''(0)=-\mu^2<0.
+$$
+Therefore, if we expand near the origin, we obtain a negative mass squared, and the tachyonic instability appears.
+However, this potential actually has two minima as well:
+$$
+\phi_0=\pm\frac{\mu}{\sqrt{\lambda}}.
+$$
+If we choose one of these minima as the new background, then
+$$
+V''(\phi_0)=2\mu^2>0.
+$$
+At this point we can redefine the perturbation field $\varphi=\phi-\phi_0$ and obtain, near this stable background, a free theory with mass squared $2\mu^2$.
+
+This example also illustrates the point we have stressed repeatedly: the quadratic terms in a free field theory describe small perturbations of the field around some chosen background. For a complete interacting theory, different expansion points may give different quadratic approximations, and only by choosing a suitable stable background can we obtain a free theory with stable small perturbations.

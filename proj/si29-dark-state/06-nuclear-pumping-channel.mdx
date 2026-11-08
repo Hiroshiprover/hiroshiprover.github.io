@@ -1,0 +1,954 @@
+---
+title: 重复泵浦、电子测量与核态量子通道
+slug: /si29-dark-state/nuclear-pumping-channel
+sidebar_key: nuclear-pumping-channel
+sidebar_position: 7
+---
+
+在上一篇笔记中，我们研究了 Landau–Zener（LZ）跃迁：通过改变双量子点的失谐，使电子的单重态 $S$ 与三重态 $T_-$ 扫过避免交叉，从而产生电子自旋跃迁。
+
+但我们真正关心的是核自旋。一次 $S\to T_-$ 跃迁会通过超精细相互作用向核自旋系统转移角动量，而核自旋状态的改变又会影响下一次 LZ 扫描。
+
+因此，我们需要研究反复扫描如何改变核自旋的量子态。为此，我们将电子与核自旋视为一个联合量子系统，并把每次扫描之后的电子测量和重置描述为作用在核态上的量子通道。
+
+## 1. 重复泵浦的基本过程
+
+### 1.1 从单次扫描到泵浦循环
+
+回忆前面得到的 $S$–$T_-$ 有效哈密顿量：
+
+$$
+H^{ST}(t)=
+\begin{pmatrix}
+\Delta E_{ST}(t)+b_z&L\\
+L^\dagger&0
+\end{pmatrix},
+$$
+
+其中
+
+$$
+\begin{aligned}
+L&=\frac1{2\sqrt2}
+\left(a_1J_1^+-a_2J_2^+\right),\\
+b_z&=-\frac12
+\left(a_1J_1^z+a_2J_2^z\right).
+\end{aligned}
+$$
+
+这里 $a_i=\mathcal A_i/N_i$，$J_i^\pm=J_i^x\pm iJ_i^y$，均采用通常的角动量升降算符约定。
+
+我们此前已经讨论过，$L$ 描述电子从 $S$ 跃迁到 $T_-$ 时的核自旋耦合，而 $b_z$ 改变两个电子态之间的能量差。
+
+现在考虑以下过程：
+
+1. 将电子初始化为单重态 $|S\rangle$。
+2. 改变失谐 $\varepsilon(t)$，使系统扫过 $S$–$T_-$ 避免交叉。
+3. 测量电子最终处于 $S$ 还是 $T_-$。
+4. 重新初始化电子，再进行下一次扫描。
+
+在这个过程中，电子每次都重新准备为相同的初态，但核自旋系统会保留此前演化产生的变化。
+
+蔡老师论文的 Fig. 2 就采用了这样的泵浦协议。每次 LZ 扫描持续 $5\,\mu\mathrm{s}$，到下一次扫描的间隔为 $27\,\mu\mathrm{s}$；完成 64 次泵浦后，实验会暂停泵浦 $5.12\,\mathrm{ms}$，并执行辅助测量脉冲。[^cai2025]
+
+原论文通过电子的量子态振幅和核自旋的半经典进动方程描述这个过程。我们接下来考虑将核自旋也作为量子自由度处理。
+
+### 1.2 联合 Hilbert 空间
+
+电子子空间由 $|S\rangle$ 与 $|T_-\rangle$ 张成：
+
+$$
+\mathcal H_{\mathrm e}
+=\operatorname{span}\{|S\rangle,|T_-\rangle\}.
+$$
+
+假设两个量子点中分别有 $N_1$ 和 $N_2$ 个自旋 $1/2$ 的核，核自旋 Hilbert 空间为
+
+$$
+\mathcal H_{\mathrm n}
+=\bigotimes_{i=1}^{2}
+\bigotimes_{k=1}^{N_i}\mathbb C^2.
+$$
+
+于是联合空间为
+
+$$
+\boxed{
+\mathcal H
+=\mathcal H_{\mathrm e}\otimes\mathcal H_{\mathrm n}.
+}
+$$
+
+记 $N=N_1+N_2$，它的维数为
+
+$$
+\dim\mathcal H=2^{N+1}.
+$$
+
+为了明确不同算符作用的空间，我们将总哈密顿量写成
+
+$$
+\boxed{
+\begin{aligned}
+H(t)
+={}&|T_-\rangle\langle T_-|
+\otimes\left[\Delta E_{ST}(t)\mathbb1_{\mathrm n}+b_z\right]\\
+&+|T_-\rangle\langle S|\otimes L\\
+&+|S\rangle\langle T_-|\otimes L^\dagger\\
+&+\mathbb1_{\mathrm e}\otimes H_{\mathrm n}.
+\end{aligned}
+}
+$$
+
+其中 $H_{\mathrm n}$ 描述核自旋自身的动力学。第一版模型可以只保留核 Zeeman 项：
+
+$$
+H_{\mathrm n}
+=-g_n\mu_NB(J_1^z+J_2^z).
+$$
+
+于是，一个扫描周期中的电子与核自旋将按照这个哈密顿量共同演化。
+
+## 2. 电子与核自旋的联合演化
+
+### 2.1 扫描前的初态
+
+我们用密度矩阵 $\rho_{\mathrm n}$ 表示核自旋的状态。
+
+它可以是一个纯态
+
+$$
+\rho_{\mathrm n}
+=|\psi_{\mathrm n}\rangle
+\langle\psi_{\mathrm n}|,
+$$
+
+也可以是多个核态组成的混合态。
+
+例如，对于 $N$ 个相互独立、没有初始极化的核自旋，可以采用最大混合态
+
+$$
+\boxed{
+\rho_{\mathrm n}^{(0)}
+=\frac{\mathbb1_{\mathrm n}}{2^N}.
+}
+$$
+
+如果核 Zeeman 能量远小于热能 $k_BT$，这也是热平衡核态的一个近似。
+
+现在将电子初始化为单重态。电子—核联合态就是
+
+$$
+\boxed{
+\rho_{\mathrm{tot}}(t_i)
+=|S\rangle\langle S|\otimes\rho_{\mathrm n}.
+}
+$$
+
+这里 $t_i$ 是扫描开始的时刻。
+
+### 2.2 含时酉演化
+
+设一次 LZ 扫描从 $t_i$ 进行到 $t_f$。对应的时间演化算符为
+
+$$
+U_{\mathrm{LZ}}
+=\mathcal T\exp\left[
+-\frac{i}{\hbar}
+\int_{t_i}^{t_f}H(t)\,dt
+\right].
+$$
+
+为简化记号，之后记作 $U$。
+
+扫描结束后，联合密度矩阵为
+
+$$
+\boxed{
+\rho_{\mathrm{tot}}'
+=U\left(
+|S\rangle\langle S|
+\otimes\rho_{\mathrm n}
+\right)U^\dagger.
+}
+$$
+
+由于超精细哈密顿量包含电子与核自旋之间的相互作用，扫描后的联合态一般不再具有简单的张量积形式。
+
+例如，如果核自旋初态为纯态 $|\psi\rangle$，那么扫描后的联合纯态可以写成
+
+$$
+|\Psi'\rangle
+=|S\rangle\otimes|\phi_S\rangle
++|T_-\rangle\otimes|\phi_T\rangle.
+$$
+
+这里 $|\phi_S\rangle$ 和 $|\phi_T\rangle$ 是两个核态向量，尚未要求它们归一化。
+
+它们分别表示电子最终处于 $S$ 和 $T_-$ 时对应的核自旋振幅。一般来说，这两个核态并不相同，所以电子和核自旋可能形成纠缠。
+
+这意味着电子测量之后，核自旋的状态也会受到影响。
+
+## 3. 电子测量与核态更新
+
+### 3.1 测量电子的结果
+
+我们先考虑一次理想的电子自旋测量，只区分 $S$ 和 $T_-$ 两种结果。
+
+对应的电子投影算符为
+
+$$
+P_S=|S\rangle\langle S|,
+\qquad
+P_T=|T_-\rangle\langle T_-|.
+$$
+
+这里 $P_T$ 表示投影算符；之后用 $p_T$ 表示测得三重态的概率。
+
+将联合态投影到电子单重态，可以得到未归一化的核密度矩阵
+
+$$
+\widetilde\rho_S
+=\operatorname{Tr}_{\mathrm e}
+\left[
+(P_S\otimes\mathbb1_{\mathrm n})
+\rho_{\mathrm{tot}}'
+(P_S\otimes\mathbb1_{\mathrm n})
+\right].
+$$
+
+类似地，测得 $T_-$ 时，
+
+$$
+\widetilde\rho_T
+=\operatorname{Tr}_{\mathrm e}
+\left[
+(P_T\otimes\mathbb1_{\mathrm n})
+\rho_{\mathrm{tot}}'
+(P_T\otimes\mathbb1_{\mathrm n})
+\right].
+$$
+
+它们的迹就是两个测量结果的概率：
+
+$$
+p_S=\operatorname{Tr}\widetilde\rho_S,
+\qquad
+p_T=\operatorname{Tr}\widetilde\rho_T.
+$$
+
+如果已经知道测量结果，那么相应的归一化核态为
+
+$$
+\boxed{
+\rho_{\mathrm n|a}
+=\frac{\widetilde\rho_a}{p_a},
+\qquad a=S,T_-.
+}
+$$
+
+因此，对于同一个初始核态，不同电子测量结果一般会得到不同的最终核态。
+
+### 3.2 从联合演化到 Kraus 算符
+
+现在我们把前面的表达式化简。
+
+在电子基底 $\{|T_-\rangle,|S\rangle\}$ 下，联合演化算符 $U$ 可以写成一个算符值矩阵：
+
+$$
+U=
+\begin{pmatrix}
+U_{TT}&U_{TS}\\
+U_{ST}&U_{SS}
+\end{pmatrix}.
+$$
+
+矩阵中的每个 $U_{ab}$ 都是作用于核自旋 Hilbert 空间的算符。
+
+由于扫描开始时电子处于 $|S\rangle$，我们只需要其中与初态 $S$ 对应的一列。定义
+
+$$
+\boxed{
+M_S=\langle S|U|S\rangle,
+\qquad
+M_T=\langle T_-|U|S\rangle.
+}
+$$
+
+注意这里已经对电子态取了矩阵元，所以 $M_S$ 和 $M_T$ 都只作用于核自旋。
+
+对于一个初始联合纯态 $|S\rangle\otimes|\psi\rangle$，有
+
+$$
+U(|S\rangle\otimes|\psi\rangle)
+=|S\rangle\otimes M_S|\psi\rangle
++|T_-\rangle\otimes M_T|\psi\rangle.
+$$
+
+与前面的一般表达式比较，可以看到
+
+$$
+|\phi_S\rangle=M_S|\psi\rangle,
+\qquad
+|\phi_T\rangle=M_T|\psi\rangle.
+$$
+
+因此，两个电子测量结果对应的未归一化核态可以直接写成
+
+$$
+\boxed{
+\begin{aligned}
+\widetilde\rho_S&=M_S\rho_{\mathrm n}M_S^\dagger,\\
+\widetilde\rho_T&=M_T\rho_{\mathrm n}M_T^\dagger.
+\end{aligned}
+}
+$$
+
+对应的测量概率为
+
+$$
+\boxed{
+\begin{aligned}
+p_S&=\operatorname{Tr}
+(M_S\rho_{\mathrm n}M_S^\dagger),\\
+p_T&=\operatorname{Tr}
+(M_T\rho_{\mathrm n}M_T^\dagger).
+\end{aligned}
+}
+$$
+
+这两个算符 $M_S$ 和 $M_T$ 就是描述核态更新的 Kraus 算符。
+
+它们包含了一次完整 LZ 扫描对核自旋产生的影响，而不需要我们显式保留测量后的电子自由度。
+
+### 3.3 不区分测量结果时的核态
+
+如果实验只统计电子测量的平均结果，后续核自旋的演化也不依赖本次电子读数，那么我们需要对两种测量结果进行平均。
+
+因此，测量之后的核态为
+
+$$
+\begin{aligned}
+\rho_{\mathrm n}'
+&=p_S\rho_{\mathrm n|S}
++p_T\rho_{\mathrm n|T}\\
+&=M_S\rho_{\mathrm n}M_S^\dagger
++M_T\rho_{\mathrm n}M_T^\dagger.
+\end{aligned}
+$$
+
+定义映射
+
+$$
+\boxed{
+\Phi(\rho_{\mathrm n})
+=M_S\rho_{\mathrm n}M_S^\dagger
++M_T\rho_{\mathrm n}M_T^\dagger.
+}
+$$
+
+这就是一次 LZ 扫描及电子读出所产生的核态量子通道。
+
+我们可以直接从 $U$ 的酉性验证这个通道保持迹。
+
+由于
+
+$$
+U^\dagger U=\mathbb1,
+$$
+
+有
+
+$$
+\begin{aligned}
+\mathbb1_{\mathrm n}
+&=\langle S|U^\dagger U|S\rangle\\
+&=\sum_{a=S,T_-}
+\langle S|U^\dagger|a\rangle
+\langle a|U|S\rangle\\
+&=M_S^\dagger M_S+M_T^\dagger M_T.
+\end{aligned}
+$$
+
+于是
+
+$$
+\boxed{
+M_S^\dagger M_S+M_T^\dagger M_T
+=\mathbb1_{\mathrm n}.
+}
+$$
+
+因此，对任意归一化核态，
+
+$$
+\begin{aligned}
+\operatorname{Tr}\Phi(\rho_{\mathrm n})
+&=\operatorname{Tr}\left[
+\rho_{\mathrm n}
+(M_S^\dagger M_S+M_T^\dagger M_T)
+\right]\\
+&=\operatorname{Tr}\rho_{\mathrm n}=1.
+\end{aligned}
+$$
+
+由 Kraus 表示可知，$\Phi$ 是一个完全正、保迹的量子通道。
+
+实际上，这个映射也可以直接写成
+
+$$
+\boxed{
+\Phi(\rho_{\mathrm n})
+=\operatorname{Tr}_{\mathrm e}
+\left[
+U(|S\rangle\langle S|\otimes\rho_{\mathrm n})U^\dagger
+\right].
+}
+$$
+
+这个表达式与之前的 Kraus 形式完全等价。
+
+所以，对于不根据电子读数筛选核态的计算，我们只需要在扫描结束后对电子取部分迹，就能够得到下一步所需的核态。
+
+### 3.4 重新初始化电子
+
+一次扫描结束后，我们还需要将电子重新准备为 $|S\rangle$，然后进行下一次扫描。
+
+在理想重置模型中，电子重置会将联合态变为
+
+$$
+\boxed{
+\rho_{\mathrm{tot}}^{\mathrm{new}}
+=|S\rangle\langle S|
+\otimes\Phi(\rho_{\mathrm n}).
+}
+$$
+
+可以看到，电子恢复到了确定的单重态，而核自旋保留了扫描造成的状态变化。
+
+这里电子初始化所需的能量和角动量可以与外部环境交换。我们研究的核自旋系统因而不再是孤立的封闭系统。
+
+即使每次 LZ 扫描都由酉演化描述，连续重复的电子初始化仍然能够使核自旋发生非酉的有效动力学。
+
+这种通过反复耦合、丢弃并重新准备辅助量子系统来改变目标系统状态的方法，也可以从重复相互作用模型（repeated interaction model）的角度理解。
+
+## 4. 一个单核自旋模型
+
+为了更具体地理解核态通道，我们考虑一个只有一个自旋 $1/2$ 核的简单模型。
+
+这个模型可以直接求解，而且已经能够展示电子泵浦如何改变核自旋的状态。
+
+### 4.1 简化哈密顿量
+
+设核自旋的两个本征态为
+
+$$
+I^z|\uparrow\rangle=\frac12|\uparrow\rangle,
+\qquad
+I^z|\downarrow\rangle=-\frac12|\downarrow\rangle.
+$$
+
+它的升降算符满足
+
+$$
+I^+|\downarrow\rangle=|\uparrow\rangle,
+\qquad I^+|\uparrow\rangle=0.
+$$
+
+现在只保留电子与核自旋之间的 flip-flop 相互作用，并将系统调节到共振位置：
+
+$$
+\boxed{
+H_{\mathrm{toy}}
+=g\left(
+|T_-\rangle\langle S|\otimes I^+
++|S\rangle\langle T_-|\otimes I^-
+\right),
+}
+$$
+
+其中 $g>0$ 是具有能量量纲的耦合常数。
+
+我们暂时忽略纵向耦合和核 Zeeman 项，并假设这个哈密顿量在持续时间 $\tau$ 内保持不变。
+
+如果电子初态为 $|S\rangle$，核自旋初态为 $|\downarrow\rangle$，那么
+
+$$
+H_{\mathrm{toy}}|S,\downarrow\rangle
+=g|T_-,\uparrow\rangle.
+$$
+
+反过来，
+
+$$
+H_{\mathrm{toy}}|T_-,\uparrow\rangle
+=g|S,\downarrow\rangle.
+$$
+
+因此，在这两个态张成的子空间中，
+
+$$
+H_{\mathrm{toy}}=
+\begin{pmatrix}
+0&g\\
+g&0
+\end{pmatrix}
+=g\sigma_x.
+$$
+
+演化算符为
+
+$$
+U(\tau)=e^{-iH_{\mathrm{toy}}\tau/\hbar}
+=\cos\theta\,\mathbb1
+-i\sin\theta\,\sigma_x,
+$$
+
+其中
+
+$$
+\theta=\frac{g\tau}{\hbar}.
+$$
+
+于是
+
+$$
+\boxed{
+U(\tau)|S,\downarrow\rangle
+=\cos\theta|S,\downarrow\rangle
+-i\sin\theta|T_-,\uparrow\rangle.
+}
+$$
+
+因此，电子从单重态跃迁到三重态时，核自旋同时从向下翻转为向上。
+
+对于初态 $|S,\uparrow\rangle$，由于 $I^+|\uparrow\rangle=0$，则有
+
+$$
+U(\tau)|S,\uparrow\rangle
+=|S,\uparrow\rangle.
+$$
+
+### 4.2 求出核态的 Kraus 算符
+
+根据前面得到的定义，
+
+$$
+M_S=\langle S|U|S\rangle,
+\qquad
+M_T=\langle T_-|U|S\rangle.
+$$
+
+由刚才的演化结果可知
+
+$$
+\boxed{
+M_S=
+|\uparrow\rangle\langle\uparrow|
++\cos\theta|\downarrow\rangle\langle\downarrow|,
+}
+$$
+
+以及
+
+$$
+\boxed{
+M_T=
+-i\sin\theta
+|\uparrow\rangle\langle\downarrow|.
+}
+$$
+
+很容易验证
+
+$$
+M_S^\dagger M_S+M_T^\dagger M_T
+=\mathbb1.
+$$
+
+设初始核密度矩阵在 $\{|\uparrow\rangle,|\downarrow\rangle\}$ 基底中为
+
+$$
+\rho_{\mathrm n}
+=
+\begin{pmatrix}
+\rho_{\uparrow\uparrow}&\rho_{\uparrow\downarrow}\\
+\rho_{\downarrow\uparrow}&\rho_{\downarrow\downarrow}
+\end{pmatrix}.
+$$
+
+经过一次扫描和未筛选的电子读出，新的核态为
+
+$$
+\rho_{\mathrm n}'=
+M_S\rho_{\mathrm n}M_S^\dagger
++M_T\rho_{\mathrm n}M_T^\dagger.
+$$
+
+直接计算得到
+
+$$
+\boxed{
+\rho_{\mathrm n}'=
+\begin{pmatrix}
+\rho_{\uparrow\uparrow}
++\sin^2\theta\,\rho_{\downarrow\downarrow}
+&
+\cos\theta\,\rho_{\uparrow\downarrow}
+\\
+\cos\theta\,\rho_{\downarrow\uparrow}
+&
+\cos^2\theta\,\rho_{\downarrow\downarrow}
+\end{pmatrix}.
+}
+$$
+
+所以，核自旋向上的布居增加了
+
+$$
+\Delta\rho_{\uparrow\uparrow}
+=\sin^2\theta\,\rho_{\downarrow\downarrow}.
+$$
+
+对应地，电子的三重态概率就是
+
+$$
+\boxed{
+p_T=\sin^2\theta\,\rho_{\downarrow\downarrow}.
+}
+$$
+
+因此，
+
+$$
+\boxed{
+\Delta\rho_{\uparrow\uparrow}=p_T.
+}
+$$
+
+如果我们反复执行相同的过程，并且忽略等待期间的其他动力学，那么每次扫描都会减少核自旋向下的布居。
+
+例如，初始核态为最大混合态：
+
+$$
+\rho_{\mathrm n}^{(0)}=\frac{\mathbb1}{2}.
+$$
+
+经过一次扫描，
+
+$$
+\rho_{\mathrm n}^{(1)}
+=\frac12
+\begin{pmatrix}
+1+\sin^2\theta&0\\
+0&\cos^2\theta
+\end{pmatrix}.
+$$
+
+反复 $n$ 次后，可以得到
+
+$$
+\boxed{
+\rho_{\mathrm n}^{(n)}
+=
+\begin{pmatrix}
+1-\dfrac12\cos^{2n}\theta&0\\
+0&\dfrac12\cos^{2n}\theta
+\end{pmatrix}.
+}
+$$
+
+当 $|\cos\theta|<1$ 时，
+
+$$
+\lim_{n\to\infty}\rho_{\mathrm n}^{(n)}
+=|\uparrow\rangle\langle\uparrow|.
+$$
+
+这个简单模型说明：即使每次扫描之后都把电子重置为相同的单重态，核自旋仍然能够在连续泵浦中发生定向极化。
+
+它也给出了一个特殊的低耦合核态，因为
+
+$$
+I^+|\uparrow\rangle=0.
+$$
+
+所以，当核自旋已经完全向上极化时，电子无法再通过这个 flip-flop 算符发生 $S\to T_-$ 跃迁。
+
+在真实的多核系统中，还存在由不同核自旋的相干叠加产生的低耦合态。我们将在下一篇专门研究它们。
+
+## 5. 多核系统的重复动力学
+
+### 5.1 一次完整的泵浦周期
+
+现在回到包含许多核自旋的双量子点。
+
+设第 $n$ 次扫描开始前的核态为 $\rho_n$，扫描对应的核态量子通道为 $\Phi_n$。
+
+扫描和电子重置之后，核态为
+
+$$
+\rho_n'=\Phi_n(\rho_n).
+$$
+
+但实际实验中，相邻两次扫描之间还存在等待时间。在这段时间内，核自旋仍然可能在外磁场中进动，并受到其他相互作用或噪声的影响。
+
+我们用另一个量子通道 $\mathcal W_n$ 描述这段时间的核态演化：
+
+$$
+\rho_{n+1}
+=\mathcal W_n(\rho_n').
+$$
+
+于是一次完整泵浦循环可以写成
+
+$$
+\boxed{
+\rho_{n+1}
+=\mathcal W_n\!\left[\Phi_n(\rho_n)\right].
+}
+$$
+
+如果每次扫描采用相同的协议，等待过程也相同，可以省略下标：
+
+$$
+\boxed{
+\rho_{n+1}
+=(\mathcal W\circ\Phi)(\rho_n).
+}
+$$
+
+反复执行 $n$ 次，就得到
+
+$$
+\boxed{
+\rho_n=(\mathcal W\circ\Phi)^n(\rho_0).
+}
+$$
+
+这个表达式将反复 LZ 泵浦写成了作用于核态的离散量子动力学。
+
+### 5.2 等待期间的核自旋演化
+
+我们先考虑最简单的情况：等待期间核自旋只在外磁场中进动。
+
+此时核哈密顿量为
+
+$$
+H_{\mathrm n}
+=-g_n\mu_NB(J_1^z+J_2^z).
+$$
+
+等待时间为 $\tau_w$，对应的核演化算符为
+
+$$
+U_{\mathrm n}(\tau_w)
+=\exp\left(-\frac{i}{\hbar}H_{\mathrm n}\tau_w\right).
+$$
+
+因此，
+
+$$
+\boxed{
+\mathcal W(\rho)
+=U_{\mathrm n}(\tau_w)\rho U_{\mathrm n}^\dagger(\tau_w).
+}
+$$
+
+这时等待通道本身是酉通道。
+
+如果需要考虑核自旋退相干，也可以将 $\mathcal W$ 替换为包含噪声的完全正、保迹映射。
+
+例如，核自旋受到不同的局部磁场涨落时，不同核之间的相对进动相位会逐渐变化，从而改变集体核态中的相干项。
+
+在蔡老师的半经典模拟中，每个核自旋受到独立的随机纵向磁场，并通过随机重初始化模拟核自旋弛豫。[^cai2025] 在量子模型中，我们之后可以使用随机哈密顿量或适当的开放系统动力学描述这些过程。
+
+但在第一版数值模型中，只保留核 Zeeman 演化，就已经能够建立完整的泵浦循环。
+
+### 5.3 核自旋极化的变化
+
+接下来研究一个可以直接计算的物理量：核自旋的纵向极化。
+
+定义电子总自旋与核总角动量的 $z$ 分量之和：
+
+$$
+M^z=s_1^z+s_2^z+J_1^z+J_2^z.
+$$
+
+在我们目前考虑的各向同性交换、Zeeman 作用和接触超精细相互作用下，有
+
+$$
+[H(t),M^z]=0.
+$$
+
+因此，一次封闭的联合扫描过程中，
+
+$$
+\Delta\langle M^z\rangle=0.
+$$
+
+电子每次扫描前都处于单重态，所以初始电子总自旋的 $z$ 分量为零。
+
+扫描结束后，电子可能处于 $S$ 或 $T_-$。如果测得 $T_-$ 的概率为 $p_T$，那么扫描结束后电子总自旋的平均 $z$ 分量为
+
+$$
+\langle S_{\mathrm e}^z\rangle=-p_T.
+$$
+
+由总角动量守恒，
+
+$$
+\Delta\langle J_1^z+J_2^z\rangle
+=-\Delta\langle S_{\mathrm e}^z\rangle.
+$$
+
+因此，
+
+$$
+\boxed{
+\Delta\langle J_1^z+J_2^z\rangle=p_T.
+}
+$$
+
+这里角动量算符采用无量纲约定。
+
+这个结果说明，在当前模型下，每次泵浦引起的核自旋总纵向极化增加量，恰好等于电子最终处于 $T_-$ 的概率。
+
+当电子重置不直接改变核态、等待期间也保持核总 $z$ 分量时，这个关系同样描述一个完整泵浦周期的极化变化。
+
+这个关系还可以作为之后数值程序的检验条件。我们可以分别计算电子三重态概率和核自旋极化变化，检查二者是否一致。
+
+### 5.4 如何描述电子跃迁概率的变化？
+
+对于第 $n$ 次扫描，我们定义
+
+$$
+\boxed{
+p_T(n)=
+\operatorname{Tr}\left[
+M_T^{(n)}\rho_nM_T^{(n)\dagger}
+\right].
+}
+$$
+
+如果扫描协议始终相同，$M_T^{(n)}$ 就可以写成同一个 $M_T$，而跃迁概率随 $n$ 的变化来自核态 $\rho_n$ 的变化。
+
+在原论文的半经典模型中，$S-T_-$ 横向耦合由两个量子点之间的横向核场差异决定。随着反复泵浦进行，两点的横向核自旋逐渐表现出同步进动，使有效耦合减弱，因而电子跃迁概率下降。
+
+在量子模型中，类似的低耦合行为应该由核态对跃迁算符的响应来描述。
+
+回忆我们得到的非对角耦合算符
+
+$$
+L=\frac{1}{2\sqrt2}
+\left(a_1J_1^+-a_2J_2^+\right).
+$$
+
+它决定了 $S\to T_-$ 过程中核态的变化。
+
+因此，一个自然的核态观测量是
+
+$$
+\boxed{
+C_n=\operatorname{Tr}
+\left(\rho_nL^\dagger L\right).
+}
+$$
+
+它描述核态中的平均耦合强度平方。
+
+例如，如果一个核态 $|D\rangle$ 满足
+
+$$
+L|D\rangle=0,
+$$
+
+那么
+
+$$
+\langle D|L^\dagger L|D\rangle=0.
+$$
+
+这说明该核态在这个跃迁通道下具有零耦合。
+
+但 $C_n$ 与一次有限时间扫描测得的 $p_T(n)$ 并不总是具有简单的比例关系。后者还受到扫描轨迹、纵向核场、核自旋自身演化等因素影响。
+
+我们因此可以同时记录 $p_T(n)$ 和 $C_n$，分别描述实际电子跃迁概率以及核态中的横向耦合。
+
+## 6. 量子模型的基本计算结构
+
+现在我们已经能够将完整的泵浦过程表示成核态的离散演化。
+
+整个计算可以从给定核初态 $\rho_0$ 开始。
+
+对于第 $n$ 次循环：
+
+1. 将电子准备为 $|S\rangle$，构造联合态 $|S\rangle\langle S|\otimes\rho_n$。
+2. 根据含时哈密顿量 $H(t)$ 求解一次 LZ 扫描的联合演化算符 $U$。
+3. 计算电子的三重态概率 $p_T(n)$，并通过对电子取部分迹得到扫描后的核态 $\Phi(\rho_n)$。
+4. 根据等待通道 $\mathcal W$ 演化核态，得到下一次扫描前的状态 $\rho_{n+1}$。
+5. 记录核自旋极化及耦合强度等观测量，再进入下一次循环。
+
+我们可以把这些步骤统一写成
+
+$$
+\boxed{
+\begin{aligned}
+p_T(n)
+&=\operatorname{Tr}
+\left(M_T\rho_nM_T^\dagger\right),\\
+\rho_{n+1}
+&=\mathcal W\left[
+M_S\rho_nM_S^\dagger
++M_T\rho_nM_T^\dagger
+\right].
+\end{aligned}
+}
+$$
+
+其中
+
+$$
+M_a=\langle a|U_{\mathrm{LZ}}|S\rangle.
+$$
+
+这就是我们建立的最小量子泵浦模型。
+
+它保留了电子与核自旋在扫描期间形成的量子关联，并允许电子的反复初始化持续改变核态。对于少量核自旋，我们可以直接通过矩阵运算进行数值求解。
+
+此外，我们已经得到几个可以用来验证程序的关系：
+
+$$
+\boxed{
+\begin{aligned}
+&U^\dagger U=\mathbb1,\\
+&M_S^\dagger M_S+M_T^\dagger M_T=\mathbb1_{\mathrm n},\\
+&\operatorname{Tr}\rho_n=1,\\
+&\rho_n^\dagger=\rho_n,\qquad \rho_n\geq0.
+\end{aligned}
+}
+$$
+
+在总自旋 $z$ 分量守恒的条件下，还应有
+
+$$
+\boxed{
+\Delta\langle J_1^z+J_2^z\rangle=p_T(n)
+}
+$$
+
+描述单次扫描造成的核极化变化。
+
+这些关系分别检验联合演化的酉性、核态量子通道的保迹性、密度矩阵的物理性质以及角动量守恒。
+
+至此，我们已经建立了从单次 LZ 扫描到重复核自旋泵浦的完整量子描述。
+
+但还有一个问题：经过许多次泵浦后，核自旋系统究竟会趋向什么样的状态？
+
+前面的单核模型最终产生了完全极化的核态。在多核系统中，不同核自旋的跃迁振幅还可能通过量子相干相互抵消，使系统在未完全极化时就形成低耦合状态。
+
+下一篇我们将研究这种核自旋暗态的量子力学定义，以及集体角动量如何帮助我们分析暗态的结构与形成过程。
+
+---
+
+[^cai2025]: X. Cai, H. Y. Walelign, and J. M. Nichol, *The formation of a nuclear-spin dark state in silicon*, Nature Physics **21**, 536–541 (2025). [DOI](https://doi.org/10.1038/s41567-024-02773-w)；[arXiv 全文](https://arxiv.org/html/2405.14922v2)。

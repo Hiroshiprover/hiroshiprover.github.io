@@ -1,0 +1,338 @@
+---
+title: 硅量子点、能带、有效质量与包络函数
+slug: /si29-dark-state/effective-mass
+sidebar_key: effective-mass
+sidebar_position: 2
+---
+
+本文是我本科毕业设计的前期学习笔记：研究 Si/SiGe 双量子点中，电子自旋与 $^{29}\mathrm{Si}$ 核自旋的相互作用。为了便于理解，本文在写作时假设了读者的存在，并且假设读者具有和我一样的知识水平。如果读者发现我在论证一些极其 trivial 的事情，或发现我省略了很多东西导致理解困难，请不要感到奇怪。
+
+## 1. 研究背景：硅量子点的问题
+
+量子点（quantum dot）是将电子限制在有限区域（通常几十至几百纳米）内的量子系统。由于电子的空间运动受到限制，其轨道能级离散化，因此量子点有时也被称为人工原子。
+
+在 Si/SiGe 三明治层中，我们可以利用硅量子阱将电子限制在很薄的一层晶体中，再通过表面金属栅极施加电压，在量子阱平面内形成局域的束缚势，从而实现量子点[^cai2025]。
+
+天然硅主要包含三种稳定同位素：
+
+| 同位素 | 天然丰度（约） | 核自旋 |
+| --- | --- | --- |
+| $^{28}\mathrm{Si}$ | 92.2% | $0$ |
+| $^{29}\mathrm{Si}$ | 4.7% | $1/2$ |
+| $^{30}\mathrm{Si}$ | 3.1% | $0$ |
+
+其中，只有 $^{29}\mathrm{Si}$ 具有非零核自旋。这就会使得量子点中的电子与周围的 $^{29}\mathrm{Si}$ 核发生超精细相互作用。而且电子在量子点中的波函数通常覆盖几十纳米的空间区域，远大于硅的晶格常数 $a=0.543\,\mathrm{nm}$。这意味着一个电子的波函数可以覆盖大量的硅原子核，其中可能有较多（约几千个）的 $^{29}\mathrm{Si}$ 核，它们会影响电子自旋的动力学。这就是我们之后要处理的。
+
+## 2. 有效质量
+
+### 2.1 周期晶体与束缚势
+
+考虑理想硅晶体中的电子，其单电子哈密顿量 $H_0$ 可以写作
+
+$$
+H_0=\frac{\mathbf p^2}{2m_e}+V_{\mathrm{latt}}(\mathbf r),
+$$
+
+其中 $V_{\mathrm{latt}}(\mathbf r+\mathbf R)=V_{\mathrm{latt}}(\mathbf r)$，$\mathbf R$ 是晶格矢量。根据 Bloch 定理，$H_0$ 的本征态可以写成
+
+$$
+\psi_{n\mathbf k}(\mathbf r)
+=e^{i\mathbf k\cdot\mathbf r}
+u_{n\mathbf k}(\mathbf r),
+$$
+
+其中 $u_{n\mathbf k}$ 也具有晶格周期性，相应的本征能量构成能带 $E_n(\mathbf k)$。这是固体物理中的基本结论。
+
+但我们的量子点在硅表面设置了外加电极，还有夹进去的 $\mathrm{SiGe}$ 结构，以产生束缚势 $U(\mathbf r)$，所以此时的哈密顿量应该写为
+
+$$
+H=H_0+U(\mathbf r).
+$$
+
+而 $U(\mathbf r)$ 一般不具有晶格的平移对称性，所以完整哈密顿量不再满足 Bloch 定理的条件，电子态也不再具有确定的晶体动量 $\mathbf k$。
+
+不过，原来周期晶体的 Bloch 态仍然可以用来展开新的电子态。对于量子点中的低能电子，我们主要关心硅导带极小值附近的态，因此可以尝试将波函数展开为这些 Bloch 态的线性组合：
+
+$$
+\Psi(\mathbf r)
+\approx\int d^3q\,a(\mathbf q)
+e^{i(\mathbf k_0+\mathbf q)\cdot\mathbf r}
+u_{c,\mathbf k_0+\mathbf q}(\mathbf r).
+$$
+
+这里 $\mathbf k_0$ 是某个导带极小值的位置，$c$ 表示导带，$\mathbf q$ 是相对于 $\mathbf k_0$ 的波矢。积分范围限制在该极小值附近，归一化系数暂时省略。
+
+原则上，将这个表达式代入薛定谔方程，求解出 $a(\mathbf q)$，就得到了电子的波函数。然而，一般而言我们并不知道束缚势 $U(\mathbf r)$ 的形式；就算知道，这个方程也可能非常难解。我们因此来考虑一些近似。
+
+### 2.2 导带极小值附近的展开
+
+考虑硅导带的某个极小值 $\mathbf k_0$。在其附近，将波矢写成
+
+$$
+\mathbf k=\mathbf k_0+\mathbf q,
+\qquad \abs{\mathbf q}a \ll 1,
+$$
+
+将导带色散关系在 $\mathbf k_0$ 附近作 Taylor 展开。由于 $\mathbf k_0$ 是极小值，一阶导数为零，因此
+
+$$
+E_c(\mathbf k_0+\mathbf q)
+\simeq E_c(\mathbf k_0)
++\frac12\sum_{ij}
+\left.
+\frac{\partial^2E_c}
+{\partial k_i\partial k_j}
+\right|_{\mathbf k_0}q_iq_j.
+$$
+
+定义逆有效质量张量
+
+$$
+\boxed{
+(m^{*-1})_{ij}
+=\frac{1}{\hbar^2}
+\left.
+\frac{\partial^2E_c}
+{\partial k_i\partial k_j}
+\right|_{\mathbf k_0}.
+}
+$$
+
+于是
+
+$$
+E_c(\mathbf k_0+\mathbf q)
+\simeq E_c(\mathbf k_0)
++\frac{\hbar^2}{2}
+\sum_{ij}q_i(m^{*-1})_{ij}q_j.
+$$
+
+这表明，在能带极小值附近，电子具有近似于自由粒子的二次色散关系，但其质量由能带曲率决定。
+
+有效质量一般是一个张量，因为能带曲率可能具有方向依赖性。例如，硅导带极小值附近的纵向和横向有效质量就不同。
+
+### 2.3 构造包络函数
+
+我们回到前面考虑的波函数：
+
+$$
+\Psi(\mathbf r)
+\approx\int d^3q\,a(\mathbf q)
+e^{i(\mathbf k_0+\mathbf q)\cdot\mathbf r}
+u_{c,\mathbf k_0+\mathbf q}(\mathbf r).
+$$
+
+由于只考虑 $\mathbf k_0$ 附近很小的 $\mathbf q$，我们进一步近似认为 Bloch 函数中的周期部分变化不大，即
+
+$$
+u_{c,\mathbf k_0+\mathbf q}(\mathbf r)
+\approx u_{c,\mathbf k_0}(\mathbf r).
+$$
+
+于是
+
+$$
+\begin{aligned}
+\Psi(\mathbf r)
+&\approx e^{i\mathbf k_0\cdot\mathbf r}
+u_{c,\mathbf k_0}(\mathbf r)
+\int d^3q\,a(\mathbf q)e^{i\mathbf q\cdot\mathbf r}\\
+&=e^{i\mathbf k_0\cdot\mathbf r}
+u_{c,\mathbf k_0}(\mathbf r)F(\mathbf r),
+\end{aligned}
+$$
+
+其中定义
+
+$$
+\boxed{
+F(\mathbf r)
+=\int d^3q\,a(\mathbf q)e^{i\mathbf q\cdot\mathbf r}.
+}
+$$
+
+我们将 $F(\mathbf r)$ 称为包络函数（envelope function）。实际上，这就是系数 $a(\mathbf q)$ 的逆傅里叶变换。
+
+因此，波函数可以近似写成
+
+$$
+\boxed{
+\Psi(\mathbf r)
+\approx F(\mathbf r)\psi_{c\mathbf k_0}(\mathbf r).
+}
+$$
+
+其中 Bloch 函数 $\psi_{c\mathbf k_0}$ 描述晶格周期势所决定的微观结构，而包络函数 $F(\mathbf r)$ 描述电子在量子点尺度上的空间分布。
+
+由于我们只考虑很小的 $\mathbf q$，包络函数主要由长波长的平面波叠加而成，其变化尺度远大于晶格常数。
+
+这样，电子波函数同时具有两种不同的空间尺度：晶格尺度上的快速变化，以及整个量子点尺度上的缓慢变化。
+
+### 2.4 推导有效质量方程
+
+现在我们已经有了包络函数的定义，但还不知道它满足什么方程。
+
+回忆之前得到的能带展开：
+
+$$
+E_c(\mathbf k_0+\mathbf q)
+\simeq E_c(\mathbf k_0)
++\frac{\hbar^2}{2}
+\sum_{ij}q_i(m^{*-1})_{ij}q_j.
+$$
+
+对于周期哈密顿量 $H_0$，每个 Bloch 态都是它的本征态，因此 $H_0$ 的作用相当于把每个系数 $a(\mathbf q)$ 乘上对应的能量 $E_c(\mathbf k_0+\mathbf q)$。
+
+注意到傅里叶变换满足
+
+$$
+q_i e^{i\mathbf q\cdot\mathbf r}
+=-i\partial_i e^{i\mathbf q\cdot\mathbf r},
+$$
+
+所以
+
+$$
+\begin{aligned}
+&\int d^3q\,q_iq_j a(\mathbf q)
+e^{i\mathbf q\cdot\mathbf r}\\
+&\qquad=-\partial_i\partial_j
+\int d^3q\,a(\mathbf q)e^{i\mathbf q\cdot\mathbf r}\\
+&\qquad=-\partial_i\partial_jF(\mathbf r).
+\end{aligned}
+$$
+
+也就是说，色散关系中的 $q_iq_j$，在包络函数的位置表象下对应微分算符 $-\partial_i\partial_j$。
+
+因此，去掉常数能量 $E_c(\mathbf k_0)$ 后，导带极小值附近的二次色散关系对应一个有效动能算符
+
+$$
+\boxed{
+\hat T_{\mathrm{eff}}
+=-\frac{\hbar^2}{2}
+\sum_{ij}(m^{*-1})_{ij}\partial_i\partial_j.
+}
+$$
+
+对于在晶格尺度上缓慢变化的外加束缚势，我们可以在包络函数近似下将其作为势能项 $U(\mathbf r)$。
+
+于是得到
+
+$$
+\boxed{
+\left[
+-\frac{\hbar^2}{2}
+\sum_{ij}(m^{*-1})_{ij}\partial_i\partial_j
++U(\mathbf r)
+\right]F(\mathbf r)
+=\varepsilon F(\mathbf r),
+}
+$$
+
+其中 $\varepsilon=E-E_c(\mathbf k_0)$，并且假设有效质量张量在空间中恒定。
+
+这就是有效质量近似（effective mass approximation）下的包络函数方程。
+
+如果进一步假设有效质量各向同性，即
+
+$$
+(m^{*-1})_{ij}=\frac1{m^*}\delta_{ij},
+$$
+
+便得到
+
+$$
+\boxed{
+\left[
+-\frac{\hbar^2}{2m^*}\nabla^2
++U(\mathbf r)
+\right]F(\mathbf r)
+=\varepsilon F(\mathbf r).
+}
+$$
+
+形式上，这和普通单粒子的薛定谔方程几乎一样，只是电子质量变成了有效质量，而我们要求解的是包络函数 $F(\mathbf r)$。
+
+到这里，我们就利用硅的能带结构，得到了描述量子点中电子轨道运动的有效方程。
+
+### 2.5 如何确定束缚势？
+
+现在回到之前的问题：我们仍然不知道 $U(\mathbf r)$ 的具体形式。
+
+真实量子点中的束缚势由异质结构、外加电极和空间电荷分布等共同决定。原则上，我们可以根据器件的几何结构与电极电压计算静电势，再求解电子的束缚态。
+
+不过，我们目前主要关心电子与核自旋的相互作用，因此先使用一个简单的模型来描述电子轨道。
+
+考虑量子阱平面内的运动。假设束缚势在 $\mathbf r_0=(x_0,y_0)$ 附近存在极小值，可以将它作 Taylor 展开：
+
+$$
+U(x,y)\approx U(x_0,y_0)
++\frac12\sum_{i,j=x,y}
+K_{ij}(r_i-r_{0i})(r_j-r_{0j}),
+$$
+
+其中
+
+$$
+K_{ij}=
+\left.
+\frac{\partial^2U}{\partial r_i\partial r_j}
+\right|_{\mathbf r_0}.
+$$
+
+若进一步假设势能在平面内具有旋转对称性，并暂时采用各向同性有效质量，就得到熟悉的二维谐振子势：
+
+$$
+U(x,y)=\frac12m^*\omega^2
+\left[(x-x_0)^2+(y-y_0)^2\right].
+$$
+
+这个问题的基态包络函数为
+
+$$
+\boxed{
+F(x,y)=\frac1{\sqrt{\pi}\ell}
+\exp\left[
+-\frac{(x-x_0)^2+(y-y_0)^2}{2\ell^2}
+\right],
+}
+$$
+
+其中
+
+$$
+\ell=\sqrt{\frac{\hbar}{m^*\omega}}.
+$$
+
+这里的波函数已经在二维平面上归一化，垂直方向的束缚态暂时没有写出。
+
+可见，包络函数的空间分布由束缚势决定。对于谐振子势，$\omega$ 越小，包络函数的宽度 $\ell$ 就越大，电子的空间分布也越弥散。
+
+这也解释了为什么量子点中的电子可以在几十纳米的区域内分布，即使整个系统仍然处于束缚态。
+
+### 2.6 双量子点
+
+我们研究的是双量子点，即在量子阱平面内形成两个相邻的局域势阱。
+
+假设两个点分别位于 $\mathbf r_1$ 和 $\mathbf r_2$ 附近，那么它们各自具有局域的电子轨道，记作 $F_1(\mathbf r)$ 和 $F_2(\mathbf r)$。
+
+如果两个量子点距离足够远，电子可以近似局域在各自的势阱内。如果两个量子点靠得比较近，轨道之间就会产生空间重叠，电子可以通过中间的势垒发生隧穿。
+
+例如，两个轨道之间的重叠可以用
+
+$$
+S_{12}=\int d^3r\,F_1^*(\mathbf r)F_2(\mathbf r)
+$$
+
+来描述。实际计算隧穿强度时，还需要考虑哈密顿量在这些轨道之间的矩阵元。
+
+因此，量子点的束缚势和电子轨道决定了电子的局域化程度、隧穿耦合以及轨道能级等性质。通过调节外加电极的电压，我们可以控制这些参数。
+
+不过，这些还只是电子的轨道自由度。我们之后还需要考虑电子的自旋，以及多个电子之间的相互作用。
+
+在进入多电子问题之前，我们先看看电子的空间波函数与核自旋有什么关系。
+
+[^cai2025]: X. Cai, H. Y. Walelign, and J. M. Nichol,
+    *The formation of a nuclear-spin dark state in silicon*,
+    Nature Physics **21**, 536–541 (2025).
+    [DOI](https://doi.org/10.1038/s41567-024-02773-w)；[arXiv 全文](https://arxiv.org/html/2405.14922v2)。

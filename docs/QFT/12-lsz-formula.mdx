@@ -1,0 +1,170 @@
+---
+title: LSZ 约化公式
+sidebar_position: 13
+hide_title: true
+---
+
+# LSZ 约化公式
+
+[上一篇](./11-lsz-reduction-formula.mdx)搭好了 LSZ 的出发点：相互作用真空、渐近算符和单粒子态。这一篇把它们接起来，推导 LSZ 约化公式：把 $S$ 矩阵元写成外腿乘上 $K_x=-\Box_x+m^2$ 的编时关联函数。
+
+## 1. 场、物理质量与归一化
+
+沿用上一篇的场展开：
+$$
+\phi(x)=\int\frac{\dd^3p}{(2\pi)^3\sqrt{2\omega_p}}
+\left[
+\tilde a_{\vec p}(t)e^{\ii p\cdot x}
++\tilde a^\dagger_{\vec p}(t)e^{-\ii p\cdot x}
+\right],
+\qquad
+p\cdot x=-\omega_p t+\vec p\cdot\vec x .
+$$
+这里 $\tilde a_{\vec p}(t)$ 是描述“在时刻 $t$ 看起来像自由粒子”的渐近模式算符，满足
+$$
+\tilde a_{\vec p}(t)|\Omega\rangle=0,
+\qquad
+[\tilde a_{\vec p}(t),\tilde a^\dagger_{\vec q}(t)]
+=(2\pi)^3\delta^{(3)}(\vec p-\vec q).
+$$
+它不是 Heisenberg 场算符；两者的区别上一篇已经说明。第 1 节展开中的 $\phi(x)$ 则是完整的 Heisenberg 场算符；只有在 $t\to\pm\infty$ 时，它才趋近自由场，可以用 $\tilde a_{\vec p}(t)$ 展开。
+
+场论里有两个容易混淆的质量。$m$ 是单粒子极点的位置，也就是物理质量；$m'$ 是拉格朗日量里 $\phi^2$ 的系数。相互作用会移动极点，所以一般 $m'\neq m$。同样，动能项的系数也不一定等于 $1$。把拉格朗日量写成
+$$
+\mathcal L
+=-\frac12 Z(\partial\phi)^2
+-\frac{m'^2}{2}\phi^2
++Y\phi+\mathcal L_{\rm int},
+$$
+其中 $Z$ 是波函数重整化，$Y$ 是 tadpole 项。自由理论对应
+$$
+Z=1,\qquad Y=0,\qquad m'=m.
+$$
+
+在相互作用理论中，我们重新定义 $\phi$ 和这些系数，使两个归一化条件成立：
+$$
+\boxed{\langle\Omega|\phi(x)|\Omega\rangle=0,}
+\qquad
+\boxed{\langle\vec p,t|\phi(x)|\Omega\rangle=e^{-\ii p\cdot x}.}
+$$
+第一条叫 **tadpole cancellation**（蝌蚪项抵消），它去掉场的真空期望；第二条叫 **wave-function normalization**（波函数归一化），它把单粒子矩阵元归一化，使外腿的留数为 $1$。这两条不是动力学定理，而是对重标度后的场提出的要求；$m$ 作为物理质量固定下来，$Z$、$Y$、$m'$ 则相应调整。
+
+## 2. 渐近态与 S 矩阵
+
+用渐近算符构造初末态。初态在 $t\to-\infty$ 产生，末态在 $t\to+\infty$ 湮灭：
+$$
+|i;-\infty\rangle
+=\prod_{\vec p\in i}\sqrt{2\omega_p}\,
+\tilde a^\dagger_{\vec p}(-\infty)|\Omega\rangle,
+$$
+$$
+\langle f;+\infty|
+=\prod_{\vec p'\in f}\sqrt{2\omega_{p'}}\,
+\langle\Omega|\tilde a_{\vec p'}(+\infty).
+$$
+于是
+$$
+\langle f|S|i\rangle
+=\langle f;+\infty|i;-\infty\rangle
+=\prod_{\vec p\in i}\sqrt{2\omega_p}
+\prod_{\vec p'\in f}\sqrt{2\omega_{p'}}
+\langle\Omega|
+\prod_{\vec p'\in f}\tilde a_{\vec p'}(+\infty)
+\prod_{\vec p\in i}\tilde a^\dagger_{\vec p}(-\infty)
+|\Omega\rangle .
+$$
+所有初态产生算符都在 $-\infty$，所有末态湮灭算符都在 $+\infty$，因此这些算符已经按时间排好；把乘积写进 $T\{\cdots\}$ 不会改变顺序。
+
+## 3. 把渐近算符换成场
+
+关键是下面两个恒等式。定义
+$$
+K_x\equiv-\Box_x+m^2.
+$$
+因为外腿在壳，$p^2=-m^2$，所以 $K_x e^{\pm\ii p\cdot x}=0$。对湮灭算符，有
+$$
+\boxed{
+\sqrt{2\omega_p}\left[\tilde a_{\vec p}(+\infty)-\tilde a_{\vec p}(-\infty)\right]
+=\ii\int \dd^4x\,e^{-\ii p\cdot x}K_x\phi(x).
+}
+$$
+对产生算符，取厄米共轭并移项，得到
+$$
+\boxed{
+\sqrt{2\omega_p}\left[\tilde a^\dagger_{\vec p}(-\infty)-\tilde a^\dagger_{\vec p}(+\infty)\right]
+=\ii\int \dd^4x\,e^{\ii p\cdot x}K_x\phi(x).
+}
+$$
+注意指数的搭配：湮灭用 $e^{-\ii p\cdot x}$，产生用 $e^{+\ii p\cdot x}$。
+
+先证明第一个。因为 $K_x e^{-\ii p\cdot x}=0$，可以把 $K_x$ 从 $e^{-\ii p\cdot x}$ 上搬到 $\phi$ 上，只留下全导数：
+$$
+e^{-\ii p\cdot x}K_x\phi
+=\partial_t\left[e^{-\ii p\cdot x}(\partial_t-\ii\omega_p)\phi\right]
+-\vec\nabla\cdot\left[e^{-\ii p\cdot x}\vec\nabla\phi
+-\phi\vec\nabla e^{-\ii p\cdot x}\right].
+$$
+空间无穷远的通量消失，所以
+$$
+\ii\int \dd^4x\,e^{-\ii p\cdot x}K_x\phi
+=\ii\left[
+\int \dd^3x\,e^{-\ii p\cdot x}(\partial_t-\ii\omega_p)\phi
+\right]_{t=-\infty}^{t=+\infty}.
+$$
+在 $t\to\pm\infty$，场是自由的，可以代入第 1 节的展开。产生算符项随时间快速振荡，在分布意义下不贡献；湮灭算符项在 $\vec q=\vec p$ 处留下
+$$
+\int \dd^3x\,e^{-\ii p\cdot x}(\partial_t-\ii\omega_p)\phi
+=-\ii\sqrt{2\omega_p}\,\tilde a_{\vec p}(t).
+$$
+代回边界差，就得到第一个恒等式。第二个由厄米共轭直接得到。
+
+## 4. LSZ 公式
+
+把两个恒等式代入第 2 节的 $S$ 矩阵。每个末态湮灭算符换成场积分，每个初态产生算符也换成场积分；多出来的 $\tilde a(-\infty)$ 和 $\tilde a^\dagger(+\infty)$ 项会湮灭真空，只剩下场。于是
+$$
+\boxed{
+\begin{aligned}
+\langle f|S|i\rangle
+={}&\prod_{\vec p'\in f}
+\left(\ii\int \dd^4y\,e^{-\ii p'\cdot y}K_y\right)
+\prod_{\vec p\in i}
+\left(\ii\int \dd^4x\,e^{\ii p\cdot x}K_x\right)\\
+&\times
+\langle\Omega|T\{\phi(y_1)\cdots\phi(x_1)\cdots\}|\Omega\rangle
++\text{contact terms}.
+\end{aligned}}
+$$
+所有外腿动量都在壳，$p^0=\omega_p$。初态用 $e^{+\ii p\cdot x}$，末态用 $e^{-\ii p'\cdot y}$；这是 $p\cdot x=-\omega_p t+\vec p\cdot\vec x$ 的直接结果。
+
+LSZ 公式的作用，是把外腿传播子的单粒子极点截掉：每个外腿贡献一个 $K$，它消去外腿的极点，留下留数；剩下的编时关联函数才包含相互作用的信息。实际计算时，先算关联函数，再把外腿在壳、乘上这些因子。
+
+## 5. 接触项与自由场检验
+
+为什么会有接触项？因为 $K$ 作用在时间排序的 $\Theta$ 函数上会产生 $\delta$ 函数。以两点函数为例：
+$$
+K_x\langle\Omega|T\{\phi(x)\phi(y)\}|\Omega\rangle
+=\langle\Omega|T\{K_x\phi(x)\phi(y)\}|\Omega\rangle
+-\ii\delta^{(4)}(x-y).
+$$
+这个 $\delta$ 来自对 $\Theta(t_x-t_y)$ 求两次时间导数；空间导数不产生接触项。等时对易关系
+$$
+[\phi(t,\vec x),\partial_t\phi(t,\vec y)]
+=\ii\delta^{(3)}(\vec x-\vec y)
+$$
+给出系数 $-\ii$。
+
+在自由理论中，$K_x\phi=0$，于是
+$$
+K_xD_F(x-y)=-\ii\delta^{(4)}(x-y),
+\qquad
+(\Box_x-m^2)D_F(x-y)=\ii\delta^{(4)}(x-y).
+$$
+这正是第 09 篇得到的 Feynman 传播子方程：接触项就是自由传播子的源项。对一般的多点函数，把 $K$ 移到 $T$ 外会得到一系列 $\delta^{(4)}(x_i-x_j)$；它们在动量空间是多项式，不含外腿的单粒子极点，因此在 LSZ 取在壳极限、分离极点留数时不贡献散射振幅。公式里先显式保留 $+\text{contact terms}$，就是为了记住这一步。
+
+## 6. 适用范围
+
+LSZ 公式不要求 $\phi$ 是“基本”场，只要求它与单粒子态有非零重叠。声子、质子、中子这类有效场也可以用自己的场算符套用同样的公式；只要外腿的归一化因子相应调整即可。若场的单粒子矩阵元不是 $1$ 而是 $\sqrt{Z}$，每个外腿会多出一个 $\sqrt{Z}$ 因子；本篇采用的 $\phi$ 已经按第 1 节归一化，所以外腿留数为 $1$。
+
+这也是 LSZ 公式的用处：它把“初末态是什么”与“中间怎么相互作用”分开。外腿因子只负责把渐近单粒子态投影出来，真正的动力学都留在编时关联函数里。
+
+{/* Lecture 12 来源：IMG_8737–8740、8742、8744、8746–8749、8751、8754–8755；编号跳号是老师更新板书时删掉的旧版本，不是缺页；IMG_8743 为相机界面。推导按板书顺序补全；符号按本项目 (-+++)、p·x=-ωt+p·x 统一。 */}

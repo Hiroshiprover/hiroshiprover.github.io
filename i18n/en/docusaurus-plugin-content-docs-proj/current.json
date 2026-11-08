@@ -1,0 +1,17 @@
+{
+  "sidebar.projSidebar.doc.project-home": {
+    "message": "Project"
+  },
+  "sidebar.projSidebar.category.si29-dark-state": {
+    "message": "Si-29 Nuclear Spin Dynamics and Dark States"
+  },
+  "sidebar.projSidebar.doc.effective-mass": {
+    "message": "Silicon Quantum Dots, Bands, Effective Mass and Envelope Functions"
+  },
+  "sidebar.projSidebar.doc.hyperfine-coupling": {
+    "message": "Electron Spatial Distribution, Hyperfine Coupling and the Uniform Coupling Approximation"
+  },
+  "sidebar.projSidebar.doc.double-dot-exchange": {
+    "message": "Multielectron States, Coulomb Interaction, Tunneling and Exchange in Double Quantum Dots"
+  }
+}

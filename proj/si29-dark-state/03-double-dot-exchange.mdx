@@ -1,0 +1,678 @@
+---
+title: 双量子点的多电子态、库仑作用、隧穿与交换耦合
+slug: /si29-dark-state/double-dot-exchange
+sidebar_key: double-dot-exchange
+sidebar_position: 4
+---
+
+前两篇笔记中，我们利用有效质量近似描述了量子点中的单电子轨道，并根据电子的空间分布建立了超精细相互作用模型。上一篇最后还提到，虽然实验使用四个电子，但低能自旋动力学可以用两个有效电子描述。
+
+现在我们来研究多个电子之间的相互作用，建立一个能够描述双量子点电子能级的模型。我们希望理解：为什么通过调节栅极电压，就可以让电子的单重态与某个三重态接近简并？
+
+## 1. 从四个电子到两个有效电子
+
+### 1.1 电荷配置与低能电子态
+
+按照前面的记号，$(N_1,N_2)$ 表示两个量子点中的电子数。蔡老师的实验工作在 $(4,0)$ 与 $(3,1)$ 电荷配置附近：通过改变栅极电压，可以使一个电子从点 1 转移到点 2，而总电子数保持为四。
+
+根据原论文的实验部分，在这个工作区域内，点 1 中始终有两个电子填满最低谷能级，并形成自旋单重态[^cai2025]。
+
+这里的谷能级与硅导带的多能谷结构有关。量子点的束缚势和界面会使不同谷态发生能量分裂。我们将已经填满的最低能级视为一个稳定的电子对，只显式保留剩下两个价电子的自由度。
+
+为了区分实际占据数和有效占据数，记后者为 $(n_1,n_2)$。由于点 1 中始终有两个低能电子，所以
+
+$$
+N_1=2+n_1,\qquad N_2=n_2.
+$$
+
+于是，实际的电荷配置与有效配置之间存在对应关系：
+
+$$
+\begin{aligned}
+(4,0)&\longleftrightarrow(2,0)_{\mathrm{eff}},\\
+(3,1)&\longleftrightarrow(1,1)_{\mathrm{eff}}.
+\end{aligned}
+$$
+
+在有效的 $(2,0)$ 配置中，两个价电子都位于点 1；在有效的 $(1,1)$ 配置中，两个点各有一个价电子。
+
+由于已经填满的电子对总自旋为零，我们可以将低能自旋自由度限制为剩余两个电子的自旋。这就把四电子体系约化成了一个有效双电子体系。
+
+### 1.2 选择电子轨道
+
+我们之前得到的四电子哈密顿量为
+
+$$
+H_{\mathrm e}
+=\sum_{a=1}^{4}h_{\mathrm{eff}}(\mathbf r_a)
++\sum_{a<b}V_C(\mathbf r_a-\mathbf r_b),
+$$
+
+其中第一项描述单电子的轨道运动，第二项描述电子之间的库仑排斥。在简单的介电介质模型中，
+
+$$
+V_C(\mathbf r)=
+\frac{e^2}{4\pi\epsilon_0\epsilon_r|\mathbf r|}.
+$$
+
+现在只考虑剩下的两个价电子。我们在每个量子点中各选择一个低能轨道，记作 $w_1(\mathbf r)$ 和 $w_2(\mathbf r)$。
+
+它们的空间分布仍然可以通过前面讨论的包络函数描述。为了方便计算，我们选取正交归一的局域轨道：
+
+$$
+\int d^3r\,w_i^*(\mathbf r)w_j(\mathbf r)
+=\delta_{ij}.
+$$
+
+这样，我们就可以用两个轨道及其自旋占据来描述有效双电子体系。填满的低能电子对对价电子产生的静电作用，则包含在相应的有效轨道能量和相互作用参数中。
+
+## 2. 两个电子的空间对称性与自旋态
+
+### 2.1 单重态与三重态
+
+两个自旋 $1/2$ 的角动量可以合成为总自旋 $S=0$ 或 $S=1$。
+
+其中，自旋单重态（singlet）为
+
+$$
+|S\rangle
+=\frac{|\uparrow\downarrow\rangle
+-|\downarrow\uparrow\rangle}{\sqrt2},
+$$
+
+三个自旋三重态（triplet）为
+
+$$
+\begin{aligned}
+|T_+\rangle&=|\uparrow\uparrow\rangle,\\
+|T_0\rangle&=\frac{|\uparrow\downarrow\rangle
++|\downarrow\uparrow\rangle}{\sqrt2},\\
+|T_-\rangle&=|\downarrow\downarrow\rangle.
+\end{aligned}
+$$
+
+交换两个电子的自旋标记，单重态变号，而三个三重态保持不变。
+
+由于电子是费米子，总波函数必须满足交换反对称性。因此，单重态需要与对称的空间波函数结合，三重态则需要与反对称的空间波函数结合。
+
+例如，当两个电子分别占据 $w_1$ 和 $w_2$ 时，可以构造空间波函数
+
+$$
+\Phi_\pm(\mathbf r_a,\mathbf r_b)
+=\frac{
+w_1(\mathbf r_a)w_2(\mathbf r_b)
+\pm w_2(\mathbf r_a)w_1(\mathbf r_b)
+}{\sqrt2}.
+$$
+
+其中 $\Phi_+$ 对称，$\Phi_-$ 反对称。因此，完整的单重态与三重态分别为
+
+$$
+\Phi_+|S\rangle,\qquad
+\Phi_-|T_m\rangle.
+$$
+
+之后我们经常只写 $|S\rangle$ 和 $|T_m\rangle$ 来表示两个有效电子的自旋态，空间部分由所讨论的电荷配置确定。
+
+### 2.2 两个电子占据同一轨道
+
+考虑有效的 $(2,0)$ 配置，即两个价电子都位于量子点 1。
+
+如果它们占据同一个轨道 $w_1$，那么空间波函数为
+
+$$
+\Phi(\mathbf r_a,\mathbf r_b)
+=w_1(\mathbf r_a)w_1(\mathbf r_b).
+$$
+
+它显然是对称的，因此自旋部分只能是单重态。我们将这个态记作 $|S(2,0)\rangle$。
+
+类似地，两个电子都占据量子点 2 的同一个轨道时，可以形成 $|S(0,2)\rangle$。
+
+如果两个电子在同一个量子点内形成三重态，它们就需要占据不同的轨道或谷态，才能构造反对称的空间波函数。这样的状态通常涉及额外的激发能。
+
+因此，在每个点只保留一个轨道的模型中，双占据态只能是单重态。
+
+这意味着：**电子在两个点之间的隧穿，对单重态和三重态会产生不同的影响。** 我们接下来就利用这一点研究交换耦合。
+
+## 3. 最小双点 Hubbard 模型
+
+### 3.1 轨道能量、隧穿与库仑能
+
+我们现在有两个轨道 $w_1$、$w_2$，以及两个价电子。为了描述不同轨道和自旋的占据，引入费米产生与湮灭算符：
+
+$$
+c_{i\sigma}^\dagger,\qquad c_{i\sigma},
+$$
+
+分别表示在轨道 $w_i$ 中产生和湮灭一个自旋为 $\sigma$ 的电子。它们满足反对易关系
+
+$$
+\{c_{i\sigma},c_{j\sigma'}^\dagger\}
+=\delta_{ij}\delta_{\sigma\sigma'}.
+$$
+
+定义占据数算符
+
+$$
+n_{i\sigma}=c_{i\sigma}^\dagger c_{i\sigma},
+\qquad
+n_i=n_{i\uparrow}+n_{i\downarrow}.
+$$
+
+我们始终考虑两个价电子，因此 $n_1+n_2=2$。
+
+暂时忽略磁场和超精细相互作用，并假设电子在隧穿时自旋保持不变，可以得到最小双点 Hubbard 哈密顿量[^burkard1999]：
+
+$$
+\boxed{
+\begin{aligned}
+H_{\mathrm{Hub}}
+={}&\sum_{i,\sigma}e_i n_{i\sigma}
+-t\sum_\sigma
+\left(c_{1\sigma}^\dagger c_{2\sigma}
++c_{2\sigma}^\dagger c_{1\sigma}\right)\\
+&+U_1n_{1\uparrow}n_{1\downarrow}
++U_2n_{2\uparrow}n_{2\downarrow}
++Vn_1n_2.
+\end{aligned}
+}
+$$
+
+这里包含了三类相互作用。
+
+$e_i$ 表示价电子在第 $i$ 个点中的有效轨道能量，受到束缚势和栅极电压的控制。
+
+$t$ 是两个点之间的隧穿耦合。我们通过选择轨道相位，使隧穿项的系数写成 $-t$，其中 $t\geq0$。
+
+在固定轨道近似下，它与单粒子哈密顿量的非对角矩阵元有关：
+
+$$
+\langle w_1|h_{\mathrm{val}}|w_2\rangle=-t.
+$$
+
+$U_i$ 表示两个电子占据同一个轨道时的库仑排斥能，而 $V$ 表示两个电子分别占据两个点时的库仑排斥能。
+
+它们可以通过相应的库仑积分计算：
+
+$$
+\begin{aligned}
+U_i={}&\int d^3r\,d^3r'\,
+|w_i(\mathbf r)|^2
+V_C(\mathbf r-\mathbf r')
+|w_i(\mathbf r')|^2,\\
+V={}&\int d^3r\,d^3r'\,
+|w_1(\mathbf r)|^2
+V_C(\mathbf r-\mathbf r')
+|w_2(\mathbf r')|^2.
+\end{aligned}
+$$
+
+至此，我们把复杂的电子轨道和库仑相互作用压缩到了几个参数中：$e_i$、$t$、$U_i$ 和 $V$。在这个最小模型中，我们暂时只保留这些主要矩阵元。
+
+### 3.2 失谐与电荷转移
+
+为了研究栅极电压的影响，定义两个量子点的轨道能量差
+
+$$
+\boxed{
+\varepsilon=e_2-e_1.
+}
+$$
+
+我们称它为失谐（detuning）。按照这个定义，增大 $\varepsilon$ 会使电子更倾向于占据点 1。
+
+这里的 $\varepsilon$ 具有能量量纲。实际实验中也经常用栅极电压表示失谐，此时需要通过相应的转换系数联系二者。
+
+现在先令 $t=0$，也就是暂时关闭两个点之间的隧穿。
+
+根据前面的 Hubbard 哈密顿量，三种电荷配置的能量分别为
+
+$$
+\begin{aligned}
+E_{11}&=e_1+e_2+V,\\
+E_{20}&=2e_1+U_1,\\
+E_{02}&=2e_2+U_2.
+\end{aligned}
+$$
+
+我们以 $(1,1)$ 配置的能量为零点，定义形成两个双占据态所需要的能量：
+
+$$
+\begin{aligned}
+\Delta_{20}
+&=E_{20}-E_{11}
+=U_1-V-\varepsilon,\\
+\Delta_{02}
+&=E_{02}-E_{11}
+=U_2-V+\varepsilon.
+\end{aligned}
+$$
+
+因此
+
+$$
+\boxed{
+\begin{aligned}
+\Delta_{20}&=U_1-V-\varepsilon,\\
+\Delta_{02}&=U_2-V+\varepsilon.
+\end{aligned}
+}
+$$
+
+在 $\Delta_{20},\Delta_{02}>0$ 的情况下，$(1,1)$ 配置具有较低的能量。
+
+如果逐渐增大 $\varepsilon$，那么 $\Delta_{20}$ 会减小，系统就会逐渐靠近 $(1,1)$ 与 $(2,0)$ 的电荷转移区。
+
+在实际四电子体系中，这对应 $(3,1)$ 与 $(4,0)$ 之间的转移。
+
+现在把隧穿耦合 $t$ 加回来，研究它怎样改变电子的能级。
+
+## 4. 隧穿如何产生交换耦合
+
+### 4.1 单重态与双占据态之间的耦合
+
+根据前面的讨论，两个价电子在 $(1,1)$ 配置中可以形成单重态或三重态，而在双占据配置中，我们只保留单重态。
+
+因此，先考虑由以下三个态张成的单重态子空间：
+
+$$
+|S(1,1)\rangle,\quad
+|S(2,0)\rangle,\quad
+|S(0,2)\rangle.
+$$
+
+对于 Hubbard 模型中的隧穿项，直接计算可以得到
+
+$$
+H_t|S(1,1)\rangle
+=-\sqrt2t\left(
+|S(2,0)\rangle+|S(0,2)\rangle
+\right),
+$$
+
+其中我们选择了适当的基态相位。
+
+这里的 $\sqrt2$ 来自两个电子隧穿过程的相干叠加。
+
+三重态的情况则不同。在当前单轨道模型中，三重态不能通过自旋守恒的隧穿过程进入双占据态，因此不会获得相应的隧穿能量修正。
+
+在上述三个单重态组成的有序基底中，以 $E_{11}$ 为能量零点，我们得到
+
+$$
+\boxed{
+H_S=
+\begin{pmatrix}
+0&-\sqrt2t&-\sqrt2t\\
+-\sqrt2t&\Delta_{20}&0\\
+-\sqrt2t&0&\Delta_{02}
+\end{pmatrix}.
+}
+$$
+
+而三个 $(1,1)$ 三重态的能量仍为
+
+$$
+E_T=0.
+$$
+
+所以，隧穿会使单重态与双占据态发生混合，进而改变单重态的能量；三重态则保持原来的能量。两者之间由此产生了能级差。
+
+### 4.2 虚跃迁与二阶能量修正
+
+先考虑
+
+$$
+\Delta_{20},\Delta_{02}\gg t,
+\qquad
+\Delta_{20},\Delta_{02}>0.
+$$
+
+此时，两个双占据态具有较高的能量，而 $(1,1)$ 单重态与它们的耦合较弱，可以使用二阶微扰论。
+
+对于 $|S(1,1)\rangle$，能量的二阶修正为
+
+$$
+\begin{aligned}
+\delta E_S
+&=\sum_{D=S(2,0),S(0,2)}
+\frac{
+|\langle D|H_t|S(1,1)\rangle|^2
+}{
+E_{11}-E_D
+}\\
+&=-\frac{2t^2}{\Delta_{20}}
+-\frac{2t^2}{\Delta_{02}}.
+\end{aligned}
+$$
+
+这里两个中间态都比 $(1,1)$ 单重态具有更高的能量，因此能量修正为负。
+
+这种通过高能中间态产生的能量修正通常称为虚跃迁（virtual hopping）的结果。虽然两个电子主要仍然分别占据两个量子点，但由于隧穿作用，低能态中会混入少量双占据态的成分，从而使能量发生变化。
+
+我们定义交换能
+
+$$
+J=E_T-E_S.
+$$
+
+由于三重态在这个模型中没有得到相应的能量修正，于是
+
+$$
+J=-\delta E_S.
+$$
+
+代入前面的结果：
+
+$$
+\boxed{
+J(\varepsilon)\simeq
+2t^2\left(
+\frac1{U_1-V-\varepsilon}
++\frac1{U_2-V+\varepsilon}
+\right).
+}
+$$
+
+在我们考虑的参数区域内，$J>0$，所以单重态能量低于三重态。
+
+如果两个点具有相同的同点库仑排斥能 $U_1=U_2=U$，并令 $U_c=U-V$，就得到
+
+$$
+J(\varepsilon)\simeq
+\frac{4t^2U_c}{U_c^2-\varepsilon^2}.
+$$
+
+特别地，当 $\varepsilon=0$ 时，
+
+$$
+\boxed{
+J(0)\simeq\frac{4t^2}{U_c}.
+}
+$$
+
+我们就得到了熟悉的超交换（superexchange）形式。
+
+虽然最初的轨道哈密顿量并不显含电子自旋，但由于费米子的交换反对称性，单重态和三重态能够参与的隧穿过程不同，因此获得了不同的能量。
+
+而且交换能依赖于隧穿强度 $t$ 和失谐 $\varepsilon$，所以我们能够通过调节栅极电压来控制它。
+
+### 4.3 有效自旋哈密顿量
+
+现在我们已经知道，在低能 $(1,1)$ 空间中，单重态与三重态之间存在一个能量差
+
+$$
+J=E_T-E_S.
+$$
+
+我们希望用两个电子的自旋算符来表示这个结果。
+
+定义总自旋
+
+$$
+\mathbf S=\mathbf s_1+\mathbf s_2.
+$$
+
+则有
+
+$$
+\mathbf S^2
+=\mathbf s_1^2+\mathbf s_2^2
++2\mathbf s_1\cdot\mathbf s_2.
+$$
+
+由于两个电子的自旋均为 $1/2$，所以
+
+$$
+\mathbf s_1^2=\mathbf s_2^2=\frac34.
+$$
+
+于是
+
+$$
+\mathbf s_1\cdot\mathbf s_2
+=\frac12\left(\mathbf S^2-\frac32\right).
+$$
+
+对于单重态，$S=0$；对于三重态，$S=1$。因此
+
+$$
+\mathbf s_1\cdot\mathbf s_2
+=\begin{cases}
+-\dfrac34,&S=0,\\[4pt]
++\dfrac14,&S=1.
+\end{cases}
+$$
+
+利用这个结果，可以构造有效交换哈密顿量
+
+$$
+\boxed{
+H_{\mathrm{ex}}
+=J(\varepsilon)
+\left(\mathbf s_1\cdot\mathbf s_2-\frac14\right).
+}
+$$
+
+它给出的能量为
+
+$$
+E_S=-J,\qquad E_T=0,
+$$
+
+恰好与前面的轨道计算一致。
+
+我们也经常见到另一种写法：
+
+$$
+H_{\mathrm{ex}}=J\mathbf s_1\cdot\mathbf s_2.
+$$
+
+这两个哈密顿量只相差一个公共能量平移，描述的单重态与三重态能级间隔相同。
+
+### 4.4 靠近电荷转移区
+
+前面的二阶微扰计算要求 $\Delta_{20},\Delta_{02}\gg t$。
+
+但我们实际关心的体系工作在 $(1,1)$–$(2,0)$ 电荷转移区附近，$\Delta_{20}$ 可能降低到与 $t$ 相同的量级。这时需要直接考虑单重态之间的混合。
+
+如果 $\Delta_{02}$ 仍然足够大，可以只保留 $|S(1,1)\rangle$ 和 $|S(2,0)\rangle$。此时
+
+$$
+\boxed{
+H_S^{(2)}=
+\begin{pmatrix}
+0&-\sqrt2t\\
+-\sqrt2t&\Delta_{20}
+\end{pmatrix}.
+}
+$$
+
+直接对角化，得到两个本征值
+
+$$
+E_{S,\pm}
+=\frac{\Delta_{20}
+\pm\sqrt{\Delta_{20}^2+8t^2}}{2}.
+$$
+
+我们取能量较低的分支：
+
+$$
+E_{S,-}
+=\frac{\Delta_{20}
+-\sqrt{\Delta_{20}^2+8t^2}}{2}.
+$$
+
+由于三重态能量仍为零，交换能就是
+
+$$
+\boxed{
+J(\varepsilon)
+=\frac{\sqrt{\Delta_{20}^2+8t^2}-\Delta_{20}}{2},
+\qquad
+\Delta_{20}=U_1-V-\varepsilon.
+}
+$$
+
+当 $\Delta_{20}\gg t$ 时，对根号作展开，
+
+$$
+\sqrt{\Delta_{20}^2+8t^2}
+\simeq\Delta_{20}+\frac{4t^2}{\Delta_{20}},
+$$
+
+于是
+
+$$
+J\simeq\frac{2t^2}{\Delta_{20}},
+$$
+
+与之前仅考虑 $(2,0)$ 虚跃迁路径的二阶结果相符。
+
+而在 $\Delta_{20}=0$ 时，
+
+$$
+J=\sqrt2t.
+$$
+
+此时两个单重态发生显著混合。
+
+低能单重态可以写成
+
+$$
+\boxed{
+|S_g\rangle
+=\cos\theta\,|S(1,1)\rangle
++\sin\theta\,|S(2,0)\rangle,
+}
+$$
+
+其中可以选择 $0\leq\theta\leq\pi/2$，并且
+
+$$
+\cos^2\theta
+=\frac12\left(
+1+\frac{\Delta_{20}}
+{\sqrt{\Delta_{20}^2+8t^2}}
+\right).
+$$
+
+随着失谐增加，$\Delta_{20}$ 逐渐减小，低能单重态就从主要由 $(1,1)$ 构成，逐渐变为主要由 $(2,0)$ 构成。
+
+因此，通过改变失谐，我们既能够改变电子的电荷分布，也能够改变单重态与三重态之间的能量差 $J$。
+
+## 5. Zeeman 分裂与 S–T₋ 能级交叉
+
+### 5.1 磁场下的自旋能级
+
+现在加入沿 $z$ 方向的外磁场
+
+$$
+\mathbf B=B\hat{\mathbf z},
+\qquad B>0.
+$$
+
+暂时取两个点的电子具有相同的 $g$ 因子。
+
+电子的磁矩为
+
+$$
+\boldsymbol\mu=-g\mu_B\mathbf s,
+$$
+
+因此两个电子的 Zeeman 哈密顿量为
+
+$$
+H_Z
+=-\boldsymbol\mu_{\mathrm{tot}}\cdot\mathbf B
+=g\mu_BB(s_1^z+s_2^z).
+$$
+
+定义 Zeeman 能量
+
+$$
+E_Z=g\mu_BB>0.
+$$
+
+我们采用 $|\uparrow\rangle$ 表示自旋沿 $+z$ 的态，因此它的 Zeeman 能量较高；$|\downarrow\rangle$ 则具有较低的能量。
+
+在有效双自旋模型中，合并交换项和 Zeeman 项，得到
+
+$$
+\boxed{
+H_{\mathrm{spin}}
+=J(\varepsilon)
+\left(\mathbf s_1\cdot\mathbf s_2-\frac14\right)
++E_Z(s_1^z+s_2^z).
+}
+$$
+
+因此，四个自旋态的能量为：
+
+| 态 | 总自旋 $z$ 分量 | 能量 |
+| --- | --- | --- |
+| $S$ | $0$ | $-J(\varepsilon)$ |
+| $T_+$ | $+1$ | $+E_Z$ |
+| $T_0$ | $0$ | $0$ |
+| $T_-$ | $-1$ | $-E_Z$ |
+
+这里仍然以未分裂的三重态能量作为零点。
+
+由于单重态总自旋为零，它的自旋 Zeeman 能量为零；三个三重态则因磁场而发生分裂。
+
+### 5.2 为什么能够让 S 与 T₋ 接近简并？
+
+现在考察单重态与 $T_-$ 的能量差：
+
+$$
+E_{T_-}-E_S
+=J(\varepsilon)-E_Z.
+$$
+
+其中 $E_Z$ 主要由外磁场决定，而 $J(\varepsilon)$ 可以通过栅极调节。
+
+因此，当
+
+$$
+\boxed{
+J(\varepsilon_{ST})=E_Z
+}
+$$
+
+时，便有
+
+$$
+E_{T_-}=E_S.
+$$
+
+这意味着，在失谐 $\varepsilon_{ST}$ 附近，单重态与极化三重态 $T_-$ 可以接近简并。
+
+这正是蔡老师论文 Fig. 1(b) 中所研究的能级结构[^cai2025]。
+
+到这里，我们已经能够理解为什么双量子点可以通过调节栅极电压，使两个具有不同总自旋的电子态发生能级交叉。
+
+但目前的模型还没有给出这两个态之间的跃迁耦合。交换作用和均匀 Zeeman 项都不会直接将 $|S\rangle$ 转换为 $|T_-\rangle$。
+
+我们在上一篇中已经得到了电子与核自旋的超精细相互作用：
+
+$$
+H_{\mathrm{hf}}
+=\sum_{i=1}^{2}
+\frac{\mathcal A_i}{N_i}
+\mathbf s_i\cdot\mathbf J_i.
+$$
+
+下一篇就可以将这个哈密顿量投影到单重态与三重态的子空间，计算具体的矩阵元，研究核自旋如何使 $S$ 与 $T_-$ 之间出现耦合。
+
+这样，我们就能进一步建立实验中使用的 $S$–$T_-$ 有效哈密顿量。
+
+[^cai2025]: X. Cai, H. Y. Walelign, and J. M. Nichol,
+    *The formation of a nuclear-spin dark state in silicon*,
+    Nature Physics **21**, 536–541 (2025).
+    [DOI](https://doi.org/10.1038/s41567-024-02773-w)；[arXiv 全文](https://arxiv.org/html/2405.14922v2)。
+
+[^burkard1999]: G. Burkard, D. Loss, and D. P. DiVincenzo,
+    *Coupled quantum dots as quantum gates*,
+    Physical Review B **59**, 2070–2078 (1999).
+    [DOI](https://doi.org/10.1103/PhysRevB.59.2070)；[arXiv](https://arxiv.org/abs/cond-mat/9808026)。

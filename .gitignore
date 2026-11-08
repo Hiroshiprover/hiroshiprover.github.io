@@ -30,3 +30,6 @@ yarn-error.log*
 # temporary files for AI
 /qft_boardnote
 /Asm
+
+# Live Editor generated state (drafts/staging/audit; not source)
+.dsh-live-editor/

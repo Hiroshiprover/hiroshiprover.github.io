@@ -1,0 +1,1236 @@
+---
+title: 升降算符究竟升降了什么？
+date: 2026-11-01
+---
+
+> **原问题：[历史上谐振子的升降算符是怎么发现的？](https://www.zhihu.com/question/1935110151859316153)**
+>
+> 刚学格里菲斯，看到谐振子引出升降算符这一块觉得特别不可思议。想知道历史上发现这个的背景，谁发现的？真的是纯粹的注意力惊人吗？
+
+这是我去年在知乎上回答过的一个问题。当时我从经典谐振子的哈密顿方程出发，说明了为什么会自然出现升降算符的形式，并且最后还引入了正则量子化的思路。
+
+最近学了一点量子场论，偶然间翻回了这篇文章，又想到了一些新的话题，因此我将以前的回答与这些整合了一下。
+
+{/* truncate */}
+
+---
+
+## 1. 经典谐振子的运动方程
+
+**注意到：海森堡狄拉克等人显然是纯粹的注意力惊人。** 因此 Attention is all you need：订阅一个 ChatGPT Plus / Claude Pro 等模型就可以完美解决你的问题（确信）。
+
+但如果我们只是为了在量子力学中自然地引入谐振子的定义的话，其实很简单。我们考虑一维经典谐振子的哈密顿量：
+
+$$
+H=\frac{p^2}{2m}+\frac12m\omega^2x^2.
+$$
+
+正则方程给出一组耦合的一阶微分方程：
+
+$$
+\dot x=\frac{\partial H}{\partial p},
+\qquad
+\dot p=-\frac{\partial H}{\partial x}.
+$$
+
+代入哈密顿量：
+
+$$
+\dot x=\frac{p}{m},
+\qquad
+\dot p=-m\omega^2x.
+$$
+
+一般而言，我们只关心位移 $x$ 的参数方程，因此会将后式代入前式，得到一个二阶微分方程。但经典力学学的比较好的同学，会想到**相空间**与其中的轨迹。因此我们同时考虑 $x,p$ 的解。定义一个状态向量[^dimension]：
+
+$$
+\boldsymbol v=
+\begin{pmatrix}
+x\\p
+\end{pmatrix},
+$$
+
+于是系统的运动方程就可以写为
+
+$$
+\frac{\mathrm d\boldsymbol v}{\mathrm dt}=M\boldsymbol v,
+$$
+
+其中
+
+$$
+M=\begin{pmatrix}
+0&1/m\\
+-m\omega^2&0
+\end{pmatrix}.
+$$
+
+为了将两个变量解耦，我们可以将系数矩阵对角化，这样系数矩阵就会变成简单的对角阵，我们就得到了两个独立的一阶微分方程。
+
+计算：系数矩阵的特征方程为
+
+$$
+\det(M-\lambda I)
+=
+\begin{vmatrix}
+-\lambda&1/m\\
+-m\omega^2&-\lambda
+\end{vmatrix}
+=\lambda^2+\omega^2=0.
+$$
+
+得到两个特征值：
+
+$$
+\lambda_+=\mathrm i\omega,
+\qquad
+\lambda_-=-\mathrm i\omega.
+$$
+
+对应的特征向量可以选取为
+
+$$
+\boldsymbol v_\pm=
+\begin{pmatrix}
+1\\
+\pm\mathrm im\omega
+\end{pmatrix}.
+$$
+
+原则上，这里特征向量的选取存在一个模长的自由度（复数倍）。通常我们会对其进行归一化。但我们保留这个形式的特征向量，很快我们就能看到原因。
+
+接下来用特征向量构造矩阵 $P$：
+
+$$
+P=
+\begin{pmatrix}
+1&1\\
+\mathrm im\omega&-\mathrm im\omega
+\end{pmatrix},
+$$
+
+顺便计算：
+
+$$
+P^{-1}=
+\frac{1}{2m\omega}
+\begin{pmatrix}
+m\omega & -\ii \\
+m\omega & \ii 
+\end{pmatrix}.
+$$
+
+那么根据线性代数的相似对角化，我们就有：
+
+$$
+M=P\Lambda P^{-1},
+\qquad
+\Lambda=
+\begin{pmatrix}
+\mathrm i\omega&0\\
+0&-\mathrm i\omega
+\end{pmatrix}.
+$$
+
+原来的运动方程可以写成
+
+$$
+\frac{\mathrm d}{\mathrm dt}
+(P^{-1}\boldsymbol v)
+=
+\Lambda(P^{-1}\boldsymbol v).
+$$
+
+现在计算：
+
+$$
+P^{-1}\boldsymbol v
+=\frac{1}{2m\omega}
+\begin{pmatrix}
+m\omega x-\ii p\\
+m\omega x+\ii p
+\end{pmatrix}.
+$$
+
+不难发现：格里菲斯书上空降的升降算符定义自然地出现了。我们因此定义：
+
+$$
+a=\frac{1}{\sqrt{2m\omega}}(m\omega x+\mathrm ip),
+\qquad
+a^*=\frac{1}{\sqrt{2m\omega}}(m\omega x-\mathrm ip).
+$$
+
+原方程组就等价于这个复的一阶微分方程
+
+$$
+\dot a=-\mathrm i\omega a,
+$$
+
+其一般解为
+
+$$
+a(t)=a(0)e^{-\mathrm i\omega t},
+$$
+
+将它代回去求解 $x(t),p(t)$，就可以重新得到普通谐振子的三角函数解。
+
+然而现在还有一个小问题，我们看一下现在 $a$ 的量纲：
+
+$$
+\frac{\text{kg}\cdot \text{s}^{-1} \cdot \text{m}}{\sqrt{\text{kg}\cdot \text{s}^{-1}}} = \text{m} \cdot \sqrt{\text{kg}\cdot \text{s}^{-1}},
+$$
+
+不不不这无疑是诡异的，根本就没有这种量纲！因此我们必须引入一个平衡量纲的常数。而且为了避免新引入的常数的量纲也出现这种问题，我们必须在根号里加入这个常数。注意：
+
+$$
+\frac{\text{kg}\cdot \text{s}^{-1} \cdot \text{m}}{\sqrt{\text{kg}\cdot \text{s}^{-1} \cdot \text{m}^2 \cdot \text{kg} \cdot \text{s}^{-1}}} = 1,
+$$
+
+我们就定义：
+
+$$
+a = \frac{1}{\sqrt{2\hbar m\omega}}(m\omega x+\mathrm ip),
+$$
+
+此时 $a$ 变成了一个无量纲的函数，而
+
+$$
+[\hbar] = \text{m}^2 \cdot \text{kg} \cdot \text{s}^{-1} = [S] = [J]
+$$
+
+也就是说 $\hbar$ 具有作用量（或者角动量）的量纲，非常的简洁优美，隐隐具有作用量的神圣感。更进一步地，注意到：
+
+$$
+\hbar \omega a^*a = \hbar \omega \frac{m^2\omega^2 x^2 + p^2}{2\hbar m\omega} = \frac{p^2}{2m} + \frac{1}{2}m\omega^2 x^2 = H,
+$$
+
+恰好就是量子力学中的哈密顿量！当然，这里少了一份零点能，这是量子力学的非对易性独有的。而且目前 $\hbar$ 只是一个平衡量纲用的常数，没有理由把它直接解释成约化普朗克常数。
+
+:::note
+你可能想问为什么是 $\hbar$ 而不是 $h$，毕竟它们的量纲是相同的。实际上，这是因为我们之前省略了“弧度”这个单位：
+
+$$
+[m\omega x] = \text{kg} \cdot \text{rad}\cdot \text{s}^{-1} \cdot \text{m}
+$$
+
+约化普朗克常数的定义实际上就是为了消除掉圆频率的弧度：
+
+$$
+\hbar = \frac{h}{2\pi},\qquad [\hbar] = \frac{[h]}{\text{rad}}
+$$
+
+这样才能保证 $\hbar\omega = hf$ 是“一份”能量。当然，在标准单位制中弧度是无量纲的，这段论证并不严格，我只是给出一种比较合理的解释而已。
+:::
+
+## 2. 升降“算符”的经典解释
+
+考虑到大多数学校开设的课程深度，关于哈密顿力学的详细讨论基本上会截止到正则方程、刘维尔定理等处，后面更深层次的理论会讲的非常科普性。所以我们先来复习一下经典力学中的哈密顿-雅可比理论和作用量-角变量方法。这里只讲解一维的体系，因为写起来简单。
+
+### 正则变换与泊松括号
+
+经典力学的一个基本技巧就是坐标变换，如果我们能寻找到一组好的坐标，系统的动力学演化通常可以非常简单地求解出来。因此，我们来讨论一下哈密顿力学的坐标变换。我们已经有一组正则坐标 \((q,p)\)，满足哈密顿方程：
+
+\[
+\dot q=\frac{\partial H}{\partial p},
+\qquad
+\dot p=-\frac{\partial H}{\partial q}.
+\]
+
+现在考虑更换坐标：
+\[
+Q=Q(q,p,t),\qquad P=P(q,p,t),
+\]
+
+有一个很自然的想法：我们希望坐标变换能够让哈密顿方程保持原来的形式。也就是希望存在一个新的哈密顿量 \(K(Q,P,t)\)，使得
+
+\[
+\dot Q=\frac{\partial K}{\partial P},
+\qquad
+\dot P=-\frac{\partial K}{\partial Q}.
+\]
+
+满足这个要求的变换，就叫正则变换。
+
+:::note
+你可以理解为：我们期待物理规律不随我们观测世界的方式而发生变化，这也是爱因斯坦建立相对论的出发点。当然，我们这里其实是反过来的：爱因斯坦的做法是从任意坐标变换出发，要求理论不变；我们是要求理论不变，而寻求满足条件的坐标变换。但结果是一样的。
+
+更深层次地，广义相对论相当于认为度规是不变量，在任意光滑坐标变换下其分量取值会变化；而哈密顿力学相当于认为“辛形式”是不变量，在任意正则坐标变换下哈密顿量会发生变化。我们不详细讨论这个了。
+:::
+
+那么，问题来了：我们怎么判断一个坐标变换是不是正则的呢？一个很好用的工具就是泊松括号：
+
+$$
+\{f, g\}_{q, p} \equiv \frac{\partial f}{\partial q} \frac{\partial g}{\partial p} - \frac{\partial f}{\partial p} \frac{\partial g}{\partial q}.
+$$
+
+我们计算一下：
+
+$$
+\begin{aligned}
+\dot{Q} = \frac{\dd}{\dd t} Q(q, p, t) &= \frac{\partial Q}{\partial q} \dot{q} + \frac{\partial Q}{\partial p} \dot{p} + \frac{\partial Q}{\partial t}\\
+&= \frac{\partial Q}{\partial q} \frac{\partial H}{\partial p} - \frac{\partial Q}{\partial p} \frac{\partial H}{\partial q} + \frac{\partial Q}{\partial t} \\
+&= \{Q, H\}_{q, p} + \frac{\partial Q}{\partial t},
+\end{aligned}
+$$
+
+熟悉的同学会发现这实际上具有海森堡运动方程的形式，我们之后会讨论到这个问题。类似地，我们还有
+
+$$
+
+$$
+### 哈密顿-雅可比理论
+
+我们的出发点相当简单：能不能通过正则变换，找到一组新的正则坐标，让哈密顿方程变得非常简单，甚至完全不需要求解？
+
+我们的的出发点是周期性运动：这类运动非常的优美且特殊，经过一个周期之后，正则坐标 $x, p$ 的取值会回到初始条件，在相空间中画出一条闭合的轨迹。很自然地，我们就来考虑这个轨迹围出的面积：
+
+$$
+I= \frac{1}{2\pi} \int\int\dd x \dd p
+$$
+
+我们除了一个 $2\pi$，你可以理解为一种归一化。很快你就能明白这个系数的意义。注意根据 Stokes 公式，这个积分还可以写作
+
+$$
+I = \frac{1}{2\pi}\oint p\,\dd x
+$$
+
+这里积分的路径就是正则坐标的相空间轨迹。
+
+并取角变量
+
+$$
+\phi=\omega t+\phi_0.
+$$
+
+它们满足
+
+$$
+\{\phi,I\}=1,
+$$
+
+并且
+
+$$
+\dot I=0,
+\qquad
+\dot\phi=\omega.
+$$
+
+于是经典复变量可以写成
+
+$$
+\boxed{
+a=\sqrt{\frac I\hbar}e^{-\mathrm i\phi}.
+}
+$$
+
+这说明，复变量实际上把谐振子的作用量与角变量组合到了同一个复数中。
+
+对于谐振子，经典相空间中的轨道是椭圆；适当缩放坐标后，它就变成了复平面中的圆周运动。
+
+我们最初通过矩阵对角化得到的
+
+$$
+\dot a=-\mathrm i\omega a
+$$
+
+也就不难理解了：它只是复平面上的匀速旋转。
+
+从这个角度看，$a,a^*$ 在经典理论中已经拥有自然的动力学意义。量子化只是进一步改变了这些变量的数学性质和物理解释。
+
+## 三、从泊松括号到升降算符
+
+考虑经典力学中的泊松括号：
+
+$$
+\{A,B\}
+=
+\frac{\partial A}{\partial x}
+\frac{\partial B}{\partial p}
+-
+\frac{\partial A}{\partial p}
+\frac{\partial B}{\partial x}.
+$$
+
+显然有
+
+$$
+\{x,p\}=1.
+$$
+
+对刚才构造的复变量，可以计算：
+
+$$
+\begin{aligned}
+\{a,a^*\}
+&=
+C C^*
+\{m\omega x+\mathrm ip,\,
+m\omega x-\mathrm ip\}\\
+&=-2\mathrm im\omega|C|^2\\
+&=-\frac{\mathrm i}{\hbar}.
+\end{aligned}
+$$
+
+狄拉克在早期量子力学的发展中，提出了以泊松括号与量子对易子的对应关系来理解正则量子化的思想：
+
+$$
+\boxed{
+\{A,B\}
+\longrightarrow
+\frac{1}{\mathrm i\hbar}
+[\hat A,\hat B].
+}
+$$
+
+这里
+
+$$
+[\hat A,\hat B]=\hat A\hat B-\hat B\hat A.
+$$
+
+于是经典正则关系对应于
+
+$$
+[\hat x,\hat p]=\mathrm i\hbar\hat 1.
+$$
+
+同样，复变量的泊松括号对应于
+
+$$
+\boxed{
+[\hat a,\hat a^\dagger]=\hat 1.
+}
+$$
+
+这里 $\hat a^\dagger$ 是 $\hat a$ 的厄米共轭。
+
+现在，我们终于得到了熟悉的升降算符对易关系。
+
+这个过程也说明了为什么需要选择刚才的归一化系数：我们希望量子化后的复变量满足标准的对易关系。
+
+需要提醒的是，泊松括号与对易子的这种对应不能作为对任意经典函数都严格成立的通用量子化规则。对于这里涉及的线性变量，它是精确的；但对于更一般的函数，还会出现算符排序等问题。
+
+下面考虑海森堡运动方程：
+
+$$
+\frac{\mathrm d\hat A}{\mathrm dt}
+=
+\frac{\mathrm i}{\hbar}[\hat H,\hat A]
++\frac{\partial\hat A}{\partial t}.
+$$
+
+在算符没有显含时间的情况下，
+
+$$
+\frac{\mathrm d\hat A}{\mathrm dt}
+=
+\frac{\mathrm i}{\hbar}[\hat H,\hat A].
+$$
+
+取量子谐振子的哈密顿量：
+
+$$
+\hat H
+=
+\frac{\hat p^2}{2m}
++\frac12m\omega^2\hat x^2,
+$$
+
+直接计算便得到
+
+$$
+\frac{\mathrm d\hat a}{\mathrm dt}
+=-\mathrm i\omega\hat a,
+\qquad
+\frac{\mathrm d\hat a^\dagger}{\mathrm dt}
+=\mathrm i\omega\hat a^\dagger.
+$$
+
+与经典理论中得到的复变量运动方程完全一致。
+
+也可以直接使用海森堡绘景下的演化公式：
+
+$$
+\hat A(t)=
+e^{\frac{\mathrm i}{\hbar}\hat Ht}
+\hat A(0)
+e^{-\frac{\mathrm i}{\hbar}\hat Ht}.
+$$
+
+利用 BCH 展开，同样能得到
+
+$$
+\hat a(t)=\hat a(0)e^{-\mathrm i\omega t}.
+$$
+
+至此，我们从经典谐振子的哈密顿方程出发，通过复对角化与正则量子化，得到了量子谐振子升降算符的形式及其运动方程。
+
+但这样的推导还留下了不少问题。
+
+---
+
+## 四、重新审视：归一化系数的相位真的无关紧要吗？
+
+上面的推导只确定了
+
+$$
+|C|=\frac{1}{\sqrt{2\hbar m\omega}},
+$$
+
+并没有确定其相位。
+
+因此最一般的选择应当是
+
+$$
+C=\frac{e^{\mathrm i\theta}}{\sqrt{2\hbar m\omega}}.
+$$
+
+过去我很自然地认为，这个相位可以忽略，因为量子力学不关心全局相位。
+
+但重新考虑以后，我发现这个理由并不充分。
+
+量子力学中，不同量子态之间的相对相位显然具有物理意义。这里对算符引入一个相位，究竟是全局相位，还是可能在不同态之间产生相对相位？
+
+为了区分它们，我们记
+
+$$
+\hat a_\theta=e^{\mathrm i\theta}\hat a_0,
+\qquad
+\hat a_\theta^\dagger=e^{-\mathrm i\theta}\hat a_0^\dagger.
+$$
+
+首先，
+
+$$
+[\hat a_\theta,\hat a_\theta^\dagger]=1,
+$$
+
+并且
+
+$$
+\hat a_\theta^\dagger\hat a_\theta
+=\hat a_0^\dagger\hat a_0.
+$$
+
+所以这个相位不会改变谐振子的数算符和哈密顿量。
+
+但如果考虑 Fock 态的构造：
+
+$$
+|n\rangle_\theta
+=
+\frac{(\hat a_\theta^\dagger)^n}{\sqrt{n!}}
+|0\rangle,
+$$
+
+就会得到
+
+$$
+\boxed{
+|n\rangle_\theta=e^{-\mathrm in\theta}|n\rangle_0.
+}
+$$
+
+注意，这里的相位依赖于 $n$。
+
+不同能级的基矢获得不同的相位，所以我们不能直接使用“量子态的整体相位不可观测”来解释它。
+
+例如，考虑
+
+$$
+|\psi\rangle=
+\frac{|0\rangle_0+|1\rangle_0}{\sqrt2}.
+$$
+
+如果固定同样的展开系数，却改用重新定义的基底，那么得到的是
+
+$$
+|\psi'\rangle=
+\frac{|0\rangle_\theta+|1\rangle_\theta}{\sqrt2}
+=
+\frac{|0\rangle_0+e^{-\mathrm i\theta}|1\rangle_0}{\sqrt2}.
+$$
+
+一般来说，$|\psi\rangle$ 和 $|\psi'\rangle$ 是两个物理上不同的态，它们之间的区别可以通过适当的可观测量检测。
+
+那么，为什么 $C$ 的相位仍然可以任意选取？
+
+答案在于：**这里存在的是算符与基底的相位约定自由度。**
+
+例如，位置算符原本可以写为
+
+$$
+\hat x=
+\sqrt{\frac{\hbar}{2m\omega}}
+(\hat a_0+\hat a_0^\dagger).
+$$
+
+换成新的算符定义后，必须相应写成
+
+$$
+\hat x=
+\sqrt{\frac{\hbar}{2m\omega}}
+\left(
+e^{-\mathrm i\theta}\hat a_\theta
++
+e^{\mathrm i\theta}\hat a_\theta^\dagger
+\right).
+$$
+
+同样，一个固定的物理态应当满足
+
+$$
+|\psi\rangle
+=
+\sum_n c_n|n\rangle_0
+=
+\sum_n e^{\mathrm in\theta}c_n|n\rangle_\theta.
+$$
+
+算符定义、基矢和展开系数必须同时调整。
+
+如果只是改变表示约定，那么物理态及可观测量的预测不会发生改变。
+
+事实上，这个相位变换可以写成
+
+$$
+\hat a_\theta
+=
+U(\theta)\hat a_0U^\dagger(\theta),
+\qquad
+U(\theta)=e^{-\mathrm i\theta\hat N},
+$$
+
+其中 $\hat N=\hat a_0^\dagger\hat a_0$。
+
+如果我们真的把 $U(\theta)$ 作用到物理态上，同时保持测量算符固定，那么这也可以描述一种实际的相空间旋转。
+
+同一个数学变换，作为表示约定和作为物理操作，其含义需要区分。
+
+因此，对于孤立谐振子，我们可以方便地约定 $C$ 为正实数，但不能简单地说它对应一个没有物理意义的量子态整体相位。
+
+## 六、从复振幅到能级升降
+
+此前我们得到了
+
+$$
+\dot a=-\mathrm i\omega a.
+$$
+
+量子化以后，相应的海森堡运动方程是
+
+$$
+\frac{\mathrm d\hat a}{\mathrm dt}
+=
+\frac{\mathrm i}{\hbar}[\hat H,\hat a]
+=
+-\mathrm i\omega\hat a.
+$$
+
+于是
+
+$$
+[\hat H,\hat a]=-\hbar\omega\hat a,
+$$
+
+以及
+
+$$
+[\hat H,\hat a^\dagger]=\hbar\omega\hat a^\dagger.
+$$
+
+假设 $|E\rangle$ 是哈密顿量的一个能量本征态：
+
+$$
+\hat H|E\rangle=E|E\rangle.
+$$
+
+那么
+
+$$
+\begin{aligned}
+\hat H\hat a^\dagger|E\rangle
+&=
+(\hat a^\dagger\hat H+\hbar\omega\hat a^\dagger)|E\rangle\\
+&=
+(E+\hbar\omega)\hat a^\dagger|E\rangle.
+\end{aligned}
+$$
+
+因此，如果 $\hat a^\dagger|E\rangle$ 不为零，它就是能量为 $E+\hbar\omega$ 的本征态。
+
+同样，
+
+$$
+\hat H\hat a|E\rangle
+=
+(E-\hbar\omega)\hat a|E\rangle.
+$$
+
+这就解释了升降算符为什么能够升降能级。
+
+令
+
+$$
+\hat N=\hat a^\dagger\hat a,
+$$
+
+利用
+
+$$
+[\hat a,\hat a^\dagger]=1,
+$$
+
+可以得到
+
+$$
+\hat a|n\rangle=\sqrt n|n-1\rangle,
+$$
+
+$$
+\hat a^\dagger|n\rangle=\sqrt{n+1}|n+1\rangle.
+$$
+
+与此同时，量子化还带来了一个经典理论中没有直接出现的项。
+
+注意，
+
+$$
+\begin{aligned}
+\hat a^\dagger\hat a
+&=
+\frac{
+(m\omega\hat x-\mathrm i\hat p)
+(m\omega\hat x+\mathrm i\hat p)
+}{2\hbar m\omega}\\
+&=
+\frac{m^2\omega^2\hat x^2+\hat p^2+
+\mathrm im\omega[\hat x,\hat p]}
+{2\hbar m\omega}.
+\end{aligned}
+$$
+
+由于 $[\hat x,\hat p]=\mathrm i\hbar$，所以
+
+$$
+\hat a^\dagger\hat a
+=
+\frac{\hat H}{\hbar\omega}-\frac12.
+$$
+
+从而
+
+$$
+\boxed{
+\hat H=\hbar\omega
+\left(\hat a^\dagger\hat a+\frac12\right).
+}
+$$
+
+这个 $\frac12$ 来自量子算符的不对易性。
+
+经典的 $a^*a$ 和量子的 $\hat a^\dagger\hat a$ 在形式上十分相似，但它们之间存在算符排序的区别。
+
+## 七、为什么这套代数恰好是玻色型的？
+
+到这里又出现了一个问题。
+
+量子谐振子的升降算符满足
+
+$$
+[\hat a,\hat a^\dagger]=1.
+$$
+
+但这不正是玻色子的产生、湮灭算符所满足的对易关系吗？
+
+对于一个玻色模式，我们有
+
+$$
+\hat N|n\rangle=n|n\rangle,
+\qquad n=0,1,2,\ldots
+$$
+
+并且
+
+$$
+\hat a^\dagger|n\rangle
+=\sqrt{n+1}|n+1\rangle.
+$$
+
+可以无限次施加产生算符，得到任意高的占据数。
+
+而对于一个费米模式，其产生、湮灭算符满足反对易关系：
+
+$$
+\{\hat c,\hat c^\dagger\}_+=1,
+\qquad
+\{\hat c,\hat c\}_+=0.
+$$
+
+因此
+
+$$
+(\hat c^\dagger)^2=0,
+$$
+
+单个模式只能具有 $n=0,1$ 两种占据数。
+
+为什么从经典谐振子量子化得到的，天然就是玻色型代数？
+
+原因在于我们采用了普通经典正则变量 $x,p$，并对它们施加正则对易关系：
+
+$$
+[\hat x,\hat p]=\mathrm i\hbar.
+$$
+
+这自然导出了
+
+$$
+[\hat a,\hat a^\dagger]=1.
+$$
+
+费米型代数则需要不同的量子化结构。在场论中，可以通过 Grassmann 奇变量及其分次泊松括号等语言描述费米自由度，并在量子理论中得到反对易关系。
+
+单个玻色模式的 Hilbert 空间为
+
+$$
+\mathcal F_{\mathrm B}(\mathbb C)
+=
+\bigoplus_{n=0}^{\infty}\operatorname{Sym}^n(\mathbb C).
+$$
+
+它与单个量子谐振子的 Hilbert 空间
+
+$$
+\mathcal H_{\mathrm{osc}}
+=
+\operatorname{span}
+\{|0\rangle,|1\rangle,|2\rangle,\ldots\}
+$$
+
+具有自然的酉同构：
+
+$$
+\boxed{
+\mathcal H_{\mathrm{osc}}
+\cong
+\mathcal F_{\mathrm B}(\mathbb C).
+}
+$$
+
+因此，从数学结构上讲，单个谐振子的能级升降与单个玻色模式的占据数改变完全对应。
+
+但这里有一个重要的问题：
+
+**这些激发量子究竟代表什么粒子？**
+
+## 八、一个电子的能级升降，意味着产生了一个粒子吗？
+
+假设一个电子被束缚在谐振子势中：
+
+$$
+\hat H_{\mathrm e}
+=
+\frac{\hat p^2}{2m}
++\frac12m\omega^2\hat x^2.
+$$
+
+这个电子仍然是费米子。
+
+但描述其轨道运动的升降算符仍满足
+
+$$
+[\hat a,\hat a^\dagger]=1.
+$$
+
+看起来，我们似乎用玻色型的代数描述了一个费米子。
+
+这里需要区分两个完全不同的操作：
+
+一是改变同一个电子的轨道能级；
+
+二是在系统中增加或者减少一个电子。
+
+可以通过二次量子化把这个区别写得非常明确。
+
+令 $\hat c_n^\dagger$ 表示在第 $n$ 个谐振子单粒子能级上产生一个电子。
+
+这些算符满足费米型反对易关系：
+
+$$
+\{\hat c_m,\hat c_n^\dagger\}_+
+=\delta_{mn}.
+$$
+
+考虑如下算符：
+
+$$
+\boxed{
+\hat A^\dagger
+=
+\sum_{n=0}^{\infty}
+\sqrt{n+1}\,
+\hat c_{n+1}^\dagger\hat c_n.
+}
+$$
+
+它先湮灭第 $n$ 能级上的一个电子，再在第 $n+1$ 能级上产生一个电子。
+
+因此它完全不会改变电子总数。
+
+在单电子子空间内，$\hat A^\dagger$ 正好就是原来的单粒子谐振子升算符。
+
+不过，如果把它推广到任意电子数的 Fock 空间，就必须注意：它是一个单粒子升算符的二次量子化形式，其对易关系变为
+
+$$
+[\hat A,\hat A^\dagger]=\hat N_{\mathrm e},
+$$
+
+其中
+
+$$
+\hat N_{\mathrm e}=\sum_n\hat c_n^\dagger\hat c_n
+$$
+
+是电子总数算符。
+
+只有限制在单电子子空间时，右侧才等于恒等算符。
+
+所以，单电子谐振子的升算符与电子产生算符的物理意义完全不同。
+
+但我们仍然可以问：既然谐振子具有玻色型的激发结构，是否可以把它的每一级激发理解成某种玻色型量子？
+
+数学上当然可以。
+
+我们可以把 $|n\rangle$ 解释成同一个电子的第 $n$ 激发态，也可以将其对应于一个抽象玻色模式的 $n$ 量子态。
+
+只是这种数学对应本身，还不足以告诉我们这些量子是否是能够独立传播、相互作用和被探测的物理粒子。
+
+## 九、难道那个被产生和湮灭的粒子是光子？
+
+考虑一个更加具体的物理情景。
+
+为什么电子会受到谐振子势的束缚？
+
+对于带电粒子，最自然的例子之一是外部电场。
+
+既然电子与电磁场发生了相互作用，我们写下的势能
+
+$$
+V(x)=\frac12m\omega^2x^2
+$$
+
+就可能只是某个更完整系统的有效描述。
+
+那么，一个电子从高能级跃迁到低能级时，释放的能量是否对应一个光子？
+
+假设电子与一个频率为 $\omega$ 的电磁场模式耦合：
+
+$$
+\hat H
+=
+\hat H_{\mathrm e}
++
+\hat H_\gamma
++
+\hat H_{\mathrm{int}}.
+$$
+
+其中
+
+$$
+\hat H_{\mathrm e}
+=
+\hbar\omega
+\left(\hat a^\dagger\hat a+\frac12\right),
+$$
+
+$$
+\hat H_\gamma
+=
+\hbar\omega
+\left(\hat b^\dagger\hat b+\frac12\right).
+$$
+
+$\hat a^\dagger$ 描述电子运动能级的提升，$\hat b^\dagger$ 则描述电磁场模式中一个光子的产生。
+
+在适当的偶极耦合、单模式和旋波近似下，相互作用可以写成
+
+$$
+\boxed{
+\hat H_{\mathrm{int}}
+=
+\hbar g
+(\hat a\hat b^\dagger+\hat a^\dagger\hat b).
+}
+$$
+
+其中
+
+$$
+\hat a\hat b^\dagger
+$$
+
+正好描述电子降低一个振动能级，同时在电磁场中产生一个光子的过程。
+
+例如
+
+$$
+|n\rangle_{\mathrm e}|0\rangle_\gamma
+\longrightarrow
+|n-1\rangle_{\mathrm e}|1\rangle_\gamma.
+$$
+
+此时，电子的一个激发量子可以转化成光子。
+
+但这仍然是两个不同系统之间的能量交换。
+
+电子能级的升降算符 $\hat a$ 与电磁场的光子产生湮灭算符 $\hat b$ 属于不同的自由度。
+
+即使忽略辐射耦合，电子谐振子的离散能级也依然存在。因此不能认为只要出现谐振子升降算符，就已经隐含了一个真实光子的产生或湮灭。
+
+静态电场也不能简单地解释成具有确定数量的真实光子。静态库仑相互作用与电磁场可传播的横向辐射模式，需要在量子电动力学中加以区分。
+
+不过，光子与谐振子之间还有另一层更加直接的关系。
+
+## 十、当谐振子本身就是一个场的正常模式
+
+考虑经典自由电磁场。
+
+在选择适当规范并处理约束后，可以将电磁场展开为一系列独立的正常模式。
+
+在有限体积中，每一个模式都可以用一组正则变量 $q_{\boldsymbol k\lambda},p_{\boldsymbol k\lambda}$ 描述，满足
+
+$$
+\ddot q_{\boldsymbol k\lambda}
++
+\omega_{\boldsymbol k}^2q_{\boldsymbol k\lambda}
+=0.
+$$
+
+这正是经典谐振子的运动方程。
+
+自由电磁场的哈密顿量可以写成各个模式的哈密顿量之和：
+
+$$
+H_{\mathrm{EM}}
+=
+\sum_{\boldsymbol k,\lambda}
+\left(
+\frac12p_{\boldsymbol k\lambda}^2
++
+\frac12\omega_{\boldsymbol k}^2
+q_{\boldsymbol k\lambda}^2
+\right).
+$$
+
+对这些正常模式进行正则量子化，得到
+
+$$
+\boxed{
+\hat H_{\mathrm{EM}}
+=
+\sum_{\boldsymbol k,\lambda}
+\hbar\omega_{\boldsymbol k}
+\left(
+\hat b_{\boldsymbol k\lambda}^\dagger
+\hat b_{\boldsymbol k\lambda}
++\frac12
+\right).
+}
+$$
+
+其中
+
+$$
+[\hat b_{\boldsymbol k\lambda},
+\hat b_{\boldsymbol k'\lambda'}^\dagger]
+=
+\delta_{\boldsymbol k\boldsymbol k'}
+\delta_{\lambda\lambda'}.
+$$
+
+对于电磁场，这些模式的激发量子就是光子。
+
+这里，升降算符终于真正具有了粒子的产生、湮灭意义。
+
+更重要的是，这套构造并不局限于电磁场。
+
+例如，对于自由实标量场：
+
+$$
+\mathcal L
+=
+\frac12\partial_\mu\phi\,\partial^\mu\phi
+-\frac12m^2\phi^2,
+$$
+
+在适当的边界条件下进行傅里叶展开，每个独立模式同样满足谐振子形式的运动方程：
+
+$$
+\ddot q_{\boldsymbol k}
++
+\omega_{\boldsymbol k}^2q_{\boldsymbol k}=0,
+$$
+
+其中取 $\hbar=c=1$，
+
+$$
+\omega_{\boldsymbol k}
+=
+\sqrt{\boldsymbol k^2+m^2}.
+$$
+
+于是每个模式都能按照谐振子的方式量子化。
+
+在这种情况下，不同模式的产生算符创造的是具有不同动量的场量子。
+
+因此，量子场论中的产生湮灭算符和量子谐振子的升降算符之间，存在严格的数学联系。
+
+**场的每个独立正常模式是一个谐振子；这个谐振子的激发量子，在具有粒子解释的量子场论中就对应相应的粒子。**
+
+这也解释了为什么我们在量子场论中总会反复遇到谐振子的量子化。
+
+但是，我们仍然需要根据被量子化的具体自由度，确定这些激发量子的物理性质。
+
+## 十一、一个有效势能背后隐藏着什么？
+
+现在回到最初的单粒子谐振子。
+
+我们习惯于写下
+
+$$
+H=\frac{p^2}{2m}+V(x),
+$$
+
+然后将 $V(x)$ 视为一个已知函数。
+
+但在真实物理系统中，这个势能往往存在更具体的来源。
+
+例如，一个带电粒子受到其他电荷产生的电场作用；一个原子受到外部激光形成的光学势作用；晶格中的原子受到其他原子的相互作用而在平衡位置附近振动。
+
+如果考虑完整系统，其哈密顿量可以具有类似的结构：
+
+$$
+H_{\mathrm{total}}
+=
+H_{\mathrm{particle}}
++
+H_{\mathrm{environment}}
++
+H_{\mathrm{interaction}}.
+$$
+
+在适当条件下，固定外部源、忽略环境的某些动力学自由度，或者对它们进行有效处理，就可能得到单粒子势能 $V(x)$。
+
+当然，并非每一个外势都必须在当前理论中还原成某种粒子。我们也可以将它作为给定的经典背景，而且严格消去环境自由度后，有效动力学未必仍然具有简单的局域势能形式。
+
+但对于实际的多体系统，这个思路确实提醒我们：
+
+**当我们写下一个有效单粒子哈密顿量时，可能已经隐藏了产生这个势能的其他物理自由度。**
+
+例如，考虑一个双原子分子的振动。
+
+两个原子核之间的有效相互作用势，在平衡位置附近可以展开为
+
+$$
+V(r)\simeq
+V(r_0)+\frac12k(r-r_0)^2.
+$$
+
+因此，分子的相对振动近似为一个谐振子。
+
+量子化后，我们自然得到振动升降算符。
+
+但这个算符创造的激发显然不能直接被称为光子。它表示的是分子振动模式的一个激发量子。
+
+如果进一步考虑大量原子组成的晶格，那么整个晶格可以被分解为许多正常振动模式。
+
+量子化后得到的激发量子就是声子。
+
+此时，描述原子运动的有效势能确实与更完整的多体相互作用有关，而谐振子的激发量子也获得了一种集体激发的解释。
+
+进一步考虑不同自由度之间的强耦合，还可能形成混合正常模式，其产生算符不再简单地属于原来某一个子系统。
+
+因此，追问束缚势的来源，确实可以帮助我们理解某些有效谐振子激发与真实多体系统之间的关系。
+
+但我们仍然不能仅凭一个有效谐振子的哈密顿量，就确定它的激发量子究竟对应什么物理对象。
+
+这还需要考虑完整系统的动力学、相互作用、对称性，以及我们能够实际测量的物理量。
+
+## 十二、再回头看经典复振幅
+
+经历这些讨论后，可以重新看待最初从经典谐振子中构造的复变量：
+
+$$
+a=\frac{m\omega x+\mathrm ip}{\sqrt{2\hbar m\omega}}.
+$$
+
+在经典力学中，它表示作用量和相位的组合。
+
+量子化以后，它成为满足玻色型对易关系的算符。
+
+而在量子谐振子中，这个算符还可以与相干态联系起来。
+
+定义相干态 $|\alpha\rangle$：
+
+$$
+\hat a|\alpha\rangle
+=
+\alpha|\alpha\rangle.
+$$
+
+在海森堡绘景中，
+
+$$
+\hat a(t)=\hat a(0)e^{-\mathrm i\omega t}.
+$$
+
+因此
+
+$$
+\langle\alpha|\hat a(t)|\alpha\rangle
+=
+\alpha e^{-\mathrm i\omega t}.
+$$
+
+这个形式与经典复振幅的演化完全相同。
+
+对谐振子，相干态中位置和动量的期望值也严格遵循经典谐振子的运动方程。
+
+这说明最初通过经典动力学对角化得到的变量，在量子理论中仍然保留了非常明确的经典对应。
+
+从经典相空间的复坐标，到量子谐振子的升降算符，再到量子场的产生湮灭算符，这些结构之间的联系是相当自然的。
+
+但它们的物理意义逐渐发生了变化：
+
+在经典理论中，$a$ 描述振幅与相位。
+
+在单粒子量子谐振子中，$\hat a^\dagger$ 改变能量本征态。
+
+在一个玻色场的正常模式中，$\hat a^\dagger$ 可以产生一个场的量子。
+
+在凝聚态多体系统中，类似的算符又可能描述声子或其他集体激发。
+
+升降算符的代数结构给出了这些描述共同的数学基础；至于究竟升降了什么，则需要回到具体的物理系统中理解。
+
+---
+
+## 一点历史补充
+
+最开始的知乎问题问的是：升降算符究竟是谁发现的？
+
+这和本文讨论的数学重构是两个不同的问题。
+
+1925 年，海森堡建立了矩阵力学，Born、Jordan 等人随后参与完善这一理论。狄拉克也在同年发表了 *The Fundamental Equations of Quantum Mechanics*，建立起经典泊松括号与量子理论代数结构之间的重要联系。
+
+我们今天熟悉的谐振子代数解法，则是在矩阵力学、算符理论以及后来量子力学教材的整理中逐渐发展形成的。不能简单地把整套方法归结为某个人突然发现了某个算符的形式。
+
+关于谐振子代数解法的具体历史，Rushka 和 Freericks 在 2020 年的一篇文章中进行了专门梳理。
+
+所以，本文最初通过对角化经典动力学矩阵来得到升降算符的方式，主要是一种帮助理解的推导。
+
+它说明了升降算符形式的数学动机，却不应被当成真实的历史发现过程。
+
+[^dimension]: 严格来讲这里是有问题的，$x, p$ 具有未归一化的量纲，因此状态向量的内积会导致量纲量纲不同的物理量相加。但为了讨论的简便性，我们把量纲的问题统一放到后面处理。

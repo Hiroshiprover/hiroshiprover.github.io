@@ -30,7 +30,7 @@ $$
 \begin{aligned}
 L &= \lim_{a\to 0} \sum_{n=1}^N a\left[ \frac{1}{2}\rho\left(\partial_t \phi(t, x_n)\right)^2 - \frac{1}{2}k\left(\frac{\phi(t, x_n + a)-\phi(t, x_n)}{a}\right)^2\right]\\
 &=\lim_{a\to 0} \sum_{n=1}^N a\left[ \frac{1}{2}\rho\left(\partial_t \phi(t, x_n)\right)^2 - \frac{1}{2}k\left(\partial_x \phi(t, x_n)\right)^2\right]\\
-&= \int_0^l dx\, \frac{1}{2}\rho\left(\partial_t \phi \right)^2 - \frac{1}{2}k\left(\partial_x \phi \right)^2,
+&= \int_0^l \dd x\, \frac{1}{2}\rho\left(\partial_t \phi \right)^2 - \frac{1}{2}k\left(\partial_x \phi \right)^2,
 \end{aligned}
 $$
 这里第二个等号不算很严谨，它只在 $\phi$ 满足足够好的连续性条件时成立，不过对于物理考虑的问题而言不大。定义这块晶体的**拉格朗日密度**为：
@@ -39,11 +39,11 @@ $$
 $$
 于是这块晶体的拉格朗日量可以写作：
 $$
-L=\int_0^l dx\, \mathcal{L}[\phi],
+L=\int_0^l \dd x\, \mathcal{L}[\phi],
 $$
 更一般地，我们考虑三维空间，并且将积分区域扩展到全空间（如果系统分布在有限范围内，拉格朗日密度在系统范围之外取 $0$ 即可）
 $$
-L = \int d^3x\, \mathcal{L}[\phi].
+L = \int \dd^3x\, \mathcal{L}[\phi].
 $$
 
 可以看到，我们用 $\phi$（的导数）确定了这块晶体的拉格朗日量，因此根据最小作用量原理，晶体的动力学将完全由这个 $\phi$ 决定。我们称 $\phi$ 为描述这个晶体的**场**。当然，这里的讨论目前都是非相对论的，但给出一个相对论性的拉格朗日密度并不困难，我们将在后面详细讨论。
@@ -56,11 +56,11 @@ $$
 
 相对论习惯把时间和三个空间坐标合写为 $x^\mu=(t,\vec x)$。在相对论的框架下，我们定义时空间隔：
 $$
-ds^2 = -dt^2 + dx^2 + dy^2 + dz^2,
+\dd s^2 = -\dd t^2 + \dd x^2 + \dd y^2 + \dd z^2,
 $$
 为了更方便地表述，我们引入度规[^1]与爱因斯坦求和约定，将时空间隔写作：
 $$
-ds^2=g_{\mu\nu}dx^\mu dx^\nu,\qquad g_{\mu\nu}=\operatorname{diag}(-1,1,1,1).
+\dd s^2=g_{\mu\nu}\dd x^\mu \dd x^\nu,\qquad g_{\mu\nu}=\operatorname{diag}(-1,1,1,1).
 $$
 其中希腊字母 $\mu, \nu = 0, 1, 2, 3$，$0$ 代表时间，$1, 2, 3$ 代表空间，重复的一个上指标和一个下指标表示求和。我们有时候也会用罗马字母 $i, j, k=1, 2, 3$ 来代指空间坐标。
 
@@ -103,6 +103,10 @@ $$
 \vec k \cdot \vec x = k^i x_i = \delta_{ij}k^i x^j =k^1x^1 + k^2x^2 + k^3x^3,
 $$
 然后用 $k$ 代指 $k$ 的（三维）模长。四维向量的内积并非正定，因此模长的定义可能存在问题，如果用到了我们一般会显式写出来。
+
+:::note[字体约定]
+本笔记在排版上区分两类容易同形的符号：微分符号与外微分算符写作正体 $\dd$，虚数单位写作正体 $\ii$；普通变量、粒子编号和指标仍用斜体，例如 $i,j,k$、$d^\mu$。自然指数底 $e$ 仍按通常的数学斜体排版。不同章节会复用 $S$、$T$、$P$ 等标准物理记号，具体含义以该处定义为准。
+:::
 
 所有的 Lorentz 变换实际上构成一个群 $O(3, 1)$，再加上时空平移，还能构成一个更大的群：Poincaré 群。我们主要讨论与恒等变换连续相连的 Lorentz 变换，也即 $SO^+(3, 1)$，它是 Lorentz 群的一个子群，收录了全部保证时间正向、空间正向的 Lorentz 变换。因此再配备上空间反演与时间反演，我们就可以用 $SO^+(3, 1)$ 拼出整个 $O(3, 1)$。
 

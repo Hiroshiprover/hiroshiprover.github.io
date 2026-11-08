@@ -1,0 +1,436 @@
+---
+title: 传播子与格林函数
+sidebar_position: 10
+hide_title: true
+---
+
+# 传播子与格林函数
+
+[上一篇](./08-canonical-quantization.mdx)把自由实标量场拆成模式算符，并用 Fock 空间中的粒子态解释了自由哈密顿量。那里为了少写符号，粒子态的整体归一化被省略了。本篇先把单粒子态的归一化固定下来，再计算场的两点函数。两点函数一方面给出粒子在位置空间的波函数，另一方面定义传播子；后者是下一阶段讨论相互作用和散射的起点。
+
+## 1. 动量算符与单粒子态
+
+自由场的哈密顿量与粒子数算符分别为
+
+$$
+H=\int\frac{\dd^3p}{(2\pi)^3}\,\omega_p\,a^\dagger_{\vec p}a_{\vec p},
+\qquad
+\hat N=\int\frac{\dd^3p}{(2\pi)^3}\,a^\dagger_{\vec p}a_{\vec p},
+\qquad
+\omega_p=\sqrt{\vec p^{\,2}+m^2}.
+$$
+
+因此 $N$ 粒子态 $a^\dagger_{\vec p_1}\cdots a^\dagger_{\vec p_N}|0\rangle$ 是 $H$ 的本征态，本征值为 $\sum_n\omega_{p_n}$。这说明自由理论没有势能，也没有相互作用：总能量就是各个粒子的能量之和。产生算符彼此对易，所以交换任意两个动量标签不改变态；Klein–Gordon 粒子是自旋为零的玻色子。
+
+除了能量，自由场还应当有总动量算符。经典场论中，空间平移的守恒荷是
+
+$$
+\vec P=-\int \dd^3x\,\pi\vec\nabla\phi .
+$$
+
+把它用量子场的模展开表示出来。由
+
+$$
+\pi(x)=-\ii\int\frac{\dd^3p}{(2\pi)^3}\sqrt{\frac{\omega_p}{2}}
+\left(a_{\vec p}e^{\ii p\cdot x}-a^\dagger_{\vec p}e^{-\ii p\cdot x}\right),
+$$
+
+以及
+
+$$
+\vec\nabla\phi(x)=\ii\int\frac{\dd^3k}{(2\pi)^3}\frac{\vec k}{\sqrt{2\omega_k}}
+\left(a_{\vec k}e^{\ii k\cdot x}-a^\dagger_{\vec k}e^{-\ii k\cdot x}\right),
+$$
+
+代入后对 $\vec x$ 积分。交叉项给出 $\delta^{(3)}(\vec p-\vec k)$，同号项给出 $\delta^{(3)}(\vec p+\vec k)$：
+
+$$
+\begin{aligned}
+-\int \dd^3x\,\pi\vec\nabla\phi
+&=\frac12\int\frac{\dd^3p}{(2\pi)^3}\,\vec p\,
+\Bigl[a_{\vec p}a_{-\vec p}-a_{\vec p}a^\dagger_{\vec p}
+-a^\dagger_{\vec p}a_{\vec p}+a^\dagger_{\vec p}a^\dagger_{-\vec p}\Bigr]\\
+&=\frac12\int\frac{\dd^3p}{(2\pi)^3}\,\vec p\,
+\left(a_{\vec p}a^\dagger_{\vec p}+a^\dagger_{\vec p}a_{\vec p}\right).
+\end{aligned}
+$$
+
+第二步丢掉了 $aa$ 与 $a^\dagger a^\dagger$ 项：它们在 $\vec p\mapsto-\vec p$ 下是奇函数，积分为零。剩下的两项用对易关系合并，得到
+
+$$
+\boxed{
+\vec P=\int\frac{\dd^3p}{(2\pi)^3}\,\vec p\,a^\dagger_{\vec p}a_{\vec p}
+}
+$$
+
+以及一个与算符无关的真空常数。它在 $\vec p\mapsto-\vec p$ 下是奇函数，在对称截断下为零；即使保留，也可以像哈密顿量的零点能一样通过正规排序去掉，对所有物理跃迁都不起作用。
+
+由此可以直接验证
+
+$$
+[\vec P,a^\dagger_{\vec k}]=\vec k\,a^\dagger_{\vec k},
+\qquad
+[\vec P,a_{\vec k}]=-\vec k\,a_{\vec k}.
+$$
+
+所以 $a^\dagger_{\vec p}$ 每作用一次，态的总动量就增加 $\vec p$。特别地，
+
+$$
+\vec P\,a^\dagger_{\vec p}|0\rangle
+=a^\dagger_{\vec p}\vec P|0\rangle+\vec p\,a^\dagger_{\vec p}|0\rangle
+=\vec p\,a^\dagger_{\vec p}|0\rangle .
+$$
+
+单粒子态因此既是能量的本征态，也是总动量的本征态。
+
+## 2. 单粒子态的归一化
+
+上面一直把 $a^\dagger_{\vec p}|0\rangle$ 当作单粒子态。为了让它具有 Lorentz 协变的归一化，定义
+
+$$
+\boxed{
+|\vec p\rangle\equiv\sqrt{2\omega_p}\,a^\dagger_{\vec p}|0\rangle .
+}
+$$
+
+于是
+
+$$
+\begin{aligned}
+\langle\vec p|\vec q\rangle
+&=2\sqrt{\omega_p\omega_q}\,
+\langle0|a_{\vec p}a^\dagger_{\vec q}|0\rangle\\
+&=2\sqrt{\omega_p\omega_q}\,(2\pi)^3\delta^{(3)}(\vec p-\vec q)\\
+&=(2\pi)^3\,2\omega_p\,\delta^{(3)}(\vec p-\vec q).
+\end{aligned}
+$$
+
+这个归一化并不是随意选择的：它与质量壳上的积分测度
+
+$$
+\frac{\dd^3p}{2\omega_p}
+$$
+
+相配。由于 $\dd^3p/(2\omega_p)$ 在保持时间方向的 Lorentz 变换下不变，$\langle\vec p|\vec q\rangle$ 也是 Lorentz 不变量。板书把这一点概括为“这个归一化是 Lorentz 不变的”。
+
+对 $N$ 个粒子，取
+
+$$
+\boxed{
+|\vec p_1,\ldots,\vec p_N\rangle
+\equiv\prod_{n=1}^{N}\sqrt{2\omega_{p_n}}\,
+a^\dagger_{\vec p_1}\cdots a^\dagger_{\vec p_N}|0\rangle .
+}
+$$
+
+当两个动量相同时，这个写法会给出额外的对称因子；后面涉及全同粒子时再单独处理。现在只需要记住：从这一篇起，单粒子态带有 $\sqrt{2\omega_p}$ 的归一化，这与 [上一篇](./08-canonical-quantization.mdx)省略整体归一化的写法不同。
+
+## 3. 位置空间的波函数
+
+场算符作用在真空上会得到什么？把模展开代入：
+
+$$
+\begin{aligned}
+\phi(x)|0\rangle
+&=\int\frac{\dd^3p}{(2\pi)^3}\frac{1}{\sqrt{2\omega_p}}
+\left(a_{\vec p}e^{\ii p\cdot x}+a^\dagger_{\vec p}e^{-\ii p\cdot x}\right)|0\rangle\\
+&=\int\frac{\dd^3p}{(2\pi)^3}\frac{1}{2\omega_p}\,
+|\vec p\rangle\,e^{-\ii p\cdot x}.
+\end{aligned}
+$$
+
+这里用了 $a_{\vec p}|0\rangle=0$ 以及 $|\vec p\rangle=\sqrt{2\omega_p}a^\dagger_{\vec p}|0\rangle$。因此 $\phi(x)|0\rangle$ 是各动量单粒子态的叠加，并不是动量本征态。它与单粒子态的内积为
+
+$$
+\langle\vec p|\phi(x)|0\rangle
+=e^{\ii p\cdot x}
+=e^{\ii\omega_p t-\ii\vec p\cdot\vec x},
+$$
+
+而
+
+$$
+\boxed{
+\langle0|\phi(x)|\vec p\rangle
+=e^{-\ii p\cdot x}
+=e^{-\ii\omega_p t+\ii\vec p\cdot\vec x}.
+}
+$$
+
+最后这个矩阵元就是自由粒子在位置空间的波函数：它是动量为 $\vec p$、能量为 $\omega_p$ 的平面波。取复共轭会得到另一个方向的平面波，这与 $\phi(x)$ 同时含有产生、湮灭算符是一致的。
+
+## 4. 场的对易子与推迟传播子
+
+不同时空点的场算符一般不对易。直接代入模展开：
+
+$$
+\begin{aligned}
+[\phi(x),\phi(y)]
+&=\int\frac{\dd^3p\,\dd^3q}{(2\pi)^6}
+\frac{1}{\sqrt{4\omega_p\omega_q}}
+\Bigl(
+[a_{\vec p},a^\dagger_{\vec q}]e^{\ii p\cdot x-\ii q\cdot y}
++[a^\dagger_{\vec p},a_{\vec q}]e^{-\ii p\cdot x+\ii q\cdot y}
+\Bigr)\\
+&=\int\frac{\dd^3p}{(2\pi)^3}\frac{1}{2\omega_p}
+\left(e^{\ii p\cdot(x-y)}-e^{-\ii p\cdot(x-y)}\right).
+\end{aligned}
+$$
+
+这个结果是一个 c-数，不再是算符。因此
+
+$$
+\langle0|[\phi(x),\phi(y)]|0\rangle
+=[\phi(x),\phi(y)].
+$$
+
+取 $x^0=y^0$，被积函数变成 $e^{\ii\vec p\cdot(\vec x-\vec y)}-e^{-\ii\vec p\cdot(\vec x-\vec y)}$，关于 $\vec p$ 是奇函数，积分为零：
+
+$$
+[\phi(t,\vec x),\phi(t,\vec y)]=0.
+$$
+
+这就是自由标量场的微观因果性：类空间隔的场算符对易，测量不会互相影响。
+
+现在定义推迟传播子
+
+$$
+\boxed{
+D_R(x-y)\equiv\Theta(x^0-y^0)\,
+\langle0|[\phi(x),\phi(y)]|0\rangle .
+}
+$$
+
+由于 $\Theta(x^0-y^0)$ 在 $x^0<y^0$ 时为零，$D_R$ 只保留“$x$ 在 $y$ 之后”的贡献。它满足一个很实用的积分表示：
+
+$$
+\boxed{
+D_R(x-y)
+=\ii\int\frac{\dd^4p}{(2\pi)^4}
+\frac{e^{\ii p\cdot(x-y)}}{(p^0+\ii\epsilon)^2-\omega_p^2},
+\qquad \epsilon\to0^+.
+}
+$$
+
+验证这个等式需要计算 $p^0$ 的围道积分。分母的极点在
+
+$$
+p^0=\pm\omega_p-\ii\epsilon,
+$$
+
+两个极点都在实轴下方。对 $x^0>0$，把围道补在下半平面，围道方向为顺时针；对 $x^0<0$，把围道补在上半平面，内部没有极点，积分为零。下半平面的两个留数给出积分本身
+
+$$
+\int\frac{\dd^4p}{(2\pi)^4}
+\frac{e^{\ii p\cdot x}}{(p^0+\ii\epsilon)^2-\omega_p^2}
+=-\ii\Theta(x^0)\int\frac{\dd^3p}{(2\pi)^3}
+\frac{1}{2\omega_p}
+\left(e^{\ii p\cdot x}-e^{-\ii p\cdot x}\right).
+$$
+
+再乘上定义中的 $\ii$，就回到
+
+$$
+D_R(x)=\Theta(x^0)\langle0|[\phi(x),\phi(0)]|0\rangle .
+$$
+
+完整的留数计算和围道方向见[附录 E](./appendix-mathematical-tools/05-propagator-contour-integrals.mdx)。*（照片 8533–8534 缺失，围道部分的中间步骤按上下文补全，已与附录核对。）*
+
+## 5. 格林函数
+
+推迟传播子之所以叫“传播子”，是因为它是 Klein–Gordon 算符的格林函数。由上面的积分表示，
+
+$$
+\begin{aligned}
+(\Box-m^2)D_R(x)
+&=\ii\int\frac{\dd^4p}{(2\pi)^4}
+\frac{(\Box-m^2)e^{\ii p\cdot x}}{(p^0+\ii\epsilon)^2-\omega_p^2}\\
+&=\ii\int\frac{\dd^4p}{(2\pi)^4}
+\frac{(p^0)^2-\omega_p^2}{(p^0+\ii\epsilon)^2-\omega_p^2}
+e^{\ii p\cdot x}.
+\end{aligned}
+$$
+
+在 $\epsilon\to0^+$ 的分布意义下，分式趋近于 $1$，于是
+
+$$
+\boxed{
+(\Box-m^2)D_R(x)=\ii\delta^{(4)}(x).
+}
+$$
+
+这里 $\Box=-\partial_t^2+\nabla^2$，而 $(p^0)^2-\omega_p^2$ 正是 $\Box-m^2$ 作用在 $e^{\ii p\cdot x}$ 上得到的符号。这个等式说明：$D_R$ 是带有推迟边界的 Green 函数；不同的边界条件会给出不同的 Green 函数，后面要定义的 Feynman 传播子就是另一种选择。
+
+也可以直接用 $\Theta$ 函数的导数验证。记
+
+$$
+\Delta(x)\equiv\langle0|[\phi(x),\phi(0)]|0\rangle,
+\qquad D_R(x)=\Theta(x^0)\Delta(x).
+$$
+
+利用
+
+$$
+\Box\Theta(x^0)=-\delta'(x^0),
+\qquad
+\partial_\mu\Theta(x^0)\partial^\mu\Delta(x)
+=-\delta(x^0)\partial_0\Delta(x),
+$$
+
+以及 $\Delta(0,\vec x)=0$、$\partial_0\Delta(0,\vec x)=-\ii\delta^{(3)}(\vec x)$，可以得到
+
+$$
+(\Box-m^2)D_R(x)=\ii\delta^{(4)}(x).
+$$
+
+这个验证的完整展开同样放在[附录 E](./appendix-mathematical-tools/05-propagator-contour-integrals.mdx)；正文只需要记住结论：$D_R$ 是满足推迟条件的 Green 函数。
+
+## 6. 动量空间与冲量源
+
+把 $D_R$ 对空间坐标作 Fourier 变换：
+
+$$
+D_R(t,\vec x)=\int\frac{\dd^3k}{(2\pi)^3}\,
+\tilde D_R(t,\vec k)e^{\ii\vec k\cdot\vec x}.
+$$
+
+代入 Green 函数方程，得到每个 $\vec k$ 模式满足的常微分方程：
+
+$$
+\left[-\partial_t^2-\omega_k^2\right]\tilde D_R(t,\vec k)
+=\ii\delta(t),
+\qquad
+\tilde D_R(t,\vec k)=0\quad(t<0).
+$$
+
+在 $t>0$，方程右边为零，通解为
+
+$$
+\tilde D_R(t,\vec k)=A\sin\omega_k t+B\cos\omega_k t.
+$$
+
+$t=0$ 处的连续性给出 $\tilde D_R(0^+,\vec k)=\tilde D_R(0^-,\vec k)=0$，所以 $B=0$。再把方程从 $-\epsilon$ 积分到 $\epsilon$，利用 $\tilde D_R$ 在原点连续，得到
+
+$$
+\partial_t\tilde D_R(0^+,\vec k)-\partial_t\tilde D_R(0^-,\vec k)=-\ii.
+$$
+
+因此 $A\omega_k=-\ii$，即
+
+$$
+\boxed{
+\tilde D_R(t,\vec k)
+=-\ii\Theta(t)\frac{\sin\omega_k t}{\omega_k}.
+}
+$$
+
+这个结果可以直接用来解初值问题。考虑一个标量场，外加冲量源
+
+$$
+J(x)=j(\vec x)\delta(t),
+\qquad
+\phi(t,\vec x)=0\quad(t<0).
+$$
+
+拉格朗日密度取
+
+$$
+\mathcal L=-\frac12(\partial\phi)^2-\frac{m^2}{2}\phi^2+\phi J,
+$$
+
+则 Euler–Lagrange 方程为
+
+$$
+(\Box-m^2)\phi=-J.
+$$
+
+利用 $D_R$ 的 Green 函数性质，解可以写成
+
+$$
+\phi(x)=\ii\int \dd^4y\,D_R(x-y)J(y).
+$$
+
+把 $J=j(\vec x)\delta(y^0)$ 和 $\tilde D_R$ 代入，得到
+
+$$
+\boxed{
+\phi(t,\vec x)
+=\Theta(t)\int\frac{\dd^3k}{(2\pi)^3}\,
+\tilde j(\vec k)\frac{\sin\omega_k t}{\omega_k}
+e^{\ii\vec k\cdot\vec x},
+}
+\qquad
+\tilde j(\vec k)=\int \dd^3x\,j(\vec x)e^{-\ii\vec k\cdot\vec x}.
+$$
+
+这个例子说明：推迟传播子把 $t=0$ 的初始条件推演到 $t>0$，而 $t<0$ 的场保持为零。也正因为如此，$D_R$ 显式依赖于“哪一个时间方向是未来”，它不是 Lorentz 不变的。散射振幅需要的是 Lorentz 不变的两点函数，这就引出了 Feynman 传播子。
+
+## 7. Feynman 传播子与时间排序
+
+把推迟传播子的分母换一种 $\ii\epsilon$  prescription：
+
+$$
+\boxed{
+D_F(x-y)
+\equiv \ii\int\frac{\dd^4p}{(2\pi)^4}
+\frac{e^{\ii p\cdot(x-y)}}{-p^2-m^2+\ii\epsilon},
+}
+\qquad p^2=-(p^0)^2+\vec p^{\,2}.
+$$
+
+注意这里的 $p^2$ 是四维不变量，而不是 $|\vec p|^2$。分母可以改写为
+
+$$
+-p^2-m^2+\ii\epsilon
+=(p^0)^2-\omega_p^2+\ii\epsilon,
+$$
+
+所以极点在
+
+$$
+p^0=\omega_p-\ii\epsilon,
+\qquad p^0=-\omega_p+\ii\epsilon.
+$$
+
+与推迟传播子不同，现在一个极点在实轴下方，另一个在实轴上方。对 $x^0>0$，把围道补在下半平面，只包住 $p^0=\omega_p-\ii\epsilon$；对 $x^0<0$，把围道补在上半平面，只包住 $p^0=-\omega_p+\ii\epsilon$。计算得到
+
+$$
+\begin{aligned}
+D_F(x-y)
+&=\Theta(x^0-y^0)
+\langle0|\phi(x)\phi(y)|0\rangle\\
+&\quad+\Theta(y^0-x^0)
+\langle0|\phi(y)\phi(x)|0\rangle .
+\end{aligned}
+$$
+
+定义时间排序符号
+
+$$
+T\{\phi(x)\phi(y)\}
+\equiv
+\begin{cases}
+\phi(x)\phi(y),&x^0>y^0,\\[2pt]
+\phi(y)\phi(x),&y^0>x^0.
+\end{cases}
+$$
+
+于是
+
+$$
+\boxed{
+D_F(x-y)=\langle0|T\{\phi(x)\phi(y)\}|0\rangle .
+}
+$$
+
+这就是 Feynman 传播子。它满足与 $D_R$ 相同的 Green 函数方程
+
+$$
+(\Box-m^2)D_F(x)=\ii\delta^{(4)}(x),
+$$
+
+差别只在边界条件：$D_R$ 只允许正向时间传播，$D_F$ 则把正、负频率分别配给两种时间顺序。
+
+时间排序本身用到了“哪个时间更早”，看起来破坏了 Lorentz 不变性。但对类空间隔的两点，$\phi(x)$ 与 $\phi(y)$ 对易，两种顺序给出同一个算符；对类时间隔的两点，时间先后在任何保持时间方向的 Lorentz 变换下都不变。因此 $D_F$ 仍然是 Lorentz 标量。这一点是它适合作为散射计算的基本构件的原因。
+
+{/* Lecture 8 来源：IMG_8521–8536；Lecture 9 来源：IMG_8566–8576。照片 8533–8534、8571–8572 缺失，围道与时间排序的中间步骤按上下文补全。 */}

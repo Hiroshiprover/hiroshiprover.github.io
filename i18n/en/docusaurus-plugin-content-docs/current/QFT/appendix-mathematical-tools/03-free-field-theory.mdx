@@ -1,0 +1,205 @@
+---
+title: "C. From the Action Principle to Free Field Theory"
+sidebar_position: 4
+hide_title: true
+---
+
+# C. From the Action Principle to Free Field Theory
+
+We now try to derive the Lagrangian density of free field theory starting from the action principle.
+
+Recall the variational method used earlier to derive the Euler–Lagrange equation. Given a field $\phi_0(x)$, we consider a family of fields around it:
+$$
+\phi_\varepsilon(x)=\phi_0(x)+\varepsilon\eta(x),
+$$
+where $\eta(x)$ is an arbitrary smooth function satisfying suitable boundary conditions and $\varepsilon\in\mathbb R$ is a parameter.
+We study how the action changes when $\varepsilon$ is sufficiently small.
+
+For convenience we can define an ordinary function of $\varepsilon$:
+$$
+f(\varepsilon)\equiv S[\phi_\varepsilon]
+=S[\phi_0+\varepsilon\eta].
+$$
+Assuming that the action is sufficiently smooth around the field configuration we are considering and that the expansion may be interchanged with the integral, we can Taylor expand $f(\varepsilon)$ directly:
+$$
+S[\phi_0+\varepsilon\eta]
+=S[\phi_0]
++\varepsilon\left.\frac{dS[\phi_\varepsilon]}{d\varepsilon}\right|_{\varepsilon=0}
++\frac{\varepsilon^2}{2}
+\left.\frac{d^2S[\phi_\varepsilon]}{d\varepsilon^2}\right|_{\varepsilon=0}
++O(\varepsilon^3).
+$$
+This is merely the Taylor expansion of $f(\varepsilon)$; there is nothing special about it.
+
+## The first-order term
+
+The zeroth-order term is obviously just the action of the original field. So we first examine the first-order term in the expansion. We still assume that the Lagrangian density depends only on the field and its first derivatives:
+$$
+S[\phi]=\int d^4x\,\mathcal L(\phi,\partial_\mu\phi).
+$$
+Since
+$$
+\frac{d\phi_\varepsilon}{d\varepsilon}=\eta,
+\qquad
+\frac{d(\partial_\mu\phi_\varepsilon)}{d\varepsilon}
+=\partial_\mu\eta,
+$$
+the chain rule gives
+$$
+\frac{dS[\phi_\varepsilon]}{d\varepsilon}
+=\int d^4x\,\bigg[
+\frac{\partial\mathcal L}{\partial\phi_\varepsilon}\eta
++\frac{\partial\mathcal L}
+{\partial(\partial_\mu\phi_\varepsilon)}
+\partial_\mu\eta
+\bigg].
+$$
+As in the derivation of the E-L equation, we integrate the second term by parts and use the condition that $\eta$ vanishes at the boundary, which gives
+$$
+\left.\frac{dS[\phi_\varepsilon]}{d\varepsilon}\right|_{\varepsilon=0}
+=\int d^4x\,
+\bigg[
+\frac{\partial\mathcal L}{\partial\phi}-\partial_\mu\left(\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\right)
+\bigg]_{\phi=\phi_0}\eta.
+$$
+We further require $\phi_0$ itself to satisfy the E-L equation, so
+$$
+\left[
+\frac{\partial\mathcal L}{\partial\phi}
+-\partial_\mu\left(
+\frac{\partial\mathcal L}
+{\partial(\partial_\mu\phi)}
+\right)
+\right]_{\phi_0}=0.
+$$
+Therefore,
+$$
+\left.\frac{dS[\phi_\varepsilon]}{d\varepsilon}\right|_{\varepsilon=0}=0.
+$$
+The Taylor expansion of the action thus simplifies to
+$$
+S[\phi_0+\varepsilon\eta]
+=S[\phi_0]
++\frac{\varepsilon^2}{2}
+\left.\frac{d^2S[\phi_\varepsilon]}{d\varepsilon^2}\right|_{\varepsilon=0}
++O(\varepsilon^3).
+$$
+This means that near a solution of the classical equations of motion the first-order change of the action under a perturbation vanishes, and the lowest-order non-trivial change usually comes from the quadratic term. This result is not surprising, since we required the principle of least action. Up to this point, however, what we have obtained is still only a quadratic term in the parameter $\varepsilon$. How is it related to the quadratic Lagrangian density discussed in the main text? Let us continue the computation.
+
+## The second-order term
+
+Taking one more derivative of the action with respect to $$\varepsilon$$ and evaluating at $$\varepsilon=0$$ gives
+$$
+\left.\frac{d^2S[\phi_\varepsilon]}{d\varepsilon^2}\right|_{\varepsilon=0}
+=\int d^4x\,
+\bigg[
+\frac{\partial^2\mathcal L}{\partial\phi^2}\eta^2
++2\frac{\partial^2\mathcal L}
+{\partial\phi\,\partial(\partial_\mu\phi)}
+\eta\partial_\mu\eta
++\frac{\partial^2\mathcal L}
+{\partial(\partial_\mu\phi)\partial(\partial_\nu\phi)}
+\partial_\mu\eta\partial_\nu\eta
+\bigg]_{\phi=\phi_0}.
+$$
+Repeated indices are summed by default here. Although this expression looks a little more complicated, a closer look shows that everything in it is quadratic in $\eta$:
+$$
+\eta^2,\qquad
+\eta\partial_\mu\eta,\qquad
+\partial_\mu\eta\partial_\nu\eta.
+$$
+The partial derivatives in front have already been evaluated at $\phi=\phi_0$ and are merely coefficients. We therefore package everything into a new Lagrangian density:
+$$
+\mathcal L^{(2)}[\eta]
+=\frac12\bigg[
+\frac{\partial^2\mathcal L}{\partial\phi^2}\eta^2+2\frac{\partial^2\mathcal L}
+{\partial\phi\,\partial(\partial_\mu\phi)}
+\eta\partial_\mu\eta+\frac{\partial^2\mathcal L}
+{\partial(\partial_\mu\phi)\partial(\partial_\nu\phi)}
+\partial_\mu\eta\partial_\nu\eta
+\bigg]_{\phi=\phi_0}.
+$$
+In this way the original action can be written as
+$$
+S[\phi_0+\varepsilon\eta]
+=S[\phi_0]
++\varepsilon^2\int d^4x\,\mathcal L^{(2)}[\eta]
++O(\varepsilon^3).
+$$
+Since $$\mathcal L^{(2)}$$ is a homogeneous quadratic expression in the perturbation field and its derivatives, it satisfies
+$$
+\mathcal L^{(2)}[\varepsilon\eta]
+=\varepsilon^2\mathcal L^{(2)}[\eta],
+$$
+so we may regard $$\varepsilon\eta$$ as a whole as a new field:
+$$
+S[\phi_0+\varepsilon\eta] = S[\phi_0] + S^{(2)}[\varepsilon\eta] + O(\varepsilon^3).
+$$
+Hence, when we keep only the quadratic approximation, we can study $\mathcal L^{(2)}$ directly. The parameter $\varepsilon$ itself is merely a label recording at which order our approximation sits.
+
+This explains why a quadratic Lagrangian density appears in free field theory: it is in fact the lowest-order non-vanishing approximation of the original field under a perturbation. Since $$\mathcal L^{(2)}$$ is quadratic in the perturbation field and its derivatives, the E-L equation it gives is linear. Hence different perturbations obey the principle of linear superposition, exactly as discussed in the main text.
+
+Although the equations of motion we obtain are linear, however, if the original field $\phi_0(x)$ is not a constant field then the coefficients in $\mathcal L^{(2)}$ will in general depend on $x$ as well. In that case the theory need not be invariant under spacetime translations.
+
+## The free real scalar field
+
+Finally let us see how the derivation above connects with the Lagrangian density constructed in the main text. Suppose the original theory is invariant under Lorentz transformations and spacetime translations, and that the classical background we choose is a constant field:
+$$
+\phi_0(x)=\phi_0.
+$$
+Since $\phi_0$ is constant, all of its derivatives vanish. Hence $\mathcal{L}[\phi_0(x), \partial_\mu \phi_0(x)]=\mathcal{L}(\phi_0, 0)$, that is, the value of a function at a fixed point, and the coefficients of its Taylor expansion (the three partial derivatives above) must all be constants. Furthermore, since $\phi_0$ itself is a Lorentz scalar, these coefficients should also be Lorentz invariant.
+
+Recall the three kinds of quadratic terms obtained just now:
+$$
+\eta^2,\qquad
+\eta\partial_\mu\eta,\qquad
+\partial_\mu\eta\partial_\nu\eta.
+$$
+The first term is itself a Lorentz scalar.
+
+The second term carries a free Lorentz index. As discussed in the main text, there is no nonzero Lorentz-invariant coefficient with which to contract it into a scalar, so we have to drop this term. Even if one introduces a constant vector (breaking Lorentz invariance) as the coefficient, this term contributes only a total derivative.
+
+As for the third term, we can contract the two indices with the Minkowski metric, obtaining
+$$
+\partial_\mu\eta\partial^\mu\eta.
+$$
+You may also think of it as saying that the partial derivatives in front should only be multiplied by a constant multiple of the metric.
+
+Therefore the Lagrangian density that satisfies the restrictions of the main text and is correct to quadratic order can only take the form
+$$
+\mathcal L^{(2)}[\eta]
+=a\,\partial_\mu\eta\partial^\mu\eta
++b\eta^2,
+$$
+where $a,b$ are real constants. This is precisely the Lagrangian density of the free real scalar field constructed in the main text!
+
+Compared with the general quadratic form first considered in the main text, however, no linear term such as $c\eta$ appears here. The reason is that we require $\phi_0$ itself to be a solution of the E-L equation, in which case the first-order variation of the action necessarily vanishes. In the main text we did not impose this requirement, which is why the Lagrangian density there was allowed to contain $$c\phi$$. Eliminating that term afterwards by redefining the field corresponds here to choosing a constant field that satisfies the equations of motion.
+
+To understand this result more intuitively we may also consider a concrete example. Suppose the original Lagrangian density is
+$$
+\mathcal L
+=-\frac12\partial_\mu\phi\partial^\mu\phi
+-\frac12m^2\phi^2
+-\frac{\lambda}{4!}\phi^4.
+$$
+where the last term describes the self-interaction of the field. Clearly $\phi_0=0$ is a constant background satisfying the E-L equation. We therefore take $\phi_\varepsilon=\varepsilon\eta$ and insert it into the original Lagrangian density:
+$$
+\mathcal L[\phi_\varepsilon]
+=-\frac{\varepsilon^2}{2}
+\partial_\mu\eta\partial^\mu\eta
+-\frac{\varepsilon^2}{2}m^2\eta^2
+-\frac{\varepsilon^4\lambda}{4!}\eta^4.
+$$
+As can be seen, the original quartic interaction term only appears at order $$\varepsilon^4$$. Hence, if we keep terms up to order $$\varepsilon^2$$, we obtain
+$$
+\mathcal L^{(2)}
+=-\frac12\partial_\mu\eta\partial^\mu\eta
+-\frac12m^2\eta^2.
+$$
+This is exactly the standard Lagrangian density of a free real scalar field.
+
+Of course, as the perturbation grows, higher-order terms may become non-negligible and the quadratic approximation fails accordingly. Free field theory can therefore serve both as a theory in its own right and as the lowest-order approximation when studying a general interacting field theory.
+
+One last point deserves emphasis: throughout the derivation we required only that the background field $$\phi_0$$ be a stationary point of the action, not that it be stable. An unstable classical solution can equally well serve as the expansion point, and the quadratic theory around it equally well has linear equations of motion. It is just that some small perturbations may then grow exponentially with time, so that the quadratic approximation is valid only over a finite time interval. This is one source of the tachyonic instability discussed in the main text.
+
+[Back to the main text](../03-classical-field-theory.mdx)

@@ -9,13 +9,13 @@ hide_title: true
 
 上一章我们引入了场的概念，以及 Lorentz 变换对场的影响。现在我们回到场的动力学。按照我们上一章最开始给出的例子，我们引入拉格朗日密度：
 $$
-L[\phi]=\int d^3x\,\mathcal L[\phi],
+L[\phi]=\int \dd^3x\,\mathcal L[\phi],
 $$
 与上一章不同的是，这里我们并不从具体的物理模型出发给出拉格朗日量，而是对任意一个抽象的场出发。要得到作用量，我们还要再对时间积分，于是作用量就是场的泛函：
 $$
-S[\phi]=\int dt\,L[\phi]
-=\int dt\,d^3x\,\mathcal L[\phi]
-=\int d^4x\,\mathcal L[\phi].
+S[\phi]=\int \dd t\,L[\phi]
+=\int \dd t\,\dd^3x\,\mathcal L[\phi]
+=\int \dd^4x\,\mathcal L[\phi].
 $$
 
 最一般地，$\mathcal L$ 可以依赖 $\phi$、各阶导数与坐标：
@@ -30,11 +30,11 @@ $$
 
 我们甚至还可以取一个泛函形式的拉格朗日密度，比如：
 $$
-\mathcal{L}[\phi](x) = \frac{1}{V} \int_{B_r(x)} d^4y\, \phi(y),
+\mathcal{L}[\phi](x) = \frac{1}{V} \int_{B_r(x)} \dd^4y\, \phi(y),
 $$
 其中 $B_r(x)$ 是 $x$ 点处周围半径为 $r$ 的四维（欧式）球，再除以体积 $V$ 以归一化。它在形式上也可以写成场的各阶导数的级数，我们就不写了。
 
-这个拉格朗日量通常而言不是物理的选择：它违反了我们第一章讨论的局域性；第二个例子还不是 Lorentz 不变的，因为积分区域的四维球在 Lorentz 变换下会改变形状。尽管某些非局域的拉格朗日密度可以作为一些有效理论的出发点，但我们这门宝宝课程是不会考虑这些情况的。因此我们要对拉格朗日密度的形式进行限制。
+不过这个泛函拉格朗日量通常而言不是物理的选择：它违反了我们第一章讨论的局域性；第二个例子还不是 Lorentz 不变的，因为积分区域的四维球在 Lorentz 变换下会改变形状。尽管某些非局域的拉格朗日密度可以作为一些有效理论的出发点，但我们这门宝宝课程是不会考虑这些情况的。因此我们要对拉格朗日密度的形式进行限制。
 
 :::note
 事实上，拉格朗日密度甚至不必与场相关：比如考虑一个经典质点，其位置为 $\mathbf q(t)$，拉格朗日量为
@@ -74,9 +74,9 @@ $$
 $$
 其实这个要求并没有什么理由（）这只是因为我们希望运动方程是最多二阶的。根据经典力学的 Euler-Lagrange 方程：
 $$
-\frac{\partial L}{\partial q} - \frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}}\right) = 0
+\frac{\partial L}{\partial q} - \frac{\dd}{\dd t}\left(\frac{\partial L}{\partial \dot{q}}\right) = 0
 $$
-可以看到：如果拉格朗日量包含广义坐标的更高阶导数，并且它是非退化的（比如只加一个 $\ddot{q}$，只是一个普通的全微分），那么一般而言第二项就会在运动方程里给出关于时间的更高阶导数。在场论里的情况是类似的，我们稍后会推导场的 E-L 方程。
+可以看到：如果拉格朗日量包含广义坐标的更高阶导数，并且它是非退化的（反例是只加一个 $\ddot{q}$，这只是一个普通的全微分，在变分的时候就消失了），那么一般而言第二项就会在运动方程里给出关于时间的更高阶导数。在场论里的情况是类似的，我们稍后会推导场的 E-L 方程。
 
 更高阶的运动方程原则上也不是不能解，但它需要更多的初始条件，也就需要更多的自由度；而且解可能存在稳定性问题，特别是对于非退化的高阶时间导数理论，Ostrogradsky 定理表明其 Hamiltonian 无下界，很可能出现不稳定性。
 
@@ -85,7 +85,7 @@ $$
 :::note
 严格来说，如果拉格朗日量包含更高阶导数，我们其实不应该使用这个 E-L 方程：因为我们在变分时假设了 $L$ 只依赖 $q$ 到一阶导数，才有这样好看的形式。举个例子：如果 $L=L(q, \dot{q}, \ddot{q}, t)$，那么 E-L 方程是这样的：
 $$
-\frac{\partial L}{\partial q}-\frac{d}{dt} \left(\frac{\partial L}{\partial \dot{q}}\right) +\frac{d^2}{dt^2}\left(\frac{\partial L}{\partial \ddot{q}}\right)=0.
+\frac{\partial L}{\partial q}-\frac{\dd}{\dd t} \left(\frac{\partial L}{\partial \dot{q}}\right) +\frac{\dd^2}{\dd t^2}\left(\frac{\partial L}{\partial \ddot{q}}\right)=0.
 $$
 可以看到如果 $L$ 不包含 $\ddot{q}$，它就退化为普通的 E-L 方程，对于场而言是类似的。我们就不做这个推导了。
 :::
@@ -108,7 +108,7 @@ $$
 
 ### Lorentz 不变性
 
-Lorentz 不变性要求作用量在 Lorentz 变换下保持不变。由于四维时空的积分测度 $d^4x$ 在 Lorentz 变换下保持不变，因此只要拉格朗日密度是 Lorentz 标量，就可以保证作用量具有 Lorentz 不变性。
+Lorentz 不变性要求作用量在 Lorentz 变换下保持不变。由于四维时空的积分测度 $\dd^4x$ 在 Lorentz 变换下保持不变，因此只要拉格朗日密度是 Lorentz 标量，就可以保证作用量具有 Lorentz 不变性。
 例如，对于实标量场，$\phi$ 本身是 Lorentz 标量，而 $\partial_\mu\phi$ 是协变四维矢量。因此，
 $$
 \mathcal L=\phi^2+\partial_\mu\phi\,\partial^\mu\phi
@@ -129,12 +129,12 @@ $$
 =\phi(x)+\varepsilon\eta(x),
 $$
 
-其中 $\varepsilon$ 是一个实参数，$\eta(x)$ 是任意满足边界条件的光滑函数。我们要求 $\eta(x)$ 在积分区域的边界（积分区域通常是全空间，因此边界即无穷远处）上为零，这类似经典力学里固定初末时刻。
+其中 $\varepsilon$ 是一个实参数，$\eta(x)$ 是任意满足边界条件的光滑函数。我们要求 $\eta(x)$ 在积分区域的边界（积分区域通常是全时空）上为零，这类似经典力学里固定初末时刻。
 
 作用量的变分可以定义为
 $$
 \delta S
-=\left.\frac{d}{d\varepsilon}
+=\left.\frac{\dd}{\dd\varepsilon}
 S[\phi+\varepsilon\eta]\right|_{\varepsilon=0},
 $$
 
@@ -142,16 +142,16 @@ $$
 $$
 \begin{aligned}
 \delta S
-&=\left.\frac{d}{d\varepsilon}
-\int d^4x\,\mathcal L(\phi_\varepsilon,\partial_\mu\phi_\varepsilon)
+&=\left.\frac{\dd}{\dd\varepsilon}
+\int \dd^4x\,\mathcal L(\phi_\varepsilon,\partial_\mu\phi_\varepsilon)
 \right|_{\varepsilon=0}\\
-&=\int d^4x\left[
+&=\int \dd^4x\left[
 \frac{\partial\mathcal L}{\partial\phi}
-\left.\frac{d\phi_\varepsilon}{d\varepsilon}\right|_{\varepsilon=0}
+\left.\frac{\dd\phi_\varepsilon}{\dd\varepsilon}\right|_{\varepsilon=0}
 +\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
-\left.\frac{d(\partial_\mu\phi_\varepsilon)}{d\varepsilon}\right|_{\varepsilon=0}
+\left.\frac{\dd(\partial_\mu\phi_\varepsilon)}{\dd\varepsilon}\right|_{\varepsilon=0}
 \right]\\
-&=\int d^4x\left[
+&=\int \dd^4x\left[
 \frac{\partial\mathcal L}{\partial\phi}\eta
 +\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
 \partial_\mu\eta
@@ -160,23 +160,23 @@ $$
 $$
 这里我们利用了：
 $$
-\frac{d\phi_\varepsilon}{d\varepsilon}=\eta, \qquad \frac{d}{d\varepsilon}(\partial_\mu\phi_\varepsilon)
+\frac{\dd\phi_\varepsilon}{\dd\varepsilon}=\eta, \qquad \frac{\dd}{\dd\varepsilon}(\partial_\mu\phi_\varepsilon)
 =\partial_\mu\eta.
 $$
 接下来对第二项进行分部积分：
 $$
 \begin{aligned}
-\int d^4x\,
+\int \dd^4x\,
 \frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
 \partial_\mu\eta
-&=\int d^4x\,\partial_\mu\left(
+&=\int \dd^4x\,\partial_\mu\left(
 \frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
 \eta\right)
--\int d^4x\,
+-\int \dd^4x\,
 \partial_\mu\left(
 \frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
 \right)\eta\\
-&=-\int d^4x\,
+&=-\int \dd^4x\,
 \partial_\mu\left(
 \frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
 \right)\eta.
@@ -185,7 +185,7 @@ $$
 其中第二个等号是因为：第一项是全散度，积分后成为边界项，而由于我们要求 $\eta$ 在边界上为零，因此这一项消失。
 将结果代回作用量的变分：
 $$
-\delta S=\int d^4x\left[
+\delta S=\int \dd^4x\left[
 \frac{\partial\mathcal L}{\partial\phi}
 -\partial_\mu\left(
 \frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
@@ -267,13 +267,15 @@ $$
 \phi^2,\qquad
 \partial_\mu\phi\,\partial^\mu\phi
 $$
-的线性组合，那么我们的运动方程就是线性的，这使得方程的任意的解都可以由两个解线性组合得到，在适当的条件下，我们还可以通过傅里叶变换，将一般解表示为不同模式的叠加。这也是为什么我们通常将这样的理论称为自由场论（free field theory）：不同的场扰动满足线性叠加原理，场的不同模式之间互不干扰，也即没有相互作用。
+的线性组合，那么运动方程就是线性的。如果我们通过某种方式消去其中的非齐次项，那么对应的齐次方程就满足叠加原理：任意两个解的线性组合仍然是解。在适当的条件下，我们还可以通过傅里叶变换得到一般解。
+
+这也是为什么我们通常将这样的理论称为自由场论（free field theory）：不同的场扰动满足线性叠加原理，场的不同模式之间互不干扰，也即没有相互作用。
 
 你可能会想为什么不包含
 $$
 c^\mu \partial_\mu \phi, \qquad d^\mu \phi \partial_\mu \phi
 $$
-这种项，其中 $c^\mu, d^\mu$ 是常矢量。但常矢量本身不是 Lorentz 不变的，它们本来就不在我们的讨论范围内。而且它们还都是全微分，变分的时候也成为边界项归零了。而如果假如它们也是某种场以保持 Lorentz 不变，那就相当于引入了场与场直接的相互作用，不在我们目前的讨论范围里。
+这种项，其中 $c^\mu, d^\mu$ 是常矢量。但常矢量本身不是 Lorentz 不变的，它们本来就不在我们的讨论范围内。而且它们还都是全微分，变分的时候也成为边界项归零了。而如果它们也是某种场，以保持 Lorentz 不变性，那我们就引入了额外的自由度，它不能由 $\phi$ 确定。除此之外还可能有场之间的相互作用，不在我们目前的讨论范围里。
 
 此外，常数项也不会进入运动方程，因此可以略去。我们于是得到（截止到二次项的）拉格朗日密度的一般形式：
 $$
@@ -305,7 +307,7 @@ $$
 $$
 我们可以看到这个方程关于 $\phi$ 的确是是线性的。不过，由于它还包含常数项 $c$，目前还是非齐次的，因此完整解还需要一个特解。不过我们接下来可以消除这个非齐次性。
 
-当然，这个出发点可以说非常的低（高情商：切实），一个有追求的理论物理学家会表示强烈谴责。因此，我们在[附录](./appendix-mathematical-tools/03-free-field-theory.mdx)中给出一个更加“第一性”的推导，正文部分我们就不再展开了。实际上：我们是在一个常数场 $\phi(x) = \phi_0$ 周围研究它的微扰展开，在最小作用量原理的要求下，一阶项自动为 $0$，因此最简单的微扰就是二阶的。
+当然，这个出发点可以说非常的低（高情商：切实），一个有追求的理论物理学家会表示强烈谴责。因此，我们在[附录](./appendix-mathematical-tools/03-free-field-theory.mdx)中给出一个更加“第一性”的推导，正文部分我们就不再展开了。实际上，我们可以从一般的作用量出发，研究某个给定的解 $\phi_0(x)$ 附近的微小扰动。由于背景场本身满足运动方程，作用量的一阶变分自然为零，因此其最低阶非平凡贡献通常来自二阶项。
 
 ### 场的重定义
 
@@ -356,7 +358,9 @@ $$
 $$
 2a\square \phi = c
 $$
-如果 $a\neq 0$ 且 $c\neq 0$，当然也是有解的，不过这并不在我们考虑的范围内，它并不是自由场。我们这里要求如果 $b=0$ 则 $c=0$，这样可以保证一个常数场 $\phi_0$ 的存在。
+如果 $a\neq 0$ 且 $c\neq 0$，当然也是有解的，不过这并不在我们考虑的范围内，它是一个带有常数外源的无质量标量场。
+
+我们这里要求如果 $b=0$ 则 $c=0$，这样可以保证一个常数场 $\phi_0$ 的存在。
 
 至于 $a=0$，这种情况要么只有常数解，要么方程干脆是 $0=0$，我们就不讨论了。接下来都默认 $a\neq 0$。
 :::
@@ -388,7 +392,7 @@ $$
 $$
 像我们先前讨论的，这是一个典型的波动方程，一个解为
 $$
-\phi(x)=Ae^{-i\omega t+i \vec k\cdot \vec x}.
+\phi(x)=Ae^{-\ii\omega t+\ii \vec k\cdot \vec x}.
 $$
 我们暂时使用复指数进行计算，到最后结果取实部即可。根据我们采用的度规约定，
 $$
@@ -420,7 +424,7 @@ k^2<-\frac ba
 $$
 时，色散关系给出 $\omega^2<0$。这意味着相应的频率是纯虚数：
 $$
-\omega=\pm i\sqrt{-k^2-\frac ba}.
+\omega=\pm \ii\sqrt{-k^2-\frac ba}.
 $$
 因此，场的时间依赖不再只是振荡，对于负号的分支就会出现
 $$
@@ -455,12 +459,9 @@ a<0,\qquad b\leq0,
 $$
 此时刚好后面的空间梯度项与 $\phi^2$ 项都是负系数，和经典力学的势能项相对应。
 
-如果取 $a>0$，那么相应的，哈密顿量中的动能项也就变成了负值，因此系统的能量会被解释成负的。这种自由度产生的结果通常称为鬼场（ghost）。虽然仅从自由场的运动方程来看，改变整个拉格朗日密度的符号并不会改变解，但当我们考虑它与其他正常自由度的耦合时，两者动能项的相对符号就会有问题。
+如果取 $a>0$，那么相应的，哈密顿量中的动能项也就变成了负值，因此系统的能量会被解释成负的。虽然仅从自由场的运动方程来看，拉格朗日密度整体乘一个 $-1$ 并不会改变解，但当我们考虑它与其他正常自由度的耦合时，两者动能项的相对符号就会出现问题。这种动能符号的自由度产生的结果通常称为鬼场（ghost）。
 
 关于场的哈密顿量的具体计算，我们后面再来处理。
-:::note
-这也是一般而言粒子物理用量子场论会采用 $(+---)$ 的度规约定：在这样的约定下动能自动是正的，不需要额外取一个负号。不过我们这里还是遵循先前的约定。
-:::
 
 ### 规范归一化
 
@@ -505,7 +506,17 @@ $$
 -\frac12m^2\phi^2.
 }
 $$
-这就是自由实标量场的标准拉格朗日密度。它对应的运动方程：
+这就是自由实标量场的标准拉格朗日密度。
+:::note
+这也是一般而言粒子物理用量子场论会采用 $(+---)$ 的度规约定：在这样的约定下拉格朗日密度写作：
+$$
+\mathcal L
+=\frac12\partial_\mu\phi\,\partial^\mu\phi
+-\frac12m^2\phi^2,
+$$
+第一项没有负号，形式上比较好看。其他地方其实没什么区别。不管怎么说，我们继续沿用 $(-+++)$ 的符号约定。
+:::
+它对应的运动方程：
 $$
 \boxed{
 (\Box-m^2)\phi=0.
@@ -573,13 +584,13 @@ $$
 $$
 \frac{\partial\mathcal L_{\mathrm{int}}}
 {\partial(\partial_\mu\phi)}
-=4\lambda (\partial_\mu\phi\,\partial^\mu\phi)
+=4\lambda (\partial_\nu\phi\,\partial^\nu\phi)
 \cdot \partial^\mu\phi.
 $$
 因此，它对 E–L 方程的贡献为
 $$
 -4\lambda\partial_\mu
-\left((\partial_\mu\phi\,\partial^\mu\phi)
+\left((\partial_\nu\phi\,\partial^\nu\phi)
  \partial^\mu\phi\right).
 $$
 将导数展开，最多也只会出现 $\phi$ 的二阶导数，和先前的讨论是一样的。
@@ -595,13 +606,13 @@ $$
 $$
 代入 Euler–Lagrange 方程，得到
 $$
--\frac{dV}{d\phi}
+-\frac{\dd V}{\dd\phi}
 +\partial_\mu\partial^\mu\phi=0.
 $$
 因此，
 $$
 \boxed{
-\Box\phi=\frac{dV}{d\phi}.
+\Box\phi=\frac{\dd V}{\dd\phi}.
 }
 $$
 这就是包含一般势函数的实标量场运动方程，通常称为非线性 Klein–Gordon 方程。
@@ -623,7 +634,7 @@ $$
 因此，势函数的一次项自然消失。
 
 :::note
-这里实际上我们还排除了更多的选择，比如 $V(\phi) = |\phi-\phi_0|^3$，或 $V(\phi) = (\phi-\phi_0)^{5/2}$ 这种项，因为它们都不解析。这并没什么道理，只是这些不解析的相互作用势能很难处理而已。我们不深入讨论这些。
+这里实际上我们还排除了更多的选择，比如 $V(\phi) = |\phi-\phi_0|^3$，或 $V(\phi) = (\phi-\phi_0)^{5/2}$ 这种项，因为它们都不解析。这并没什么特殊的道理，只是这些不解析的相互作用势能很难处理而已。我们不深入讨论这些。
 :::
 
 现在，我们可以重新定义场变量：

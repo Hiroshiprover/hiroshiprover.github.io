@@ -1,0 +1,233 @@
+---
+title: "E. 传播子的围道积分"
+sidebar_position: 6
+hide_title: true
+---
+
+# E. 传播子的围道积分
+
+本附录补上正文中推迟传播子和 Feynman 传播子的围道计算。全文沿用 $(-+++)$ 度规、自然单位，以及正文的 Fourier 约定
+
+$$
+\phi(x)=\int\frac{\dd^3p}{(2\pi)^3}\frac{1}{\sqrt{2\omega_p}}
+\left(a_{\vec p}e^{\ii p\cdot x}+a^\dagger_{\vec p}e^{-\ii p\cdot x}\right),
+\qquad p\cdot x=-\omega_p t+\vec p\cdot\vec x .
+$$
+
+## 1. 推迟传播子
+
+正文定义的推迟传播子为
+
+$$
+D_R(x)=\ii\int\frac{\dd^4p}{(2\pi)^4}
+\frac{e^{\ii p\cdot x}}{(p^0+\ii\epsilon)^2-\omega_p^2},
+\qquad \epsilon\to0^+.
+$$
+
+分母的因式分解为
+
+$$
+(p^0+\ii\epsilon)^2-\omega_p^2
+=(p^0-\omega_p+\ii\epsilon)(p^0+\omega_p+\ii\epsilon),
+$$
+
+因此两个极点是
+
+$$
+p^0=\omega_p-\ii\epsilon,
+\qquad p^0=-\omega_p-\ii\epsilon .
+$$
+
+它们都在实轴下方。
+
+当 $x^0>0$ 时，$e^{-\ii p^0x^0}$ 在下半平面衰减，把围道补在下半平面。围道方向为顺时针，因此
+
+$$
+\int\frac{\dd p^0}{2\pi}\frac{e^{-\ii p^0x^0}}{(p^0+\ii\epsilon)^2-\omega_p^2}
+=-\ii\left[
+\operatorname{Res}_{p^0=\omega_p-\ii\epsilon}
++\operatorname{Res}_{p^0=-\omega_p-\ii\epsilon}
+\right].
+$$
+
+两个留数分别为
+
+$$
+\operatorname{Res}_{p^0=\omega_p-\ii\epsilon}
+=\frac{e^{-\ii\omega_px^0}}{2\omega_p},
+\qquad
+\operatorname{Res}_{p^0=-\omega_p-\ii\epsilon}
+=\frac{e^{\ii\omega_px^0}}{-2\omega_p}.
+$$
+
+所以
+
+$$
+\int\frac{\dd p^0}{2\pi}\frac{e^{-\ii p^0x^0}}{(p^0+\ii\epsilon)^2-\omega_p^2}
+=-\ii\cdot\frac{e^{-\ii\omega_px^0}-e^{\ii\omega_px^0}}{2\omega_p}
+=-\frac{\sin\omega_px^0}{\omega_p}.
+$$
+
+当 $x^0<0$ 时，把围道补在上半平面，内部没有极点，积分为零。于是
+
+$$
+\begin{aligned}
+D_R(x)
+&=\ii\Theta(x^0)\int\frac{\dd^3p}{(2\pi)^3}
+\left(-\frac{\sin\omega_px^0}{\omega_p}\right)e^{\ii\vec p\cdot\vec x}\\
+&=\Theta(x^0)\int\frac{\dd^3p}{(2\pi)^3}
+\frac{1}{2\omega_p}
+\left(e^{\ii p\cdot x}-e^{-\ii p\cdot x}\right).
+\end{aligned}
+$$
+
+而括号中的积分正是 $\langle0|[\phi(x),\phi(0)]|0\rangle$，所以
+
+$$
+D_R(x)=\Theta(x^0)\langle0|[\phi(x),\phi(0)]|0\rangle .
+$$
+
+这与正文的定义一致。注意 $D_R$ 在 $x^0<0$ 时严格为零，这正是“推迟”的含义；它显式选择了一个时间方向，因此不是 Lorentz 不变的。
+
+## 2. 用 Θ 函数验证 Green 函数方程
+
+记
+
+$$
+\Delta(x)\equiv\langle0|[\phi(x),\phi(0)]|0\rangle,
+\qquad
+D_R(x)=\Theta(x^0)\Delta(x).
+$$
+
+利用
+
+$$
+\Box\Theta(x^0)=-\delta'(x^0),
+\qquad
+\partial_\mu\Theta(x^0)\partial^\mu\Delta(x)
+=-\delta(x^0)\partial_0\Delta(x),
+$$
+
+得到
+
+$$
+\begin{aligned}
+(\Box-m^2)D_R(x)
+&=(\Box\Theta)\Delta
++2\partial_\mu\Theta\,\partial^\mu\Delta
++\Theta(\Box-m^2)\Delta\\
+&=-\delta'(x^0)\Delta(x)
+-2\delta(x^0)\partial_0\Delta(x).
+\end{aligned}
+$$
+
+最后一步用了 $(\Box-m^2)\Delta=0$：$\phi(x)$ 与 $\phi(0)$ 都满足 Klein–Gordon 方程，它们的对易子也满足同一个方程。
+
+在 $x^0=0$ 处，
+
+$$
+\Delta(0,\vec x)=0,
+\qquad
+\partial_0\Delta(0,\vec x)
+=\langle0|[\pi(0,\vec x),\phi(0,\vec 0)]|0\rangle
+=-\ii\delta^{(3)}(\vec x).
+$$
+
+因为 $\Delta(0,\vec x)=0$，可以把 $\delta'(x^0)\Delta(x)$ 改写为
+
+$$
+\delta'(x^0)\Delta(x)
+=-\delta(x^0)\partial_0\Delta(0,\vec x).
+$$
+
+于是
+
+$$
+\begin{aligned}
+(\Box-m^2)D_R(x)
+&=\delta(x^0)\partial_0\Delta(0,\vec x)
+-2\delta(x^0)\partial_0\Delta(0,\vec x)\\
+&=-\delta(x^0)\partial_0\Delta(0,\vec x)\\
+&=-\delta(x^0)\bigl(-\ii\delta^{(3)}(\vec x)\bigr)\\
+&=\ii\delta^{(4)}(x).
+\end{aligned}
+$$
+
+这与正文的 Green 函数方程一致。
+
+## 3. Feynman 传播子
+
+Feynman 传播子的定义是
+
+$$
+D_F(x)=\ii\int\frac{\dd^4p}{(2\pi)^4}
+\frac{e^{\ii p\cdot x}}{-p^2-m^2+\ii\epsilon}
+=\ii\int\frac{\dd^4p}{(2\pi)^4}
+\frac{e^{\ii p\cdot x}}{(p^0)^2-\omega_p^2+\ii\epsilon}.
+$$
+
+分母的极点为
+
+$$
+p^0=\omega_p-\ii\epsilon,
+\qquad p^0=-\omega_p+\ii\epsilon .
+$$
+
+与推迟传播子不同，现在一个极点在实轴下方，另一个在实轴上方。
+
+当 $x^0>0$ 时，把围道补在下半平面，只包住 $p^0=\omega_p-\ii\epsilon$。顺时针围道给出
+
+$$
+\int\frac{\dd p^0}{2\pi}\frac{e^{-\ii p^0x^0}}{(p^0)^2-\omega_p^2+\ii\epsilon}
+=-\ii\frac{e^{-\ii\omega_px^0}}{2\omega_p}.
+$$
+
+当 $x^0<0$ 时，把围道补在上半平面，只包住 $p^0=-\omega_p+\ii\epsilon$。逆时针围道给出
+
+$$
+\int\frac{\dd p^0}{2\pi}\frac{e^{-\ii p^0x^0}}{(p^0)^2-\omega_p^2+\ii\epsilon}
+=\ii\frac{e^{\ii\omega_px^0}}{-2\omega_p}
+=-\ii\frac{e^{\ii\omega_px^0}}{2\omega_p}.
+$$
+
+再乘上定义中的 $\ii$，得到
+
+$$
+\begin{aligned}
+D_F(x)
+&=\Theta(x^0)\int\frac{\dd^3p}{(2\pi)^3}\frac{1}{2\omega_p}
+e^{-\ii\omega_px^0+\ii\vec p\cdot\vec x}\\
+&\quad+\Theta(-x^0)\int\frac{\dd^3p}{(2\pi)^3}\frac{1}{2\omega_p}
+e^{\ii\omega_px^0+\ii\vec p\cdot\vec x}.
+\end{aligned}
+$$
+
+在第二项的积分中作 $\vec p\mapsto-\vec p$，指数变为 $e^{\ii\omega_px^0-\ii\vec p\cdot\vec x}$。因此
+
+$$
+D_F(x)=\Theta(x^0)\langle0|\phi(x)\phi(0)|0\rangle
++\Theta(-x^0)\langle0|\phi(0)\phi(x)|0\rangle .
+$$
+
+这就是正文中的时间排序表达式：
+
+$$
+D_F(x)=\langle0|T\{\phi(x)\phi(0)\}|0\rangle .
+$$
+
+## 4. 两种传播子的区别
+
+推迟传播子和 Feynman 传播子满足同一个方程
+
+$$
+(\Box-m^2)D(x)=\ii\delta^{(4)}(x),
+$$
+
+区别在边界条件。$D_R$ 只允许 $x^0>0$ 的传播，因此适合初值问题；$D_F$ 把正、负频率分别配给两种时间顺序，因此适合散射振幅。两者的极点 prescription 不同：
+
+- $D_R$：两个极点都在实轴下方；
+- $D_F$：一个极点在实轴下方，一个在实轴上方。
+
+在动量空间，这个差别就是 $\ii\epsilon$ 的位置。正文用 $D_R$ 解释 Green 函数，用 $D_F$ 定义时间排序的真空期望值。
+
+[返回正文](../09-propagators-and-greens-functions.mdx)

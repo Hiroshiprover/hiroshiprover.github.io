@@ -7,7 +7,7 @@ hide_title: true
 
 对于自由粒子，薛定谔方程为[^1]：
 $$
-i \frac{\partial}{\partial t} \psi= -\frac{1}{2m} \nabla^2 \psi = \hat{H}\psi, \qquad \hat{H} = \frac{\hat{p}^2}{2m}, \qquad \hat{p} = -i\nabla,
+\ii \frac{\partial}{\partial t} \psi= -\frac{1}{2m} \nabla^2 \psi = \hat{H}\psi, \qquad \hat{H} = \frac{\hat{p}^2}{2m}, \qquad \hat{p} = -\ii\nabla,
 $$
 显然，这里使用的哈密顿量是非相对论的，在相对论极限下会出现问题。因此我们需要对薛定谔方程进行修正。
 
@@ -23,7 +23,7 @@ $$
 $$
 现在，我们有相对论性的薛定谔方程：
 $$
-i \frac{\partial}{\partial t} \psi = \sqrt{-\nabla^2 + m^2} \psi,
+\ii \frac{\partial}{\partial t} \psi = \sqrt{-\nabla^2 + m^2} \psi,
 $$
 这个方程被称为 Salpeter 方程。这个方程有一个麻烦：它不是**局域的**。粗略地说，非局域性的方程会导致：要知道波函数在某一点接下来怎样变化，需要用到其他位置的波函数值。这违反了人们对世界的认知：没有接触的物体是不应该有相互作用的[^2][^3]。
 
@@ -34,11 +34,11 @@ $$
 
 按照先前的讨论，我们写出了：
 $$
-i \frac{\partial}{\partial t} \psi = \sqrt{-\nabla^2 + m^2} \psi,
+\ii \frac{\partial}{\partial t} \psi = \sqrt{-\nabla^2 + m^2} \psi,
 $$
 显然，这个方程非局域性的来源是这个根号。因此，我们考虑对两边的算符进行平方：
 $$
-\left(i \frac{\partial}{\partial t}\right)^2 \psi = (-\nabla^2 + m^2) \psi,
+\left(\ii \frac{\partial}{\partial t}\right)^2 \psi = (-\nabla^2 + m^2) \psi,
 $$
 也就是大名鼎鼎的 Klein-Gordon 方程：
 $$
@@ -60,11 +60,11 @@ $$
 
 这是一个带质量项的波动方程。代入平面波解可以得到色散关系：
 $$
-\psi=C e^{-i\omega t+i\vec{k}\cdot\vec{x}},\qquad \omega=\pm\sqrt{k^2+m^2}.
+\psi=C e^{-\ii\omega t+\ii\vec{k}\cdot\vec{x}},\qquad \omega=\pm\sqrt{k^2+m^2}.
 $$
 对一个固定的波矢 $\vec{k}$，通解为：
 $$
-\psi = A e^{-i\sqrt{k^2+m^2} t} e^{i\vec{k}\cdot\vec{x}} + B e^{i\sqrt{k^2+m^2} t} e^{i\vec{k}\cdot\vec{x}} = \psi_A + \psi_B,
+\psi = A e^{-\ii\sqrt{k^2+m^2} t} e^{\ii\vec{k}\cdot\vec{x}} + B e^{\ii\sqrt{k^2+m^2} t} e^{\ii\vec{k}\cdot\vec{x}} = \psi_A + \psi_B,
 $$
 其中前半部分称为 $\psi_A$，后半部分称为 $\psi_B$。方程完整的解是所有 $\vec{k}$ 的线性组合（傅里叶积分）。
 
@@ -78,9 +78,9 @@ $$
 
 对负频率平面波 $\psi_B$，时间平移生成元的本征值为：
 $$
-\hat{H} \psi_B = i \frac{\partial}{\partial t} \psi_B = -\sqrt{k^2 + m^2} \psi_B.
+\hat{H} \psi_B = \ii \frac{\partial}{\partial t} \psi_B = -\sqrt{k^2 + m^2} \psi_B.
 $$
-这里的负号来自 $i\partial_t$ 对负频率解的本征值；它不满足前面定义的正平方根一阶方程，却满足平方后的 KG 方程。因此，它给出了一个无下界的负能量解，粒子可以无下限地向低能级跃迁，向外辐射能量。显然这是荒谬的，如果物理上真的允许这样的模型存在，那么我们到处都能看见相对论性的粒子放烟花。
+这里的负号来自 $\ii\partial_t$ 对负频率解的本征值；它不满足前面定义的正平方根一阶方程，却满足平方后的 KG 方程。因此，它给出了一个无下界的负能量解，粒子可以无下限地向低能级跃迁，向外辐射能量。显然这是荒谬的，如果物理上真的允许这样的模型存在，那么我们到处都能看见相对论性的粒子放烟花。
 
 :::note
 实际上这个问题和下面的一样，都是我们对 $\psi$ 的诠释的问题。物理上当然不会允许一个能量无下界的模型。
@@ -92,27 +92,27 @@ $$
 
 不过 K-G 方程的确存在一个局域的流守恒方程，定义：
 $$
-\rho \equiv i\left( \psi^* \frac{\partial \psi}{\partial t} - \psi \frac{\partial \psi^*}{\partial t} \right),
+\rho \equiv \ii\left( \psi^* \frac{\partial \psi}{\partial t} - \psi \frac{\partial \psi^*}{\partial t} \right),
 $$
 
 对它求时间导数：
 $$
-\frac{\partial \rho}{\partial t} = i\left[ \frac{\partial \psi^*}{\partial t} \frac{\partial \psi}{\partial t} + \psi^* \frac{\partial^2 \psi}{\partial t^2} - \frac{\partial \psi}{\partial t} \frac{\partial \psi^*}{\partial t} - \psi \frac{\partial^2 \psi^*}{\partial t^2} \right] = i\left( \psi^* \frac{\partial^2 \psi}{\partial t^2} - \psi \frac{\partial^2 \psi^*}{\partial t^2} \right),
+\frac{\partial \rho}{\partial t} = \ii\left[ \frac{\partial \psi^*}{\partial t} \frac{\partial \psi}{\partial t} + \psi^* \frac{\partial^2 \psi}{\partial t^2} - \frac{\partial \psi}{\partial t} \frac{\partial \psi^*}{\partial t} - \psi \frac{\partial^2 \psi^*}{\partial t^2} \right] = \ii\left( \psi^* \frac{\partial^2 \psi}{\partial t^2} - \psi \frac{\partial^2 \psi^*}{\partial t^2} \right),
 $$
 
 而由 K-G 方程，我们可以消去等号右侧的二阶时间导数：
 $$
-\frac{\partial \rho}{\partial t} = i\left[ \psi^* (\nabla^2 - m^2) \psi - \psi (\nabla^2 - m^2) \psi^* \right] = i\left( \psi^* \nabla^2 \psi - \psi \nabla^2 \psi^* \right),
+\frac{\partial \rho}{\partial t} = \ii\left[ \psi^* (\nabla^2 - m^2) \psi - \psi (\nabla^2 - m^2) \psi^* \right] = \ii\left( \psi^* \nabla^2 \psi - \psi \nabla^2 \psi^* \right),
 $$
 
 利用乘积法则：
 $$
-\frac{\partial \rho}{\partial t} = i \nabla \cdot \left( \psi^* \nabla \psi - \psi \nabla \psi^* \right) = -\nabla \cdot \left[ i\left( \psi \nabla \psi^* - \psi^* \nabla \psi \right) \right],
+\frac{\partial \rho}{\partial t} = \ii \nabla \cdot \left( \psi^* \nabla \psi - \psi \nabla \psi^* \right) = -\nabla \cdot \left[ \ii\left( \psi \nabla \psi^* - \psi^* \nabla \psi \right) \right],
 $$
 
 于是有连续性方程：
 $$
-\frac{\partial \rho}{\partial t} = -\nabla \cdot \vec j, \qquad \vec j = i\left( \psi \nabla \psi^* - \psi^* \nabla \psi \right),
+\frac{\partial \rho}{\partial t} = -\nabla \cdot \vec j, \qquad \vec j = \ii\left( \psi \nabla \psi^* - \psi^* \nabla \psi \right),
 $$
 
 这看起来还不错，但我们注意到 $\rho$ 并不是正定的，没有办法解释成粒子在空间中的概率分布。因此这说明要么方程有问题，要么我们对方程的解的物理诠释有问题。

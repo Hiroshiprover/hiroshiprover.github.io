@@ -1,0 +1,264 @@
+---
+title: "F. 相空间积分与两体运动学"
+sidebar_position: 7
+hide_title: true
+---
+
+# F. 相空间积分与两体运动学
+
+本附录把正文中用到的相空间积分写完整，并核对 $2\to2$ 散射的运动学因子。全文沿用 $(-+++)$ 度规、自然单位 $\hbar=c=1$，以及正文的归一化
+
+$$
+\langle\vec p|\vec q\rangle
+=(2\pi)^3 2\omega_p\delta^{(3)}(\vec p-\vec q).
+$$
+
+## 1. 两体相空间
+
+$N$ 体末态的 Lorentz 不变相空间测度定义为
+
+$$
+\dd\Pi_{\rm LIPS}
+=\left[\prod_{n=1}^{N}\frac{\dd^3p_n}{(2\pi)^3\,2\omega_{p_n}}\right]
+(2\pi)^4\delta^{(4)}(P_f-P_i),
+\qquad
+P_f=\sum_{n=1}^{N}p_n .
+$$
+
+对两体末态 $1+2\to1'+2'$，
+
+$$
+\dd\Pi_{\rm LIPS}^{(2)}
+=\frac{\dd^3p_1'}{(2\pi)^3\,2\omega_1'}
+\frac{\dd^3p_2'}{(2\pi)^3\,2\omega_2'}
+(2\pi)^4\delta^{(4)}(p_1'+p_2'-P_i).
+$$
+
+在质心系中，
+
+$$
+P_i=(E_{\rm cm},\vec 0),
+\qquad
+\vec p_2'=-\vec p_1',
+\qquad
+\omega_1'=\sqrt{\vec p_1'^{\,2}+m_1'^2},
+\quad
+\omega_2'=\sqrt{\vec p_1'^{\,2}+m_2'^2}.
+$$
+
+先对 $\vec p_2'$ 积分，利用三维 $\delta$ 函数把 $\vec p_2'$ 固定为 $-\vec p_1'$：
+
+$$
+\dd\Pi_{\rm LIPS}^{(2)}
+=\frac{1}{(2\pi)^2}
+\frac{\dd^3p_1'}{4\omega_1'\omega_2'}
+\delta(\omega_1'+\omega_2'-E_{\rm cm}).
+$$
+
+取球坐标 $\dd^3p_1'=|\vec p_1'|^2\dd|\vec p_1'|\,\dd\Omega$：
+
+$$
+\dd\Pi_{\rm LIPS}^{(2)}
+=\frac{1}{16\pi^2}
+\frac{|\vec p_1'|^2\dd|\vec p_1'|\,\dd\Omega}
+{\omega_1'\omega_2'}
+\delta(\omega_1'+\omega_2'-E_{\rm cm}).
+$$
+
+令
+
+$$
+x=\omega_1'+\omega_2'-E_{\rm cm}.
+$$
+
+则
+
+$$
+\frac{\dd x}{\dd|\vec p_1'|}
+=\frac{|\vec p_1'|}{\omega_1'}+\frac{|\vec p_1'|}{\omega_2'}
+=\frac{|\vec p_1'|E_{\rm cm}}{\omega_1'\omega_2'},
+$$
+
+因此
+
+$$
+\dd|\vec p_1'|=\frac{\omega_1'\omega_2'}{|\vec p_1'|E_{\rm cm}}\dd x.
+$$
+
+代回并完成 $x$ 积分：
+
+$$
+\boxed{
+\dd\Pi_{\rm LIPS}^{(2)}
+=\frac{1}{16\pi^2}\frac{|\vec p_1'|}{E_{\rm cm}}\,\dd\Omega .
+}
+$$
+
+这个结果对一般的 $2\to2$ 过程都成立；末态质量只通过 $|\vec p_1'|$ 和阈值条件进入。
+
+## 2. 两体截面
+
+把上式代入正文的两体截面公式：
+
+$$
+\sigma=\frac{1}{S_{\rm sym}}\frac{1}{4\omega_1\omega_2|\vec v_1-\vec v_2|}
+\int|\mathcal M|^2\,\dd\Pi_{\rm LIPS}^{(2)}.
+$$
+
+得到
+
+$$
+\sigma=\frac{1}{S_{\rm sym}}
+\frac{1}{64\pi^2\omega_1\omega_2|\vec v_1-\vec v_2|}
+\int \dd\Omega\,
+\frac{|\vec p_1'|}{E_{\rm cm}}|\mathcal M|^2.
+$$
+
+因此微分截面为
+
+$$
+\frac{\dd\sigma}{\dd\Omega}\bigg|_{\rm CM}
+=\frac{1}{S_{\rm sym}}
+\frac{|\vec p_1'|\,|\mathcal M|^2}
+{64\pi^2\omega_1\omega_2|\vec v_1-\vec v_2|E_{\rm cm}}.
+$$
+
+利用质心系中的恒等式
+
+$$
+\omega_1\omega_2|\vec v_1-\vec v_2|
+=|\vec p_1|E_{\rm cm},
+$$
+
+可以把分母中的 $\omega_1\omega_2|\vec v_1-\vec v_2|$ 换成 $|\vec p_1|E_{\rm cm}$：
+
+$$
+\boxed{
+\frac{\dd\sigma}{\dd\Omega}\bigg|_{\rm CM}
+=\frac{1}{S_{\rm sym}}
+\frac{|\vec p_1'|\,|\mathcal M|^2}
+{64\pi^2|\vec p_1|E_{\rm cm}^2}
+\Theta(E_{\rm cm}-m_1'-m_2').
+}
+$$
+
+这里已经代入了能量 $\delta$ 函数给出的阈值条件。若末态质量与初态相同（弹性散射），则 $|\vec p_1'|=|\vec p_1|$，上式还可以进一步化简。
+
+*正文引用的板书公式把分母写成 $64\pi^2|\vec p_1|E_{\rm cm}$，比这里的相空间积分少一个 $E_{\rm cm}$。正文保留板书原式，并把这一差异记入交接待核查；本附录按积分结果写出完整的 $E_{\rm cm}^2$。*
+
+## 3. 质心系中的三动量
+
+由
+
+$$
+E_{\rm cm}=\omega_1+\omega_2,
+\qquad
+\omega_1^2-\vec p_1^{\,2}=m_1^2,
+\qquad
+\omega_2^2-\vec p_1^{\,2}=m_2^2,
+$$
+
+两式相减得到
+
+$$
+\omega_1^2-\omega_2^2=m_1^2-m_2^2.
+$$
+
+左边因式分解为 $(\omega_1-\omega_2)(\omega_1+\omega_2)$，所以
+
+$$
+\omega_1-\omega_2=\frac{m_1^2-m_2^2}{E_{\rm cm}}.
+$$
+
+与 $\omega_1+\omega_2=E_{\rm cm}$ 联立：
+
+$$
+\omega_1=\frac{E_{\rm cm}^2+m_1^2-m_2^2}{2E_{\rm cm}},
+\qquad
+\omega_2=\frac{E_{\rm cm}^2+m_2^2-m_1^2}{2E_{\rm cm}}.
+$$
+
+于是
+
+$$
+\begin{aligned}
+|\vec p_1|^2
+&=\omega_1^2-m_1^2\\
+&=\frac{(E_{\rm cm}^2+m_1^2-m_2^2)^2}{4E_{\rm cm}^2}-m_1^2\\
+&=\frac{E_{\rm cm}^4-2E_{\rm cm}^2(m_1^2+m_2^2)
++(m_1^2-m_2^2)^2}{4E_{\rm cm}^2}\\
+&=\frac{E_{\rm cm}^2}{4}
+-\frac{m_1^2+m_2^2}{2}
++\frac{(m_1^2-m_2^2)^2}{4E_{\rm cm}^2}.
+\end{aligned}
+$$
+
+末态的三动量只需把 $m_1,m_2$ 换成 $m_1',m_2'$。当 $E_{\rm cm}$ 刚好等于 $m_1'+m_2'$ 时，$|\vec p_1'|=0$，相空间体积消失，微分截面趋于零；这就是阈值行为。
+
+## 4. 重靶极限
+
+设靶粒子 $2$ 很重，且入射粒子能量远小于 $m_2$。在实验室系中靶近似静止，
+
+$$
+E_{\rm cm}^2=m_1^2+m_2^2+2m_2\omega_1^{\rm lab}
+\simeq m_2^2+\mathcal O(\omega_1^{\rm lab}).
+$$
+
+因此
+
+$$
+E_{\rm cm}\simeq m_2.
+$$
+
+对弹性散射，$|\vec p_1'|\simeq|\vec p_1|$。代入上面的微分截面：
+
+$$
+\frac{\dd\sigma}{\dd\Omega}\bigg|_{\rm CM}
+\simeq
+\frac{|\mathcal M|^2}{64\pi^2m_2^2}.
+$$
+
+Coulomb 散射 $e^-+p^+\to e^-+p^+$ 和 Rutherford 散射 $\alpha+N\to\alpha+N$ 都可以在这个近似下处理：靶的反冲被忽略，质心系近似等于固定靶系。
+
+## 5. 衰变相空间
+
+对 $1\to2$ 衰变，取 $N_{\rm inc}=1$。在衰变粒子的静止系中，
+
+$$
+E_{\rm cm}=m_1,
+\qquad
+|\vec p_1'|=|\vec p_2'|\equiv p_f.
+$$
+
+由两体相空间公式，
+
+$$
+\dd\Pi_{\rm LIPS}^{(2)}
+=\frac{1}{16\pi^2}\frac{p_f}{m_1}\dd\Omega .
+$$
+
+而
+
+$$
+\dd\Gamma=\frac{|\mathcal M|^2}{2m_1}\dd\Pi_{\rm LIPS}^{(2)},
+$$
+
+所以
+
+$$
+\boxed{
+\dd\Gamma=\frac{|\mathcal M|^2\,p_f}{32\pi^2m_1^2}\dd\Omega .
+}
+$$
+
+对立体角积分并除以对称因子，就得到总衰变率
+
+$$
+\Gamma=\frac{1}{S_{\rm sym}}
+\frac{p_f}{32\pi^2m_1^2}
+\int|\mathcal M|^2\,\dd\Omega .
+$$
+
+这个式子说明：衰变率由振幅的模方、末态动量 $p_f$ 和母粒子质量共同决定；相空间越受抑制（$p_f$ 越小），衰变越慢。
+
+[返回正文](../10-scattering-cross-sections.mdx)

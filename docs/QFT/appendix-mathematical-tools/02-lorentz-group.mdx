@@ -1,10 +1,10 @@
 ---
-title: "Lorentz 群的数学补充"
+title: "B. Lorentz 群的数学补充"
 sidebar_position: 3
 hide_title: true
 ---
 
-# Lorentz 群的数学补充
+# B. Lorentz 群的数学补充
 
 **对应 02 §2–5。**[返回正文](../02-lorentz-group.mdx)。Lorentz 矩阵满足 $\Lambda^Tg\Lambda=g$。下面补充群结构、连通分支及无穷小变换的计算，主线只使用其变换规则。
 
@@ -107,7 +107,7 @@ $$
 其中 $\epsilon$ 是无穷小参数。很容易注意到：
 $$
 (I-\epsilon\Omega)(I+\epsilon\Omega)
-=I+O(\epsilon^2),
+=I+\mathcal O(\epsilon^2),
 $$
 
 因此其逆（在保留到一阶小量的意义下）为：
@@ -135,7 +135,7 @@ $$
 $$
 \Omega_{\mu\nu}=-\Omega_{\nu\mu}.
 $$
-也就是说，$\Omega_{\mu\nu}$ 是一个反对称矩阵（注意：不是 $\Omega^\mu{}_\nu$ 本身）。一个 $4\times4$ 反对称矩阵只有 $6$ 个独立分量，因此 Lorentz 群有六个连续参数。其中 $\Omega_{ij}$ 的三个独立分量对应空间旋转，$\Omega_{0i}$ 的三个分量对应三个空间方向上的 boost。这给定了 Lorentz 群的生成元。原则上，利用指数映射与生成元可以得到单位元附近的群元素。
+也就是说，$\Omega_{\mu\nu}$ 是一个反对称矩阵（注意：不是 $\Omega^\mu{}_\nu$ 本身）。一个 $4\times4$ 反对称矩阵只有 $6$ 个独立分量，因此 Lorentz 群有六个连续参数。其中 $\Omega_{ij}$ 的三个独立分量对应空间旋转，$\Omega_{0i}$ 的三个分量对应三个空间方向上的 boost。这给定了 Lorentz 群的生成元。利用指数映射，可以由这些生成元得到与单位元连通的群元素。
 
 除了与单位元连续相连的变换，我们还需要两个离散变换来描述整个 Lorentz 群：
 $$

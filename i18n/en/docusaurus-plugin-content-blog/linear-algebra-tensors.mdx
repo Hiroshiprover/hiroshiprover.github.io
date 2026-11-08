@@ -4,334 +4,211 @@ date: 2026-10-12
 slug: linear-algebra-tensors
 ---
 
-For Mathematicians, it's OK to skip this chapter. Nevertheless, it's recommanded to at least read [Einstein's summation convention](/en/blog/linear-algebra-tensors/#einstein-summation-convention) and [Basis transformation](/en/blog/linear-algebra-tensors/#3-more-about-indices-basis-transformation).
+This article explains how to reformulate linear algebra in the index language of tensors, gives a basic introduction to higher-rank tensors, and finally introduces the metric and explains where raising and lowering indices come from. For readers with a solid mathematical background (say, those familiar with the rigorous definitions of dual spaces and inner products), everything here is very trivial, and may be skipped.
+
+We assume a fairly basic familiarity with linear algebra, such as the definitions of a vector space and of a basis, and also some acquaintance with the basic notions of maps, such as injective, surjective and bijective. A few things are not covered in an introductory linear algebra course; for those I will state the basic definitions here, and for more detailed discussions one may consult *Linear Algebra Done Right*, or any textbook on advanced linear algebra.
 
 {/* truncate */}
 
 ## 1. Linear Algebra
 
-We assume the reader already has some basic familiarity with linear algebra, such as the definitions of vector spaces and bases.
-
-There are several concepts that may not appear in an introductory linear algebra course. For those, I will state the basic definitions here. For more detailed discussions, one may consult *Linear Algebra Done Right* or any standard advanced linear algebra textbook.
-
-Readers may notice that some notation conventions differ from those used in other areas. In most cases they refer to exactly the same mathematical objects, so there is no reason to panic.
-
 ### Vector Spaces
 
-In linear algebra, every finite-dimensional vector space admits a basis $\{e_\mu\}$, such that any vector can be expanded with respect to this basis.
+In linear algebra, a (finite-dimensional) vector space always admits a basis $\{e_\mu\}$, with respect to which any vector can be expanded.
 
 :::note[Index conventions]
 
-Readers may be more familiar with using $i,j,k$ as indices, or explicitly writing $1,2,3,\dots$.
+You may be more familiar with $i,j,k$ as indices, or with writing $1, 2, 3, \dots$ explicitly. In differential geometry, however, Greek letters $\mu,\nu,\rho,\dots$ are usually used for vectors and their components. This is only a convention.
 
-In differential geometry, Greek letters $\mu,\nu,\rho,\dots$ are typically used for vectors and their components. This is purely a convention.
+In the context of general relativity (four-dimensional spacetime) one usually assumes $\mu,\nu,\rho,\dots = 0,1,2,3$, where $0$ denotes the time component. But out of a strong historical habit, $i,j,k,\dots = 1,2,3$ is also used for spatial indices.
 
-In the context of general relativity (four-dimensional spacetime), one usually assumes:
-
-$$
-\mu,\nu,\rho,\dots = 0,1,2,3,
-$$
-
-where $0$ denotes the time component.
-
-Meanwhile, due to historical convention, one often writes
-
-$$
-i,j,k,\dots = 1,2,3
-$$
-
-for spatial indices.
-
-Ordinary Roman letters such as $a,b,c$ are often used as abstract indices. They do not take numerical values, but only indicate tensor type. This is a somewhat subtle topic which we will discuss later.
+Ordinary Roman letters (such as $a,b,c$) are used as abstract indices: they take no concrete values and only indicate tensor type. This is a somewhat subtle topic, which we will discuss in detail later.
 
 :::
 
-Once a basis is chosen, any vector can be expanded as
+Once a basis has been given, any vector can be expanded as:
 
 $$
-v=\sum_\mu v^\mu e_\mu.
+v = \sum_\mu v^\mu e_\mu.
 $$
 
-Notice that vector components are written with upper indices here. This is a common convention in differential geometry, and later we will see that it is actually quite natural.
+Note that we label the components of a vector with upper indices; this is only a convention in differential geometry. You will find later that this notation makes very good sense.
 
 ### Einstein Summation Convention
 
-So far everything is just standard linear algebra.
-
-Now we begin preparing for differential geometry. In differential geometry, expressions with four or more summation signs frequently appear (for example, the full contraction of the Riemann curvature tensor into the Ricci scalar). Writing out every summation sign quickly becomes visually exhausting.
-
-To avoid this, we introduce the **Einstein summation convention**.
+All of the above is very basic linear algebra. But in differential geometry we often meet operations with summation signs nested inside one another (for instance, contracting the Riemann curvature tensor completely to obtain the Ricci scalar), and writing out every summation sign is undoubtedly intimidating. For this reason we introduce the **Einstein summation convention**:
 
 :::tip[Einstein summation convention]
 
-Whenever an upper and lower index with the same symbol appears repeatedly, summation over that index is implied.
-
-For example,
+In a notation carrying arbitrary indices, when the same letter appears as an upper and as a lower index, it means that this index is summed over. For example:
 
 $$
-v^\mu e_\mu = \sum_\mu v^\mu e_\mu,
+v^\mu e_\mu \equiv \sum_\mu v^\mu e_\mu,
 $$
-
-or
-
+or:
 $$
 A^\mu{}_\nu v^\nu \equiv \sum_\nu A^\mu{}_\nu v^\nu.
 $$
 
-At the moment, we do not need to worry too much about what all these symbols mean. Their meaning will become clearer later.
-
-For now, one may simply view this as a symbolic rule.
+We need not worry for now about what exactly these symbols mean; it will become clear as we read on. At present we may simply treat all this as a game with symbols.
 
 :::
 
-:::note
-
-Physicists often suppress the basis entirely and define vectors directly through their components $v^\mu$, together with transformation laws.
-
-This approach is often more intuitive, but somewhat less structural.
-
-Here we adopt a more mathematical viewpoint, which is useful when discussing invariants and canonical objects.
-
-In particular, we emphasize:
+Physicists usually omit the basis, define a vector directly by its components $v^\mu$, and then restrict it by the transformation rule for vector components. That definition may be more intuitive, but it stays somewhat “on the surface”. We use the more mathematical definition here, which is advantageous for finding “invariants” and things that are “canonical”. Concretely, under our definition we want to emphasize:
 
 1. $v^\mu$ are the components of the vector $v$ in the basis $\{e_\mu\}$;
-2. $\{e_\mu\}$ are actual vectors.
-
-:::
+2. $\{e_\mu\}$ is a genuine set of vectors.
 
 ### Dual Vector Spaces
 
 We first define dual vectors.
 
-::::tip[Dual vector]
+:::tip[Dual vector]
 
 A dual vector is a linear functional defined on a vector space $V$:
 
 $$
-\omega: V\to\mathbb{R},
+\omega: V \to \mathbb{R},
 \qquad
-v\mapsto\omega(v).
+v \mapsto \omega(v),
 $$
 
-It satisfies linearity:
+satisfying the linearity condition:
 
 $$
 \omega(\alpha v+\beta w)
 =
-\alpha\omega(v)+\beta\omega(w),
+\alpha \omega(v)+\beta \omega(w),
 \qquad
 \forall v,w\in V.
 $$
 
-:::note
-
-If you are more comfortable with matrix language, you may think of this as a row vector.
-
+If you are more comfortable with matrix language, you may think of it as a row vector.
 :::
 
-::::
+Addition and scalar multiplication of dual vectors can be defined naturally, so that they genuinely become vectors:
 
-Addition and scalar multiplication are naturally defined for dual vectors:
+1. Addition: $(\omega_1 + \omega_2)(v) \equiv \omega_1(v) + \omega_2(v)$;
+2. Scalar multiplication: $(c \cdot \omega)(v) \equiv c \cdot \omega(v) $.
 
-1. Addition:
-   $$
-   (\omega_1+\omega_2)(v)=\omega_1(v)+\omega_2(v);
-   $$
+One checks that under these definitions the set of all dual vectors satisfies the definition of a vector space, so they form a new vector space, denoted $ V^* $.
 
-2. Scalar multiplication:
-   $$
-   (c \cdot \omega)(v)=c\cdot \omega(v).
-   $$
+Since dual vectors also form a vector space, we naturally ask what a basis of this space is. Note that if $\{e_\mu\}$ is a basis of $V$, we may define the **dual basis**:
 
-Under these operations, the set of all dual vectors forms a vector space, denoted by $V^*$.
-
-Since dual vectors form a vector space, we naturally ask for its basis.
-
-Suppose $\{e_\mu\}$ is a basis of $V$. We define the **dual basis** as follows.
-
-::::tip[Dual basis]
-
-Given a basis $\{e_\mu\}$ of $V$, define $\{e^\mu\}$ in $V^*$ by
+:::tip[Dual basis]
+Given a basis $\{e_\mu\}$ of $V$, define $\{e^\mu\}$[^dual-basis-notation] to be the vectors in $V^*$ satisfying:
 
 $$
 e^\mu(e_\nu)=\delta^\mu{}_\nu.
 $$
 
-:::note
-
-Here $\delta^\mu{}_\nu$ is the well-known Kronecker delta:
+Here $\delta^\mu{}_\nu$ is the Kronecker delta:
 
 $$
-\delta^\mu{}_\nu=
+\delta^\mu{}_\nu \equiv
 \begin{cases}
-1,&\mu=\nu,\\
-0,&\mu\neq\nu.
+1, & \mu=\nu,\\
+0, & \mu\neq\nu.
 \end{cases}
 $$
 
-In differential geometry it is written with one upper and one lower index, which makes it behave naturally as the identity matrix.
+Differential geometry is used to writing it with one upper and one lower index, so that it can represent the identity matrix.
 
-It satisfies
-
-$$
-\delta^\mu{}_\nu v^\nu=v^\mu.
-$$
-
-That is, it effectively replaces indices.
-
+The Kronecker delta has a very commonly used computational trick: for any (array) $v^\mu$ one has $v^\mu = v^\nu \delta^\mu{}_\nu$; you may expand it to check. Similar conclusions hold for indices of every other type.
 :::
 
-:::note
-
-One should verify that $\{e^\mu\}$ is indeed a basis, meaning that any $\omega\in V^*$ can be expanded as
+Every element $\omega$ of $V^*$ can be expanded as a linear combination of $\{e^\mu\}$:
 
 $$
-\omega=\omega_\mu e^\mu.
+\omega = \omega(e_\mu)e^\mu \equiv \omega_\mu e^\mu.
 $$
 
-Again we are using Einstein summation convention.
+Why does this expansion hold? Evaluating both sides on each basis vector $e_\nu$, the right-hand side gives $\omega(e_\mu)e^\mu(e_\nu)=\omega(e_\nu)$, the same as the left-hand side. Two linear functionals that agree on a basis agree on the whole space.
 
-Notice that vector components carry upper indices, while dual vector components carry lower indices.
+And $\{e^\mu\}$ is linearly independent as well: if $c_\mu e^\mu=0$, evaluating on $e_\nu$ gives $c_\nu=0$. Hence the dual basis really is a basis of $V^*$.
 
-This is not decorative notation. It reflects different transformation laws, which we will later derive.
+Here again we have used the Einstein summation convention. One sees that vector components are marked with upper indices while dual vector components are marked with lower indices. This convention is not decoration: it corresponds to different transformation laws, and we will see why later.
 
-:::
-
-::::
-
-From this definition, one immediately obtains an important fact:
-
-$$
-\dim V=\dim V^*
-$$
-
-for finite-dimensional vector spaces.
-
-:::note
-
-Many linear algebra textbooks write the dual basis as $e_\mu^*$.
-
-Differential geometry usually writes it simply as $e^\mu$, which is more convenient once tensors are introduced.
-
-:::
+Evidently, under this definition we may note an important fact: (for finite-dimensional vector spaces) $\dim V = \dim V^* $.
 
 ### The Dual of the Dual: Natural Isomorphism
 
-Since $V^*$ is itself a vector space, we can define its dual space $V^{**}$.
+Since $V^*$ is a vector space, we can go on to define $V^{**}$, the dual of the dual space. But note that $V^{**}$ is again a vector space, and we can repeat this nesting indefinitely, which raises our suspicion: is the dual of the dual really necessary? In fact there is a clever way to relate $V^{**}$ naturally to $V$:
 
-This process can clearly be repeated indefinitely, which naturally raises suspicion: do we really need to keep dualizing forever?
+:::tip[Natural isomorphism between $V^{**}$ and $V$]
 
-Fortunately, there is a canonical relation between $V$ and $V^{**}$.
-
-:::tip[Natural isomorphism between $V$ and $V^{**}$]
-
-For any $v\in V$, define a linear functional on $V^*$ by
+Note that for any $v \in V$ we can define a linear functional $v'$ on $V^*$:
 
 $$
-v'(\omega)=\omega(v).
+v'(\omega)\equiv\omega(v),
 $$
 
-But linear functionals on $V^*$ are precisely elements of $V^{**}$.
-
-Therefore every vector in $V$ naturally determines an element of $V^{**}$.
-
-In other words,
+But a linear functional defined on $V^*$ is exactly an element of $V^{**}$. That is: every vector in $V$ corresponds naturally to an element of $V^{**}$. In other words:
 
 $$
-V\cong V^{**}.
+V \cong V^{**}.
 $$
 
-This isomorphism does not depend on any choice of basis, so it is called a **natural isomorphism** or **canonical isomorphism**.
+Note that this isomorphism does not depend on the choice of basis; we call it a **natural isomorphism**, or a **canonical isomorphism**.
 
 :::
 
-This allows vectors and dual vectors to pair naturally:
+This property allows us to pair vectors and dual vectors naturally:
 
 $$
 \omega(v)=\omega_\mu v^\mu.
 $$
 
-Similarly,
+Similarly:
 
 $$
 v(\omega)=v^\mu\omega_\mu.
 $$
 
-Hence,
+Hence:
 
 $$
 \omega_\mu v^\mu=v^\mu\omega_\mu.
 $$
 
-This may look trivial, but it illustrates an important principle:
+This looks very trivial, but it illustrates a very important fact: as long as the index structure is correct, we may treat components as ordinary scalars, without thinking about compositions of maps. This is the power of the Einstein summation convention.
 
-as long as index structure is correct, components may be manipulated like ordinary scalars, without constantly worrying about compositions of maps.
+If you are unclear about where all these identities come from, write the bases out explicitly and consider the interplay between the basis and the dual basis. Note that components are ordinary real numbers (scalars), and that dual vectors are linear functionals.
 
-This is one reason why Einstein summation notation is so powerful.
-
-:::note
-
-If the equations above seem mysterious, write the bases explicitly and examine the interaction between basis vectors and dual basis vectors.
-
-Remember that components are ordinary real numbers, while dual vectors are linear maps.
-
-:::
-
-:::warning
-
-All discussion above assumes finite-dimensional vector spaces.
-
-For infinite-dimensional spaces, $V^*$ is typically larger than $V$, and $V^{**}$ is usually larger than $V$ as well.
-
-Thus in general,
-
-$$
-V\not\cong V^{**}.
-$$
-
-This is one reason why quantum mechanics, despite involving vectors (kets), dual vectors (bras), and tensors (operators), usually does not directly use Einstein summation convention.
-
-In particular, one must be careful with states such as $|x\rangle$ and $|p\rangle$.
-
-Interested readers may look into *rigged Hilbert spaces*.
-
+:::note[On infinite-dimensional spaces]
+The discussion above is mainly for finite-dimensional vector spaces; in the infinite-dimensional case the matter becomes rather delicate. I have not studied functional analysis systematically myself, so I will not expand on it here. GPT tells me that there are two kinds, the algebraic dual and the continuous dual; interested readers may look them up themselves.
 :::
 
 ---
 
 ## 2. Tensors
 
-In matrix language, vectors are represented as column vectors, while covectors (another name for dual vectors) are represented as row vectors. Then what exactly is a matrix? We will use this question as motivation to introduce the definition of tensors.
-
 ### Motivation
 
-Let us first consider the so-called quadratic form:
+Let us first consider the quadratic form so familiar from linear algebra: $x^T A x$. There is nothing mysterious about this expression; we can simply expand it into a sum over components. But if we forget matrices for a moment and put our attention back on the vector space itself, what mathematical object does it actually describe?
+
+Here $x$ is a column vector, and after transposition $x^T$ is a row vector[^transpose]. Or, in the language of tensors, they are a vector and a dual vector respectively. And the whole quadratic form $x^T A x$ is a real number. More generally, we now allow the two sides of a “quadratic form” to take different vectors: that is, consider the object $x^T A y$. Then we may regard the matrix as a map sending a dual vector and a vector to a real number:
+$$
+A: V^* \times V \to \R, \qquad A(x^T, y) \equiv x^T A y,
+$$
+where the product sign between two vector spaces denotes the Cartesian product:
+
+:::tip[Cartesian product]
+The Cartesian product is simply putting the elements of two vector spaces together[^cartesian-product] to form an ordered pair:
 
 $$
-x^TAx=\begin{bmatrix}
-x_1&x_2&\cdots&x_n
-\end{bmatrix}
-\begin{bmatrix}
-a^1{}_1&a^1{}_2&\cdots&a^1{}_n \\
-a^2{}_1&a^2{}_2&\cdots&a^2{}_n \\
-\vdots & \vdots & \ddots & \vdots \\
-a^n{}_1&a^n{}_2&\cdots&a^n{}_n
-\end{bmatrix}
-\begin{bmatrix}
-x^1\\x^2\\ \vdots \\ x^n
-\end{bmatrix}
-.
+V \times W \equiv \{(v, w)\mid v \in V, w \in W\}.
 $$
 
-Notice that the object on the left is a covector (row vector), while the object on the right is a vector (column vector), and the entire quadratic form evaluates to a real number.
+Note that “ordered” means we cannot exchange the order at will; in general $(v, w) \neq (w, v)$. In particular, for the Cartesian product of a vector space with itself we use a power notation as shorthand (this is also the origin of the notation $\R^n$ we usually use):
+$$
+V^n \equiv \underbrace{V \times V \times \cdots \times V}_{n\text{ copies}}.
+$$
 
-Therefore, we may think of a matrix as a map sending a covector and a vector to a real number.
-
-:::note
-Of course, we also know that matrices can represent linear maps between vector spaces, or changes of basis. We will return to this perspective later.
+The Cartesian product has some basic properties: the Cartesian product of two vector spaces is again a vector space, the Cartesian product of two subspaces of a vector space is isomorphic to their external direct sum, and so on. We will not give a more detailed introduction and discussion here.
 :::
 
-More generally, let us allow different vectors on the two sides of the quadratic form. We then observe that matrices are linear in both the covector and vector arguments:
+Moreover, we can see that the matrix is linear in each of its two arguments:
 
 $$
 (\alpha x^T + \beta y^T)Az = \alpha x^TAz + \beta y^TAz,
@@ -339,555 +216,587 @@ $$
 x^TA(\alpha y + \beta z) = \alpha x^TAy + \beta x^TAz.
 $$
 
-Although this observation may seem elementary, it suggests a more general viewpoint: rather than viewing a matrix merely as a map from one vector space to another, we may regard it as a **bilinear map** defined on a vector space $V$ and its dual space $V^*$.
+The discussion above looks very trivial, but it suggests a more general understanding of matrices: a matrix can represent a **bilinear map**[^matrix-roles]. At this point we can consider some more general situations.
 
-This naturally leads us to more general constructions.
+### Tensors
 
-### Tensor
-
-Let us first define bilinear maps rigorously, or more generally, **multilinear maps**.
-
-::::tip[Multilinear Map]
-Let $V_1, V_2, \cdots, V_n$ be vector spaces over $\mathbb R$ (or more generally, over the same field). An $n$-linear map is a map
+Let us first define bilinear maps rigorously, or more generally **multilinear maps**: let $V_1, V_2, \cdots, V_n$ all be vector spaces defined over $\R$ (they may be over another field, but it must be the same one), then an $n$-fold linear map is defined as:
 
 $$
-T: V_1 \times V_2 \times \cdots \times V_n \to \mathbb R,
-\qquad
-T(v_1, v_2, \cdots, v_n)=c\in\mathbb R,
+T: V_1 \times V_2 \times \cdots \times V_n \to \R, \qquad T(v_1, v_2,  \cdots, v_n) = c \in \R,
 $$
 
-such that for all $v_i,w_i\in V_i$, $i=1,2,\cdots,n$, and all $\alpha,\beta\in\mathbb R$,
+and for $\forall \ v_i, w_i \in V_i,\ i = 1, 2, \cdots, n; \ \alpha, \beta \in \R$, it satisfies:
 
 $$
-T(\cdots,\alpha v_i+\beta w_i,\cdots)
-=
-\alpha T(\cdots,v_i,\cdots)
-+
-\beta T(\cdots,w_i,\cdots).
+T(\cdots, \alpha v_i + \beta w_i, \cdots) = \alpha T(\cdots, v_i, \cdots) + \beta T(\cdots, w_i, \cdots).
 $$
 
-:::note[Cartesian Product]
-The product symbol between vector spaces denotes the Cartesian product. The Cartesian product simply collects elements from two spaces into ordered pairs:
-
-$$
-V\times W:=\{(v,w)\mid v\in V,\ w\in W\}.
-$$
-
-Note that "ordered" means $(v,w)\neq (w,v)$ in general.
-
-In particular, for repeated Cartesian products of the same vector space, we use exponential notation:
-$$
-V^n:=\underbrace{V\times V\times\cdots\times V}_{n\text{ times}}.
-$$
-
-This is also the origin of the familiar notation $\mathbb R^n$.
-
-Cartesian products satisfy various basic properties. For example, the Cartesian product of two vector spaces is again a vector space, and the Cartesian product of two subspaces is isomorphic to their direct sum. We will not discuss these facts in detail here.
-
-More generally, Cartesian products can be defined for arbitrary sets, not only vector spaces.
-:::
-::::
-
-We can now define tensors in a simple way:
-
+Next we can define tensors in a simple way:
 :::tip[Tensor]
-A tensor of type $(k,l)$ is a multilinear map defined on ${V^*}^k\times V^l$. Equivalently, a $(k,l)$-tensor is a multilinear map that takes $k$ covectors and $l$ vectors as inputs, and outputs a real number.
+A tensor of type $(k, l)$ is a multilinear map defined on ${V^*}^k \times V^l$. In other words, a tensor of type $(k, l)$ is a multilinear map that linearly maps $k$ dual vectors and $l$ vectors to a real number.
 :::
 
-:::note
-You may wonder why the dual space is placed before the vector space. In fact, this is because we are considering the objects on which tensors act, i.e. the domain of the tensor. If we consider what a tensor actually is, we will find that the front becomes vectors and the back becomes covectors. Specifically, any tensor can be written as:
-$$
-T = T^{\mu_1\cdots\mu_k}{}_{\nu_1\cdots\nu_l} \, e_{\mu_1} \otimes \cdots \otimes e_{\mu_k} \otimes e^{\nu_1} \otimes \cdots \otimes e^{\nu_l},
-$$
+A dual vector maps a vector to a real number, while a vector can map a dual vector to a real number; hence, according to our definition of tensors, they may be called a tensor of type $(0, 1)$ and a tensor of type $(1, 0)$ respectively. In particular, we call a scalar (real number) a tensor of type $(0, 0)$.
 
-Here, $\{e_\mu\}$ is the basis of the vector space $V$, while $\{e^\nu\}$ is the dual basis.
+From the definition above, we can define addition and scalar multiplication of tensors in a very natural way:
+
+1. $(T+S)(\omega^1, \cdots, \omega^k; v_1, \cdots, v_l) \equiv T(\omega^1, \cdots, \omega^k; v_1, \cdots, v_l) +S(\omega^1, \cdots, \omega^k; v_1, \cdots, v_l),$
+2. $(\alpha T)(\omega^1, \cdots, \omega^k; v_1, \cdots, v_l) \equiv \alpha \cdot T(\omega^1, \cdots, \omega^k; v_1, \cdots, v_l).$
+
+Note that this definition requires that only tensors of the same type can be added to or subtracted from one another. This is natural as well; after all, there is no way to define the sum of a matrix and a vector.
+
+:::tip[Tensor space]
+Under the addition and scalar multiplication defined above, all tensors of type $(k, l)$ naturally form a vector space, denoted $\mathscr{T}_V(k, l)$. There is also the notation $\mathscr{T}^k_l$, which omits the base space $V$. A more mathematical notation is $\operatorname{Mult}((V^*)^k \times V^l, \R)$, where $\operatorname{Mult}$ stands for multilinear.
 :::
-
-:::note
-A covector maps a vector to a real number, while a vector may also be viewed as mapping a covector to a real number. Therefore, under our definition, covectors and vectors can be regarded as tensors of type $(0,1)$ and $(1,0)$ respectively. In particular, a scalar (real number) is called a $(0,0)$-tensor.
-:::
-
-### Tensor Addition and Scalar Multiplication
-
-From the definition above, we can naturally define tensor addition and scalar multiplication:
-
-1. $(T+S)(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l)=T(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l)+S(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l),$
-
-2. $(\alpha T)(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l)=\alpha\cdot T(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l).$
-
-These definitions require tensors to have the same type in order to be added or subtracted. This is natural, since there is no meaningful way to add a matrix and a vector directly.
-
-Under these operations, all tensors of type $(k,l)$ naturally form a vector space, denoted by $\mathscr T_V(k,l)$.
-
-If the base space $V$ has dimension $n$, then
-$$
-\dim \mathscr T_V(k,l)=n^{k+l}.
-$$
-
-Although this formula looks obvious, proving it rigorously is somewhat tedious. Interested readers may try constructing an explicit basis using a basis $\{e_\mu\}$ of $V$ together with its dual basis.
-
 ### Tensor Product
 
-We begin with some motivation from matrices.
+As with the definition of tensors themselves, the motivation for defining the tensor product is clear: note that under the definition of matrix multiplication, $xy^T$ turns a row vector and a column vector into a matrix; in other words, the **tensor product** of a $(1, 0)$-tensor and a $(0, 1)$-tensor is a $(1, 1)$-tensor. At the same time, we also notice that:
+$$
+z^T(xy^T)w= (z^Tx)(y^T w) \in \R,
+$$
+That is, this $(1, 1)$-tensor acts on a vector and a dual vector by acting with the original two lower-rank tensors separately to get real numbers, and then multiplying them. This suggests the following formal definition:
 
-Consider the following fact:
+:::tip[Tensor product]
+Let $T$ be a $(k, l)$-tensor and $S$ a $(k', l')$-tensor; then their tensor product is a $(k+k', l+l')$-tensor, that is, the multilinear map
+$$
+T \otimes S : {V^*}^{k+k'} \times V^{l+l'} \to \R,
+$$
+whose values are defined by:
+$$
+\begin{aligned}
+&(T \otimes S)(\omega^1, \cdots, \omega^k, \omega^{k+1}, \cdots, \omega^{k+k'}; v_1, \cdots, v_l, v_{l+1}, \cdots, v_{l+l'})\\
+\equiv \ &T(\omega^1, \cdots, \omega^k; v_1, \cdots, v_l) \cdot S(\omega^{k+1}, \cdots, \omega^{k+k'}; v_{l+1}, \cdots, v_{l+l'}).
+\end{aligned}
+$$
+This definition looks frighteningly long, but what it actually says is very trivial: feed the first group of dual vectors and vectors to $T$, and the second group to $S$, then simply multiply the two resulting real numbers. When the remaining inputs are fixed, each input occurs in only one factor, so the resulting map is indeed multilinear.
+:::
+
+Addition and scalar multiplication between tensors obtained by tensor products are natural, because what the tensor product gives is nothing but a new tensor, and addition and scalar multiplication of tensors were defined long ago. In particular, from the definition above we also obtain:
+$$
+\begin{aligned}
+&(T+T')\otimes S=T\otimes S+T'\otimes S,\\
+&T\otimes(S+S')=T\otimes S+T\otimes S',\\
+&\alpha(T\otimes S)=(\alpha T)\otimes S=T\otimes(\alpha S).
+\end{aligned}
+$$
+That is, the tensor product, as an operation on two tensors, is bilinear. This is natural as well, because on each fixed group of inputs the right-hand side is nothing but a product of two real numbers. Likewise, associativity of multiplication of real numbers guarantees that the tensor product is associative, so parentheses may be omitted when several factors are multiplied.
+
+However, the tensor product in general **does not satisfy commutativity**. This is because we have fixed the order of the dual-vector inputs and the vector inputs; exchanging two tensors usually changes which inputs each of them receives. For example, when $\dim V\geq 2$,
+$$
+(e_1\otimes e_2)(e^1,e^2)=1,\qquad
+(e_2\otimes e_1)(e^1,e^2)=0.
+$$
+
+There is a special example here: the tensor product of a dual vector and a vector can be exchanged. This is because we agreed to put all dual-vector inputs in front and all vector inputs at the back; each of them has only one object to map, so exchanging the order in which these two factors are written still gives the same bilinear map. Written out concretely, for $v\in V$ and $\omega\in V^*$ we have
+$$
+(v\otimes\omega)(\eta;u)=\eta(v)\omega(u),
+$$
+as well as
+$$
+(\omega\otimes v)(\eta;u)=\omega(u)\eta(v).
+$$
+where $\eta\in V^*$, $u\in V$. Hence, in the realization as multilinear maps that we have adopted, as $(1,1)$-tensors we indeed have $v\otimes\omega=\omega\otimes v$.
+
+In other words, the non-commutativity of the tensor product shows itself in the ordering of inputs of the same kind. Adjusting the order of inputs of different kinds does not affect the result of the tensor as a multilinear map[^tensor-swap]. This property allows us to adjust the order in which tensor factors of different types are written, without changing the multilinear map finally obtained. For instance:
+$$
+(e_\mu\otimes e^\nu)\otimes(e_\rho\otimes e_\sigma)
+=e_\mu\otimes e_\rho\otimes e_\sigma\otimes e^\nu.
+$$
+This identity can be verified directly from the definition of the tensor product: we have only rearranged factors of different types, and have not changed the order of inputs of the same kind. More generally, any $(k,0)$-tensor and any $(0,l)$-tensor can be exchanged in this way.
+
+#### Constructing Higher-Rank Tensors with Tensor Products
+
+The tensor product in fact gives us a way to write higher-rank tensors out explicitly: coefficients (multi-indices) and tensor products of vectors and dual vectors suffice. Let $\dim V=n$, let $\{e_\mu\}$ be a basis of $V$ and $\{e^\nu\}$ the dual basis. We first claim that any $(k,l)$-tensor can be written as:
+$$
+T=T^{\mu_1\cdots\mu_k}{}_{\nu_1\cdots\nu_l}\,
+e_{\mu_1}\otimes\cdots\otimes e_{\mu_k}\otimes e^{\nu_1}\otimes\cdots\otimes e^{\nu_l}.
+$$
+This looks quite reasonable. But proving this expansion is somewhat troublesome, so we proceed step by step:
+
+To keep the identities from getting too long, we temporarily introduce two notations, $\boldsymbol\mu=(\mu_1,\ldots,\mu_k)$ and $\boldsymbol\nu=(\nu_1,\ldots,\nu_l)$, and write
+$$
+E_{\boldsymbol\mu}{}^{\boldsymbol\nu}
+=e_{\mu_1}\otimes\cdots\otimes e_{\mu_k}\otimes e^{\nu_1}\otimes\cdots\otimes e^{\nu_l}.
+$$
+Acting with it on the dual basis and the original basis gives
+$$
+E_{\boldsymbol\mu}{}^{\boldsymbol\nu}
+(e^{\alpha_1},\ldots,e^{\alpha_k};e_{\beta_1},\ldots,e_{\beta_l})
+=\prod_{a=1}^k\delta_{\mu_a}^{\alpha_a}
+\prod_{b=1}^l\delta_{\beta_b}^{\nu_b}.
+$$
+The definition of linear independence is that $\sum_{\boldsymbol\mu,\boldsymbol\nu}c_{\boldsymbol\mu}{}^{\boldsymbol\nu}E_{\boldsymbol\mu}{}^{\boldsymbol\nu}=0$ if and only if all $c_{\boldsymbol\mu}{}^{\boldsymbol\nu} = 0$. Substituting the expression above, the product of Kronecker deltas on the right-hand side then gives $c_{\boldsymbol\alpha}{}^{\boldsymbol\beta}=0$. Since the indices may be chosen arbitrarily, all the coefficients vanish. This proves that this set of tensors is linearly independent.
+
+We still need to prove that any tensor can be expressed as a linear combination of the $E_{\boldsymbol\mu}{}^{\boldsymbol\nu}$. Mathematical induction is the cleaner way: let $T$ be a $(k,l)$-tensor. If $k>0$, fix the first input to be $e^\mu$ and define a $(k-1,l)$-tensor
+$$
+T_\mu(\omega^2,\ldots,\omega^k;v_1,\ldots,v_l)
+=T(e^\mu,\omega^2,\ldots,\omega^k;v_1,\ldots,v_l).
+$$
+Here the labels $1, 2, 3, \dots$ mean which vector or dual vector is intended (I really cannot be bothered to type that many letters :). Since $T$ is linear in its first input, we have
+$$
+T= \sum_\mu e_\mu\otimes T_\mu,
+$$
+Here the summation sign is written out explicitly, because both occurrences of the index here are lower indices, which does not conform to the Einstein summation convention, yet the sum is still required.
+
+Verify: the right-hand side gives:
+$$
+\left[\sum_\mu e_\mu\otimes T_\mu\right](\omega^1,\omega^2,\ldots,\omega^k;v_1,\ldots,v_l)= \sum_\mu e_\mu(\omega^1)\,T(e^\mu,\omega^2,\ldots,\omega^k;v_1,\ldots,v_l),
+$$
+while the left-hand side, expanding $\omega^1$ in the dual basis as $\omega^1 = (\omega^1)_\mu e^\mu$ and using the linearity of $T$, gives:
+$$
+T(\omega^1,\omega^2,\ldots,\omega^k;v_1,\ldots,v_l) = \sum_\mu (\omega^1)_\mu T(e^\mu,\omega^2,\ldots,\omega^k;v_1,\ldots,v_l),
+$$
+Note that in the sense of the natural isomorphism of double duals $V^{**} \cong V$, $e_\mu(\omega^1) \equiv \omega^1(e_{\mu}) \equiv (\omega^1)_\mu$, so we have indeed constructed the first layer of the decomposition of $T$.
+
+If $k=0$, we can also fix the first vector input and likewise obtain $T=e^\mu\otimes T_\mu$ (here the Einstein summation convention applies), where $T_\mu$ is a $(0,l-1)$-tensor; the proof is similar.
+
+What we have actually proved above is: any tensor of nonzero rank can be written as a sum of tensor products of one first-rank tensor with several tensors of one lower rank.
+
+Hence, by mathematical induction on $k+l$, we can decompose a $(k,l)$-tensor all the way down, first the $k$ and then the $l$, until we reach tensors of rank zero (scalars). At that point the front part has naturally arranged itself into $E_{\boldsymbol\mu}{}^{\boldsymbol\nu}$, while the remaining scalar is evidently $T(e^{\mu_1}, \cdots e^{\mu_k}; e_{\nu_1}, \cdots, e_{\nu_l})$, which we define to be $T^{\mu_1\cdots\mu_k}{}_{\nu_1\cdots\nu_l}$. This proves that any tensor can be expressed as a linear combination of the $E_{\boldsymbol\mu}{}^{\boldsymbol\nu}$. There are $n^{k+l}$ of them in total, hence
+$$
+\dim\mathscr{T}_V(k,l)=n^{k+l}.
+$$
+In particular, the space of $(0,0)$-tensors is just $\mathbb R$.
+
+This also explains a question you may have: why, when defining a tensor as a multilinear map, do we put the dual space in front and the vector space at the back? At that point we were considering the objects a tensor acts on, that is, the domain; whereas in the expansion of the tensor itself the front becomes vectors and the back becomes dual vectors, because they happen to act on the corresponding inputs.
+
+An example: for a $(1,1)$-tensor generated by a tensor product, we have
+$$
+A=v\otimes\omega=(v^\mu e_\mu)\otimes(\omega_\nu e^\nu)
+=v^\mu\omega_\nu\,e_\mu\otimes e^\nu.
+$$
+Defining $A^\mu{}_\nu\equiv v^\mu\omega_\nu$, these are precisely the components of a $(1, 1)$-tensor (or matrix).
+
+Of course, a lone $v\otimes\omega$ can only give a matrix of rank at most $1$: the vector obtained by acting on $u$ is $\omega(u)v$, which always lies in the subspace spanned by $v$. When the base space has dimension $n>1$, the tensor corresponding to a general matrix cannot be written in this simple form; the identity map, for instance,
+$$
+I=\sum_{\mu=1}^n e_\mu\otimes e^\mu
+$$
+cannot be written as a single $v\otimes\omega$, but only as a linear combination of the basis, consistent with our earlier discussion.
+
+### Tensor Products of Spaces
+
+So far we have only been concerned with the tensor product operation between concrete tensors. To a mathematician this is undoubtedly unsatisfactory: this “bottom-up” approach is too detailed, and one gets lost in the sea of computations. Now let us discuss the problem “top-down”: think about the effect of the tensor product on the spaces themselves.
+
+The tensor product can be described by the following map:
 
 $$
-\begin{bmatrix}
-x^1\\x^2\\ \vdots \\ x^n
-\end{bmatrix}
-\begin{bmatrix}
-y_1&y_2&\cdots&y_n
-\end{bmatrix}
-=
-\begin{bmatrix}
-x^1y_1&x^1y_2&\cdots&x^1y_n \\
-x^2y_1&x^2y_2&\cdots&x^2y_n \\
-\vdots & \vdots & \ddots & \vdots \\
-x^ny_1&x^ny_2&\cdots&x^ny_n
-\end{bmatrix}.
+\otimes_S:\mathscr{T}_V(k,l)\times \mathscr{T}_V(k',l')\longrightarrow \mathscr{T}_V(k+k',l+l'),\qquad (A,B)\longmapsto A\otimes B.
 $$
 
-In other words, the tensor product of a $(1,0)$-tensor and a $(0,1)$-tensor is a $(1,1)$-tensor.
+It is also bilinear, as we discussed earlier.
 
-Of course, the definition of tensor product itself does not depend on matrices. This motivates the following formal definition.
+Unfortunately, beyond this it has no pleasant properties: it is neither injective nor, in general, surjective. For nonzero $A,B$, for instance, $(2A,B)$ and $(A,2B)$ both map to $2(A\otimes B)$, so it is not injective; and the identity-tensor example above also shows that an element of $\mathscr{T}_V(k+k',l+l')$ need not be writable as a single tensor product of a pair of lower-rank tensors (unless one of the spaces here is one-dimensional), so it is not surjective either.
 
-::::tip[Tensor Product]
-Let $T$ be a tensor of type $(k,l)$ and $S$ be a tensor of type $(k',l')$. Their tensor product is defined to be a tensor of type $(k+k',l+l')$:
+However, consider the basis (set of tensors) of $\mathscr{T}_V(k+k',l+l')$, which can be written as $\{E_{\bm \mu}\otimes E_{\bm\mu^\prime} \otimes E^{\bm\nu} \otimes E^{\bm\nu^\prime}\} $, where $E_{\bm \nu}$ is shorthand in imitation of the earlier definition. Clearly, after rearranging the order, we can split it into $\{(E_{\bm \mu}{}^{\bm \nu}) \otimes (E_{\bm \mu^\prime}{}^{\bm \nu^\prime})\}$, that is, tensor products of bases of $\mathscr{T}_V(k,l)$ and $\mathscr{T}_V(k',l')$.
+
+Well, this looks like a tautology, but what I want to say is: the image of the map $\otimes_S$ **spans** the whole of $\mathscr{T}_V(k+k',l+l')$, that is, (finite) linear combinations of the image of $\otimes_S$ give the whole space $\mathscr{T}_V(k+k',l+l')$, and that is good enough. We therefore call $\mathscr{T}_V(k+k',l+l')$ the **tensor product of the spaces** $\mathscr{T}_V(k,l),\mathscr{T}_V(k',l')$[^define-cong], and write it as $\mathscr{T}_V(k,l) \otimes \mathscr{T}_V(k',l')$:
+$$
+\mathscr{T}_V(k,l) \otimes \mathscr{T}_V(k',l') \equiv \mathscr{T}_V(k+k',l+l')= \operatorname{span}_\R\{A\otimes B\mid A \in \mathscr{T}_V(k,l), B \in \mathscr{T}_V(k',l') \}.
+$$
+
+In particular, we introduce two notations[^otimes-order]:
+
+$$
+\bigotimes_{i=1}^r V_i\equiv V_1\otimes\cdots\otimes V_r,
+\qquad V^{\otimes r}\equiv\underbrace{V\otimes\cdots\otimes V}_{r\text{ copies}}.
+$$
+
+We adopt the convention $V^{\otimes 0}=\mathbb R$. Clearly, with our definition, we then have[^define-cong]
+$$
+V^{\otimes k}\otimes(V^*)^{\otimes l} \equiv \mathscr{T}_V(k,l).
+$$
+
+#### Defining the Tensor Product by a Universal Property
+
+We introduce the more abstract definition of the tensor product that follows through an example that may be a little unfamiliar: the inner product. On a real vector space, an inner product is a map satisfying bilinearity, symmetry and positive-definiteness; this is a set of shared properties, and there are many maps satisfying it. For instance, taking the natural inner product on $\R^n$, any positive-definite symmetric operator (matrix) $G$ gives a new inner product
+
+$$
+\langle u,v\rangle_G\equiv u^TGv=\langle u,Gv\rangle,
+$$
+
+that is, inserting a positive-definite operator into the middle of the original inner product; conversely, every inner product on $\R^n$ can be written in this form, with $G$ its component matrix in the standard basis. Different $G$ give different inner products, but they satisfy the same set of axioms, and there also exist linear isomorphisms between them preserving the inner product (take an orthonormal basis in each and then match the bases), so the concept of an “inner product space” does not depend on the specific $G$. In the simpler language of matrices, this says that we may regard $x^Ty$ and $x^TAy$ ($A$ a positive-definite matrix) as describing the same kind of structure. We will discuss this question in detail in the last chapter.
+
+Of course, the tensor product differs from the inner product a great deal. Our example is meant to inspire a way of thinking: can we define the tensor product by a set of generally accepted properties, avoiding any explicit construction? This is the manner most favoured by modern mathematics; it comes from category theory, and we call it a **universal property**. It cares more about structure than about concrete objects.
+
+:::tip[Universal property of the tensor product]
+Let $V,W$ be real vector spaces, $U$ another vector space, and $g:V\times W\to U$ a bilinear map.
+
+If for **every** real vector space $Z$ and **every** bilinear map $f:V\times W\to Z$ there exists a unique linear map $\widetilde f:U\to Z$ such that
+$$
+f=\widetilde f\circ g,
+\qquad\text{that is,}\qquad
+\widetilde f\bigl(g(v,w)\bigr)=f(v,w).
+$$
+then $(U, g)$ is called the tensor product of $V,W$. We denote $U$ by $V\otimes W$, and $g(v,w)$ by $v\otimes w$.
+:::
+
+This means that bilinear maps defined on $V\times W$ correspond one-to-one with linear maps defined on $V\otimes W$. Given a linear map $\widetilde f$, composing with $g$ gives a bilinear map, and the universal property guarantees that such a choice is unique. Whether the space $U$ exists, however, is not guaranteed by the universal property, so we need to discuss this further.
+
+We also note a difference from the earlier discussion: it does not require us to use the same base space; any two (finite-dimensional, real) $V,W$ can have their tensor product defined in this way.
+
+For example, for $v\in V$, $w\in W$, first define a bilinear map[^tensor-prod]:
+
+$$
+v\otimes w:V^*\times W^*\longrightarrow\mathbb R,\qquad
+(\varphi,\psi)\longmapsto\varphi(v)\psi(w),
+$$
+Note: here $v \otimes w$ is only a notation; what it labels is a bilinear map, not the tensor product of the two geometric vectors we considered earlier. Although we can prove afterwards that the two are equivalent, that does not mean we were entitled to assume so from the outset. I know this is a very bad abuse of notation, but I am even less willing to introduce new symbols just for this: we have almost used up upper and lower indices, Greek and Roman letters, parentheses and brackets, so we had better economize.
+
+Next construct the vector space $V \otimes W$:
+$$
+V\otimes W\equiv\operatorname{span}_{\mathbb R}
+\{v\otimes w\mid v\in V,\ w\in W\}.
+$$
+This is one construction of a tensor product satisfying the universal property. The proof is simple: let $\{e_i\}$ and $\{f_j\}$ be bases of $V,W$ respectively. As we did earlier, one can prove that $\{e_i\otimes f_j\}_{i,j}$ is a basis, hence $\dim(V\otimes W)=\dim V \dim W$. This is a generalization of our earlier corollary $\dim\mathscr{T}_V(k, l) = n^{k+l}$.
+
+Now, for any bilinear map $h:V\times W\to Z$, define
+$$
+\widetilde h(e_i\otimes f_j)=h(e_i,f_j).
+$$
+Since the $e_i\otimes f_j$ on the left form a basis, this prescription determines a unique linear map
+$$
+\widetilde h:V\otimes W\to Z.
+$$
+Using bilinearity, one immediately verifies
+$$
+\widetilde h(v\otimes w)=h(v,w).
+$$
+
+Of course other constructions exist as well, for example multiplying the $v \otimes w$ defined as a bilinear map by an arbitrary nonzero constant at the very front, but they are isomorphic.
+
+Now let us return to $\mathscr{T}_V(k,l)$. In fact, we can define a linear isomorphism directly:
 
 $$
 \begin{aligned}
-&(T\otimes S)(\omega^1,\cdots,\omega^k,\omega^{k+1},\cdots,\omega^{k+k'};v_1,\cdots,v_l,v_{l+1},\cdots,v_{l+l'}) \\
-:=\;&
-T(\omega^1,\cdots,\omega^k;v_1,\cdots,v_l)\,
-S(\omega^{k+1},\cdots,\omega^{k+k'};v_{l+1},\cdots,v_{l+l'}).
+V^{\otimes k}\otimes(V^*)^{\otimes l}&\longrightarrow\mathscr{T}_V(k,l),\\
+v_1\otimes\cdots\otimes v_k\otimes\omega^1\otimes\cdots\otimes\omega^l
+&\longmapsto\left[(\eta^1,\ldots,\eta^k;u_1,\ldots,u_l)
+\longmapsto\prod_{a=1}^k\eta^a(v_a)\prod_{b=1}^l\omega^b(u_b)\right].
 \end{aligned}
 $$
 
-Although this expression looks intimidating, the idea is simple: feed the first group of arguments into $T$, the second group into $S$, and multiply the resulting real numbers.
-::::
-
-Note that tensor products are generally **not commutative**, since the order of vector and covector inputs matters.
-
-:::note
-There is a special case: the tensor product of a vector and a covector may be rearranged without ambiguity, since each contributes only one slot.
-
-For example,
+Note that we did not choose any basis when defining this map. Hence what we earlier said to be the same (or defined to be the same) is, under the understanding of the universal property, actually a natural isomorphism:
 
 $$
-(e_\mu\otimes e^\nu)\otimes(e_\rho\otimes e_\sigma)
-=
-e_\mu\otimes e^\nu\otimes e_\rho\otimes e_\sigma
-\equiv
-e_\mu\otimes e_\rho\otimes e_\sigma\otimes e^\nu.
+\mathscr{T}_V(k,l)\cong V^{\otimes k}\otimes(V^*)^{\otimes l}
 $$
 
-This is why we may naturally regard the result of tensoring a $(k,l)$-tensor and a $(k',l')$-tensor as a $(k+k',l+l')$-tensor rather than something strange, say $(k, l; k', l')$ or other things.
-:::
+If we define tensors and tensor products directly by multilinear maps as before, these two spaces are in fact equal; but if the two sides are constructed separately, for example with an extra constant multiplying the tensor-product definition as we said earlier, then one should write an isomorphism $\cong$.
 
-Addition and scalar multiplication interact naturally with tensor products:
+Why do we need the universal property? In fact it gives a very strong guarantee: to define a linear map on $V\otimes W$ one need only give a bilinear rule on $V\times W$, and existence and uniqueness are satisfied at the same time, without going back to some concrete realization to check well-definedness one by one.
 
-1. $T\otimes S + T'\otimes S = (T+T')\otimes S,$
-
-2. $T\otimes S + T\otimes S' = T\otimes(S+S'),$
-
-3. $\alpha(T\otimes S) = (\alpha T)\otimes S = T\otimes(\alpha S).$
-
-:::tip[Tensor Product of Spaces]
-The finite linear combinations of elementary tensors $v\otimes w$ form a new vector space:
-$$
-V\otimes W := \operatorname{span}_{\mathbb R}\{v\otimes w\mid v\in V,\ w\in W\}.
-$$
-
-An arbitrary element is a finite sum $\sum_i v_i\otimes w_i$ and need not be a single elementary tensor.
-
-If $\dim V=m$ and $\dim W=n$, then $\dim(V\otimes W)=mn.$ We omit the proof of this fact.
-:::
-
-:::note
-For a tensor product generating a $(1,1)$-tensor, we have
+For example, when defining the tensor product we checked the commutativity of the tensor product of a vector and a dual vector. Written in the manner of the universal property, $v\otimes\omega$ and $\omega\otimes v$ belong to $V\otimes V^*$ and $V^*\otimes V$ respectively, and are elements of two different spaces, so they cannot be compared directly; but we notice that the exchange rule $(v,w)\mapsto w\otimes v$ is a bilinear map $V\times W\to W\otimes V$, so the universal property gives a unique linear map
 
 $$
-A=v\otimes\omega
-=
-(v^\mu e_\mu)\otimes(\omega_\nu e^\nu)
-=
-v^\mu\omega_\nu\,e_\mu\otimes e^\nu.
+\tau:V\otimes W\longrightarrow W\otimes V,
+\qquad \tau(v\otimes w)=w\otimes v.
 $$
 
-Define
-$$
-A^\mu{}_\nu:=v^\mu\omega_\nu.
-$$
+The reverse exchange likewise gives a linear map, and composing it with $\tau$ gives the identity map, so $\tau$ is an isomorphism. And when $W=V^*$, we obtain the canonical exchange isomorphism $V\otimes V^*\cong V^*\otimes V$. This requires no prior assumption that the two spaces are the same set.
 
-These are precisely the components of a matrix.
-
-Of course, not every tensor can be written as a single tensor product of this form. In general, one needs linear combinations of such elementary tensors.
-:::
-
-:::note
-Mathematicians often prefer a more abstract definition of tensor product using a universal property.
-
-Fix a vector space $U$ and a bilinear map
-$$
-g:V\times W\to U.
-$$
-Require that, for every real vector space $Z$ and every bilinear map $f:V\times W\to Z$, there exists a unique linear map $h:U\to Z$ such that
-$$
-f=h\circ g.
-$$
-
-Here $(U,g)$ is fixed; it is the unique map $h$ that depends on $f$.
-
-We then define the tensor product space (up to isomorphism) by
-$$
-V\otimes W:=U.
-$$
-
-The elementary tensor $v\otimes w$ is $g(v,w)$. Any two pairs satisfying this property are related by a unique isomorphism compatible with their bilinear maps.
-
-This definition is elegant but useless, ONLY Mathematicians CAN DO. It does not directly tell us how to construct the space. Since our focus is differential geometry and explicit computation, we only mention this viewpoint briefly.
-:::
+In addition, the universal property does not require $V,W$ to be finite-dimensional, so it can also be used to define the (algebraic) tensor product of infinite-dimensional spaces; we will not discuss this problem in detail.
 
 ### Contraction
 
-We again begin with matrices. A matrix acts on a vector and produces another vector. In tensor language, this means that a $(1,1)$-tensor can combine with a $(1,0)$-tensor to produce a new $(1,0)$-tensor.
+We again use matrix language for the introduction. As everyone knows, a matrix can act on a vector and turn it into another vector. In tensor language this means that a $(1,1)$-tensor can enter into some operation with a $(1,0)$-tensor and produce a new $(1,0)$-tensor.
 
-Write a matrix as $A=A^\mu{}_\nu\,e_\mu\otimes e^\nu,$ which is a $(1,1)$-tensor. Now, let $v=v^\rho e_\rho$ be a vector, in linear algebra, matrix multiplication produces a new vector:
-
-$$
-(A^\mu{}_\nu v^\nu)e_\mu = w^\mu e_\mu.
-$$
-
-This shows that after combining a matrix and a vector, one vector-covector pair is "eliminated", leaving only one vector basis. How does this happen?
-
-Well, the most basic way to combine tensors is first to take their tensor product, therefore we consider:
+Concretely, a matrix can be written as $A = A^\mu{}_\nu \, e_\mu \otimes e^\nu$, itself a $(1,1)$-tensor. Now let a vector $v = v^\rho e_\rho$ be given. In linear algebra we know that matrix multiplication gives a new vector $w=Av$, that is:
 
 $$
-A\otimes v
+(A^\mu{}_\nu v^\nu) e_\mu = w^\mu e_\mu.
+$$
+
+This identity shows that after the matrix and the vector are combined, one pair of vector and dual vector has been “eliminated”, leaving only one set of vectors as the basis. So what exactly is this process of “eliminating an upper index and a lower index”?
+
+Note first that the most basic way of combining tensors is only the tensor product. Hence the matrix and the vector first form
+
+$$
+A \otimes v
 =
-A^\mu{}_\nu v^\rho\,
-e_\mu\otimes e^\nu\otimes e_\rho,
-$$
-which is a $(2,1)$-tensor, still not a vector. Hence we need one further operation: pair one upper index with one lower index and sum over them. This is what we call a **contraction**:
-
-:::tip[Contraction Operator]
-Define
-
-$$
-C^i_j:\mathscr T_V(k,l)\to\mathscr T_V(k-1,l-1),
+A^\mu{}_\nu v^\rho \,
+e_\mu \otimes e^\nu \otimes e_\rho,
 $$
 
-which contracts the $i$-th upper index with the $j$-th lower index.
+This is a $(2,1)$-tensor, which is not the vector we want. Mindful of the definition of matrix multiplication, we pair an upper and a lower index and sum over them, and this is the so-called **contraction**:
 
-Explicitly,
+:::tip[Contraction operator]
+Define:
+$$
+C^i_j:\mathscr T_V(k,l)\to \mathscr T_V(k-1,l-1),
+$$
+
+which sums over the $i$-th upper index and the $j$-th lower index. Concretely,
 
 $$
 C^i_j(T)
 =
-T(\cdot,\dots,e^\mu,\dots,\cdot;\cdot,\dots,e_\mu,\dots,\cdot),
+T(\cdot,\dots,e^\mu,\dots,\cdot \ ;\ \cdot,\dots,e_\mu,\dots,\cdot),
 $$
-where $e^\mu$ is inserted into the $i$-th covector slot, $e_\mu$ into the $j$-th vector slot, and we sum over $\mu$. Equivalently, contraction uses the fact that $e^\mu(e_\nu)=\delta^\mu{}_\nu$ to eliminate one upper-lower index pair.
+
+where $e^\mu$ is inserted into the $i$-th dual-vector index and $e_\mu$ into the $j$-th vector index, and one sums over $\mu$. In other words, contraction is in fact using $e^\mu(e_\nu)=\delta^\mu{}_\nu$ to eliminate a pair of upper and lower indices.
 :::
 
-Back to our matrix-vector example, we contract the tensor product:
+Back to the matrix–vector example: we contract the result of the tensor product:
 
 $$
 C^2_1(A\otimes v)
 =
 C^2_1\left(
-A^\mu{}_\nu v^\rho\,
-e_\mu\otimes e^\nu\otimes e_\rho
+A^\mu{}_\nu v^\rho \,
+e_\mu \otimes e_\rho \otimes e^\nu
 \right).
 $$
 
-Contracting the second upper index with the first lower index gives
-
+After contracting the second upper index with the first lower index, we obtain
 $$
-A^\mu{}_\nu v^\nu e_\mu,
-$$
-
-which is exactly the expected result of matrix multiplication.
-
-Thus, matrix multiplication is, in tensor language, **tensor product + contraction**. This idea generalizes to arbitrary tensors. Although in general, there is no unique multiplication rule between tensors, we can always first take tensor products, and then specify which pairs of upper and lower indices should be contracted. Different contraction choices usually lead to different results.
-
-For example, in the same setting, we do a different contraction:
-
-$$
-C^1_1(A\otimes v)=A^\mu{}_\mu v^\nu e_\nu,
+A^\mu{}_\nu v^\rho e_\mu \cdot \delta^\sigma{}_\rho\delta^\nu{}_\sigma = A^\mu{}_\nu v^\nu e_\mu.
 $$
 
-which is simply gives the trace of the matrix times the vector, where the trace of a matrix is defined as:
+This is exactly the result we expect of a matrix acting on a vector.
+
+Therefore the essence of matrix multiplication in tensor language is in fact **first take the tensor product, then contract**. This viewpoint can be generalized to arbitrary tensors. Although in general there is no unique “multiplication rule” between two tensors, we can always first take the tensor product and then specify several pairs of upper and lower indices to contract. Different ways of contracting usually correspond to different results. For example, still considering the example above, if we change the contracted indices we obtain:
 
 $$
-\mathrm{tr}(A)=A^\mu{}_\mu.
+C^1_1(A \otimes v)=A^\mu{}_\mu v^\nu e_\nu,
 $$
 
-Thus, contraction can be understood as one of the most fundamental interaction rules between tensors: it lowers tensor rank by pairing an upper index with a lower index.
-
-:::note
-In practice, contractions are often not written explicitly. Under Einstein summation convention, repeated upper and lower indices automatically indicate contraction.
-
-For example,
+which is in fact the trace of the matrix times the vector $v$. Here the trace of a matrix is defined as:
 $$
-A^\mu{}_\nu v^\nu
+\mathrm{tr}(A) = A^\mu{}_\mu.
 $$
-already implicitly contains a contraction.
-:::
 
-:::note
-Besides the explicit operator $C^i_j$, another common notation is **insertion**, noted as $\iota$. For a tensor $T\in\mathscr T_V(k,l)$ and a vector $v\in V$, insertion means plugging $v$ into one slot of $T$. This is usually written as:
+Hence contraction can be understood as one of the most basic “interaction rules” between tensors: by pairing an upper index with a lower index it lowers the rank of the tensor. In general, however, contraction is not written with a symbol of its own. The reason is that under the Einstein summation convention a repeated upper and lower index already denotes contraction by default. Especially in the great majority of physics textbooks the basis is not written out explicitly, and then summation is contraction, for example $A^\mu{}_\nu v^\nu$.
+
+#### Insertion
+
+Besides writing the contraction operator $C^i_j$ explicitly, another common notation is **insertion**, written $\iota$. For a $(k,l)$-tensor $T\in \mathscr T_V(k,l)$ and a given vector $v\in V$, insertion means feeding $v$ into one of the indices. It is usually written:
 
 $$
 (\iota_v T)(\omega^1,\cdots,\omega^k;v_1,\cdots,v_{l-1})
-:=
-T(\omega^1,\cdots,\omega^k;v_1,\cdots,v_{l-1},v).
+\equiv
+T(\omega^1,\cdots,\omega^k;v, v_1,\cdots,v_{l-1}).
 $$
 
-Thus,
+That is, we fill the vector $v$ into an empty slot of the tensor, so that the rank of the tensor drops:
 $$
-\iota_v T\in\mathscr T_V(k,l-1).
-$$
-
-Similarly, for a covector $\omega\in V^*$, one may define $\iota_\omega T\in\mathscr T_V(k-1,l).$
-
-Insertion may be viewed as a partial contraction: instead of summing over an upper-lower pair, we simply fix one input. For example,
-
-$$
-\iota_v A=A(\cdot;v),
+\iota_v T \in \mathscr T_V(k,l-1).
 $$
 
-which is a $(1,0)$-tensor, i.e. a vector. This is exactly matrix action in linear algebra: $w=Av=\iota_v A.$
-:::
+For example, for the matrix $A=A^\mu{}_\nu\, e_\mu\otimes e^\nu$ and the vector $v$, we have:
+$$
+\iota_v A = A(\cdot\,;\,v),
+$$
+which is a $(1,0)$-tensor, that is, a vector. This corresponds exactly to matrix action in linear algebra: $w=Av = \iota_v A$.
+
+Similarly, given a dual vector $\omega\in V^*$, one can also define $\iota_\omega T \in \mathscr T_V(k-1,l)$; we will not dwell on this.
+
+Note that insertion in practice requires specifying the position of insertion by hand; by default it is usually the first, but different notational conventions may exist.
 
 ---
 
-## 3. More about indices: basis transformation
+## 3. Change of Basis
 
-We now have enough basic machinery to answer a very fundamental question: why are the components of a vector written with upper indices, while those of a covector use lower indices, and why is it the opposite for basis vectors? This entire “tragedy” ultimately comes from physicists naming things according to their behavior under **basis transformations**.
+We now have enough basic knowledge to answer a most basic question: why are the component indices of vectors upper indices and the component indices of dual vectors lower indices, while the indices of the basis are exactly the other way round? This whole tragedy comes from physicists naming an object by its behaviour under a **change of basis**.
 
-### Basis Vectors
+### Transformation of Basis Vectors
 
-Consider a linear map
-
-$$
-\Lambda: V \to V, \quad \{e_\mu \} \mapsto \{e'_\mu\},
-$$
-
-This is clearly a $(1,1)$-tensor (a matrix), and we have
+Consider the invertible linear map taking the old basis $\{e_\mu\}$ to the new basis $\{f_\mu\}$:
 
 $$
-e'_\mu = \Lambda^\nu{}_\mu e_\nu.
+\Lambda: V \to V, \quad e_\mu \mapsto f_\mu.
 $$
 
-Here both $e_\mu$ and $e'_\mu$ are actual vectors. Note that $\Lambda^\nu{}_\mu$ are the components of $\Lambda$ with respect to the basis $\{e_\mu\}$.
-
-:::note
-The symbol $\Lambda$ is often used to denote a special class of transformations: Lorentz transformations, which arise from the requirement that the spacetime interval $\mathrm{d}s^2$ is invariant under coordinate changes. In our discussion, however, no such restriction is imposed.
-:::
-
-### Vector Components
-
-Next we analyze how the components of a vector transform under the basis change $\Lambda$. Consider a vector $v$ written in two different bases:
+The answer is obvious: $\Lambda$ is a $(1, 1)$-tensor (matrix), and we have:
 
 $$
-v = v^\mu e_\mu = v'^\mu e'_\mu.
+f_\mu = \Lambda^\nu{}_\mu e_\nu,
 $$
 
-Substituting the basis transformation gives
+Here $e_\mu$ and $f_\mu$ are both actual vectors. Note that $\Lambda^\nu{}_\mu$ are the components of $\Lambda$ in $\{e_\mu\}$.[^lorentz-symbol]
+
+### Transformation of Vector Components
+
+Next let us analyse, for an arbitrary vector $v$, the transformation law of its components under the transformation of basis vectors $\Lambda$. Consider the expansion coefficients of the vector $v$ in the two bases:
 
 $$
-v'^\mu \Lambda^\nu{}_\mu e_\nu = v^\nu e_\nu,
+v=v^\mu e_\mu = \widetilde v^\mu f_\mu,
 $$
 
-hence
-
+Here $v^\mu$ are the components in the old basis and $\widetilde v^\mu$ those in the new basis; the vector $v$ itself has not changed. Substituting the relation for the change of basis, we obtain:
 $$
-v'^\mu = (\Lambda^{-1})^\mu{}_\nu v^\nu.
-$$
-
-:::note
-In tensor language, the inverse of a matrix is a tensor satisfying
-$$
-\Lambda^\mu{}_\rho (\Lambda^{-1})^\rho{}_\nu = \delta^\mu{}_\nu.
-$$
-:::
-
-### Dual Basis
-
-Starting from the definition of the dual basis,
-
-$$
-\delta^\mu{}_\nu = e^\mu(e_\nu),
+\widetilde v^\mu \Lambda^\nu{}_\mu e_\nu = v^\nu e_\nu.
 $$
 
-we multiply both sides by $\Lambda^\nu{}_\rho e'^\rho$, obtaining
+That is:[^matrix-inverse]
 
 $$
-\Lambda^\mu{}_\rho e'^\rho
-= e^\mu(e'^\rho \Lambda^\nu{}_\rho e_\nu)
-= e^\mu(e'^\rho e'_\rho)
-= e^\mu.
+\widetilde v^\mu = (\Lambda^{-1})^\mu{}_\nu v^\nu.
 $$
 
-Multiplying by $(\Lambda^{-1})^\sigma{}_\mu$ yields
+### Transformation of the Dual Basis
+
+We start from the definition of the dual basis. Denote the dual bases of the old basis and the new basis by $\{e^\mu\}$ and $\{f^\mu\}$ respectively. We already know
 
 $$
-e'^\sigma = (\Lambda^{-1})^\sigma{}_\mu e^\mu.
+f_\nu=\Lambda^\rho{}_\nu e_\rho,
 $$
 
-Renaming dummy indices gives
+and suppose further
 
 $$
-e'^\mu = (\Lambda^{-1})^\mu{}_\nu e^\nu.
+f^\mu=M^\mu{}_\sigma e^\sigma.
 $$
 
-### Covector Components
-
-Similarly, starting from
+Then, according to the definition of the dual basis:
 
 $$
-\omega = \omega_\mu e^\mu = \omega'_\mu e'^\mu,
+\begin{aligned}
+\delta^\mu{}_\nu
+&=f^\mu(f_\nu)\\
+&=M^\mu{}_\sigma\Lambda^\rho{}_\nu e^\sigma(e_\rho)\\
+&=M^\mu{}_\sigma\Lambda^\sigma{}_\nu.
+\end{aligned}
 $$
 
-and substituting the basis transformation, we obtain
+That is, $M\Lambda=I$, hence $M=\Lambda^{-1}$. Thus:
 
 $$
-\omega'_\mu = \Lambda^\nu{}_\mu \omega_\nu.
+f^\mu = (\Lambda^{-1})^\mu{}_\nu e^\nu.
+$$
+
+### Transformation of Dual Vector Components
+
+Similarly to the case of vectors, we start from the following identity:
+
+$$
+\omega = \omega_\mu e^\mu = \widetilde\omega_\mu f^\mu,
+$$
+
+Here $\omega_\mu$, $\widetilde\omega_\mu$ are the components in the old dual basis and the new dual basis respectively. Substituting the relation for the transformation of the dual basis, we have:
+
+$$
+\omega_\nu=\widetilde\omega_\mu(\Lambda^{-1})^\mu{}_\nu,
+\qquad
+\widetilde\omega_\mu = \Lambda^\nu{}_\mu \omega_\nu.
 $$
 
 ### Contravariance and Covariance
 
-We now observe a unified pattern:
+At this point we have found a unified pattern:
 
-:::tip[Contravariance and Covariance]
+:::tip[Contravariance and covariance]
 
-The transformations of basis vectors and covector components are
-
-$$
-e'_\mu = \Lambda^\nu{}_\mu e_\nu, \qquad \omega'_\mu = \Lambda^\nu{}_\mu \omega_\nu,
-$$
-
-while the transformations of dual basis vectors and vector components are
+The transformation of basis vectors and of (the components of) dual vectors is:
 
 $$
-e'^\mu = (\Lambda^{-1})^\mu{}_\nu e^\nu, \qquad v'^\mu = (\Lambda^{-1})^\mu{}_\nu v^\nu.
+f_\mu = \Lambda^\nu{}_\mu e_\nu, \qquad \widetilde\omega_\mu = \Lambda^\nu{}_\mu \omega_\nu,
 $$
 
-We see that any object carrying an upper index transforms with the **inverse** of the basis transformation, while any object with a lower index transforms with the transformation **itself**.
+while the transformation of the dual basis and of (the components of) vectors is:
 
-Thus, upper indices are called **contravariant indices**, and lower indices are called **covariant indices**; vectors are contravariant, and covectors are covariant (which is why dual vectors are also called covectors).
+$$
+f^\mu = (\Lambda^{-1})^\mu{}_\nu e^\nu, \qquad \widetilde v^\mu = (\Lambda^{-1})^\mu{}_\nu v^\nu.
+$$
+
+It is not hard to notice that anything marked with an upper index is transformed, under a change of basis, by the **inverse of the change-of-basis matrix**, whereas anything marked with a lower index is transformed by the **change-of-basis matrix** itself.
+
+We therefore call upper indices **contravariant indices** and lower indices **covariant indices**; and we call vectors **contravariant vectors** and dual vectors **covariant vectors**.
+
 :::
 
-This explains why Einstein’s summation convention is defined in this way: **indices do not merely indicate tensor type, but rather encode transformation behavior**. Hence vectors use upper indices and covectors use lower indices, while repeated upper–lower pairs indicate summation, i.e. contraction, describing how tensors interact.
+This explains why the Einstein summation convention is defined in this way: **the upper or lower position of an index does not declare the tensor type, but the transformation type**. Hence (the components of) vectors take upper indices and (the components of) dual vectors take lower indices. And it is then obvious that repeated upper and lower indices mean summation: that is how tensors interact (contraction).
 
-:::info
-For a general tensor, the coordinate transformation law is
+:::info[Transformation of the components of a general tensor]
+For a more general tensor, the change-of-basis law for its components is ($T$, $\widetilde T$ denote its components in the old basis $e$ and the new basis $f$ and their dual bases respectively):
 
 $$
-T^{\mu_1\cdots \mu_k}{}_{\nu_1\cdots \nu_l}
-=
-(\Lambda^{-1})^{\mu_1}{}_{\rho_1}\cdots(\Lambda^{-1})^{\mu_k}{}_{\rho_k}
-\Lambda^{\sigma_1}{}_{\nu_1}\cdots\Lambda^{\sigma_l}{}_{\nu_l}
-T^{\rho_1\cdots \rho_k}{}_{\sigma_1\cdots \sigma_l}.
+\widetilde T^{\mu_1\cdots \mu_k}{}_{\nu_1\cdots \nu_l} = (\Lambda^{-1})^{\mu_1}{}_{\rho_1}\cdots(\Lambda^{-1})^{\mu_k}{}_{\rho_k}\Lambda^{\sigma_1}{}_{\nu_1}\cdots\Lambda^{\sigma_l}{}_{\nu_l} T^{\rho_1\cdots \rho_k}{}_{\sigma_1\cdots \sigma_l}.
 $$
 
-We omit the proof.
-:::
-
-:::note
-Many physics textbooks actually take this transformation law as the definition of a tensor: a $(k,l)$-tensor is defined as a collection of components satisfying the above rule, without explicit reference to bases. This definition is correct, but somewhat lacks conceptual depth.
+We omit the proof of this result.[^tensor-transformation]
 :::
 
 ### Abstract Index Notation
 
-At the end of the previous section we made the point that the position of an index does not declare the tensor type, but rather the transformation behavior. If we want to declare the tensor type, our best available language is algebraic: naming the spaces and maps, that is, the long expression $T(\omega^1, \cdots, \omega^k; v_1, \cdots, v_l)$. Objects of that size are terrifying to manipulate. To merely declare the type, of course, we can say “a $(k,l)$-tensor”, but such a declaration cannot be carried along during a computation; if at every step we had to open a new line and explain the type in words, the text would become very long.
+At the end of the previous section we put forward a viewpoint: the upper or lower position of an index does not declare the tensor type, but the transformation type. If we want to declare the tensor type, the best language we have at present is algebraic language: using spaces and maps to explain, that is, a long string like $T(\omega^1, \cdots, \omega^k; v_1, \cdots, v_l)$; such things are terrifying to compute with. Of course, if we merely want to declare the type, we can just say that it is a $(k, l)$-tensor, but such a declaration cannot be carried along during a computation; if each step of a computation had to be given its own line in natural language, the length would become very long.
 
-Is there a notation that both participates in computations naturally and declares tensor types naturally? This is what **abstract index notation** provides. Specifically, we agree to use Roman letters $a, b, c, \cdots$ to declare tensor types, and Greek letters $\mu, \nu, \rho, \cdots$ for concrete indices and summation.
+Is there a notation that can both participate naturally in computations and declare the tensor type naturally? This is the **abstract index notation** we introduce next. Specifically: we agree to use Roman letters $a, b, c, \cdots$ to declare the tensor type, and Greek letters $\mu, \nu, \rho, \cdots$ to handle concrete indices and summation.
 
-For example, basis vectors and dual basis vectors are now written
+For example, basis vectors and the dual basis may now be written:
 
 $$
 (e_\mu)^a, \qquad (e^\nu)_b,
 $$
 
-while a general vector and covector become
+and a general vector and dual vector may be written:
 
 $$
 v^a = v^\mu (e_\mu)^a, \qquad \omega_b = \omega_\nu (e^\nu)_b.
 $$
 
-How does the abstract index language handle operations between tensors? Consider first the tensor product. In abstract index notation we omit the tensor product symbol, for instance
+How does the abstract index language handle operations between tensors? First let us consider the tensor product. In the abstract index language we omit the tensor-product symbol, for example:
 
 $$
 T^a{}_{bc} v^d \equiv T \otimes v\equiv T^\mu{}_{\nu \rho} v^\sigma e_\mu \otimes e^\nu \otimes e^\rho \otimes e_\sigma,
 $$
 
-Next comes contraction: we agree that a repeated upper–lower abstract index denotes a contraction, for example
+Next, contraction: we agree that repeated abstract upper and lower indices denote contraction, for example:
 
 $$
 T^a{}_a \equiv C^1_1 T = T(e^\mu ; e_\mu) \equiv T^\mu{}_\mu,
 $$
 
-or
+or:
 
 $$
-T^{ab}{}_c \omega_b \equiv C^2_2(T \otimes \omega) = T(·, e^\mu; \ ·)\,\omega(e_\mu) \equiv T^{\rho \mu}{}_{\sigma} \omega_\mu e_\rho \otimes e^\sigma \equiv T^{\rho \mu}{}_{\sigma} \omega_\mu (e_\rho)^a (e^\sigma)_c.
+T^{ab}{}_c \omega_b \equiv C^2_2(T \otimes \omega) = T(\cdot, e^\mu; \ \cdot)\,\omega(e_\mu) \equiv T^{\rho \mu}{}_{\sigma} \omega_\mu e_\rho \otimes e^\sigma \equiv T^{\rho \mu}{}_{\sigma} \omega_\mu (e_\rho)^a (e^\sigma)_c.
 $$
 
-This can be a little convoluted; my advice is to verify each equality step by step. One way to read it is that abstract indices are introduced so that objects carrying no index are not mistaken for scalars.
+This may be a little convoluted; my advice is to verify the validity of the identity equality by equality. You may understand it as: abstract indices were introduced precisely to prevent objects without indices from being mistaken for scalars.
 
-In practice, however, we generally do not use abstract index notation. Roman letters are easily confused with the usual index conventions, especially in contexts where frames are used. For that reason I will not use it in my notes; it is only sketched here.
+In fact, however, we generally do not use abstract index notation. This is because Roman-letter labels are still easily confused with the usual index conventions, especially in contexts where frames are used. Hence I will not use it in my notes, and give only a brief introduction.
 
----
+## 4. The Metric and Raising and Lowering Indices
 
-## 4. The Metric and Index Raising and Lowering
+The inner product is in fact a very important topic, although it is usually not mentioned deliberately, because the inner product on $\R^n$ is too natural. In the language of tensors we use a **metric** to describe this inner product structure.
 
-So far, vectors (elements of $V$) and covectors (elements of $V^*$) have remained two distinct kinds of object: their indices sit at different heights, and they transform in opposite ways. Apart from the natural pairing $\omega(v)$, we have no general way to turn a vector into a covector. The earlier isomorphism $V\cong V^{**}$ worked precisely because it needs no extra structure; a general isomorphism between $V$ and $V^*$ does not exist. To let vectors and covectors be converted into one another, we must introduce an additional structure by hand: a **metric**.
+### Inner Product, Dirac Notation and Duality
 
-### Inner Products, Dirac Notation, and Duality
+Most elementary linear algebra courses do not introduce the inner product rigorously, so let us first give a rigorous definition of the inner product. Here we temporarily consider a complex vector space $V$.
 
-To let the inner product produce a link between vectors and covectors, we first write the definition of an inner product carefully. We temporarily allow complex scalars here, and return to the real case at the end.
+:::tip[Inner product]
 
-:::tip[Inner Product]
-
-Let $V$ be a vector space over the complex numbers $\mathbb{C}$. An **inner product** on $V$ is a map
+Let $V$ be a vector space over the field of complex numbers $\mathbb{C}$. An **inner product** on $V$ is a map
 
 $$
 \langle \cdot, \cdot \rangle: V\times V \to \mathbb{C}, \qquad (u,v)\mapsto \langle u, v\rangle,
 $$
 
-satisfying the following three conditions (the conjugation convention common in physics):
-
-$$
-\langle u, \alpha v + \beta w\rangle = \alpha\langle u, v\rangle + \beta\langle u, w\rangle,
-\qquad
-\langle u, v\rangle = \overline{\langle v, u\rangle},
-$$
-
-and $\langle v, v\rangle > 0$ for every $v\neq 0$.
+satisfying the properties:
+1. Linearity: $\langle u, \alpha v + \beta w\rangle = \alpha\langle u, v\rangle + \beta\langle u, w\rangle$;
+2. Conjugate symmetry: $\langle u, v\rangle = \overline{\langle v, u\rangle}$
+3. Positive-definiteness: $\forall\, v\neq 0, \, \langle v, v\rangle > 0$.
 
 :::
 
-The first condition constrains only the second argument; combined with the second, it forces the first argument to be conjugate-linear:
+The first condition constrains only the second variable; combined with the second, the first variable is then automatically conjugate-linear:
 
 $$
 \langle \alpha u + \beta w, v\rangle = \bar\alpha\langle u, v\rangle + \bar\beta\langle w, v\rangle.
 $$
 
-Conjugate symmetry also guarantees that $\langle v, v\rangle$ is real, which is what makes the positive-definiteness condition meaningful.
+Conjugate symmetry also guarantees that $\langle v, v\rangle$ must be real, which is what makes the final positive-definiteness meaningful.
 
-:::note
-The mathematical literature often puts the conjugation on the second argument instead (linear in the first), opposite to our choice. We use the physics convention so that $\langle v|w\rangle$ below is linear in $|w\rangle$, matching the order in which Dirac notation is written.
-:::
+Mathematical literature often puts the conjugation on the second variable (linear in the first variable), opposite to this article. Here linearity in the second variable is chosen in order to be consistent with the order in which Dirac notation is written.
 
-Now split the inner product down the middle. Fix $u$, ignore the second argument for the moment, and look only at how the inner product depends on it. This gives a map
+Now split the inner product down the middle. Fixing $u$, we have $\langle u, \cdot\, \rangle$. Ignoring the second variable for the moment and looking only at the dependence of the inner product on it, we obtain a map
 
 $$
 \varphi_u: V\to \mathbb{C}, \qquad \varphi_u(v) \equiv \langle u, v\rangle.
 $$
 
-Because the inner product is linear in its second argument, $\varphi_u$ is a linear functional on $V$, that is, a covector: $\varphi_u\in V^*$. This is precisely Dirac's idea: the bracket can be cut into two halves, the left half $\langle u|$ being the thing that merely “waits to be fed a vector”, and the right half $|v\rangle$ being the vector that gets fed in; only together do they make a number. Vectors and covectors thus acquire notation of their own:
+Since the inner product is linear in the second variable, $\varphi_u$ is a linear functional on $V$, that is, a dual vector: $\varphi_u\in V^*$. What Dirac proposed is exactly this idea: the bracket can be split into two halves, the left half $\langle u|$ being merely something that “waits to be filled with a vector”, and the right half $|v\rangle$ being the vector that is filled in; only the two halves together make a number. Vectors and dual vectors thus each acquire a notation:
 
 $$
 |v\rangle\ \leftrightarrow\ v\in V, \qquad
@@ -895,179 +804,324 @@ $$
 \langle u|v\rangle \equiv \langle u, v\rangle.
 $$
 
-This is where the names **ket** and **bra** come from: bra plus ket makes bracket. So the statement “the bra is the covector of the ket” carries no extra magic; it just refers to the correspondence $v\mapsto\varphi_v$ induced by the inner product.
+This is where the names **ket** and **bra** come from: bra and ket together make exactly bracket. Note that this layer of duality depends on the inner product itself: change the inner product, and $v\mapsto\varphi_v$ changes with it; but for abstract state vectors we usually do not care about the concrete form of the inner product, while for wave functions it is the classical $L^2$ integral inner product.
 
-That correspondence is injective: if $\varphi_u=\varphi_w$, then $\langle u-w, v\rangle=0$ for every $v$; taking $v=u-w$ and using positive-definiteness gives $u=w$.
+In fact, this correspondence has a more famous name: the **Riesz representation theorem**, which tells us that in a finite-dimensional inner product space every linear functional can be represented in this way by a unique vector. This looks lovely. But we should consider the properties of this map: is it really a bijection? Could one bra correspond to several kets, or could there exist $\omega\in V^*$ that cannot be expressed as any $\langle u|$?
 
-:::tip[The Riesz Representation Theorem]
+Injectivity is easy to verify: if $\varphi_u=\varphi_w$, then $\langle u-w, v\rangle=0$ for all $v$, and by positive-definiteness $u-w$ must be the zero vector, that is, $u=w$. Hence every $\ket{v} \in V$ corresponds uniquely to a $\bra{v} \in V^*$.
 
-Let $H$ be a **Hilbert space**, that is, a complete inner product space. Then every continuous linear functional $\varphi\in H^*$ can be written uniquely as
-
+What about surjectivity? This is a little more troublesome. We give the proof in the finite-dimensional case: first choose an orthonormal basis $\{e_\mu\}$; Gram–Schmidt orthogonalization guarantees that such a basis exists, so $\langle e_\nu,e_\mu\rangle=\delta_{\nu\mu}$. Let $\varphi \in V^*$ and take any $v=v^\mu e_\mu \in V$; then
 $$
-\varphi(v)=\langle u, v\rangle, \qquad \forall v\in H.
+\varphi(v)=\varphi(v^\mu e_\mu) = v^\mu \varphi(e_\mu),
 $$
-
-In other words, $v\mapsto\varphi_v$ is surjective; by the Cauchy–Schwarz inequality it is also an isometry, so $H$ and $H^*$ correspond one-to-one through the inner product (in the complex case the correspondence is conjugate-linear, i.e. an isometric anti-isomorphism).
-
-:::
-
-The proof goes as follows. The null space $\operatorname{null}\varphi$ of a continuous linear functional is a closed subspace of codimension $1$. Completeness makes the orthogonal decomposition available: choose a nonzero vector $u_0$ in the orthogonal complement $(\operatorname{null}\varphi)^\perp$, and write any $v$ as $v=v_0+\lambda u_0$ with $v_0\in\operatorname{null}\varphi$, where $\lambda$ is fixed by $\varphi(v)=\lambda\varphi(u_0)$. Since $u_0\perp v_0$, we have $\langle u_0, v\rangle=\lambda\langle u_0, u_0\rangle$, so $\varphi(v)$ is proportional to $\langle u_0, v\rangle$. On the other hand $\varphi$ vanishes on $\operatorname{null}\varphi$, so the representing vector must be orthogonal to $\operatorname{null}\varphi$, and hence must lie in the one-dimensional space spanned by $u_0$. Multiplying $u_0$ by a suitable constant (with a conjugation in the complex case) then determines the representing vector. Uniqueness follows from the injectivity proved above.
-
-:::warning[The Trouble in Infinite Dimensions: Completeness and Antiduality]
-
-Both statements above need qualification in infinite dimensions. Injectivity uses only positive-definiteness and is independent of dimension; surjectivity, however, rests on two hypotheses.
-
-The first is **completeness**. If $V$ is merely an inner product space and not complete, then $v\mapsto\varphi_v$ is no longer surjective: its image is a dense proper subspace of $V^*$, and the extra functionals in the dual space have no representing vector in $V$. In fact $V^*$ *is* the completion of $V$ (up to isometric isomorphism); to make the two sides match, one must dualize once more — an operation of **antiduality** in the complex case, since the correspondence is conjugate-linear — and the resulting $V^{**}$ is the side with the gap filled in, with $V\subseteq V^{**}$. The Riesz theorem says precisely that when $V$ is already complete, this step produces nothing new.
-
-The second is **continuity**. Discontinuous linear functionals are not in $H^*$, and the inner product cannot represent them. In quantum mechanics $|x\rangle$ and $|p\rangle$ are manifestations of this clash: they are not normalizable, hence do not belong to the Hilbert space $H$, and yet they must have inner products with states in $H$. The remedy is to sandwich an extra space in between: take a dense subspace $\Phi\subseteq H$ of sufficiently well-behaved vectors, and place $|x\rangle$, $|p\rangle$ in the (anti)dual space $\Phi^\times$ of $\Phi$,
-
+Then we construct a vector:
 $$
-\Phi\subseteq H\subseteq \Phi^\times,
+w = \sum_\nu \overline{\varphi(e_\nu)} e_\nu
 $$
-
-which is the **rigged Hilbert space** mentioned earlier. In this framework bras and kets are still the two halves of the inner product; they simply live in different spaces.
-
-:::
-
-Now back to the main line of this article. Note that this bridge depends on the inner product itself: change the inner product, and $v\mapsto\varphi_v$ changes with it. The complex inner product is also conjugate-linear, which lies beyond the language of real tensors. From here on we work only over real vector spaces.
+Here we are forced to write the summation sign explicitly. Compute the following inner product:
+$$
+\langle w, v \rangle = \left\langle \sum_\nu \overline{\varphi(e_\nu)} e_\nu, v^\mu e_\mu \right\rangle = \sum_\nu v^\mu \varphi(e_\nu) \langle e_\nu, e_\mu \rangle = \sum_\nu v^\mu \varphi(e_\nu) \delta_{\nu\mu} = v^\mu \varphi(e_\mu) = \varphi(v).
+$$
+We have successfully constructed a representative vector in $V$ for an arbitrary $\varphi \in V^*$. Q.E.D.
 
 ### The Metric
 
-Over a real vector space, an inner product takes two vectors and maps them symmetrically and bilinearly to a real number, which is exactly the definition of a $(0,2)$-tensor. So we may as well regard the inner product as an object in the tensor space, and use it to define a metric:
+Now back to the main line of this article. An inner product on a real vector space is just that on a complex vector space with the conjugation removed. Hence the inner product we want to consider maps two vectors symmetrically and bilinearly to a real number, and this happens to be exactly the definition of a special $(0,2)$-tensor. We therefore define the metric:
 
-:::tip[The Metric]
+:::tip[Metric]
 
-A **metric** on a vector space $V$ is a $(0,2)$-tensor $g$, that is, a bilinear map
+A **metric** on a real vector space $V$ is a $(0,2)$-tensor $g$, that is, a bilinear map
 
 $$
 g: V\times V \to \R,
 $$
 
-which is symmetric, $g(u,v)=g(v,u)$, and **non-degenerate**: if some $u$ satisfies $g(u,v)=0$ for all $v\in V$, then $u=0$.
+satisfying the properties:
+1. Symmetry: $g(u,v)=g(v,u)$;
+2. Non-degeneracy: if some $u$ satisfies $g(u,v)=0$ for all $v\in V$, then necessarily $u=0$.
 
 :::
 
-In components,
+Since the metric itself is a $(0,2)$-tensor, by the discussion above it can of course be expanded in the dual basis. Choose a basis $\{e_\mu\}$ of $V$, with corresponding dual basis $\{e^\mu\}$; then
 
 $$
-g(u,v)=g_{\mu\nu}u^\mu v^\nu, \qquad g_{\mu\nu}=g(e_\mu,e_\nu).
+g=g_{\mu\nu}e^\mu\otimes e^\nu,
+\qquad g_{\mu\nu}\equiv g(e_\mu,e_\nu).
 $$
 
-Symmetry means $g_{\mu\nu}=g_{\nu\mu}$; non-degeneracy means $\det(g_{\mu\nu})\neq 0$, so $g_{\mu\nu}$ is invertible. We write its inverse as $g^{\mu\nu}$, satisfying
+For any two vectors $u=u^\mu e_\mu$ and $v=v^\nu e_\nu$ we naturally have
 
 $$
-g^{\mu\nu}g_{\nu\rho}=\delta^\mu{}_\rho
+g(u,v)=g_{\mu\nu}u^\mu v^\nu.
 $$
 
-(as usual, repeated upper–lower indices are summed).
+Note that $g_{\mu\nu}$ here are only the components of the metric in the given basis. The real metric is still the bilinear map $g$. Symmetry means $g_{\mu\nu}=g_{\nu\mu}$; non-degeneracy means $\det(g_{\mu\nu})\neq0$, so this component matrix is invertible.
 
-A metric generalizes an inner product; the difference is that positive-definiteness is no longer required. Positive-definiteness would demand $g(u,u)>0$ for all $u\neq 0$, which immediately rules out the Minkowski metric used throughout relativity: the Minkowski metric is indefinite, and $g(u,u)$ may be positive, negative, or zero. As long as we keep symmetry and non-degeneracy, we can still use the metric to raise and lower indices just as with an inner product.
+The metric is a generalization of the inner product, the difference being that we no longer require positive-definiteness. Positive-definiteness would require $g(u,u)>0$ for all $u\neq 0$, which directly rules out the Minkowski metric most used in relativity; the Minkowski metric is indefinite, and $g(u,u)$ may be positive (spacelike), negative (timelike), or zero (null).
 
 ### Euclidean and Minkowski Metrics
 
-Two examples are worth writing out.
+The two most commonly used examples are as follows.
 
-**Euclidean metric.** Take
+**Euclidean metric**: in an orthonormal basis its components are
 
 $$
 g_{\mu\nu}=\delta_{\mu\nu}=\operatorname{diag}(1,1,\dots,1),
 $$
 
-so that $g(u,v)=\delta_{\mu\nu}u^\mu v^\nu=\sum_\mu u^\mu v^\mu$, the usual dot product.
+and then $g(u,v)=\delta_{\mu\nu}u^\mu v^\nu=\sum_\mu u^\mu v^\mu$, exactly the usual dot product.
 
-**Minkowski metric.** Relativity conventionally uses the $(-+++)$ signature:
+:::warning
+The Euclidean metric is not the Kronecker delta! Their fundamental difference lies in the tensor type.
+
+The Kronecker delta $\delta^\mu{}_\nu$ is the component of the identity map. The identity map is canonically defined, and in any basis its components are always $\operatorname{diag}(1,1,\dots,1)$.
+
+The Euclidean metric, by contrast, is an independently specified symmetric positive-definite $(0,2)$-tensor. It does not need the Minkowski metric in order to be defined, nor can it be conjured up out of nothing by “lowering an index” on $\delta^\mu{}_\nu$. In an orthonormal basis, $g_{\mu\nu}=\delta_{\mu\nu}$ only means that the two sets of components coincide numerically; change the basis, and the metric itself has not changed, yet the components need not still be the identity matrix. For example, the two-dimensional Euclidean plane in the coordinate basis of polar coordinates has $g_{\mu\nu}=\operatorname{diag}(1,r^2)$ ($r>0$).
+
+Later we will discuss the “raising” and “lowering” of indices. The identity $g_{\mu\rho}\delta^\rho{}_\nu=g_{\mu\nu}$ certainly holds, but it has already used the metric $g$ in advance, so it cannot be taken as a definition that constructs the metric. If all you have learned is general relativity, it is easy to tie the metric together with the Minkowski metric; the Euclidean metric exists independently in the first place.
+:::
+
+**Minkowski metric**: in the coordinate basis of a standard inertial frame its components are
 
 $$
 g_{\mu\nu}=\eta_{\mu\nu}=\operatorname{diag}(-1,1,1,1),
 $$
 
-so that
+Hence
 
 $$
 g(u,v)=-u^0v^0+u^1v^1+u^2v^2+u^3v^3.
 $$
 
-The spacetime interval is precisely this metric acting on infinitesimal displacements:
+The spacetime interval is exactly this metric acting on infinitesimal displacements:
 
 $$
 \mathrm{d} s^2=\eta_{\mu\nu}\,\mathrm{d} x^\mu \mathrm{d} x^\nu
 =-\mathrm{d} t^2+\mathrm{d} x^2+\mathrm{d} y^2+\mathrm{d} z^2.
 $$
 
-Because $g_{00}=-1$, the time direction enters with a minus sign; this sign is the essential difference between an indefinite metric and the Euclidean one, and it is why “squared length” can be negative in Minkowski spacetime.
+Here we have already passed from a fixed vector space to the tangent space chosen according to position on a manifold. In the language of the coordinate basis, the metric is written as
 
-:::warning
-The $g_{\mu\nu}$ written above are constant matrices, which holds only in Cartesian coordinates (inertial frames, in the Minkowski case). In a general coordinate system $g_{\mu\nu}$ is a function of the coordinates.
+$$
+g=g_{\mu\nu}\,\mathrm{d}x^\mu\otimes\mathrm{d}x^\nu,
+$$
+
+where $\mathrm{d}x^\mu$ is the coordinate cotangent basis, and in the Minkowski case the components are the $\eta_{\mu\nu}$ above. And $\mathrm{d}s^2$ is the notation for the line element, which may also be understood as the notation for the quadratic form obtained by letting the metric act on an infinitesimal displacement; it is in fact not a differential (form). For a more detailed discussion please refer to my differential geometry notes (which have not got that far yet, but some day ()
+
+Since $g_{00}=-1$, the contribution of the time direction carries a minus sign; this one sign is precisely the most essential difference between an indefinite metric and the Euclidean metric, and also the source of the fact that “squared length” can be negative in Minkowski spacetime.
+
+:::note
+The $g_{\mu\nu}$ written above are all constant matrices, which holds only in Cartesian coordinates (in the Minkowski case, inertial frames). In a general coordinate system $g_{\mu\nu}$ is a function of the coordinates.
+
+In particular, in general relativity the metric is no longer a constant matrix given in advance, but a dynamical field $g_{\mu\nu}(x)$ on spacetime, determined by the distribution of matter through the **Einstein field equations** together with given boundary conditions and symmetries:
+
+$$
+G_{\mu\nu}=8\pi G\,T_{\mu\nu} \qquad (c=1)
+$$
+
+Hence there exist very many kinds of metrics in general relativity: the gravitational field outside a star, a black hole, an expanding universe, each corresponding to a different $g_{\mu\nu}$. Given a metric, one is given a symmetric non-degenerate bilinear structure, and hence a geometry.
 :::
 
-In general relativity the metric is no longer a fixed constant matrix but a dynamical field $g_{\mu\nu}(x)$ on spacetime, determined by the distribution of matter through the **Einstein field equations**,
+### The Musical Isomorphism and Raising and Lowering Indices
+
+Before we discussed the metric, we already knew that vectors and dual vectors are two different kinds of object. Although for a finite-dimensional vector space $V$ and $V^*$ have the same dimension, this does not give a canonical isomorphism. Now that we have a metric, things are different.
+
+Consider a vector $v\in V$. If we fix the first argument of the metric and allow only the second to vary, we obtain a map $g(v,\cdot):V\to\mathbb R$. Since the metric is bilinear, this is plainly a linear functional, that is, an element of $V^*$. Hence, through the metric, we can make any vector correspond to a dual vector:
 
 $$
-G_{\mu\nu}=8\pi G\,T_{\mu\nu}
+\begin{aligned}
+\flat:V&\longrightarrow V^*,\\
+v&\longmapsto g(v,\cdot).
+\end{aligned}
 $$
 
-(in natural units, $c=1$). General relativity therefore contains a great many different metrics: the field outside a star, a black hole, an expanding universe all correspond to different choices of $g_{\mu\nu}$. Specifying a metric specifies an inner-product structure, and hence a geometry.
-
-### Raising and Lowering Indices: the Musical Isomorphism
-
-With a metric in hand, indices can be moved up and down. We define
+This is the insertion we mentioned earlier. Moreover, since the metric is symmetric, it does not matter into which input the insertion is made. The result of $\flat(v)$ acting on any $w\in V$ is
 
 $$
-V_\mu\equiv g_{\mu\nu}V^\nu, \qquad V^\mu\equiv g^{\mu\nu}V_\nu.
+\flat(v)(w)=g(v,w).
 $$
 
-The first turns a vector into a covector, the second turns a covector back into a vector. The two are consistent because $g^{\mu\nu}$ is the inverse of $g_{\mu\nu}$:
+This construction requires no choice of basis at all. The bilinearity of the metric also guarantees that $\flat$ itself is a linear map.
+
+Is this map an isomorphism, then? If $\flat(v)=0$, then $g(v,w)=0$ for all $w\in V$, and non-degeneracy immediately gives $v=0$. So $\flat$ is injective; and since the space here is finite-dimensional with $\dim V=\dim V^*$, it is also surjective. We thus obtain an isomorphism, together with its inverse map:
 
 $$
-g^{\mu\nu}V_\nu=g^{\mu\nu}g_{\nu\rho}V^\rho=\delta^\mu{}_\rho V^\rho=V^\mu.
+\flat:V\xrightarrow{\sim}V^*,
+\qquad
+\sharp=\flat^{-1}:V^*\to V.
 $$
 
-In tensor language, lowering an index is just a contraction with the metric: $g_{\mu\nu}V^\nu$ is the contraction of $g\otimes V$ over one upper–lower pair. For a higher-rank tensor we simply repeat the operation on each index to be changed, for instance
+This pair of isomorphisms is called the **musical isomorphism**; the name comes from notational habit: the flat sign $\flat$ lowers the pitch, and the sharp sign $\sharp$ does the opposite. Up to here we have not used any indices. So where on earth do those familiar index-raising and index-lowering formulas in physics textbooks come from?
+
+Let us now choose a basis $\{e_\mu\}$ of $V$, together with the corresponding dual basis $\{e^\mu\}$. First consider the action of $\flat$ on a basis vector. By definition, $\flat(e_\mu)=g(e_\mu,\cdot)$. This is a dual vector, so it can be expanded in the dual basis. Noticing that
 
 $$
-T^\mu{}_\nu=g_{\nu\rho}T^{\mu\rho}, \qquad T_{\mu\nu}=g_{\mu\rho}g_{\nu\sigma}T^{\rho\sigma}.
+\flat(e_\mu)(e_\nu)=g(e_\mu,e_\nu)=g_{\mu\nu},
 $$
 
-Note that indices can only be raised or lowered with the metric (or its inverse); otherwise the tensor type cannot change. The distinction between upper and lower indices remains — the metric merely provides a bridge between them.
-
-What, then, does this bridge actually do? For a fixed metric, define
+we have
 
 $$
-\flat: V\to V^*, \qquad v\mapsto g(v,\ \cdot\,),
+\flat(e_\mu)=g_{\mu\nu}e^\nu.
 $$
 
-that is, $(\flat v)(w)\equiv g(v,w)$; in components $(\flat v)_\mu=g_{\mu\nu}v^\nu$, which is exactly lowering an index. Conversely, define
+This is now clear: the metric maps a basis vector to a linear combination of the dual basis. For an arbitrary vector $v=v^\mu e_\mu$, using linearity:
 
 $$
-\sharp: V^*\to V, \qquad \omega\mapsto g^{-1}(\omega,\ \cdot\,),
+\flat(v)=\flat(v^\mu e_\mu)=v^\mu\flat(e_\mu)=v^\mu g_{\mu\nu}e^\nu.
 $$
 
-with components $(\sharp\omega)^\mu=g^{\mu\nu}\omega_\nu$, which is exactly raising an index.
-
-The map $\flat$ is linear because $g$ is linear in its first argument. It is also injective: if $\flat v=0$, then $g(v,w)=0$ for all $w$, and non-degeneracy forces $v=0$. In finite dimensions injective implies bijective, and $\dim V=\dim V^*$, so $\flat$ is an isomorphism with inverse $\sharp$. Hence
+On the other hand, since $\flat(v)\in V^*$, we can of course write it as $\flat(v)=(\flat v)_\nu e^\nu$. Comparing coefficients and using the symmetry of the metric, we obtain
 
 $$
-V\cong V^*.
+(\flat v)_\nu=g_{\nu\mu}v^\mu.
 $$
 
-This isomorphism is called the **musical isomorphism**. The name comes from notation: the flat sign $\flat$ lowers a pitch, just as it lowers an index, while the sharp sign $\sharp$ raises one. The maps $\flat$ and $\sharp$ act on exactly the two kinds of index that the previous section took pains to distinguish.
+So the so-called “lowering of indices” is in fact just the component expression of the musical isomorphism $\flat$ in a chosen basis. We defined only one map, and raising and lowering of indices appeared naturally.
 
-:::warning
-The phrase “natural isomorphism” needs care here. The construction of $\flat$ depends on the metric itself: change the metric, and $\flat$ changes with it. So $V\cong V^*$ is not canonical in the sense of the earlier $V\cong V^{**}$, which requires no choice; it is natural only **once a metric has been fixed**. In other words, $V\cong V^{**}$ is a genuinely natural isomorphism in the category of abstract vector spaces, whereas $V\cong V^*$ needs the extra structure of a metric. Physically: without a specified metric, vectors and covectors remain two distinct kinds of object, and indices cannot be moved around freely — which is exactly why we had to distinguish contravariance from covariance.
-:::
-
-The Dirac notation from before now becomes transparent: “turning a ket into a bra” is precisely $\flat$, except that the complex inner product is antilinear, so a rigorous statement carries a conjugation; conversely $|v\rangle=\sharp(\langle v|)$. In relativity we do exactly the same thing with $g$; the two languages describe one and the same structure.
-
-With indices raised and lowered, the rule that only an upper–lower pair may be contracted can be relaxed: as long as the index structure closes, we can use the metric to align the indices first and then contract. For instance,
+Raising indices is the same. Let $g^{\mu\nu}$ be the components of the inverse matrix of the matrix $g_{\mu\nu}$, satisfying
 
 $$
-g_{\mu\nu}V^\mu V^\nu=V^\mu V_\mu=V_\nu V^\nu
+g^{\mu\rho}g_{\rho\nu}=\delta^\mu{}_\nu.
 $$
 
-is the “squared length” of $V$, a scalar independent of the choice of basis. In Minkowski spacetime, the norm of the four-momentum,
+This inverse matrix is also symmetric. Compute $\flat$ once:
 
 $$
-p^\mu p_\mu=\eta_{\mu\nu}p^\mu p^\nu=-E^2+|\vec p|^2,
+\begin{aligned}
+\flat(g^{\mu\nu}e_\nu)
+&=g^{\mu\nu}\flat(e_\nu)\\
+&=g^{\mu\nu}g_{\nu\rho}e^\rho\\
+&=e^\mu.
+\end{aligned}
 $$
 
-is such an invariant, equal to $-m^2$ (with $c=1$); this relation is the mass-shell condition.
+Since $\sharp=\flat^{-1}$, we therefore have
+
+$$
+\sharp(e^\mu)=g^{\mu\nu}e_\nu.
+$$
+
+For an arbitrary dual vector $\omega=\omega_\mu e^\mu$, then
+
+$$
+\sharp(\omega)=\omega_\mu g^{\mu\nu}e_\nu
+=(\sharp\omega)^\nu e_\nu,
+\qquad
+(\sharp\omega)^\nu=g^{\nu\mu}\omega_\mu.
+$$
+
+Physics textbooks usually write $(\flat v)_\mu$ directly as $v_\mu$ and $(\sharp\omega)^\mu$ as $\omega^\mu$; that is, with the help of the musical isomorphism they keep the same letter for a vector and its corresponding dual vector. In this way the familiar formulas are
+
+$$
+v_\mu=g_{\mu\nu}v^\nu,
+\qquad
+\omega^\mu=g^{\mu\nu}\omega_\nu.
+$$
+
+However, $v=v^\mu e_\mu$ and $\flat(v)=v_\mu e^\mu$ are still objects in different spaces; this is especially easy to forget once the basis is omitted, and it is best to be careful about this.
+
+The same can be done for higher-rank tensors. For example, for a $(2,0)$-tensor
+
+$$
+T=T^{\mu\nu}e_\mu\otimes e_\nu,
+$$
+
+we let $\flat$ act only on the second tensor factor:
+
+$$
+\begin{aligned}
+(\mathrm{id}\otimes\flat)(T)
+&=T^{\mu\nu}e_\mu\otimes\flat(e_\nu)\\
+&=T^{\mu\nu}g_{\nu\rho}e_\mu\otimes e^\rho.
+\end{aligned}
+$$
+
+Here we have used the tensor product of operators, which in fact means “act on the corresponding spaces separately”; it is used a great deal in quantum computing, and we will not expand on it in detail here. In short, we have thus obtained a $(1,1)$-tensor. If its components still use the letter $T$, the expansion is
+
+$$
+(\mathrm{id}\otimes\flat)(T)=T^\mu{}_\rho e_\mu\otimes e^\rho,
+\qquad
+T^\mu{}_\rho=T^{\mu\nu}g_{\nu\rho}.
+$$
+
+For an arbitrary higher-rank tensor, one need only choose the corresponding tensor factor and let $\flat$ or $\sharp$ act on it. This may also be understood equivalently as first taking the tensor product with the metric (with the inverse metric when raising indices), and then contracting one pair of indices.
+
+With raising and lowering of indices, we can also give meaning to a “contraction” between two upper indices: first lower one of the indices with the metric, then do the original contraction. For example
+
+$$
+g(v,v)=g_{\mu\nu}v^\mu v^\nu=v^\mu v_\mu=v_\nu v^\nu
+$$
+
+is the “squared length” of the vector $v$, a scalar independent of the choice of basis.
+
+Another example: in the standard inertial coordinate basis of Minkowski spacetime, the four-momentum is written $p=p^\mu e_\mu$, with corresponding dual vector $\flat(p)=p_\mu e^\mu$. Its norm
+
+$$
+p^\mu p_\mu=\eta_{\mu\nu}p^\mu p^\nu=-E^2+|\vec p|^2
+$$
+
+is such an invariant, equal to $-m^2$ (with $c=1$); this relation is the so-called “mass-shell condition”.
+
+Looks familiar, doesn't it? This is very similar to the earlier idea of mapping a ket to a bra: fixing one variable of the inner product also gave a linear functional. However, the complex inner product is conjugate-linear in the first variable, so the Riesz map $u\mapsto\varphi_u$ there is a conjugate-linear bijection, and cannot directly be taken as the linear isomorphism $\flat$ on the real vector space here. In the real case, they are the same only if the metric is positive-definite.
+
+The construction of $\flat$ depends on the metric itself; change the metric, and $\flat$ changes with it. So $V\cong V^*$ is not independent of any choice the way the finite-dimensional $V\cong V^{**}$ above was; it is natural only **after a metric has been given**. In other words, $V\cong V^{**}$ is the canonical isomorphism in abstract vector spaces that needs no additional structure, whereas $V\cong V^*$ needs the extra structure of a metric.
+
+Without specifying a metric, vectors and dual vectors are two different kinds of object, and upper and lower indices cannot be moved around at will; this is exactly why we had to distinguish contravariance from covariance earlier.
+
+#### Lorentz Transformation
+
+The place where raising and lowering of indices is used most in physics is the **Lorentz transformation**, that is, a change of basis that preserves the Minkowski metric; in the language of physics, it is those transformations between inertial frames that keep the spacetime interval $\mathrm{d}s^2$ invariant. This is also why we used the letter $\Lambda$ when discussing changes of basis earlier.
+
+The metric is a $(0,2)$-tensor; by the transformation rule discussed in Chapter 3, after a change of basis its components become $\Lambda^\rho{}_\mu\Lambda^\sigma{}_\nu\eta_{\rho\sigma}$. And requiring the metric to be unchanged means
+$$
+\Lambda^\rho{}_\mu\Lambda^\sigma{}_\nu\eta_{\rho\sigma}=\eta_{\mu\nu},
+$$
+or, written in matrix language: $\Lambda^T\eta\Lambda=\eta$. Multiplying $\Lambda^T\eta\Lambda=\eta$ on the left by $(\Lambda^T)^{-1}$ and on the right by $\eta^{-1}$, we have $\eta\Lambda\eta^{-1}=(\Lambda^{-1})^T$; written in indices this is
+
+$$
+\eta_{\nu\rho}\Lambda^\rho{}_\sigma\eta^{\sigma\mu}=(\Lambda^{-1})^\mu{}_\nu.
+$$
+
+The left-hand side is exactly “lowering the first index of $\Lambda$ and raising the second”, that is, written as $\Lambda_\nu{}^\mu$. Since the two are equal, physics books simply keep the same letter and directly agree that swapping an index up or down denotes the inverse matrix:
+
+$$
+\Lambda_\nu{}^\mu \equiv (\Lambda^{-1})^\mu{}_\nu.
+$$
+
+In this way the four transformation rules above can be written in exactly the same shape:
+
+$$
+f_\mu = \Lambda^\nu{}_\mu e_\nu, \qquad f^\mu = \Lambda_\nu{}^\mu e^\nu,
+$$
+
+$$
+\widetilde\omega_\mu = \Lambda^\nu{}_\mu \omega_\nu, \qquad \widetilde v^\mu = \Lambda_\nu{}^\mu v^\nu.
+$$
+
+The difference between upper and lower indices now shows only in the position of the indices on $\Lambda$, and the defining relation of the inverse matrix has also become a pure index pairing: $\Lambda^\mu{}_\nu\Lambda_\mu{}^\rho=\delta^\rho_\nu$. This is why $\Lambda^{-1}$ is almost never seen in physics books. This convention depends on the condition of preserving the metric. Under a general change of basis, $\eta_{\nu\rho}\Lambda^\rho{}_\sigma\eta^{\sigma\mu}$ equals neither $\Lambda^\mu{}_\nu$ nor $(\Lambda^{-1})^\mu{}_\nu$; exchanging an index and taking the inverse can be interchanged only for metric-preserving transformations such as Lorentz transformations.
+
+---
+
+
+[^dual-basis-notation]: Many linear algebra textbooks write the dual basis as $e_\mu^*$, but differential geometry usually writes $e^\mu$ directly, which is more natural later when handling tensors.
+
+[^transpose]: It is in fact not rigorous to regard the row vector $x^T$ directly as a dual vector; this is only a consequence of the fact that the $\R^n$ we consider has a natural basis and that one usually chooses the Euclidean inner product (metric). We use this notation for the moment, and return to this question in the last part.
+
+[^cartesian-product]: In fact the Cartesian product can be defined for arbitrary sets, and does not necessarily require vector spaces, because an ordered pair does not require the set to have any properties.
+
+[^matrix-roles]: Of course, we all know that a matrix can be used to represent a linear map between two vector spaces, or a transformation between two bases; we will discuss this question in the next part.
+
+[^tensor-swap]: This is in fact a somewhat delicate question: strictly speaking, after exchanging the order they are not the same; we will return to this point later when discussing the universal property, especially the exchange isomorphism $\tau$.
+
+[^define-cong]: Strictly speaking, one should not use $\equiv$ (defined as) here, but $\cong$ (isomorphic). We discuss this where we discuss the universal property.
+
+[^otimes-order]: Strictly speaking, this first definition does involve the question of which tensor product is taken first, but whatever the order, there exists a natural isomorphism between them. However, here we define tensors directly by means of multilinear maps, so this definition is unambiguous: it corresponds to arranging the groups of inputs in order.
+
+[^tensor-prod]: This is in fact consistent with our earlier definition: taking $W=V^*$ and handling the second input with $V^{**}\cong V$, we return to the original $v\otimes\omega$.
+
+[^lorentz-symbol]: In fact the letter $\Lambda$ is often used to refer to a more special transformation: the Lorentz transformation, which keeps the Minkowski spacetime interval $\mathrm{d}s^2$ invariant between inertial frames. Of course, we impose no such restriction here.
+
+[^matrix-inverse]: The inverse of a matrix, in tensor language, is the tensor satisfying $\Lambda^\mu{}_\rho(\Lambda^{-1})^\rho{}_\nu=\delta^\mu{}_\nu$.
+
+[^tensor-transformation]: Many physics books in fact take this as the definition of a tensor: a $(k,l)$-tensor is a set of numbers satisfying the transformation law above, without considering changes of basis.

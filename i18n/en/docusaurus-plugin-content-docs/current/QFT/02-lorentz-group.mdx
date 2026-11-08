@@ -1,5 +1,331 @@
 ---
-title: "Fields and Lorentz Transformations"
+title: "Classical Field Theory (0): Fields and Lorentz Transformations"
+sidebar_position: 3
+hide_title: true
 ---
+# Classical Field Theory (0): Fields and Lorentz Transformations
 
-{/* English translation placeholder. */}
+## 1. Why do we need fields
+
+We introduce the notion of a field with the help of a toy model. Consider a one-dimensional monatomic crystal with $N$ particles and length $l$, whose lattice constant is $a$. The particles are connected to one another by springs of stiffness $K$. Let $u_n(t)$ be the displacement of the $n$-th particle from its equilibrium position, and impose periodic boundary conditions $u_{N+1} = u_1$. Then the Lagrangian of the whole crystal can be written as
+$$
+L = T - V = \sum_{n = 1}^{N} \frac{1}{2}m\dot{u}_n^2 - \frac{1}{2}K(u_{n+1}-u_{n})^2.
+$$
+
+Unlike the way solid state physics treats phonons, we now consider the limit $N \to \infty$ with $l = Na = \text{const}$ held fixed, so that $a\to 0$ and the particles are distributed uniformly and densely over a length $l$. Following the idea of the thermodynamic limit, we define
+$$
+\rho = \frac{m}{a}, \qquad k = Ka,
+$$
+
+and require both to have a limit as $a\to 0$; this is to prevent the density and the potential energy from diverging. We now rewrite the Lagrangian:
+$$
+L = \sum_{n = 1}^{N}a\left[ \frac{1}{2}\rho\dot{u}_n^2 - \frac{1}{2}k\left(\frac{u_{n+1}-u_{n}}{a}\right)^2\right],
+$$
+and we can see that the Lagrangian now has the form of a Riemann sum. We now introduce a continuous function $\phi(t, x)$ satisfying
+$$
+u_n = \phi(t, na),
+$$
+which can always be done: Lagrangian interpolation gives an explicit construction. Setting $a\to 0$ and writing $x_n =na$, we obtain:
+$$
+\begin{aligned}
+L &= \lim_{a\to 0} \sum_{n=1}^N a\left[ \frac{1}{2}\rho\left(\partial_t \phi(t, x_n)\right)^2 - \frac{1}{2}k\left(\frac{\phi(t, x_n + a)-\phi(t, x_n)}{a}\right)^2\right]\\
+&=\lim_{a\to 0} \sum_{n=1}^N a\left[ \frac{1}{2}\rho\left(\partial_t \phi(t, x_n)\right)^2 - \frac{1}{2}k\left(\partial_x \phi(t, x_n)\right)^2\right]\\
+&= \int_0^l dx\, \frac{1}{2}\rho\left(\partial_t \phi \right)^2 - \frac{1}{2}k\left(\partial_x \phi \right)^2,
+\end{aligned}
+$$
+The second equality here is not very rigorous: it holds only when $\phi$ satisfies sufficiently good continuity conditions, which does not matter much for the problems physics is interested in. We define the **Lagrangian density** of this crystal as
+$$
+\mathcal{L}[\phi] = \frac{1}{2}\rho\left(\partial_t \phi \right)^2 - \frac{1}{2}k\left(\partial_x \phi \right)^2,
+$$
+so that the Lagrangian of the crystal can be written as
+$$
+L=\int_0^l dx\, \mathcal{L}[\phi],
+$$
+More generally, we consider three-dimensional space and extend the integration region to all of space (if the system is distributed over a finite region, it suffices to set the Lagrangian density to $0$ outside that region):
+$$
+L = \int d^3x\, \mathcal{L}[\phi].
+$$
+
+As we can see, we have fixed the Lagrangian of this crystal by means of (the derivatives of) $\phi$, so by the principle of least action the dynamics of the crystal is entirely determined by this $\phi$. We call $\phi$ the **field** describing this crystal. Of course, the discussion so far is non-relativistic, but writing down a relativistic Lagrangian density is not difficult; we will discuss it in detail later.
+
+This looks like a mere game with symbols, but it hints at something quite deep: just as analytical mechanics is far more general and extendable than Newtonian mechanics, the description that fields give of the dynamics of particles and continuous systems is far more general than the classical description by point particles. Formally, whenever we specify a field together with a restriction on the Lagrangian density, we determine a class of particles (systems).
+
+Before discussing the dynamics of fields further, let us first determine what relativity requires of the fields we use.
+
+## 2. Spacetime coordinates, the metric, and indices
+
+Relativity is used to writing the time and the three spatial coordinates together as $x^\mu=(t,\vec x)$. In the framework of relativity we define the spacetime interval
+$$
+ds^2 = -dt^2 + dx^2 + dy^2 + dz^2,
+$$
+For a more convenient formulation, we introduce the metric[^1] and the Einstein summation convention, and write the spacetime interval as
+$$
+ds^2=g_{\mu\nu}dx^\mu dx^\nu,\qquad g_{\mu\nu}=\operatorname{diag}(-1,1,1,1).
+$$
+where the Greek letters $\mu, \nu = 0, 1, 2, 3$, with $0$ standing for time and $1, 2, 3$ for space; a repeated upper and lower index means summation. We sometimes also use the Latin letters $i, j, k=1, 2, 3$ to refer to spatial coordinates.
+
+Here we have implicitly chosen Cartesian coordinates to describe spacetime. In fact there are many choices of coordinates, and they are related to one another by a coordinate transformation $x'^\mu=\Lambda^\mu{}_\nu x^\nu$.
+
+For inertial frames we find that this coordinate transformation must leave the spacetime interval invariant:
+
+$$
+g_{\mu\nu} \Lambda^\mu{}_\rho \Lambda^\nu{}_\sigma = g_{\rho \sigma},\qquad \text{or}\, \Lambda^Tg\Lambda=g.
+$$
+
+We also need to handle vectors and tensors. In the language of indices there are two kinds of vectors: $V^\mu$ is called a contravariant vector and $W_\nu$ a covariant vector, while a tensor is an array carrying several indices, such as $T^{\mu\nu}{}_{\rho \sigma}$. The metric can raise and lower indices, for example $V_\mu=g_{\mu\nu}V^\nu$.
+
+We further adopt the convention that the components of vectors and tensors transform into one another through Lorentz transformations:
+$$
+(V')^\mu = \Lambda^\mu{}_\nu V^\nu, \qquad (W')_\mu = \Lambda_\mu{}^\nu W_\nu, \qquad \Lambda^{\mu}{}_\rho \Lambda_{\nu}{}^{\rho} = \delta^\mu{}_\nu, \qquad \Lambda_{\nu}{}^\mu \equiv (\Lambda^{-1})^\mu{}_\nu.
+$$
+where $\delta^\mu{}_\nu$ is the Kronecker delta, equal to $1$ when the indices agree and $0$ otherwise; you may also regard it as the identity matrix. The transformation of higher-rank tensors is analogous: every upper index behaves like $V^\mu$ and every lower index like $W_\mu$.
+
+For more details you may consult my blog post [A Tensor Formulation of Linear Algebra](/en/blog/linear-algebra-tensors/); here we have only presented the bare minimum, and quite sloppily at that. I personally recommend finishing that blog post before reading on, as it makes things much clearer, although the introduction above is already enough.
+
+:::note
+Attentive readers may have noticed that the contravariant and covariant vectors here are exactly the other way round from what my blog post says. In fact this is a misunderstanding caused by physicists' abuse of notation ().
+
+What we wrote earlier, $x'^\mu = \Lambda^\mu{}_\nu x^\nu$, looks quite right, does it not? But on reflection, this is a notation for components; strictly speaking it should be written as $x=x^\mu e_\mu$, where $e_\mu$ is a basis. That is to say, the position vector $x$ is a vector. What we gave in the blog post, however, is the relation
+$$
+f_\mu = \Lambda^\nu{}_\mu e_\nu, 
+$$
+that is, $\Lambda^\mu{}_\nu$ is the basis transformation matrix. Under that definition the components of a vector transform by its inverse, hence "contravariant", while the components of a dual vector transform by the matrix itself, hence "covariant". With that convention the names contravariant and covariant have a clear meaning. But the relation we give here, $x'^\mu = \Lambda^\mu{}_\nu x^\nu$, says that the components of a vector transform by the transformation matrix itself, so naturally contravariant and covariant get interchanged: the contravariant components no longer transform by the "inverse", whereas the covariant ones do.
+
+We will meet the same problem in differential geometry. Mathematicians and physicists really are a pair of star-crossed lovers ().
+:::
+
+For simplicity, we sometimes write the four-dimensional inner product of two vectors as
+$$
+k \cdot x = k^\mu x_\mu = g_{\mu\nu} k^\mu x^\mu = - k^0x^0 + k^1x^1 + k^2x^2 + k^3x^3,
+$$
+and the three-dimensional inner product as
+$$
+\vec k \cdot \vec x = k^i x_i = \delta_{ij}k^i x^j =k^1x^1 + k^2x^2 + k^3x^3,
+$$
+and then use $k$ to denote the (three-dimensional) norm of $k$. The inner product of four-vectors is not positive definite, so the definition of a norm may be problematic; when we use one we usually write it out explicitly.
+
+All Lorentz transformations actually form a group, $O(3, 1)$; together with spacetime translations they form an even larger group, the Poincaré group. We mainly discuss the Lorentz transformations continuously connected to the identity, namely $SO^+(3, 1)$, a subgroup of the Lorentz group that contains all Lorentz transformations preserving the orientation of time and of space. With space inversion and time reversal adjoined, $SO^+(3, 1)$ then generates the whole of $O(3, 1)$.
+
+For the complete discussion see [The structure of the Lorentz group](./appendix-mathematical-tools/02-lorentz-group.mdx); we will not develop it further in the main text.
+
+## 3. Transformation of fields
+
+We already know that Lorentz transformations form a group. When we discuss how a field changes under a Lorentz transformation, we are in fact considering how this group acts on the function space formed by the fields. More concretely, we want to find, for every Lorentz transformation $\Lambda$, a linear operator $U(\Lambda)$ acting on the field space, and require these operators to satisfy the multiplication law of the group:
+$$
+U(\Lambda_1\Lambda_2)=U(\Lambda_1)U(\Lambda_2).
+$$
+This is precisely what group theory calls a group representation. Our baby course does not need to study anything this concrete, however; we only need to know that different types of fields have different transformation laws.
+
+We begin with the simplest case, the scalar field.
+
+### Scalar fields
+
+As the very first example suggested: a field $\phi$ is a function of the spacetime coordinates. When we choose different reference frames, the two sets of coordinates are related by a Lorentz transformation: $x'=\Lambda x$. How then do the values of $\phi(x)$ change? There are two viewpoints here: active and passive transformations.
+
+An active transformation means that the field itself is changed by the Lorentz transformation while the coordinates do not actually move: we really obtain a new field $\phi'(x)$. At the same time we want to describe the new field in terms of the original one $\phi(x)$. This sounds a little abstract, so let us imagine a rotation: the field originally at position $x$ is rotated to $\Lambda x$, which is to say
+$$
+\phi'(\Lambda x)=\phi(x),
+$$
+that is,
+$$
+\phi'(x)=\phi(\Lambda^{-1}x).
+$$
+
+A passive transformation, by contrast, means that the coordinates are changed by the Lorentz transformation while the field itself does not move: we describe the same field in a different way, and merely call the new description $\phi'(x')$. Consider a rotation again: the original position $x$ becomes $x' = \Lambda x$ after the rotation, while the field itself is unchanged, hence
+$$
+\phi'(x')=\phi(x),
+$$
+and substituting $x=\Lambda^{-1}x'$ we find that both sides are functions of $x'$, so we may rename $x'$ as $x$ and obtain
+$$
+\phi'(x) = \phi(\Lambda^{-1}x)
+$$
+
+As we can see, whichever way we argue, the result is the same. This is in fact very similar to the Heisenberg and Schrödinger pictures in quantum mechanics: the Schrödinger picture can be compared to an active transformation and the Heisenberg picture to a passive one. We will discuss this question in detail later.
+
+### Vector fields
+
+#### Contravariant vector fields
+
+We know that a field can also be a vector-valued function, for example the four-vector potential $A^\mu(x)$ of the electromagnetic field. How then does a vector field change under a Lorentz transformation? Two aspects have to be considered: on the one hand, just as for a scalar field, the Lorentz transformation changes the spacetime coordinates, so the argument of the field has to change accordingly; on the other hand, the vector itself also changes under a Lorentz transformation, so we must also consider how the components of the field transform.
+
+We adopt the passive viewpoint, because it makes the derivation easier, and we have already seen that both viewpoints give the same answer.
+
+Consider the description of one and the same vector field in different coordinate systems. For a given spacetime point the coordinates satisfy $x'=\Lambda x$, while the components of the vector change according to the Lorentz transformation law:
+$$
+A'^\mu(x')=\Lambda^\mu{}_\nu A^\nu(x).
+$$
+Substituting $x=\Lambda^{-1}x'$ and renaming the argument back to $x$, we obtain
+$$
+A'^\mu(x)=\Lambda^\mu{}_\nu A^\nu(\Lambda^{-1}x).
+$$
+Compared with the transformation law of a scalar field, we merely have an extra Lorentz transformation matrix $\Lambda^\mu{}_\nu$ on the right-hand side. This matrix acts on the components of the vector, whereas $\Lambda^{-1}$ acts on the argument of the field.
+
+#### Covariant vector fields
+
+The case of a covariant vector field is similar. We have
+$$
+A'_\mu(x') = \Lambda_{\mu}{}^\nu A_\nu(x)
+=(\Lambda^{-1})^\nu{}_\mu A_\nu(x),
+$$
+and again bringing the arguments on both sides into agreement gives
+$$
+A'_\mu(x)
+=\Lambda_{\mu}{}^\nu A_\nu(\Lambda^{-1}x).
+$$
+We find that, for a contravariant vector field $V^\mu(x)$ and a covariant vector field $W_\mu(x)$, we always have
+$$
+V'^\mu(x')W'_\mu(x')
+=V^\mu(x)W_\mu(x).
+$$
+Hence the contraction $V^\mu W_\mu$ is a scalar field, whose transformation law reduces to the case we discussed at the beginning.
+
+:::info[Contraction giving a scalar field: an example]
+The four-momentum is a common example. For $p^\mu=(E,\vec p)$, contracting it with itself gives
+$$
+p_\mu p^\mu= g_{\mu\nu} p^\mu p^\nu =-E^2+|\vec p|^2=-m^2,
+$$
+so the mass of a body is an invariant under Lorentz transformations. We call this the "mass-shell condition". The reason is that it amounts to drawing a "spherical shell" (in fact a hyperboloid) in four-dimensional spacetime: a Lorentz transformation can only "rotate" the four-momentum on this "shell", and cannot change the "length" of the four-momentum.
+
+More abstractly, this mass shell is in fact an orbit of the Lorentz group $SO^+(3,1)$. We will not elaborate on this for the moment.
+:::
+
+Similarly, for a more general tensor field we only have to consider the transformation of each index separately. For example, for a second-rank contravariant tensor field
+$$
+T'^{\mu\nu}(x)
+=\Lambda^\mu{}_\rho\Lambda^\nu{}_\sigma
+T^{\rho\sigma}(\Lambda^{-1}x).
+$$
+For tensor fields carrying both upper and lower indices the transformation law is analogous. We will not list them one by one here.
+
+#### Derivatives
+
+Finally, let us consider a slightly special example: the gradient of a scalar field. For a scalar field $\phi(x)$ we know that under a Lorentz transformation $\phi'(x')=\phi(x)$. How then should its first partial derivatives transform?
+
+Note that partial derivatives themselves depend on the choice of coordinates. By the chain rule,
+$$
+\begin{aligned}
+\partial'_\mu\phi'(x')
+&=\frac{\partial x^\nu}{\partial x'^\mu}
+\frac{\partial\phi(x)}{\partial x^\nu}\\
+&=(\Lambda^{-1})^\nu{}_\mu\partial_\nu\phi(x).
+\end{aligned}
+$$
+We find that this is exactly the transformation law of a covariant vector! Hence the gradient $\partial_\mu\phi$ of a scalar field forms a covariant vector field. Furthermore, since Lorentz transformations are linear, their matrices do not depend on the spacetime coordinates, so taking further partial derivatives of a tensor field gives analogous results. For example,
+$$
+\partial'_\mu A'^\nu(x')
+=(\Lambda^{-1})^\rho{}_\mu
+\Lambda^\nu{}_\sigma
+\partial_\rho A^\sigma(x).
+$$
+This shows that, under Lorentz transformations, the ordinary partial derivatives of a tensor field still transform as tensors.
+
+:::note
+This conclusion relies on our discussing Lorentz transformations between inertial reference frames. For a general nonlinear coordinate transformation the Jacobian matrix also depends on the coordinates, so ordinary partial derivatives no longer have this property. This is why we need to introduce covariant derivatives in general relativity (or in any discussion involving non-inertial frames).
+:::
+
+## 4. Equations and Lorentz covariance
+
+Above we discussed the behaviour of scalar, vector, and general tensor fields under Lorentz transformations. Why then do we care about these transformation laws? One important reason is that we want **the laws of physics to remain the same in all inertial reference frames**.
+
+Suppose some field equation can be written as
+$$
+F[\phi](x)=0,
+$$
+where $F[\phi]$ denotes some quantity built out of the field $\phi$ and its derivatives. If $F[\phi]$ is a scalar field, then under a Lorentz transformation it satisfies
+
+$$
+F[\phi'](x')=F[\phi](x),
+$$
+
+where $x'=\Lambda x$. Hence, if the original field satisfies $F[\phi](x)=0$, the transformed field automatically satisfies $F[\phi'](x')=0$.
+
+For example, consider the Klein–Gordon equation obtained earlier:
+
+$$
+(\partial_\mu\partial^\mu-m^2)\phi(x)=0.
+$$
+
+Note that $\phi$ is a scalar field and $\partial_\mu\phi$ is a covariant vector field, and contracting them brings us back to the scalar field $\partial^\mu\partial_\mu\phi$. In this way the left-hand side of the Klein–Gordon equation is a scalar field.
+
+We can also verify this directly. From the transformation law of partial derivatives obtained above,
+
+$$
+\partial'_\mu
+=(\Lambda^{-1})^\nu{}_\mu\partial_\nu.
+$$
+
+Since Lorentz transformations preserve the Minkowski metric, we have
+
+$$
+\begin{aligned}
+\partial'_\mu\partial'^\mu
+&=g^{\mu\nu}\partial'_\mu\partial'_\nu\\
+&=g^{\mu\nu}
+(\Lambda^{-1})^\rho{}_\mu
+(\Lambda^{-1})^\sigma{}_\nu
+\partial_\rho\partial_\sigma\\
+&=g^{\rho\sigma}\partial_\rho\partial_\sigma\\
+&=\partial_\mu\partial^\mu.
+\end{aligned}
+$$
+
+Therefore
+
+$$
+(\partial'_\mu\partial'^\mu-m^2)\phi'(x')
+=(\partial_\mu\partial^\mu-m^2)\phi(x)=0.
+$$
+
+This shows that the Klein–Gordon equation keeps its form under Lorentz transformations, and we say that it has **Lorentz covariance**.
+
+More generally, Lorentz covariance of a field equation does not require both sides to be scalars. Consider another familiar example: Maxwell's equations. Introducing the electromagnetic field tensor $F^{\mu\nu}$ and the four-current $j^\nu$, the inhomogeneous Maxwell equation can be written as
+
+$$
+\partial_\mu F^{\mu\nu} = j^\nu.
+$$
+
+Here both sides are contravariant vector fields. Under a Lorentz transformation the electromagnetic field tensor satisfies
+
+$$
+F'^{\mu\nu}(x')
+=\Lambda^\mu{}_\rho\Lambda^\nu{}_\sigma F^{\rho\sigma}(x).
+$$
+
+Hence, by the transformation law of partial derivatives,
+
+$$
+\begin{aligned}
+\partial'_\mu F'^{\mu\nu}(x')
+&=(\Lambda^{-1})^\alpha{}_\mu
+\partial_\alpha
+\left(
+\Lambda^\mu{}_\rho\Lambda^\nu{}_\sigma
+F^{\rho\sigma}(x)
+\right)\\
+&=(\Lambda^{-1})^\alpha{}_\mu
+\Lambda^\mu{}_\rho\Lambda^\nu{}_\sigma
+\partial_\alpha F^{\rho\sigma}(x)\\
+&=\Lambda^\nu{}_\sigma
+\partial_\rho F^{\rho\sigma}(x)\\
+&=\Lambda^\nu{}_\sigma j^\sigma(x)\\
+&=j'^\nu(x').
+\end{aligned}
+$$
+
+The second step uses the fact that the Lorentz transformation matrices are constant matrices (which also warns us to be careful about this point in curvilinear coordinates). We have thus shown that the inhomogeneous Maxwell equation is also Lorentz covariant.
+
+The other set of Maxwell equations can be written, using the electromagnetic field tensor, as
+
+$$
+\partial_\lambda F_{\mu\nu}
++\partial_\mu F_{\nu\lambda}
++\partial_\nu F_{\lambda\mu}=0.
+$$
+
+The left-hand side is a third-rank covariant tensor field, so it remains zero under Lorentz transformations. This shows that the homogeneous Maxwell equations are Lorentz covariant as well.
+
+From these two examples we see that, as long as the objects on both sides of a field equation have the same Lorentz transformation law, the equation holding in one inertial reference frame implies that it holds in every other inertial frame. This also gives us a basic requirement for constructing relativistic field theories later: a field equation that describes the laws of physics should be Lorentz covariant.
+
+Of course, we cannot conclude that an equation is Lorentz covariant merely because it is written as $F[\phi]=0$; we must also check whether $F[\phi]$ really satisfies the corresponding Lorentz transformation law.
+
+[^1]: The Minkowski metric is usually written $\eta_{\mu\nu}$; here we follow Seb's convention in class and write $g$ directly. This may cause some confusion, so the reader should be careful.

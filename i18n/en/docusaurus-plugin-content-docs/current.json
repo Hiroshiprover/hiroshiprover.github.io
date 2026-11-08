@@ -2,5 +2,29 @@
   "version.label": {
     "message": "Next",
     "description": "The label for version current"
+  },
+  "sidebar.defaultSidebar.category.宝宝用微分几何与纤维丛": {
+    "message": "Differential Geometry and Fibre Bundle for Babies",
+    "description": "The label for category '宝宝用微分几何与纤维丛' in sidebar 'defaultSidebar'"
+  },
+  "sidebar.defaultSidebar.category.宝宝用量子场论": {
+    "message": "Quantum Field Theory for Babies",
+    "description": "The label for category '宝宝用量子场论' in sidebar 'defaultSidebar'"
+  },
+  "sidebar.defaultSidebar.category.数学工具与补充推导": {
+    "message": "Mathematical Tools and Supplementary Derivations",
+    "description": "The label for category '数学工具与补充推导' in sidebar 'defaultSidebar'"
+  },
+  "sidebar.defaultSidebar.category.高等统计物理": {
+    "message": "Advanced Statistical Mechanics",
+    "description": "The label for category '高等统计物理' in sidebar 'defaultSidebar'"
+  },
+  "sidebar.defaultSidebar.category.6. 经典统计力学": {
+    "message": "6. Classical Statistical Mechanics",
+    "description": "The label for category '6. 经典统计力学' in sidebar 'defaultSidebar'"
+  },
+  "sidebar.defaultSidebar.category.7. 正则系综与巨正则系综": {
+    "message": "7. Canonical and Grand Canonical Ensembles",
+    "description": "The label for category '7. 正则系综与巨正则系综' in sidebar 'defaultSidebar'"
   }
 }

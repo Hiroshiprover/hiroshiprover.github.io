@@ -1,0 +1,582 @@
+---
+title: Landau–Zener 跃迁与双量子点的含时扫描
+slug: /si29-dark-state/landau-zener
+sidebar_key: landau-zener
+sidebar_position: 6
+---
+
+在上一篇笔记中，我们得到了 $S$–$T_-$ 子空间中的有效哈密顿量：
+
+$$
+H^{ST}=
+\begin{pmatrix}
+\Delta E_{ST}+b_z&L\\
+L^\dagger&0
+\end{pmatrix},
+$$
+
+其中 $\Delta E_{ST}=J(\varepsilon)-E_Z$，而 $b_z$ 和 $L$ 分别描述核自旋产生的纵向能量修正与横向跃迁耦合。
+
+由于交换耦合 $J$ 依赖于栅极控制的失谐 $\varepsilon$，我们可以让 $\varepsilon$ 随时间变化，使 $S$ 与 $T_-$ 的能量差经过零点。在这个过程中，电子可能通过超精细相互作用从单重态跃迁到三重态。
+
+这就是 Landau–Zener（LZ）跃迁问题。我们先研究通常的含时二能级系统，再将结果应用到硅双量子点。
+
+## 1. 含时二能级模型
+
+### 1.1 从 S–T₋ 哈密顿量出发
+
+在前面的模型中，$b_z$ 和 $L$ 都是作用于核自旋空间的算符。为了先理解电子的含时动力学，我们暂时将核自旋视为固定的经典矢量，把它们产生的超精细耦合看作常数。
+
+定义两个电子态之间的有效能量差
+
+$$
+\delta(t)=\Delta E_{ST}(t)+b_z,
+$$
+
+并记横向耦合为复数 $v$。于是
+
+$$
+H(t)=
+\begin{pmatrix}
+\delta(t)&v\\
+v^*&0
+\end{pmatrix}.
+$$
+
+这里仍然采用有序基底 $\{|T_-\rangle,|S\rangle\}$。
+
+由于 $v$ 的相位可以通过重新定义电子基矢消去，我们不妨取 $v=g>0$。再减去公共能量 $\delta(t)/2$，得到
+
+$$
+\boxed{
+H_{\mathrm{LZ}}(t)=
+\frac{\delta(t)}2\sigma_z+g\sigma_x
+=
+\begin{pmatrix}
+\delta(t)/2&g\\
+g&-\delta(t)/2
+\end{pmatrix}.
+}
+$$
+
+减去公共能量只会改变波函数的整体相位，不影响两个电子态之间的跃迁概率。
+
+当 $\delta(t)$ 在共振位置附近随时间近似线性变化时，可以将时间原点选在共振时刻，并写成
+
+$$
+\boxed{
+\delta(t)=\alpha t,
+}
+$$
+
+其中 $\alpha=d\delta/dt$ 是两个未耦合能级之间的相对扫描速率，量纲为能量除以时间。
+
+这就得到了标准 Landau–Zener 哈密顿量：
+
+$$
+\boxed{
+H_{\mathrm{LZ}}(t)=
+\begin{pmatrix}
+\alpha t/2&g\\
+g&-\alpha t/2
+\end{pmatrix}.
+}
+$$
+
+### 1.2 瞬时本征态与避免交叉
+
+先将时间 $t$ 当成一个固定参数，求解哈密顿量的瞬时本征值：
+
+$$
+\det(H_{\mathrm{LZ}}-E\mathbb1)=0.
+$$
+
+直接计算可得
+
+$$
+E^2-\frac{\alpha^2t^2}{4}-g^2=0,
+$$
+
+所以
+
+$$
+\boxed{
+E_\pm(t)=
+\pm\frac12\sqrt{\alpha^2t^2+4g^2}.
+}
+$$
+
+相应的能级间隔为
+
+$$
+\Delta E(t)=E_+(t)-E_-(t)
+=\sqrt{\alpha^2t^2+4g^2}.
+$$
+
+在 $t=0$ 时，能级间隔达到最小值：
+
+$$
+\boxed{\Delta E_{\min}=2g.}
+$$
+
+因此，横向耦合 $g$ 使原来的能级交叉变成了避免交叉。
+
+我们还可以将瞬时本征态表示为
+
+$$
+\begin{aligned}
+|+(t)\rangle
+&=\cos\theta(t)|T_-\rangle
++\sin\theta(t)|S\rangle,\\
+|-(t)\rangle
+&=-\sin\theta(t)|T_-\rangle
++\cos\theta(t)|S\rangle,
+\end{aligned}
+$$
+
+其中取 $0\leq\theta\leq\pi/2$，并满足
+
+$$
+\boxed{
+\tan2\theta(t)=\frac{2g}{\alpha t}.
+}
+$$
+
+这个关系需要结合 $\theta$ 的取值范围确定分支。
+
+随着 $\alpha t$ 从很大的负值变化到很大的正值，$\theta$ 从接近 $\pi/2$ 逐渐变化到接近 $0$。
+
+因此，瞬时本征态的电子自旋组成也发生了变化。例如，上方的本征态 $|+(t)\rangle$ 在扫描前后分别趋近于不同的固定电子基态。
+
+这里自然出现两种基底：
+
+- **固定基底（diabatic basis）**：$\{|T_-\rangle,|S\rangle\}$，它们的定义不随扫描时间改变。
+- **瞬时本征基底（adiabatic basis）**：$\{|+(t)\rangle,|-(t)\rangle\}$，它们随哈密顿量一起变化。
+
+Landau–Zener 跃迁可以用这两种基底描述，但使用不同基底时，「发生跃迁」所指的事件可能不同。
+
+## 2. 绝热演化与 Landau–Zener 跃迁
+
+### 2.1 什么时候可以绝热演化？
+
+假设电子在初始时刻处于某个瞬时本征态。如果哈密顿量变化足够缓慢，根据绝热定理，电子将近似始终处于对应的瞬时本征态中。
+
+对于当前的两能级系统，绝热近似是否成立取决于本征态变化的速度，以及两个瞬时能级之间的间隔。
+
+由前面的本征态表达式，可以算出
+
+$$
+\langle-(t)|\partial_t|+(t)\rangle
+=\dot\theta(t).
+$$
+
+对
+
+$$
+\tan2\theta=\frac{2g}{\alpha t}
+$$
+
+求导，得到
+
+$$
+\boxed{
+\dot\theta(t)=
+-\frac{g\alpha}{\alpha^2t^2+4g^2}.
+}
+$$
+
+因此，绝热条件可以写成
+
+$$
+\hbar|\dot\theta(t)|\ll\Delta E(t).
+$$
+
+由于 $\Delta E(t)$ 在 $t=0$ 处最小，而 $|\dot\theta(t)|$ 在这里最大，扫描经过共振位置时最容易偏离绝热演化。
+
+在 $t=0$ 时，
+
+$$
+|\dot\theta(0)|=\frac{|\alpha|}{4g},
+\qquad
+\Delta E(0)=2g.
+$$
+
+于是绝热条件在量级上要求
+
+$$
+\boxed{
+\hbar|\alpha|\ll g^2.
+}
+$$
+
+这里省略了不影响量级判断的数值因子。
+
+所以绝热性由一个无量纲参数控制：
+
+$$
+\boxed{
+\gamma=\frac{g^2}{\hbar|\alpha|}.
+}
+$$
+
+当 $\gamma\gg1$ 时，扫描相对缓慢，电子主要沿瞬时本征态演化；当 $\gamma\ll1$ 时，扫描较快，电子可能无法跟随瞬时本征态的变化。
+
+### 2.2 绝热与非绝热扫描的结果
+
+假设扫描从远离共振的位置开始，并且电子初态为 $|S\rangle$。
+
+先考虑 $\delta(t)$ 从负值扫到正值的过程。在扫描的起点和终点，都假设 $|\delta|\gg g$。
+
+如果扫描足够缓慢，电子将沿着同一条瞬时能级分支演化。由于该分支的自旋组成在避免交叉两侧发生了改变，电子的最终状态会趋近于 $|T_-\rangle$。
+
+因此，在固定的 $S/T_-$ 基底中，缓慢扫描可以使
+
+$$
+|S\rangle\longrightarrow|T_-\rangle.
+$$
+
+反过来，如果扫描非常快，电子的状态在短时间内来不及发生明显变化，那么它将主要保留在初始的 $|S\rangle$ 中。
+
+所以，在固定电子基底中：
+
+- 缓慢扫描通常具有较高的 $S\to T_-$ 转移概率。
+- 快速扫描通常具有较低的 $S\to T_-$ 转移概率。
+
+如果把初始和最终的扫描方向反过来，以上关于固定基底转移概率的结论仍然成立。
+
+这也说明了为什么必须区分两种基底：绝热演化保持的是瞬时本征态分支，但电子在固定基底中的状态可能已经改变。
+
+### 2.3 Landau–Zener 公式
+
+现在直接求解含时薛定谔方程。设电子态为
+
+$$
+|\psi(t)\rangle
+=c_T(t)|T_-\rangle+c_S(t)|S\rangle.
+$$
+
+那么
+
+$$
+i\hbar\frac{d}{dt}
+\begin{pmatrix}
+c_T\\c_S
+\end{pmatrix}
+=
+\begin{pmatrix}
+\alpha t/2&g\\
+g&-\alpha t/2
+\end{pmatrix}
+\begin{pmatrix}
+c_T\\c_S
+\end{pmatrix}.
+$$
+
+写成两个微分方程，就是
+
+$$
+\begin{aligned}
+i\hbar\dot c_T&=\frac{\alpha t}{2}c_T+gc_S,\\
+i\hbar\dot c_S&=gc_T-\frac{\alpha t}{2}c_S.
+\end{aligned}
+$$
+
+我们可以消去 $c_S$，得到关于 $c_T$ 的二阶微分方程：
+
+$$
+\boxed{
+\hbar^2\ddot c_T+
+\left(
+\frac{\alpha^2t^2}{4}
++g^2+\frac{i\hbar\alpha}{2}
+\right)c_T=0.
+}
+$$
+
+引入无量纲时间
+
+$$
+\tau=t\sqrt{\frac{|\alpha|}{\hbar}},
+$$
+
+以及前面定义的 $\gamma=g^2/(\hbar|\alpha|)$，便得到
+
+$$
+\frac{d^2c_T}{d\tau^2}
++\left(
+\frac{\tau^2}{4}+\gamma
++\frac{i\,\operatorname{sgn}(\alpha)}2
+\right)c_T=0.
+$$
+
+这个方程可以化为抛物柱函数所满足的微分方程（Weber equation）。利用其解在 $t\to\pm\infty$ 时的渐近形式，可以得到 Landau–Zener 的精确跃迁概率[^zener1932]。
+
+对于从 $t=-\infty$ 扫描到 $+\infty$ 的理想过程，保持在初始固定基态中的概率为
+
+$$
+\boxed{
+P_{\mathrm{same}}
+=\exp\left(
+-\frac{2\pi g^2}{\hbar|\alpha|}
+\right).
+}
+$$
+
+如果我们在扫描开始时准备电子为 $|S\rangle$，那么最终测得 $|T_-\rangle$ 的概率就是
+
+$$
+\boxed{
+P_{S\to T_-}
+=1-\exp\left(
+-\frac{2\pi g^2}{\hbar|\alpha|}
+\right).
+}
+$$
+
+这就是后面要使用的 Landau–Zener 公式。
+
+当 $\gamma\gg1$ 时，$P_{S\to T_-}\to1$，对应缓慢扫描；当 $\gamma\ll1$ 时，可以展开指数函数：
+
+$$
+\boxed{
+P_{S\to T_-}
+\simeq\frac{2\pi g^2}{\hbar|\alpha|}.
+}
+$$
+
+可见，在弱跃迁极限下，电子的转移概率与横向耦合强度的平方成正比，并与扫描速率成反比。
+
+这个结果也可以通过一阶含时微扰论得到。由于原来未耦合的能级差为 $\delta(t)=\alpha t$，初态与末态之间的跃迁振幅在一阶近似下满足
+
+$$
+\mathcal A_{S\to T_-}
+\simeq-\frac{ig}{\hbar}
+\int_{-\infty}^{+\infty}
+\exp\left(
+\frac{i\alpha t^2}{2\hbar}
+\right)dt.
+$$
+
+利用 Fresnel 积分，
+
+$$
+\left|
+\int_{-\infty}^{+\infty}
+e^{i\alpha t^2/(2\hbar)}dt
+\right|^2
+=\frac{2\pi\hbar}{|\alpha|},
+$$
+
+就得到
+
+$$
+|\mathcal A_{S\to T_-}|^2
+\simeq\frac{2\pi g^2}{\hbar|\alpha|},
+$$
+
+与精确公式在弱跃迁极限下的展开一致。
+
+## 3. 双量子点中的有限时间扫描
+
+### 3.1 栅极扫描与能级差
+
+回到硅双量子点。上一节的 $\delta(t)$ 是两个未耦合电子态的能量差，而实验中直接控制的是栅极电压。
+
+根据此前的模型，
+
+$$
+\delta(t)=J[\varepsilon(t)]-E_Z+b_z.
+$$
+
+如果我们将核场暂时视为常数，那么
+
+$$
+\frac{d\delta}{dt}
+=\frac{dJ}{d\varepsilon}
+\frac{d\varepsilon}{dt}.
+$$
+
+所以，即使栅极失谐 $\varepsilon(t)$ 线性变化，电子态的能量差 $\delta(t)$ 也未必严格线性，因为 $J(\varepsilon)$ 通常具有非线性的依赖关系。
+
+不过，在共振位置附近，我们可以将它作 Taylor 展开：
+
+$$
+\delta(t)
+\simeq\delta(t_*)+
+\dot\delta(t_*)(t-t_*),
+$$
+
+其中 $t_*$ 是满足 $\delta(t_*)=0$ 的共振时刻。于是
+
+$$
+\delta(t)\simeq
+\alpha(t-t_*),
+\qquad
+\alpha=\dot\delta(t_*).
+$$
+
+这样就回到了 Landau–Zener 模型。
+
+### 3.2 能量单位与频率单位
+
+蔡老师的论文在数值模拟中，将电子哈密顿量中的能量除以 Planck 常数 $h$，用 GHz 表示对应的频率。为了直接比较原论文，定义
+
+$$
+\delta_f=\frac{\delta}{h},
+\qquad
+\nu=\frac{g}{h},
+\qquad
+\beta=\left|\frac{d\delta_f}{dt}\right|.
+$$
+
+注意这里使用的是普通频率，角频率需要再乘以 $2\pi$。
+
+将它们代入 Landau–Zener 公式，
+
+$$
+P_{S\to T_-}
+=1-\exp\left[
+-\frac{2\pi(h\nu)^2}{\hbar h\beta}
+\right].
+$$
+
+利用 $h=2\pi\hbar$，得到
+
+$$
+\boxed{
+P_{S\to T_-}
+=1-\exp\left(
+-\frac{4\pi^2\nu^2}{\beta}
+\right).
+}
+$$
+
+对于双量子点，横向耦合频率就是原论文中的 $\Delta_{ST}=|v^\pm|$，所以
+
+$$
+\boxed{
+P_T
+=1-\exp\left[
+-\frac{(2\pi)^2\Delta_{ST}^2}{\beta}
+\right].
+}
+$$
+
+这正是蔡老师论文用于分析 LZ 跃迁概率的表达式[^cai2025]。
+
+当跃迁概率较小时，
+
+$$
+\boxed{
+P_T\simeq
+\frac{(2\pi)^2\Delta_{ST}^2}{\beta}.
+}
+$$
+
+这个公式提供了一种实验上很方便的测量方式：如果已知扫描速率 $\beta$，就可以通过测量电子的 $S\to T_-$ 转移概率，推断横向超精细耦合的强度。
+
+### 3.3 实验中的扫描协议
+
+以蔡老师论文 Fig. 2 中的实验为例，电子首先被初始化为单重态，然后通过栅极电压扫过 $S-T_-$ 避免交叉，最后测量电子处于三重态的概率。
+
+实验中的扫描失谐范围为 $6.2$–$7.7\,\mathrm{mV}$，扫描持续 $5\,\mu\mathrm{s}$。在对应的半经典数值模拟中，未计入纵向核场的能级差 $\Delta E_{ST}$ 近似从 $0.004\,\mathrm{GHz}$ 变化到 $-0.010\,\mathrm{GHz}$。
+
+因此，按扫描速率的绝对值计算，
+
+$$
+\begin{aligned}
+\beta
+&=\left|\frac{\Delta(\Delta E_{ST}/h)}{\Delta t}\right|\\
+&=\frac{0.014\,\mathrm{GHz}}{5000\,\mathrm{ns}}\\
+&=2.8\times10^{-6}\,\mathrm{GHz/ns}.
+\end{aligned}
+$$
+
+这里把原论文给出的 GHz 数值理解为能量除以 $h$ 后的频率，并且用同样的频率单位表示扫描速率。
+
+在 Fig. 2 的泵浦序列中，下一次扫描前的间隔为 $27\,\mu\mathrm{s}$。每完成一次扫描，还要进行电子态的读出与重新初始化。实验将这样的泵浦循环重复 64 次，然后暂停泵浦 $5.12\,\mathrm{ms}$。[^cai2025]
+
+这些时间尺度也决定了核自旋在不同阶段能够发生多少进动与退相干。我们在下一篇研究完整泵浦循环时再讨论它们。
+
+### 3.4 有限扫描与数值演化
+
+标准 Landau–Zener 公式假设扫描从 $t=-\infty$ 持续到 $+\infty$，而实验中的扫描始终有确定的起点和终点。
+
+因此，实际计算时我们考虑有限时间区间 $[t_i,t_f]$，由含时薛定谔方程求出演化算符
+
+$$
+\boxed{
+U(t_f,t_i)
+=\mathcal T\exp\left[
+-\frac{i}{\hbar}
+\int_{t_i}^{t_f}H(t)\,dt
+\right],
+}
+$$
+
+其中 $\mathcal T$ 表示时间排序。
+
+如果电子初态是 $|S\rangle$，那么扫描后的三重态概率为
+
+$$
+\boxed{
+P_T=
+|\langle T_-|U(t_f,t_i)|S\rangle|^2.
+}
+$$
+
+当扫描起点和终点都远离避免交叉，且能级差在共振附近近似线性时，标准 LZ 公式通常能够给出很好的近似。
+
+对于较短的扫描区间，则需要直接求解含时薛定谔方程。即使扫描速率与耦合强度相同，改变扫描的起点和终点，也可能改变最终的跃迁概率。
+
+在双量子点中，还有一个需要考虑的因素：纵向核场 $b_z$ 会改变共振位置。
+
+根据
+
+$$
+\delta(t)=\Delta E_{ST}(t)+b_z,
+$$
+
+如果 $b_z$ 发生变化，那么满足 $\delta(t)=0$ 的时刻也会改变。对于有限的扫描窗口，共振位置可能逐渐靠近扫描边界，甚至移出扫描范围。
+
+因此，测得的 $P_T$ 下降可以来自横向耦合减弱，也可能与扫描未能充分经过共振位置有关。
+
+这两种情况在后面的核自旋暗态研究中需要加以区分。
+
+## 4. 从一次扫描到核自旋泵浦
+
+我们现在知道，对于固定的横向核场，Landau–Zener 扫描使电子以一定概率从 $S$ 跃迁到 $T_-$，而这个概率取决于横向耦合强度与扫描速率。
+
+但电子与核自旋的超精细相互作用还具有另一个重要性质：电子发生 $S\to T_-$ 跃迁时，它的总自旋 $z$ 分量减少一个单位，相应的核自旋系统可以增加一个单位的角动量。
+
+因此，一次 LZ 扫描既可以改变电子自旋态，也可能改变核自旋的状态。
+
+如果扫描结束后将电子重新初始化为单重态，再进行下一次扫描，核自旋所产生的横向耦合就可能与上一次不同。
+
+于是，第 $n$ 次扫描的跃迁概率与第 $n+1$ 次扫描的跃迁概率之间，会通过核自旋的动力学建立联系。
+
+在蔡老师的论文中，电子采用量子力学描述，而各个核自旋采用经典矢量描述。每次扫描期间，电子态决定核自旋所受到的有效 Knight 场，核自旋则通过超精细耦合反过来影响电子态。重复这一过程，可以形成具有较低横向耦合的核自旋暗态。
+
+如果我们将核自旋也量子化，就需要回到此前得到的算符形式：
+
+$$
+\boxed{
+H^{ST}(t)=
+\begin{pmatrix}
+\Delta E_{ST}(t)+\hat b_z&\hat L\\
+\hat L^\dagger&0
+\end{pmatrix}.
+}
+$$
+
+此时 $\hat L$ 和 $\hat b_z$ 都是核自旋算符，电子与核自旋需要共同演化。我们还需要在哈密顿量中加入核自旋自身的 Zeeman 项。
+
+一次扫描结束后，除了计算电子的三重态概率，还必须确定核自旋处于什么状态。这个新的核态将成为下一次扫描的初态。
+
+下一篇我们就从电子—核联合态出发，研究一次 LZ 扫描、电子测量及重置如何组成一个完整的量子动力学循环。
+
+---
+
+[^zener1932]: C. Zener, *Non-adiabatic crossing of energy levels*, Proceedings of the Royal Society A **137**, 696–702 (1932). [DOI](https://doi.org/10.1098/rspa.1932.0165).
+
+[^cai2025]: X. Cai, H. Y. Walelign, and J. M. Nichol, *The formation of a nuclear-spin dark state in silicon*, Nature Physics **21**, 536–541 (2025). [DOI](https://doi.org/10.1038/s41567-024-02773-w).

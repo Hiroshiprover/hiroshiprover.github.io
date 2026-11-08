@@ -1,0 +1,9 @@
+{
+  "label": "Si-29 核自旋动力学与暗态",
+  "position": 2,
+  "link": {
+    "type": "doc",
+    "id": "si29-dark-state/index"
+  },
+  "key": "si29-dark-state"
+}

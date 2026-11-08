@@ -1,0 +1,943 @@
+---
+title: 核自旋暗态与集体角动量
+slug: /si29-dark-state/nuclear-dark-state
+sidebar_key: nuclear-dark-state
+sidebar_position: 8
+---
+
+在上一篇笔记中，我们将反复 Landau–Zener（LZ）扫描、电子测量与重置描述为作用于核自旋密度矩阵的量子通道：
+
+$$
+\rho_{n+1}
+=\mathcal W\left[\Phi(\rho_n)\right].
+$$
+
+这里 $\Phi$ 描述一次扫描及电子重置对核态的影响，$\mathcal W$ 描述相邻扫描之间的核自旋演化。
+
+我们已经知道，反复泵浦可以向核自旋系统转移角动量。但在蔡老师的实验中，随着泵浦进行，电子的 $S\to T_-$ 跃迁概率反而迅速下降。这说明核自旋系统逐渐进入了一种与电子弱耦合的状态，即核自旋暗态（nuclear-spin dark state）[^cai2025]。
+
+现在我们从量子力学的角度研究这种状态的结构，并利用之前建立的均匀耦合模型，考虑如何简化多核自旋系统的计算。
+
+## 1. 什么是核自旋暗态？
+
+### 1.1 半经典模型中的暗态
+
+先回忆之前得到的 $S$–$T_-$ 有效哈密顿量：
+
+$$
+H^{ST}(t)=
+\begin{pmatrix}
+\Delta E_{ST}(t)+b_z&L\\
+L^\dagger&0
+\end{pmatrix},
+$$
+
+其中
+
+$$
+\boxed{
+\begin{aligned}
+L&=\frac1{2\sqrt2}
+\left(a_1J_1^+-a_2J_2^+\right),\\
+b_z&=-\frac12
+\left(a_1J_1^z+a_2J_2^z\right).
+\end{aligned}
+}
+$$
+
+这里 $a_i=\mathcal A_i/N_i$，而 $\mathbf J_i$ 是第 $i$ 个量子点中的集体核自旋算符。
+
+在蔡老师论文采用的半经典模型中，核自旋被当作经典矢量处理。因此，横向耦合可以写成一个复数：
+
+$$
+v=\frac1{2\sqrt2}
+\left(a_1J_1^+-a_2J_2^+\right),
+$$
+
+其中右边的 $J_i^+=J_i^x+iJ_i^y$ 现在表示经典核自旋的横向分量。
+
+我们已经知道，普通二能级 Landau–Zener 模型中的跃迁概率由横向耦合强度决定。当 $|v|$ 趋近于零时，电子在两个态之间的跃迁也受到抑制。
+
+因此，在半经典模型中，可以用
+
+$$
+\boxed{
+a_1J_1^+-a_2J_2^+\approx0
+}
+$$
+
+描述横向耦合受到抑制的状态。
+
+如果两个点的横向核自旋场具有相同的幅度与相位，它们对 $S\to T_-$ 跃迁的贡献就会互相抵消。
+
+蔡老师的半经典模拟表明，反复泵浦能够使两个量子点中的横向核自旋逐渐形成同步进动，从而降低电子与核自旋之间的横向耦合。实验中，反复泵浦后提取的均方根 $S$–$T_-$ 耦合强度也明显下降[^cai2025]。
+
+现在我们考虑：如果核自旋本身也是量子系统，这个条件应该怎样表达？
+
+### 1.2 量子暗态的定义
+
+恢复核自旋的量子描述，此时
+
+$$
+L=\frac1{2\sqrt2}
+\left(a_1J_1^+-a_2J_2^+\right)
+$$
+
+是作用于核自旋 Hilbert 空间的算符。
+
+考虑一个纯核态 $|\psi\rangle$，并将电子初始化为单重态。联合初态为
+
+$$
+|\Psi\rangle=|S\rangle\otimes|\psi\rangle.
+$$
+
+由有效哈密顿量中的非对角项可知，
+
+$$
+\begin{aligned}
+&\left(
+|T_-\rangle\langle S|\otimes L
+\right)
+\left(
+|S\rangle\otimes|\psi\rangle
+\right)\\
+&\qquad=|T_-\rangle\otimes L|\psi\rangle.
+\end{aligned}
+$$
+
+所以，$L|\psi\rangle$ 正是电子从 $S$ 跃迁到 $T_-$ 时对应的核态振幅。
+
+如果某个核态 $|D\rangle$ 满足
+
+$$
+\boxed{
+L|D\rangle=0,
+}
+$$
+
+那么超精细相互作用就无法通过这个通道将电子从 $S$ 转移到 $T_-$。
+
+我们将满足这个条件的核态称为理想暗态。所有这样的核态构成算符 $L$ 的零空间：
+
+$$
+\boxed{
+\mathcal H_D=\ker L.
+}
+$$
+
+相应地，不属于这个零空间、能够通过 $L$ 参与电子跃迁的核态，可以称为亮态（bright state）。
+
+这里的暗态是针对 $S\to T_-$ 跃迁通道定义的。它的具体形式由电子与核自旋之间的耦合算符决定。
+
+### 1.3 混合态与平均耦合强度
+
+实际核自旋系统一般处于混合态，因此我们还需要建立一个适用于密度矩阵的暗态指标。
+
+对于纯态 $|\psi\rangle$，考虑
+
+$$
+\|L|\psi\rangle\|^2
+=\langle\psi|L^\dagger L|\psi\rangle.
+$$
+
+由于这个量非负，它为零当且仅当 $L|\psi\rangle=0$。
+
+对于一般密度矩阵 $\rho_{\mathrm n}$，自然定义
+
+$$
+\boxed{
+C(\rho_{\mathrm n})
+=\operatorname{Tr}
+\left(\rho_{\mathrm n}L^\dagger L\right).
+}
+$$
+
+我们将它称为核态的平均耦合强度平方。
+
+如果将密度矩阵作谱分解，
+
+$$
+\rho_{\mathrm n}
+=\sum_\alpha p_\alpha
+|\psi_\alpha\rangle\langle\psi_\alpha|,
+\qquad p_\alpha\geq0,
+$$
+
+那么
+
+$$
+\begin{aligned}
+C(\rho_{\mathrm n})
+&=\sum_\alpha p_\alpha
+\langle\psi_\alpha|L^\dagger L|\psi_\alpha\rangle\\
+&=\sum_\alpha p_\alpha
+\|L|\psi_\alpha\rangle\|^2.
+\end{aligned}
+$$
+
+因此
+
+$$
+\boxed{
+C(\rho_{\mathrm n})=0
+}
+$$
+
+当且仅当 $\rho_{\mathrm n}$ 的支持空间完全包含在 $\ker L$ 中。
+
+这样，我们就把暗态的概念推广到了混合态。
+
+对于反复泵浦过程，可以定义
+
+$$
+\boxed{
+C_n=\operatorname{Tr}
+\left(\rho_nL^\dagger L\right),
+}
+$$
+
+并观察它随泵浦次数的变化。
+
+如果 $C_n$ 逐渐降低，就意味着核态对 $S\to T_-$ 跃迁的平均耦合强度正在减弱。
+
+## 2. 暗态与核自旋关联
+
+### 2.1 为什么平均核场不足以描述暗态？
+
+在半经典模型中，横向核场可以通过经典矢量直接表示。对于量子模型，一个看起来类似的量是
+
+$$
+\langle L\rangle
+=\operatorname{Tr}(\rho_{\mathrm n}L).
+$$
+
+但我们需要区分 $\langle L\rangle$ 和 $C(\rho_{\mathrm n})$。
+
+例如，对于完全无极化的核自旋初态，
+
+$$
+\rho_{\mathrm n}^{(0)}
+=\frac{\mathbb1}{2^N},
+$$
+
+由于升降算符的迹为零，
+
+$$
+\langle L\rangle=0.
+$$
+
+这并不意味着核自旋已经进入暗态。
+
+事实上，
+
+$$
+\begin{aligned}
+C(\rho_{\mathrm n})
+&=\langle L^\dagger L\rangle\\
+&=|\langle L\rangle|^2
++\left(
+\langle L^\dagger L\rangle
+-|\langle L\rangle|^2
+\right).
+\end{aligned}
+$$
+
+括号中的第二项描述 $L$ 的量子统计涨落，并且非负。
+
+所以，即使平均横向核场为零，核态仍然可能具有非零的跃迁耦合强度。
+
+对于我们研究的量子暗态，需要计算 $L^\dagger L$ 的期望值。
+
+### 2.2 横向核自旋关联
+
+现在将 $L$ 的具体表达式代入 $C$：
+
+$$
+L=\frac1{2\sqrt2}
+\left(a_1J_1^+-a_2J_2^+\right).
+$$
+
+假设 $a_1,a_2$ 为实数，则
+
+$$
+\begin{aligned}
+L^\dagger L
+=\frac18\Big[
+&a_1^2J_1^-J_1^+
++a_2^2J_2^-J_2^+\\
+&-a_1a_2
+\left(J_1^-J_2^++J_2^-J_1^+\right)
+\Big].
+\end{aligned}
+$$
+
+因此
+
+$$
+\boxed{
+\begin{aligned}
+C=\frac18\Big[
+&a_1^2\langle J_1^-J_1^+\rangle
++a_2^2\langle J_2^-J_2^+\rangle\\
+&-2a_1a_2\operatorname{Re}
+\langle J_1^-J_2^+\rangle
+\Big].
+\end{aligned}
+}
+$$
+
+这个表达式包含两个点各自的核自旋涨落，以及它们之间的横向关联。
+
+其中
+
+$$
+\langle J_1^-J_2^+\rangle
+$$
+
+描述两个核自旋集合之间的关联。它可以通过与前两项相消，使总耦合强度降低。
+
+在量子模型中，这个关联既可以包含两个量子点之间的经典统计关联，也可以包含核自旋态中的量子相干。我们需要通过具体的核态来分析它们的贡献。
+
+例如，对于独立且无极化的 $N_i$ 个自旋 $1/2$，有
+
+$$
+\langle J_i^-J_i^+\rangle=\frac{N_i}{2},
+\qquad
+\langle J_1^-J_2^+\rangle=0.
+$$
+
+因此，最大混合初态的耦合强度为
+
+$$
+\boxed{
+C_0=\frac1{16}
+\left(a_1^2N_1+a_2^2N_2\right).
+}
+$$
+
+再代入 $a_i=\mathcal A_i/N_i$，得到
+
+$$
+\boxed{
+C_0=\frac1{16}
+\left(
+\frac{\mathcal A_1^2}{N_1}
++\frac{\mathcal A_2^2}{N_2}
+\right).
+}
+$$
+
+这个结果也给出了完全无极化核态中的初始超精细耦合涨落。
+
+## 3. 一个双核自旋暗态
+
+### 3.1 构造暗态
+
+为了观察量子相干如何使跃迁耦合相消，我们考虑最简单的双核模型：每个量子点只有一个自旋 $1/2$ 的核，而且它们与电子的耦合系数相同。
+
+此时可以写成
+
+$$
+\boxed{
+L=\lambda(I_1^+-I_2^+),
+}
+$$
+
+其中 $\lambda$ 是实数。
+
+我们先考虑两个核的总 $z$ 分量为零的子空间：
+
+$$
+\mathcal H_0
+=\operatorname{span}
+\{|\uparrow\downarrow\rangle,
+|\downarrow\uparrow\rangle\}.
+$$
+
+对两个基矢分别作用 $L$，得到
+
+$$
+\begin{aligned}
+L|\uparrow\downarrow\rangle
+&=-\lambda|\uparrow\uparrow\rangle,\\
+L|\downarrow\uparrow\rangle
+&=\lambda|\uparrow\uparrow\rangle.
+\end{aligned}
+$$
+
+因此，考虑它们的对称叠加：
+
+$$
+\boxed{
+|D\rangle
+=\frac{
+|\uparrow\downarrow\rangle+
+|\downarrow\uparrow\rangle
+}{\sqrt2}.
+}
+$$
+
+直接计算，
+
+$$
+\begin{aligned}
+L|D\rangle
+&=\frac{\lambda}{\sqrt2}
+\left(
+-|\uparrow\uparrow\rangle
++|\uparrow\uparrow\rangle
+\right)\\
+&=0.
+\end{aligned}
+$$
+
+所以，$|D\rangle$ 是一个理想核自旋暗态。
+
+注意，这个态的纵向极化为
+
+$$
+\langle D|I_1^z+I_2^z|D\rangle=0.
+$$
+
+它并没有完全极化，却仍然能够使横向跃迁耦合严格为零。
+
+### 3.2 亮态及其跃迁耦合
+
+在同一个子空间中，我们还可以构造一个与 $|D\rangle$ 正交的态：
+
+$$
+\boxed{
+|B\rangle
+=\frac{
+|\downarrow\uparrow\rangle-
+|\uparrow\downarrow\rangle
+}{\sqrt2}.
+}
+$$
+
+对它作用 $L$，
+
+$$
+\begin{aligned}
+L|B\rangle
+&=\frac{\lambda}{\sqrt2}
+\left(
+|\uparrow\uparrow\rangle+
+|\uparrow\uparrow\rangle
+\right)\\
+&=\sqrt2\lambda|\uparrow\uparrow\rangle.
+\end{aligned}
+$$
+
+因此
+
+$$
+\boxed{
+\langle B|L^\dagger L|B\rangle
+=2\lambda^2,
+}
+$$
+
+而
+
+$$
+\boxed{
+\langle D|L^\dagger L|D\rangle=0.
+}
+$$
+
+这两个态具有相同的纵向极化，但与电子的跃迁耦合完全不同。
+
+差别来自两个核自旋之间的相对量子相位。
+
+我们再考虑一个没有相干项的混合态：
+
+$$
+\rho_{\mathrm{mix}}
+=\frac12\left(
+|\uparrow\downarrow\rangle\langle\uparrow\downarrow|
++
+|\downarrow\uparrow\rangle\langle\downarrow\uparrow|
+\right).
+$$
+
+对于这个混合态，
+
+$$
+\langle L\rangle_{\mathrm{mix}}=0,
+$$
+
+但
+
+$$
+\boxed{
+\operatorname{Tr}
+(\rho_{\mathrm{mix}}L^\dagger L)
+=\lambda^2.
+}
+$$
+
+与之相比，纯暗态 $|D\rangle$ 的耦合强度严格为零。
+
+所以在这个简单例子中，两个核自旋的量子相干使原本存在的跃迁振幅发生相消。
+
+### 3.3 完全极化与关联暗态
+
+另一个很容易找到的暗态是
+
+$$
+|\uparrow\uparrow\rangle.
+$$
+
+因为两个核自旋都已经达到最高的 $z$ 分量，
+
+$$
+I_1^+|\uparrow\uparrow\rangle
+=I_2^+|\uparrow\uparrow\rangle=0.
+$$
+
+于是
+
+$$
+L|\uparrow\uparrow\rangle=0.
+$$
+
+这给出了两种不同的暗态形成方式。
+
+一种是核自旋已经完全极化，无法再通过升算符增加角动量；另一种则是不同核自旋的跃迁振幅发生相消，即使系统尚未完全极化，也能够使耦合受到抑制。
+
+在更一般的多核系统中，暗态可以具有不同程度的极化、纯度和核自旋关联。类似的多体核自旋暗态在较早的理论研究中已经被讨论过[^taylor2003]。
+
+对于我们接下来研究的数值模型，需要同时计算耦合强度和纵向极化，才能判断泵浦过程中究竟发生了什么。
+
+## 4. 集体角动量与 Hilbert 空间分块
+
+### 4.1 均匀耦合下的守恒量
+
+现在回到具有 $N_1$ 和 $N_2$ 个核自旋的双量子点。
+
+在 box model 中，我们定义
+
+$$
+\mathbf J_i
+=\sum_{k=1}^{N_i}\mathbf I_{ik}.
+$$
+
+回忆角动量代数，
+
+$$
+[J_i^\alpha,J_i^\beta]
+=i\sum_\gamma
+\epsilon_{\alpha\beta\gamma}J_i^\gamma,
+$$
+
+以及
+
+$$
+[\mathbf J_i^2,J_i^\alpha]=0.
+$$
+
+对于不同量子点的核自旋算符，还有
+
+$$
+[J_1^\alpha,J_2^\beta]=0.
+$$
+
+我们之前得到的哈密顿量只通过 $J_i^z$ 和 $J_i^\pm$ 与核自旋发生耦合。
+
+如果核自身的哈密顿量也只包含集体角动量算符，例如均匀磁场下的核 Zeeman 项，那么
+
+$$
+\boxed{
+[H(t),\mathbf J_1^2]
+=[H(t),\mathbf J_2^2]=0.
+}
+$$
+
+这意味着，在我们目前采用的均匀耦合模型中，两个量子点各自的总角动量量子数 $j_1,j_2$ 都是守恒的。
+
+因此，我们可以用共同本征态
+
+$$
+|j_1,m_1\rangle\otimes|j_2,m_2\rangle
+$$
+
+表示核自旋系统。
+
+其中
+
+$$
+\begin{aligned}
+\mathbf J_i^2|j_i,m_i\rangle
+&=j_i(j_i+1)|j_i,m_i\rangle,\\
+J_i^z|j_i,m_i\rangle
+&=m_i|j_i,m_i\rangle.
+\end{aligned}
+$$
+
+升降算符满足
+
+$$
+\boxed{
+J_i^\pm|j_i,m_i\rangle
+=\sqrt{(j_i\mp m_i)(j_i\pm m_i+1)}
+|j_i,m_i\pm1\rangle.
+}
+$$
+
+于是，我们已经知道如何计算哈密顿量在这组基底下的矩阵元。
+
+### 4.2 固定总角动量的子空间
+
+考虑一个由 $N$ 个自旋 $1/2$ 组成的核自旋集合，其完整 Hilbert 空间为
+
+$$
+\mathcal H_N=(\mathbb C^2)^{\otimes N},
+$$
+
+维数为 $2^N$。
+
+通过角动量合成，我们可以将它分解为不同总角动量 $j$ 对应的子空间：
+
+$$
+\boxed{
+\mathcal H_N
+=\bigoplus_j
+\left(
+\mathcal V_j\otimes\mathbb C^{d_{N,j}}
+\right),
+}
+$$
+
+其中 $\mathcal V_j$ 是维数为 $2j+1$ 的角动量表示空间，而 $d_{N,j}$ 表示这个角动量表示在 $N$ 个自旋的张量积中出现的次数。
+
+允许的 $j$ 为
+
+$$
+j=\begin{cases}
+0,1,\ldots,N/2,&N\text{ 为偶数},\\
+1/2,3/2,\ldots,N/2,&N\text{ 为奇数}.
+\end{cases}
+$$
+
+例如，两个自旋 $1/2$ 的角动量合成给出
+
+$$
+\frac12\otimes\frac12=0\oplus1.
+$$
+
+因此，两个核自旋的 Hilbert 空间可以分成一个 $j=0$ 的一维子空间，以及一个 $j=1$ 的三维子空间。
+
+对于一般的 $N$，角动量 $j$ 对应的重数为
+
+$$
+\boxed{
+d_{N,j}
+=\binom{N}{N/2-j}
+-\binom{N}{N/2-j-1}.
+}
+$$
+
+这里约定组合数的下标超出 $0,\ldots,N$ 时取零。
+
+在均匀耦合模型中，集体角动量算符不改变 $j$，也不改变相同 $j$ 表示之间的重数标记。因此，我们可以在每个固定 $j$ 的表示空间中分别进行计算。
+
+对于双量子点，如果固定了 $j_1,j_2$，核空间的维数就成为
+
+$$
+(2j_1+1)(2j_2+1).
+$$
+
+再考虑电子的 $S$–$T_-$ 二维子空间，联合空间的维数为
+
+$$
+\boxed{
+D_{j_1j_2}
+=2(2j_1+1)(2j_2+1).
+}
+$$
+
+与原来 $2^{N_1+N_2+1}$ 的维数相比，这为我们提供了显著降低计算规模的可能性。
+
+### 4.3 热初态包含哪些总角动量？
+
+现在考虑一个实际问题：我们应该选择哪个 $j$ 来计算？
+
+对于 $N$ 个自旋 $1/2$，最大的总角动量为
+
+$$
+j_{\max}=\frac N2.
+$$
+
+这个扇区对应完全对称的核自旋态，维数为 $N+1$，计算起来非常方便。
+
+但我们之前考虑的初始核态是
+
+$$
+\rho_{\mathrm n}^{(0)}
+=\frac{\mathbb1}{2^N}.
+$$
+
+它包含了整个 Hilbert 空间中所有允许的总角动量扇区。
+
+在最大混合态中，总角动量为 $j$ 的概率权重为
+
+$$
+\boxed{
+p_j=\frac{(2j+1)d_{N,j}}{2^N}.
+}
+$$
+
+其中 $(2j+1)$ 是单个角动量表示的维数，$d_{N,j}$ 是它在完整空间中的重数。
+
+例如，对于两个核自旋，有 $j=0$ 和 $j=1$ 两种可能。它们在最大混合态中的权重分别为
+
+$$
+p_0=\frac14,\qquad p_1=\frac34.
+$$
+
+如果核数增加，最大 $j=N/2$ 的子空间虽然仍然容易计算，但它只占整个 Hilbert 空间中很小的一部分：
+
+$$
+p_{N/2}=\frac{N+1}{2^N}.
+$$
+
+因此，如果我们从无极化热初态出发，就需要考虑不同 $j$ 扇区的贡献。
+
+在均匀耦合模型中，哈密顿量不会改变每个点的 $j_i$，而电子测量与重置所诱导的核态通道同样保留这种分块结构。
+
+于是，对于初始时在各扇区之间没有相干的核态，我们可以分别求解不同 $(j_1,j_2)$ 扇区中的动力学，再按照初态权重求平均。
+
+例如，一个观测量 $O$ 的平均值可以表示为
+
+$$
+\boxed{
+\langle O\rangle
+=\sum_{j_1,j_2}
+p_{j_1}^{(1)}p_{j_2}^{(2)}
+\langle O\rangle_{j_1j_2},
+}
+$$
+
+其中这里假设两个量子点的初态相互独立，并且 $O$ 可以按照相同的扇区分块。
+
+这为我们提供了一种在保持量子描述的同时，利用角动量守恒降低计算量的方法。
+
+## 5. 暗态的演化与稳定性
+
+### 5.1 暗态在等待期间会发生什么？
+
+我们已经定义了理想暗态：
+
+$$
+L|D\rangle=0.
+$$
+
+现在考虑它在等待期间的演化。
+
+如果等待期间只有核 Zeeman 项，
+
+$$
+H_{\mathrm n}
+=-g_n\mu_NB(J_1^z+J_2^z),
+$$
+
+那么两个量子点中的 $^{29}\mathrm{Si}$ 核具有相同的进动频率。
+
+记
+
+$$
+J_{\mathrm{tot}}^z=J_1^z+J_2^z.
+$$
+
+由于
+
+$$
+[J_{\mathrm{tot}}^z,L]=L,
+$$
+
+所以核自旋的共同进动不会改变 $L$ 的零空间。
+
+具体来说，如果初态满足 $L|D\rangle=0$，那么在共同 Zeeman 演化之后，
+
+$$
+|D(t)\rangle
+=e^{-iH_{\mathrm n}t/\hbar}|D\rangle
+$$
+
+仍然满足
+
+$$
+\boxed{
+L|D(t)\rangle=0.
+}
+$$
+
+因此，核自旋可以随时间进动，同时保持暗态条件。
+
+在蔡老师论文的半经典图像中，暗态正是与两个量子点的横向核自旋同步进动联系在一起的[^cai2025]。
+
+如果两个量子点中的核自旋受到不同的局部磁场，它们就可能以不同频率进动。原本能够相消的横向跃迁振幅随之获得不同的相位，从而使耦合重新出现。
+
+对于真实器件，核自旋所受到的局部磁场还会受到环境噪声等因素影响，这些因素可以限制暗态的寿命。
+
+### 5.2 暗态与泵浦通道
+
+回忆上一篇得到的一次泵浦通道：
+
+$$
+\Phi(\rho_{\mathrm n})
+=M_S\rho_{\mathrm n}M_S^\dagger
++M_T\rho_{\mathrm n}M_T^\dagger,
+$$
+
+其中
+
+$$
+M_a=\langle a|U_{\mathrm{LZ}}|S\rangle.
+$$
+
+如果核态 $|D\rangle$ 满足 $L|D\rangle=0$，并且在扫描期间的核自身演化保持暗态子空间，那么初始联合态
+
+$$
+|S\rangle\otimes|D\rangle
+$$
+
+不会通过 $L$ 产生 $T_-$ 分量。
+
+在这种情况下，
+
+$$
+\boxed{
+M_T|D\rangle=0.
+}
+$$
+
+相应的电子三重态概率为
+
+$$
+p_T=\|M_T|D\rangle\|^2=0.
+$$
+
+所以暗态可以阻止这一特定电子跃迁通道。
+
+反复泵浦时，核态是否能够逐渐进入这样的零空间，取决于完整的泵浦通道。
+
+记一个完整的泵浦周期为
+
+$$
+\mathcal E=\mathcal W\circ\Phi.
+$$
+
+那么核态满足
+
+$$
+\rho_{n+1}=\mathcal E(\rho_n).
+$$
+
+如果存在一个密度矩阵 $\rho_*$，使得
+
+$$
+\boxed{
+\mathcal E(\rho_*)=\rho_*,
+}
+$$
+
+我们就称它为泵浦通道的定态（fixed point）。
+
+在一个理想泵浦模型中，暗态可能构成通道的定态或不变子空间。但反复泵浦的长期结果还需要通过分析 $\mathcal E$ 来确定。
+
+在含有核退相干或其他噪声的情况下，系统也可能最终达到具有非零残余耦合的稳态。
+
+### 5.3 如何判断数值模拟是否形成暗态？
+
+对于我们之后的计算，可以同时记录以下物理量。
+
+首先是每次扫描的电子三重态概率：
+
+$$
+\boxed{
+p_T(n)
+=\operatorname{Tr}
+\left(M_T\rho_nM_T^\dagger\right).
+}
+$$
+
+这是最直接对应实验测量的量。
+
+其次是核态的平均横向耦合强度：
+
+$$
+\boxed{
+C_n=\operatorname{Tr}(\rho_nL^\dagger L).
+}
+$$
+
+它可以帮助我们判断电子跃迁概率下降是否伴随着真实的耦合抑制。
+
+再考虑两个量子点的纵向核极化：
+
+$$
+\boxed{
+P_i^z(n)=\frac{2}{N_i}
+\operatorname{Tr}(\rho_nJ_i^z).
+}
+$$
+
+对于自旋 $1/2$ 的核，$P_i^z$ 的取值范围为 $[-1,1]$。
+
+通过它，我们可以观察核态是否接近完全极化。
+
+最后，可以计算两个量子点之间的横向关联：
+
+$$
+\boxed{
+Q_{12}(n)
+=\operatorname{Re}
+\operatorname{Tr}(\rho_nJ_1^-J_2^+).
+}
+$$
+
+这个量会直接出现在 $C_n$ 的表达式中，因此有助于分析不同量子点之间的核自旋关联如何影响电子跃迁。
+
+例如，如果数值结果显示 $C_n$ 明显下降，而纵向极化仍然远低于完全极化，就说明耦合抑制无法单纯归结为全部核自旋已经达到最高磁量子数。
+
+我们还需要检查纵向核场对共振位置的影响。因为一次 LZ 扫描只有有限的失谐窗口，即使横向耦合没有减弱，共振位置移出扫描窗口也可能使测得的 $p_T(n)$ 下降。
+
+因此，$p_T(n)$、$C_n$ 和纵向极化提供了彼此互补的信息。
+
+## 6. 接下来：量子模型与半经典模型
+
+至此，我们已经从量子力学的角度建立了核自旋暗态的定义：
+
+$$
+\boxed{
+\mathcal H_D=\ker L.
+}
+$$
+
+并用
+
+$$
+\boxed{
+C_n=\operatorname{Tr}(\rho_nL^\dagger L)
+}
+$$
+
+描述一般核态的平均跃迁耦合强度。
+
+我们还看到，暗态可以通过不同核自旋的跃迁振幅相消形成，因此核自旋不必达到完全极化。
+
+在均匀耦合模型中，两个量子点各自的总角动量平方守恒，我们可以利用 $j_1,j_2$ 对 Hilbert 空间进行分块，并根据初始核态的统计权重组合不同扇区的结果。
+
+这样，我们已经具备了分析小规模多核自旋量子动力学所需要的主要数学工具。
+
+下一篇我们将回到毕设最初的目标：把蔡老师论文中的半经典核自旋动力学与我们建立的量子模型进行比较。
+
+我们需要研究两种模型的初态应该怎样对应，如何选择可比的耦合与扫描参数，以及怎样在有限核数的数值计算中区分核自旋极化、量子涨落和关联对暗态形成的影响。
+
+---
+
+[^cai2025]: X. Cai, H. Y. Walelign, and J. M. Nichol, *The formation of a nuclear-spin dark state in silicon*, Nature Physics **21**, 536–541 (2025). [DOI](https://doi.org/10.1038/s41567-024-02773-w).
+
+[^taylor2003]: J. M. Taylor, A. Imamoglu, and M. D. Lukin, *Controlling a mesoscopic spin environment by quantum bit manipulation*, Physical Review Letters **91**, 246802 (2003). [DOI](https://doi.org/10.1103/PhysRevLett.91.246802).

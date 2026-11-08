@@ -1,0 +1,239 @@
+---
+title: 场方程、对称性与 Wick 定理
+sidebar_position: 14
+hide_title: true
+---
+
+# 场方程、对称性与 Wick 定理
+
+[上一篇](./12-lsz-formula.mdx)把散射矩阵元与编时关联函数联系了起来。接下来要解决的问题是：怎样计算这些关联函数？这一篇先从算符场方程出发，得到关联函数满足的 Schwinger–Dyson 方程；再看连续对称性对关联函数的限制。最后回到自由场，用同一个方程推导自由场关联函数的配对规则，这也是后面构造 Feynman 规则的基础。
+
+## 1. 从场方程到关联函数
+
+考虑实标量场，采用此前的度规约定 $(-+++)$，并取
+
+$$
+\mathcal L=-\frac12(\partial\phi)^2-\frac{m^2}{2}\phi^2-V_{\rm int}(\phi).
+$$
+
+这里的 $m$ 是所选二次项中的质量参数；在相互作用理论中，它与上一篇讨论的物理极点质量一般需要区分。Euler–Lagrange 表达式和场方程为
+
+$$
+\mathcal E[\phi]\equiv
+\frac{\partial\mathcal L}{\partial\phi}
+-\partial_\mu\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}
+=(\Box-m^2)\phi-V'_{\rm int}(\phi)=0.
+$$
+
+这里 $V'_{\rm int}=\dd V_{\rm int}/\dd\phi$。例如 $V_{\rm int}=\alpha\phi^3$ 时，$V'_{\rm int}=3\alpha\phi^2$。在量子理论中，场方程是算符方程：可以把它插入态之间的矩阵元，结果仍为零。我们同时使用正则等时对易关系
+
+$$
+[\phi(t,\vec x),\phi(t,\vec y)]=0,
+\qquad
+[\dot\phi(t,\vec x),\dot\phi(t,\vec y)]=0,
+\qquad
+[\phi(t,\vec x),\dot\phi(t,\vec y)]
+=\ii\delta^{(3)}(\vec x-\vec y).
+$$
+
+这里动能项是标准形式，所以共轭动量 $\pi=\dot\phi$。相隔类空的场算符对易是微观因果性的要求；上面的第一条是它在等时、不同空间点的体现。
+
+现在看两个场的编时乘积。对时间排序的阶跃函数求导时会产生接触项；按照[上一篇](./12-lsz-formula.mdx)的计算，
+
+$$
+(\Box_x-m^2)\langle\Omega|T\{\phi(x)\phi(y)\}|\Omega\rangle
+=\langle\Omega|T\{(\Box_x-m^2)\phi(x)\phi(y)\}|\Omega\rangle
++\ii\delta^{(4)}(x-y).
+$$
+
+把场方程代入右边，就得到
+
+$$
+(\Box_x-m^2)\langle\Omega|T\{\phi(x)\phi(y)\}|\Omega\rangle
+=\langle\Omega|T\{V'_{\rm int}(\phi(x))\phi(y)\}|\Omega\rangle
++\ii\delta^{(4)}(x-y).
+$$
+
+推广到 $N+1$ 个场，$x$ 处的时间导数可以分别碰到每个 $x_n$ 处的场。每碰到一个，就由等时对易关系产生一项 $\ii\delta^{(4)}(x-x_n)$：
+
+$$
+\boxed{
+\begin{aligned}
+&(\Box_x-m^2)\langle\Omega|T\{\phi(x)\phi(x_1)\cdots\phi(x_N)\}|\Omega\rangle\\
+={}&\langle\Omega|T\{V'_{\rm int}(\phi(x))\phi(x_1)\cdots\phi(x_N)\}|\Omega\rangle\\
+&+\ii\sum_{n=1}^{N}\delta^{(4)}(x-x_n)
+\langle\Omega|T\{\phi(x_1)\cdots\widehat{\phi(x_n)}\cdots\phi(x_N)\}|\Omega\rangle .
+\end{aligned}}
+$$
+
+帽子表示省略该场。这是这里所用的 **Schwinger–Dyson 方程**。它把一个关联函数与其他关联函数联系起来；例如三次相互作用会在右边产生含 $\phi^2(x)$ 的关联函数。上式中的同点乘积需要按照所用理论的正则化和重整化约定定义。
+
+## 2. 连续对称性与 Ward–Takahashi 恒等式
+
+假设拉格朗日量在无穷小变换
+
+$$
+\phi\longmapsto\phi'=\phi+\epsilon\Delta(\phi)
+$$
+
+下不变，其中 $\epsilon$ 是常数，$\Delta$ 只依赖场本身。按照 Noether 定理，对应的流是
+
+$$
+j^\mu=\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\Delta(\phi),
+\qquad
+\partial_\mu j^\mu=-\mathcal E[\phi]\Delta(\phi)=0.
+$$
+
+这里考虑拉格朗日量本身不变的情形；对于上面的标准动能项，$j^0=\dot\phi\,\Delta(\phi)$。如果有多个场，流中的表达式对场的分量求和，复场的 $U(1)$ 对称性就是这样的例子。下面先用单场记号推导，并假设量子理论中流守恒。
+
+流的散度为零，但把散度移出时间排序时仍会遇到接触项。以两个场为例，设 $x=(t,\vec x)$、$x_i=(t_i,\vec x_i)$。固定 $t_1>t_2$ 时，$t$ 穿过 $t_1$ 或 $t_2$ 会改变流与相应场的次序。因此对阶跃函数求导得到
+
+$$
+\begin{aligned}
+&\partial_\mu^x\langle\Omega|T\{j^\mu(x)\phi(x_1)\phi(x_2)\}|\Omega\rangle\\
+={}&\delta(t-t_1)\Theta(t_1-t_2)
+\langle\Omega|[j^0(t_1,\vec x),\phi(x_1)]\phi(x_2)|\Omega\rangle\\
+&+\delta(t-t_2)\Theta(t_1-t_2)
+\langle\Omega|\phi(x_1)[j^0(t_2,\vec x),\phi(x_2)]|\Omega\rangle
++(x_1\leftrightarrow x_2).
+\end{aligned}
+$$
+
+时间排序内部的 $\partial_\mu j^\mu$ 项已经由流守恒消去。利用 $\Delta$ 只依赖 $\phi$ 和等时对易关系，
+
+$$
+\begin{aligned}
+[j^0(t,\vec x),\phi(t,\vec y)]
+&=[\dot\phi(t,\vec x)\Delta(\phi(t,\vec x)),\phi(t,\vec y)]\\
+&=-\ii\delta^{(3)}(\vec x-\vec y)\Delta(\phi(t,\vec x)).
+\end{aligned}
+$$
+
+将两种 $t_1,t_2$ 顺序合起来，就重新得到剩余场的时间排序。推广到 $N$ 个场：
+
+$$
+\boxed{
+\begin{aligned}
+&\partial_\mu^x\langle\Omega|T\{j^\mu(x)\phi(x_1)\cdots\phi(x_N)\}|\Omega\rangle\\
+={}&-\ii\sum_{n=1}^{N}\delta^{(4)}(x-x_n)
+\langle\Omega|T\{\phi(x_1)\cdots\Delta(\phi(x_n))\cdots\phi(x_N)\}|\Omega\rangle .
+\end{aligned}}
+$$
+
+这就是本课得到的 **Ward–Takahashi 恒等式**：流插入点 $x$ 的散度，只在它碰到其他场的插入点时留下接触项；每一项把对应的场换成它的无穷小变换 $\Delta(\phi)$。多分量场的情形同理，对每个插入场使用它自己的变换。
+
+## 3. 传播子与 DeWitt 记号
+
+为了写得紧凑，下面记
+
+$$
+\phi_x\equiv\phi(x),\qquad
+\delta_{xy}\equiv\delta^{(4)}(x-y),\qquad
+D_{xy}\equiv D_F(x-y),
+\qquad
+\langle\mathcal O\rangle\equiv\langle\Omega|T\{\mathcal O\}|\Omega\rangle.
+$$
+
+其中 $D_F$ 是自由标量场的 Feynman 传播子，满足
+
+$$
+(\Box_x-m^2)D_{xy}=\ii\delta_{xy}.
+$$
+
+使用 DeWitt 记号时，重复的连续坐标表示对该坐标积分。例如
+
+$$
+D_{xy}\delta_{yz}
+\equiv\int\dd^4y\,D_F(x-y)\delta^{(4)}(y-z)
+=D_{xz}.
+$$
+
+传播子的端点也可以用数字记号：$\phi_1=\phi(x_1)$、$D_{12}=D_F(x_1-x_2)$。把 $D_{12}$ 画成连接 $x_1$ 和 $x_2$ 的一条线，就得到后面画图时用的基本元素。
+
+在使用 Feynman 边界条件的形式计算中，利用传播子方程和分部积分，可以把关联函数写成
+
+$$
+\boxed{
+\langle\phi_1\cdots\phi_N\rangle
+=-\ii D_{x1}(\Box_x-m^2)
+\langle\phi_x\phi_2\cdots\phi_N\rangle .
+}
+$$
+
+这里重复的 $x$ 要积分。确实，由 $\delta_{x1}=-\ii(\Box_x-m^2)D_{x1}$，
+
+$$
+\begin{aligned}
+\langle\phi_1\cdots\phi_N\rangle
+&=\delta_{x1}\langle\phi_x\phi_2\cdots\phi_N\rangle\\
+&=-\ii\bigl[(\Box_x-m^2)D_{x1}\bigr]
+\langle\phi_x\phi_2\cdots\phi_N\rangle\\
+&=-\ii D_{x1}(\Box_x-m^2)
+\langle\phi_x\phi_2\cdots\phi_N\rangle.
+\end{aligned}
+$$
+
+最后一步把微分算符通过积分移到关联函数上。这里将积分及其边界项按 Feynman 处方处理；解微分方程时，传播子方程本身还需要边界条件才能确定所用的逆。
+
+## 4. 自由场的完全收缩
+
+先令 $V_{\rm int}=0$，真空为自由真空 $|0\rangle$，这一节的尖括号表示自由真空中的编时关联函数。Schwinger–Dyson 方程此时简化为
+
+$$
+(\Box_x-m^2)\langle\phi_x\phi_2\cdots\phi_N\rangle
+=\ii\sum_{n=2}^{N}\delta_{xn}
+\langle\phi_2\cdots\widehat{\phi_n}\cdots\phi_N\rangle.
+$$
+
+代入上一节的式子，利用 $D_{x1}\delta_{xn}=D_{1n}$，得到递推关系
+
+$$
+\boxed{
+\langle\phi_1\cdots\phi_N\rangle
+=\sum_{n=2}^{N}D_{1n}
+\langle\phi_2\cdots\widehat{\phi_n}\cdots\phi_N\rangle .
+}
+$$
+
+每一步选一个场与 $\phi_1$ 配对，并从剩余关联函数中去掉这两个场。接着对剩下的场重复同样的操作。
+
+自由真空满足 $\langle\phi(x)\rangle=0$、$\langle 1\rangle=1$。因此，奇数个场最终会剩下一个场，关联函数为零；偶数个场则会全部配对，结果是所有不同配对的传播子乘积之和。把一对场替换成传播子称为一次 **收缩**；每个场都恰好收缩一次，称为完全收缩。
+
+例如，四点函数有三种完全收缩：
+
+$$
+\boxed{
+\langle\phi_1\phi_2\phi_3\phi_4\rangle
+=D_{12}D_{34}+D_{13}D_{24}+D_{14}D_{23}.
+}
+$$
+
+画图时，每一项都由两条连接配对点的线组成。对于实标量场，$D_{ij}=D_{ji}$，配对内的次序不影响结果；线在纸面上交叉也不代表交叉处有相互作用顶点。
+
+## 5. Wick 定理的算符形式
+
+上面算的是自由真空期望值。更一般的算符恒等式还需要 **正规序** $\mathcal N$：把产生算符都移到湮灭算符左边。例如
+
+$$
+\mathcal N\{a_{\vec p}a^\dagger_{\vec q}a_{\vec k}\}
+=a^\dagger_{\vec q}a_{\vec p}a_{\vec k}.
+$$
+
+对自由场，Wick 定理说：编时乘积等于没有收缩的正规序乘积，加上所有可能的收缩项；每项中未收缩的场仍取正规序。两点时，这个式子是
+
+$$
+T\{\phi_1\phi_2\}
+=\mathcal N\{\phi_1\phi_2\}+D_{12}.
+$$
+
+例如三点时，
+
+$$
+T\{\phi_1\phi_2\phi_3\}
+=\mathcal N\{\phi_1\phi_2\phi_3\}
++D_{12}\phi_3+D_{13}\phi_2+D_{23}\phi_1.
+$$
+
+对一般 $N$，每种选择包括零对、一对以及更多互不重叠的收缩，各算一次。取自由真空期望值后，含有未收缩场的正规序项都为零，只剩完全收缩；因此就回到了上一节的递推结果。
+
+{/* Lecture 13 板书 1–15：1–4 场方程与 Schwinger–Dyson 方程；5–9 Ward–Takahashi 恒等式；10–15 传播子记号、自由场递推和 Wick 定理。第 3 节的分布与边界条件说明、各节推导中的文字为整理时补充。 */}

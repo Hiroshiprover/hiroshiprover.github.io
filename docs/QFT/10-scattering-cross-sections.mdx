@@ -1,0 +1,442 @@
+---
+title: 散射截面与相空间
+sidebar_position: 11
+hide_title: true
+---
+
+# 散射截面与相空间
+
+[上一篇](./09-propagators-and-greens-functions.mdx)用 Feynman 传播子把自由场的两点函数写成了时间排序的真空期望值。接下来要把它和实际的散射实验联系起来：初态在很久以前是自由粒子，末态在很久以后也是自由粒子，中间发生相互作用。散射实验测量的是跃迁概率，而跃迁概率要除以入射通量、对末态相空间积分，才得到截面。本篇先定义渐近态与 $S$ 矩阵，再推出截面、相空间和两体散射的微分截面，最后讨论重靶极限与粒子衰变。
+
+## 1. 渐近态与 S 矩阵
+
+散射实验的时间尺度远大于相互作用持续的时间。我们可以把初态取在 $t\to-\infty$，末态取在 $t\to+\infty$，并把这两个时刻的态近似为自由粒子态：
+
+$$
+|i;-\infty\rangle,\qquad |f;+\infty\rangle .
+$$
+
+它们称为渐近态。给定初态 $|i;-\infty\rangle$，实验关心的是找到某个末态 $|f;+\infty\rangle$ 的概率。由 Born rule，
+
+$$
+\mathcal P_{i\to f}\propto
+\left|\langle i;-\infty|f;+\infty\rangle\right|^2 .
+$$
+
+比例系数来自初末态的归一化和相空间，下面会逐项补上。
+
+把从 $-\infty$ 到 $+\infty$ 的全部演化打包成一个算符，定义 $S$ 矩阵：
+
+$$
+\boxed{
+\langle f|S|i\rangle
+\equiv\langle f;+\infty|i;-\infty\rangle .
+}
+$$
+
+这里 $|i\rangle$、$|f\rangle$ 是相应的自由粒子态。$S$ 矩阵把初态映射到末态，概率就是矩阵元的模方。由于总概率守恒，$S$ 是幺正算符：
+
+$$
+S^\dagger S=SS^\dagger=1,
+\qquad
+S^{-1}=S^\dagger .
+$$
+
+把 $S$ 分成恒等部分和真正发生跃迁的部分：
+
+$$
+S=1+\ii T.
+$$
+
+对 $f\neq i$，$\langle f|1|i\rangle=0$，所以
+
+$$
+\langle f|S|i\rangle=\ii\langle f|T|i\rangle .
+$$
+
+相互作用具有时空平移不变性时，$\langle f|T|i\rangle$ 只能依赖于总四动量的差：
+
+$$
+\langle f|T|i\rangle
+=(2\pi)^4\delta^{(4)}(P_f-P_i)\,\mathcal M_{fi}.
+$$
+
+其中
+
+$$
+P_i^\mu=\sum_{m=1}^{N_{\rm inc}}p_m^\mu,
+\qquad
+P_f^\mu=\sum_{n=1}^{N}p_n^{\prime\mu},
+$$
+
+分别是初态和末态的总四动量。$\mathcal M_{fi}$ 称为**散射振幅**。于是
+
+$$
+\boxed{
+\langle f|S|i\rangle
+=\ii(2\pi)^4\delta^{(4)}(P_f-P_i)\,\mathcal M_{fi}
+\qquad(f\neq i).
+}
+$$
+
+板书用 $M$ 表示这个振幅；本文用 $\mathcal M$，以免和质量符号 $m$ 混淆。$\delta$ 函数保证总能量和总动量守恒，$\mathcal M$ 则包含相互作用的动力学信息。
+
+## 2. 截面的定义
+
+一束粒子打到靶上，单位时间内有多少粒子散射到某个立体角 $\dd\Omega$，取决于入射通量。定义微分截面 $\dd\sigma(\Omega)$ 为单位时间内散射到 $\dd\Omega$ 的粒子数除以入射通量。
+设入射粒子数为 $N_{\rm inc}$，实验体积为 $V$，入射速度为 $v_{\rm inc}$，则入射通量为
+
+$$
+I=\frac{N_{\rm inc}}{V}v_{\rm inc}.
+$$
+
+若单位时间散射到 $\dd\Omega$ 的粒子数为 $\dd N/\dd t$，则
+
+$$
+\dd\sigma=\frac{1}{I}\frac{\dd N}{\dd t}\dd\Omega .
+$$
+
+当 $N_{\rm inc}$ 很大时，比值 $N/N_{\rm inc}$ 可以解释为散射概率 $\mathcal P$。于是
+
+$$
+\frac{\dd\sigma}{\dd\Omega}
+=\frac{1}{I/N_{\rm inc}}\frac{\dd(N/N_{\rm inc})}{\dd t}
+=\frac{V}{v_{\rm inc}}\frac{\dd\mathcal P}{\dd t}.
+$$
+
+这就是板书给出的微分截面与跃迁概率之间的关系。
+
+对立体角积分，得到总截面
+
+$$
+\boxed{
+\sigma=\frac{1}{S_{\rm sym}}\int \dd\Omega\,\frac{\dd\sigma}{\dd\Omega},
+}
+$$
+
+其中 $S_{\rm sym}$ 是**对称因子**，用来避免把末态中全同粒子的同一种组态重复计数。板书用 $S$ 表示它；本文改记为 $S_{\rm sym}$，以免与 $S$ 矩阵混淆。若末态粒子各不相同，则 $S_{\rm sym}=1$；若有两个全同粒子，则通常取 $2!$，更多全同粒子依此类推。
+
+## 3. 相空间与跃迁概率
+
+末态粒子的动量可以连续变化，因此“找到某个末态”的概率应当对末态相空间积分。设末态有 $N$ 个粒子，动量分别为 $\vec p_1,\ldots,\vec p_N$，则
+
+$$
+\dd \mathcal P_{i\to f}
+=\frac{|\langle f|S|i\rangle|^2}
+{\langle f|f\rangle\langle i|i\rangle}
+\,\dd\Pi,
+$$
+
+其中
+
+$$
+\dd\Pi\equiv\prod_{n=1}^{N}\frac{V}{(2\pi)^3}\dd^3p_n
+$$
+
+是相空间测度。$V/(2\pi)^3$ 来自“每个量子态占据的相空间体积”：在体积 $V$ 中，动量空间的一个格胞大小为 $(2\pi)^3/V$，所以单位动量体积内的态数是 $V/(2\pi)^3$。
+
+在离散情形，$\sum_f|\langle f|S|i\rangle|^2/(\langle f|f\rangle\langle i|i\rangle)=1$，这是 $S$ 幺正性与完备性关系的直接结果。连续情形把求和换成积分：
+
+$$
+\sum_f\longrightarrow\int \dd\Pi
+=\prod_{n=1}^{N}\int\frac{V}{(2\pi)^3}\dd^3p_n .
+$$
+
+为了把分母中的归一化算清楚，需要单粒子态的内积。由上一篇，
+
+$$
+\langle\vec p|\vec q\rangle
+=(2\pi)^3 2\omega_p\delta^{(3)}(\vec p-\vec q).
+$$
+
+取 $\vec p=\vec q$，并用 $\delta^{(3)}(\vec 0)=V/(2\pi)^3$，得到
+
+$$
+\langle\vec p|\vec p\rangle
+=(2\pi)^3 2\omega_p\frac{V}{(2\pi)^3}
+=2\omega_p V.
+$$
+
+因此，对于动量各不相同的 $N$ 粒子态，
+
+$$
+\langle f|f\rangle
+=\prod_{n=1}^{N}2\omega_{p_n}V,
+\qquad
+\langle i|i\rangle
+=\prod_{m=1}^{N_{\rm inc}}2\omega_{p_m}V.
+$$
+
+这里先假定所有动量都不相同；全同粒子的对称因子最后统一放进 $S_{\rm sym}$。实际计算中把 $|f\rangle$ 取成 $|\vec p_1\rangle\cdots|\vec p_N\rangle$；未参与散射的旁观粒子只进入 $S$ 的恒等部分，讨论 $f\neq i$ 时可以略去。
+
+## 4. 从 S 矩阵到截面
+
+把 $S$ 矩阵元代入概率。对 $f\neq i$，
+
+$$
+|\langle f|S|i\rangle|^2
+=(2\pi)^4\delta^{(4)}(P_f-P_i)\,
+(2\pi)^4\delta^{(4)}(P_f-P_i)\,|\mathcal M|^2.
+$$
+
+其中一个 $\delta$ 函数来自 $S$ 矩阵元，另一个来自复共轭。利用
+
+$$
+(2\pi)^4\delta^{(4)}(0)=V\Delta T,
+$$
+
+可以把其中一个 $\delta^{(4)}(P_f-P_i)$ 换成 $V\Delta T$，其中 $\Delta T$ 是实验的总时间。于是
+
+$$
+|\langle f|S|i\rangle|^2
+=V\Delta T\,(2\pi)^4\delta^{(4)}(P_f-P_i)\,|\mathcal M|^2.
+$$
+
+代回 $\dd\mathcal P$：
+
+$$
+\dd \mathcal P_{i\to f}
+=\frac{V\Delta T\,(2\pi)^4\delta^{(4)}(P_f-P_i)|\mathcal M|^2}
+{\prod_m2\omega_{p_m}V\;\prod_n2\omega_{p_n}V}
+\prod_{n=1}^{N}\frac{V}{(2\pi)^3}\dd^3p_n .
+$$
+
+把 $V$ 的幂次合并：分子有一个 $V$，分母有 $V^{N_{\rm inc}+N}$，相空间给出 $V^N$，总共剩下 $V^{1-N_{\rm inc}}$。定义 Lorentz 不变的相空间测度
+
+$$
+\boxed{
+\dd\Pi_{\rm LIPS}
+\equiv
+\left[\prod_{n=1}^{N}\frac{\dd^3p_n}{(2\pi)^3\,2\omega_{p_n}}\right]
+(2\pi)^4\delta^{(4)}(P_f-P_i).
+}
+$$
+
+则
+
+$$
+\boxed{
+\dd \mathcal P_{i\to f}
+=\frac{\Delta T}{V^{N_{\rm inc}-1}}
+\frac{|\mathcal M|^2}{\prod_{m=1}^{N_{\rm inc}}2\omega_{p_m}}
+\,\dd\Pi_{\rm LIPS}.
+}
+$$
+
+于是
+
+$$
+\frac{\dd \mathcal P_{i\to f}}{\dd t}
+=\frac{1}{V^{N_{\rm inc}-1}}
+\frac{|\mathcal M|^2}{\prod_m2\omega_{p_m}}
+\,\dd\Pi_{\rm LIPS}.
+$$
+
+再代入 $\sigma=(1/S_{\rm sym})\int(V/v_{\rm inc})(\dd\mathcal P/\dd t)\,\dd\Omega$，得到一般的截面公式：
+
+$$
+\boxed{
+\sigma=\frac{1}{S_{\rm sym}}\frac{1}{v_{\rm inc}}
+\frac{1}{V^{N_{\rm inc}-2}}
+\frac{1}{\prod_{m=1}^{N_{\rm inc}}2\omega_{p_m}}
+\int|\mathcal M|^2\,\dd\Pi_{\rm LIPS}.
+}
+$$
+
+对两体初态，$N_{\rm inc}=2$，体积因子消失，$v_{\rm inc}=|\vec v_1-\vec v_2|$，于是
+
+$$
+\boxed{
+\sigma=\frac{1}{S_{\rm sym}}\frac{1}{|\vec v_1-\vec v_2|}
+\frac{1}{4\omega_1\omega_2}
+\int|\mathcal M|^2\,\dd\Pi_{\rm LIPS}.
+}
+$$
+
+这就是后面计算 $2\to2$ 截面的出发点。
+
+## 5. 两体散射的运动学
+
+考虑 $1+2\to1'+2'$。在质心系（CM frame）中，
+
+$$
+\vec p_2=-\vec p_1,
+\qquad
+\vec p_2'=-\vec p_1',
+$$
+
+初态和末态的总能量分别为
+
+$$
+E_{\rm cm}=\omega_1+\omega_2=\omega_1'+\omega_2',
+\qquad
+\omega_i=\sqrt{\vec p_i^{\,2}+m_i^2}.
+$$
+
+入射相对速度为
+
+$$
+v_{\rm inc}=|\vec v_1-\vec v_2|
+=\left|\frac{\vec p_1}{\omega_1}-\frac{\vec p_2}{\omega_2}\right|
+=|\vec p_1|\left(\frac{1}{\omega_1}+\frac{1}{\omega_2}\right)
+=\frac{|\vec p_1|E_{\rm cm}}{\omega_1\omega_2}.
+$$
+
+由能量守恒可以解出两个初态粒子的能量：
+
+$$
+\omega_1=\frac{E_{\rm cm}^2+m_1^2-m_2^2}{2E_{\rm cm}},
+\qquad
+\omega_2=\frac{E_{\rm cm}^2+m_2^2-m_1^2}{2E_{\rm cm}}.
+$$
+
+相应的三动量大小为
+
+$$
+\boxed{
+|\vec p_1|^2
+=\frac{E_{\rm cm}^2}{4}
+-\frac{m_1^2+m_2^2}{2}
++\frac{(m_1^2-m_2^2)^2}{4E_{\rm cm}^2}.
+}
+$$
+
+末态同理，只需把 $m_1,m_2$ 换成 $m_1',m_2'$：
+
+$$
+|\vec p_1'|^2
+=\frac{E_{\rm cm}^2}{4}
+-\frac{m_1'^2+m_2'^2}{2}
++\frac{(m_1'^2-m_2'^2)^2}{4E_{\rm cm}^2}.
+$$
+
+在 CM 系中，$|\vec p_1|$ 和 $|\vec p_1'|$ 都与散射角 $\theta$ 无关；这是质心系相对于其他参考系的一个方便之处。$|\mathcal M|^2$ 一般仍然依赖于 $\theta$。
+
+如果末态粒子的质量和初态相同（弹性散射），则 $|\vec p_1'|=|\vec p_1|$。如果末态质量更大，则必须满足阈值条件
+
+$$
+E_{\rm cm}>m_1'+m_2',
+$$
+
+否则能量守恒与在壳条件不能同时成立，微分截面为零。这个条件会在下面的 $\Theta$ 函数中出现。
+
+## 6. 微分截面
+
+把两体相空间代入上一节的截面公式。先对 $\vec p_2'$ 积分，利用
+
+$$
+\delta^{(3)}(\vec p_1'+\vec p_2'-\vec p_1-\vec p_2),
+$$
+
+得到 $\vec p_2'=\vec p_1+\vec p_2-\vec p_1'$。在 CM 系中 $\vec p_1+\vec p_2=0$，所以 $\vec p_2'=-\vec p_1'$。剩下的能量 $\delta$ 函数为
+
+$$
+\delta(\omega_1'+\omega_2'-E_{\rm cm}).
+$$
+
+取球坐标 $\dd^3p_1'=|\vec p_1'|^2\dd|\vec p_1'|\,\dd\Omega$，并令
+
+$$
+x=\omega_1'+\omega_2'-E_{\rm cm}.
+$$
+
+则
+
+$$
+\frac{\dd x}{\dd|\vec p_1'|}
+=\frac{|\vec p_1'|}{\omega_1'}+\frac{|\vec p_1'|}{\omega_2'}
+=\frac{|\vec p_1'|E_{\rm cm}}{\omega_1'\omega_2'}.
+$$
+
+因此
+
+$$
+\dd|\vec p_1'|=\frac{\omega_1'\omega_2'}{|\vec p_1'|E_{\rm cm}}\dd x.
+$$
+
+把这些因子代回相空间积分，$\omega_1'\omega_2'$ 恰好消掉。板书把这一步的结果写成
+
+$$
+\frac{\dd\sigma}{\dd\Omega}\bigg|_{\rm CM}
+=\frac{1}{S_{\rm sym}}
+\frac{|\vec p_1'|\,|\mathcal M|^2}
+{64\pi^2|\vec p_1|E_{\rm cm}}
+\Theta(E_{\rm cm}-m_1'-m_2').
+$$
+
+*按照上面的相空间积分，分母还应有一个 $E_{\rm cm}$，即应为 $64\pi^2|\vec p_1|E_{\rm cm}^2$；这里先保留板书原式，具体差异记入交接待核查。* 完整的积分过程见[附录 F](./appendix-mathematical-tools/06-phase-space-integrals.mdx)。
+
+这个公式里，$S_{\rm sym}$ 只对末态全同粒子起作用；$|\vec p_1'|/|\vec p_1|$ 描述末态动量空间的压缩或膨胀；$E_{\rm cm}$ 和 $\omega_1\omega_2$ 则来自入射通量与相空间归一化。若 $\dd\sigma/\dd\Omega$ 不依赖于方位角 $\varphi$，对 $\varphi$ 积分得到
+
+$$
+\sigma=\frac{2\pi}{S_{\rm sym}}\int_{-1}^{1}\dd\cos\theta\,\frac{\dd\sigma}{\dd\Omega}.
+$$
+
+## 7. 重靶极限
+
+考虑一个轻粒子打在一个很重的靶上，例如
+
+$$
+e^-+p^+\to e^-+p^+,
+\qquad
+\alpha+N\to\alpha+N,
+$$
+
+其中 $\alpha$ 是 ${}^4\mathrm{He}$ 核，$N$ 是重核。靶的质量 $m_2$ 远大于入射粒子的能量时，靶的反冲可以忽略，质心系近似等于实验室的固定靶系：
+
+$$
+E_{\rm cm}\simeq m_2.
+$$
+
+同时，弹性散射给出 $|\vec p_1'|\simeq|\vec p_1|$。代入微分截面，得到
+
+$$
+\boxed{
+\frac{\dd\sigma}{\dd\Omega}\bigg|_{\rm CM}
+\simeq
+\frac{|\mathcal M|^2}{64\pi^2m_2^2}.
+}
+$$
+
+这就是板书给出的重靶近似。它把复杂的运动学因子收成了一个由靶质量决定的常数，剩下的动力学全部在 $|\mathcal M|^2$ 中。Coulomb 散射和 Rutherford 散射都可以在这个近似下处理。
+
+## 8. 粒子衰变
+
+散射的另一个特例是单个粒子衰变。此时没有入射束流，$N_{\rm inc}=1$。定义微分衰变率
+
+$$
+\dd\Gamma\equiv\frac{\dd \mathcal P_{i\to f}}{\Delta T}.
+$$
+
+由上一节的概率公式，取 $N_{\rm inc}=1$：
+
+$$
+\dd \mathcal P_{i\to f}
+=\Delta T\,\frac{|\mathcal M|^2}{2\omega_1}\,\dd\Pi_{\rm LIPS},
+$$
+
+因此
+
+$$
+\boxed{
+\dd\Gamma=\frac{|\mathcal M|^2}{2\omega_1}\,\dd\Pi_{\rm LIPS}.
+}
+$$
+
+在衰变粒子的静止系中，$\omega_1=m_1$，于是
+
+$$
+\dd\Gamma=\frac{|\mathcal M|^2}{2m_1}\,\dd\Pi_{\rm LIPS}.
+$$
+
+总衰变率为
+
+$$
+\boxed{
+\Gamma=\frac{1}{S_{\rm sym}}\int \dd\Gamma,
+}
+$$
+
+其中 $S_{\rm sym}$ 同样用于末态全同粒子。衰变率与寿命的关系是 $\Gamma=1/\tau$；这里不展开具体的两体衰变相空间，附录 F 给出了相应的积分方法。
+
+{/* Lecture 9 来源：IMG_8577–8582 为渐近态、S 矩阵与截面定义；Lecture 10 来源：IMG_8675–8697 为相空间、S 矩阵元、2→2 运动学与截面；Lecture 11 来源：PNG 组为重靶、衰变与 LSZ。照片 8579、8678、8681 等缺失，相关步骤按上下文补全。 */}

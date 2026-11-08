@@ -5,7 +5,7 @@ hide_title: true
 ---
 # 经典场论（3）：哈密顿形式与诺特定理
 
-*（前两篇从作用量出发建立了标量、复场与矢量场的运动方程。这里做 Legendre 变换得到哈密顿密度，再讨论连续对称性、诺特定理与守恒荷。）*
+前两篇从作用量出发，建立了标量场、复场和矢量场的运动方程。这一篇先做 Legendre 变换，把拉格朗日描述换成哈密顿描述；然后讨论连续对称性，得到诺特定理和守恒荷。
 
 ## 1. 正则动量与哈密顿密度
 
@@ -19,11 +19,11 @@ $$
 $$
 \mathcal H(\phi,\pi)\equiv\pi\dot\phi-\mathcal L,
 $$
-$\mathcal H$ 称为**哈密顿密度**；整个系统的哈密顿量是它对空间的积分，
+$\mathcal H$ 称为**哈密顿密度**，$H$ 是总能量；整个系统的哈密顿量是它对空间的积分，
 $$
-H[\phi,\pi]=\int d^3x\,\mathcal H[\phi,\pi].
+H[\phi,\pi]=\int \dd^3x\,\mathcal H[\phi,\pi].
 $$
-$H$ 的量纲是能量，$\mathcal H$ 则是能量密度。$\dot\phi$ 必须借助 $\pi$ 的定义消掉，最终以场和正则动量为相空间变量；$\mathcal H$ 仍可以依赖 $\vec\nabla\phi$ 等空间导数。*这一步要求动量定义能反解出相应的速度；对于 Maxwell、Proca 等含约束的理论，某些速度不能这样消去，需要另行处理约束。*
+这一步就像在经典力学里从 $L(q,\dot q)$ 换到 $H(q,p)$：把速度换成动量，用相空间变量描述动力学。$\dot\phi$ 必须借助 $\pi$ 的定义消掉，最终以场和正则动量为变量；$\mathcal H$ 仍可以依赖 $\vec\nabla\phi$ 等空间导数。这里假定 $\pi$ 能反解出 $\dot\phi$；Maxwell、Proca 这类有约束的理论需要单独处理约束。
 
 例：自由标量场
 $$
@@ -57,7 +57,7 @@ $$
 =-\pi^2-\left[-\frac12\pi^2+\frac12(\vec{\nabla}\phi)^2-\frac{m^2}{2}\phi^2\right]
 =-\frac12\pi^2-\frac12(\vec{\nabla}\phi)^2+\frac{m^2}{2}\phi^2.
 $$
-第一项系数为 $-1/2$：$\pi$ 增大时 $\mathcal H\to-\infty$，能量没有下界。因此在 $(-+++)$ 度规下，健康的实标量传播模应取 $-\frac12(\partial\phi)^2$，使 $\dot\phi^2$ 的系数为正。这与前篇对鬼（ghost）的讨论一致；带约束的场则须先识别其物理传播自由度，不能只检查某个分量的表面符号。
+第一项系数为 $-1/2$：$\pi$ 增大时 $\mathcal H\to-\infty$，能量没有下界。这就是为什么在 $(-+++)$ 度规下，健康的实标量动能项要写成 $-\frac12(\partial\phi)^2$，让 $\dot\phi^2$ 的系数为正。
 
 ## 3. 带指标场与复场的正则动量
 
@@ -75,7 +75,7 @@ $$
 \qquad
 \pi^*\equiv\frac{\partial\mathcal L}{\partial\dot\phi^*}.
 $$
-也可以拆成两个实场（$\phi=\phi_1+i\phi_2$）：
+也可以拆成两个实场（$\phi=\phi_1+\ii\phi_2$）：
 $$
 \pi^1\equiv\frac{\partial\mathcal L}{\partial\dot\phi_1},
 \qquad
@@ -87,11 +87,11 @@ $$
 \qquad\text{或}\qquad
 \mathcal H=\pi^1\dot\phi_1+\pi^2\dot\phi_2-\mathcal L
 $$
-（后一式的验证只需把 $\phi=\phi_1+i\phi_2$ 代入并按链式法则展开。对当前复场约定，$\pi=(\pi^1-i\pi^2)/2$、$\pi^*=(\pi^1+i\pi^2)/2$。）
+（后一式的验证只需把 $\phi=\phi_1+\ii\phi_2$ 代入并按链式法则展开。对当前复场约定，$\pi=(\pi^1-\ii\pi^2)/2$、$\pi^*=(\pi^1+\ii\pi^2)/2$；系数 $1/2$ 来自 $-\partial_\mu\phi^*\partial^\mu\phi$ 对两个实分量的系数。）
 
 ## 4. 诺特定理：守恒流
 
-**诺特定理**说：一个连续的对称变换（无穷小改变）对应一条守恒流。具体地，考虑变换
+**诺特定理**说：一个连续的对称变换（无穷小改变）对应一条守恒流。把流的时间分量积分起来就是守恒荷，所以对称性最终会变成可测量的守恒量。具体地，考虑变换
 $$
 \phi(x)\longmapsto\phi'(x)=\phi(x)+\varepsilon\Delta_\varepsilon[\phi(x)],
 $$
@@ -115,6 +115,7 @@ $$
 $$
 \frac{\partial}{\partial t}J_\varepsilon^0=-\vec{\nabla}\cdot\vec J_\varepsilon.
 $$
+其中 $J_\varepsilon^0$ 是荷密度，$\vec J_\varepsilon$ 是荷流。
 
 证明。设 $\mathcal L=\mathcal L(\phi,\partial_\mu\phi)$。把变换后的场代进拉格朗日量，按 $\varepsilon$ 展开到一阶：
 $$
@@ -131,8 +132,6 @@ $$
 +\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\partial_\mu\Delta_\varepsilon
 \right].
 $$
-
-*（补记：以下收尾步骤由笔记整理时补全，已按 EL 方程核对；保留此标记以区别于板书转录。）*
 
 两边除以 $\varepsilon$，再用乘积法则把第二项凑成散度：
 $$
@@ -159,33 +158,9 @@ $$
 $$
 右端方括号是经典场论前篇 EL 方程左边的相反数，在壳时为零；左端就是 $\partial_\mu J_\varepsilon^\mu$。于是 $\partial_\mu J_\varepsilon^\mu=0$，证明完成。
 
-*（补记结束。）*
+关于适用范围，有两点值得说明。第一，定理只适用于连续对称；像 $\phi\mapsto-\phi$ 这样的离散变换不在其中。第二，证明只要求 $\delta\mathcal L$ 是全散度；若还要 $S'=S$ 对任意区域成立，边界通量必须为零。
 
-几条注记：
-
-① 定理只适用于无穷小（连续）对称。比如 $\mathcal L=-\frac12(\partial\phi)^2-\frac{m^2}{2}\phi^2$ 在 $\phi\mapsto-\phi$ 下不变（$K=0$），但这是一个有限的离散变换，不在定理的适用范围。
-
-② 在这种变换下，作用量至多改变一个边界项。对时空区域 $\Omega$，在 $\varepsilon$ 的一阶有
-$$
-S'-S
-=\varepsilon\int_\Omega d^4x\,\partial_\mu K_\varepsilon^\mu
-=\varepsilon\int_{\partial\Omega}d\Sigma_\mu\,K_\varepsilon^\mu.
-$$
-当边界条件使这一通量为零时，才可进一步写 $S'=S$；边界既包括空间边界，也包括初末时间面。对 Lorentz 变换和平移，$d^4x'=|\det\Lambda|d^4x=d^4x$；测度不变并不自动使任意有限区域上的边界通量为零。诺特定理的上述局部证明只要求 $\delta\mathcal L$ 为全散度，并不要求该积分对任意边界都为零。
-
-③ 对张量场：变换为
-$$
-\psi'_{\mu_1\cdots\mu_s}=\psi_{\mu_1\cdots\mu_s}+\varepsilon\Delta_{\varepsilon,\mu_1\cdots\mu_s}[\psi],
-$$
-守恒流为
-$$
-J_\varepsilon^\mu\equiv
-\frac{\partial\mathcal L}{\partial(\partial_\mu\psi_{\nu_1\cdots\nu_s})}
-\,\Delta_{\varepsilon,\nu_1\cdots\nu_s}[\psi]
--K_\varepsilon^\mu.
-$$
-
-④ 对复场：
+对带指标的场，$\Delta$ 也带指标；把 $\Delta_{\varepsilon,\nu_1\cdots\nu_s}$ 与 $\partial\mathcal L/\partial(\partial_\mu\psi_{\nu_1\cdots\nu_s})$ 的场指标缩并，就得到相应的流。对复场，$\phi$ 与 $\phi^*$ 各贡献一项：
 $$
 J_\varepsilon^\mu\equiv
 \frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\,\Delta_\varepsilon
@@ -197,17 +172,17 @@ $$
 
 把守恒流按分量记为 $J_\varepsilon^\mu\equiv(J_\varepsilon^0,\vec J_\varepsilon)$，并定义
 $$
-Q_\varepsilon\equiv\int d^3x\,J_\varepsilon^0
+Q_\varepsilon\equiv\int \dd^3x\,J_\varepsilon^0
 $$
-（这里假定积分收敛——并不总是成立）。由连续性方程 $\partial_t J_\varepsilon^0=-\vec{\nabla}\cdot\vec J_\varepsilon$ 可以直接推出荷守恒：
+这里假定积分收敛。由连续性方程 $\partial_t J_\varepsilon^0=-\vec{\nabla}\cdot\vec J_\varepsilon$ 可以直接推出荷守恒：
 $$
-\frac{dQ_\varepsilon}{dt}
-=\int d^3x\,\frac{\partial J_\varepsilon^0}{\partial t}
-=-\int d^3x\,\vec{\nabla}\cdot\vec J_\varepsilon
-=-\oint_{|x|\to\infty}d\vec S\cdot\vec J_\varepsilon
+\frac{\dd Q_\varepsilon}{\dd t}
+=\int \dd^3x\,\frac{\partial J_\varepsilon^0}{\partial t}
+=-\int \dd^3x\,\vec{\nabla}\cdot\vec J_\varepsilon
+=-\oint_{|x|\to\infty}\dd\vec S\cdot\vec J_\varepsilon
 =0.
 $$
-最后一步要求无穷远处的总流出通量 $\lim_{R\to\infty}\oint_{|\vec x|=R}d\vec S\cdot\vec J_\varepsilon=0$。仅有场或流逐点趋于零还不够，其衰减必须足以使这一面积分消失。
+最后一步要求流在无穷远处衰减得足够快，使这一面积分消失；仅逐点趋于零还不够。
 
 
 ## 5. U(1) 对称性与诺特荷
@@ -218,38 +193,38 @@ $$
 $$
 考虑整体相位变换
 $$
-\phi\longmapsto\phi'=e^{i\alpha}\phi,
+\phi\longmapsto\phi'=e^{\ii\alpha}\phi,
 \qquad
-\phi^*\longmapsto\phi^{*\prime}=e^{-i\alpha}\phi^*
+\phi^*\longmapsto\phi^{*\prime}=e^{-\ii\alpha}\phi^*
 $$
 其中 $\alpha$ 是与 $x$ 无关的实常数。场及其导数都乘上同一个相位，与复共轭的相位在动能项和势能项中抵消，因此 $\mathcal L'=\mathcal L$，诺特公式中的 $K_\alpha^\mu=0$。
 
 把指数展开到一阶，得到
 $$
-\delta\phi=i\alpha\phi,\qquad \delta\phi^*=-i\alpha\phi^*,
-\qquad \Delta_\alpha=i\phi,\quad \Delta_\alpha^*=-i\phi^*.
+\delta\phi=\ii\alpha\phi,\qquad \delta\phi^*=-\ii\alpha\phi^*,
+\qquad \Delta_\alpha=\ii\phi,\quad \Delta_\alpha^*=-\ii\phi^*.
 $$
 代入复场的守恒流公式：
 $$
 J_\alpha^\mu
-=-\partial^\mu\phi^*\cdot i\phi
-+(-\partial^\mu\phi)(-i\phi^*)
-=i\left[\phi^*\partial^\mu\phi-\phi\,\partial^\mu\phi^*\right].
+=-\partial^\mu\phi^*\cdot \ii\phi
++(-\partial^\mu\phi)(-\ii\phi^*)
+=\ii\left[\phi^*\partial^\mu\phi-\phi\,\partial^\mu\phi^*\right].
 $$
 
-与[引言](./01-why-qft.mdx)的 KG 流对照，$\partial^0=-\partial_t$ 给出 $J_\alpha^0=-\rho$，空间分量也与那里定义的 $\vec j$ 相差整体负号。改用相反的相位参数方向 $\phi\mapsto e^{-i\alpha}\phi$，就得到引言中的流；两种约定都满足守恒方程。
+与[引言](./01-why-qft.mdx)的 KG 流对照，$\partial^0=-\partial_t$ 给出 $J_\alpha^0=-\rho$，空间分量也与那里定义的 $\vec j$ 相差整体负号。改用相反的相位参数方向 $\phi\mapsto e^{-\ii\alpha}\phi$，就得到引言中的流；两种约定都满足守恒方程。
 
 验证诺特定理：先算散度，
 $$
 \partial_\mu J_\alpha^\mu
-=i\left[\phi^*\Box\phi-\phi\,\Box\phi^*\right],
+=\ii\left[\phi^*\Box\phi-\phi\,\Box\phi^*\right],
 $$
-中间的两组交叉项相消。在壳时用 EL 方程 $\Box\phi=\dfrac{dV}{d(|\phi|^2)}\phi$ 及其复共轭，
+中间的两组交叉项相消。在壳时用 EL 方程 $\Box\phi=\dfrac{\dd V}{\dd(|\phi|^2)}\phi$ 及其复共轭，
 $$
 \partial_\mu J_\alpha^\mu
-=i\left[
-\phi^*\frac{dV}{d(|\phi|^2)}\phi
--\phi\frac{dV}{d(|\phi|^2)}\phi^*
+=\ii\left[
+\phi^*\frac{\dd V}{\dd(|\phi|^2)}\phi
+-\phi\frac{\dd V}{\dd(|\phi|^2)}\phi^*
 \right]
 =0.
 $$
@@ -262,7 +237,7 @@ $$
 $$
 \phi(x)\longmapsto\phi'(x)=\phi(x+a)=\phi(x)+a^\mu\partial_\mu\phi(x),
 $$
-$a^\mu$ 为常矢量，上式保留到 $a$ 的一阶。*这里沿用板书的 $\phi'(x)=\phi(x+a)$；若与量子对称性页的 $\phi'(x)=\phi(x-c)$ 对照，则 $a=-c$。* 这其实是 4 个独立的对称性（4 个平移方向），所以给它们编号 $\nu$，“变形”为
+$a^\mu$ 为常矢量，上式保留到 $a$ 的一阶。这里采用主动平移 $\phi'(x)=\phi(x+a)$；若用 06 的 $U^\dagger\phi(x)U=\phi(x-c)$，则 $a=-c$。平移有四个独立方向，所以给它们编号 $\nu$，“变形”为
 $$
 \Delta_{a,\nu}=\partial_\nu\phi,
 $$
@@ -292,13 +267,13 @@ J_{a,\nu}^\mu
 $$
 这给出平移对应的四条守恒流，$\partial_\mu J_{a,\nu}^\mu=0$。其中时间平移的荷密度为 $J_{a,0}^0=\pi\dot\phi-\mathcal L=\mathcal H$。
 
-*在本文的 $(-+++)$ 度规下，若采用 $T^{00}=\mathcal H$ 的能量密度约定，正则能量–动量张量应定义为*
+在 $(-+++)$ 下，若采用 $T^{00}=\mathcal H$ 的能量密度约定，正则能量–动量张量定义为
 $$
 T^\mu{}_\nu\equiv-J_{a,\nu}^\mu
 =-\frac{\partial\mathcal L}{\partial(\partial_\mu\phi)}\,\partial_\nu\phi
 +\delta^\mu{}_\nu\mathcal L.
 $$
-*于是 $T^{00}=-T^0{}_0=\mathcal H$，并仍有 $\partial_\mu T^\mu{}_\nu=0$。这个整体负号来自平移参数与指标位置的约定；板书给出的 $J_{a,\nu}^\mu$ 本身不需改变。*
+于是 $T^{00}=-T^0{}_0=\mathcal H$，并且 $\partial_\mu T^\mu{}_\nu=0$。这个整体负号来自平移参数与指标位置的约定；$J_{a,\nu}^\mu$ 本身不需要改变。
 
 {/* 板书写到 K_{a,ν}^μ=δ^μ_ν L 为止；流的代入与能动张量说明为补全内容。已核对：在 -+++ 下直接把 J 叫作满足 T^{00}=H 的 T 会差整体负号，故保留 J 并显式说明 T 的约定。 */}
 
@@ -308,16 +283,16 @@ $$
 前面 $J^\mu_{a,\nu}$ 的第二个指标 $\nu$ 标记四个平移方向。对每个方向积分时间分量，得到相应的守恒荷。由于 $J^\mu_{a,\nu}=-T^\mu{}_\nu$，时间平移给出
 
 $$
-\mathcal E\equiv\int d^3x\,T^{00}
-=-\int d^3x\,T^0{}_0
-=\int d^3x\,J^0_{a,0}.
+\mathcal E\equiv\int \dd^3x\,T^{00}
+=-\int \dd^3x\,T^0{}_0
+=\int \dd^3x\,J^0_{a,0}.
 $$
 
 空间平移则给出
 
 $$
-P_i\equiv\int d^3x\,T^{0i}
-=-\int d^3x\,J^0_{a,i}.
+P_i\equiv\int \dd^3x\,T^{0i}
+=-\int \dd^3x\,J^0_{a,i}.
 $$
 
 对实标量场，$T^{00}=\pi\dot\phi-\mathcal L=\mathcal H$；把正则动量定义 $\pi=\partial\mathcal L/\partial\dot\phi$ 代入后，这一式与 Legendre 变换的定义相同。因而在同一组正则变量上，$\mathcal E=H[\phi,\pi]$。守恒则还需要场满足运动方程，并且边界没有净能量或动量流出。这里的“在壳”条件针对荷的守恒，不是上述代数恒等式成立的额外条件。
@@ -325,7 +300,7 @@ $$
 将 $T^{0i}$ 的定义代入，还可把场的总动量写成
 
 $$
-\vec P=-\int d^3x\,\pi\,\vec\nabla\phi.
+\vec P=-\int \dd^3x\,\pi\,\vec\nabla\phi.
 $$
 
 这条公式对多分量场逐分量求和。若拉格朗日量显含空间坐标，空间平移对称性及对应的动量守恒通常不再成立；对于静态源，时间平移仍可保留。

@@ -1,5 +1,136 @@
 ---
-title: "Introduction: Why Quantum Field Theory?"
+title: "Introduction: Why Quantum Field Theory Is Necessary"
+sidebar_position: 2
+hide_title: true
 ---
+# Introduction: Why Quantum Field Theory Is Necessary
 
-{/* English translation placeholder. */}
+For a free particle, the Schrödinger equation reads[^1]:
+$$
+i \frac{\partial}{\partial t} \psi= -\frac{1}{2m} \nabla^2 \psi = \hat{H}\psi, \qquad \hat{H} = \frac{\hat{p}^2}{2m}, \qquad \hat{p} = -i\nabla,
+$$
+Clearly the Hamiltonian used here is non-relativistic, so problems arise in the relativistic limit. We therefore need to modify the Schrödinger equation.
+
+## 1. First attempt: the Salpeter equation
+
+Special relativity gives the energy relation $E^2=\vec p^{\,2}+m^2$. The usual choice is to take the square root and keep the positive sign, which gives the energy
+$$
+E = \sqrt{\vec p^{\,2} + m^2},
+$$
+Undergraduate quantum mechanics suggests that we can quantize a classical theory by promoting observables to operators and imposing certain commutation relations. So we try a Hamiltonian of the form
+$$
+\hat{H} = \sqrt{\hat{p}^2 + m^2} = \sqrt{- \nabla^2 + m^2}.
+$$
+Now we have a relativistic Schrödinger equation:
+$$
+i \frac{\partial}{\partial t} \psi = \sqrt{-\nabla^2 + m^2} \psi,
+$$
+This equation is called the Salpeter equation. It has one nuisance: it is not **local**. Roughly speaking, a nonlocal equation means that in order to know how the wave function evolves at a point, we need the values of the wave function at other positions. This contradicts how we understand the world: objects that are not in contact should not interact[^2][^3].
+
+A more detailed mathematical discussion of locality can be found in [Appendix 1](./appendix-mathematical-tools/01-salpeter-nonlocality.mdx); we will not pursue it further in the main text.
+
+
+## 2. Second attempt: the Klein–Gordon equation
+
+Following the earlier discussion, we wrote down
+$$
+i \frac{\partial}{\partial t} \psi = \sqrt{-\nabla^2 + m^2} \psi,
+$$
+Clearly the source of the nonlocality is the square root. So we square the operators on both sides:
+$$
+\left(i \frac{\partial}{\partial t}\right)^2 \psi = (-\nabla^2 + m^2) \psi,
+$$
+that is, the famous Klein–Gordon equation:
+$$
+\nabla^2\psi - \frac{\partial^2}{\partial t^2} \psi = m^2 \psi.
+$$
+
+:::tip[d'Alembert operator]
+Definition:
+$$
+\Box \equiv -\frac{\partial^2}{\partial t^2} + \nabla^2,
+$$
+so the K-G equation can be written as
+$$
+\Box \psi - m^2 \psi = 0.
+$$
+
+Unlike the sign convention of most quantum field theory and particle physics textbooks, Seb adopts the $(-+++)$ metric signature convention favoured in general relativity and cosmology, presumably because he works on black holes. We follow it here. Standard QFT textbooks would write $(\Box+m^2)\psi=0$.
+:::
+
+This is a wave equation with a mass term. Inserting a plane-wave solution gives the dispersion relation
+$$
+\psi=C e^{-i\omega t+i\vec{k}\cdot\vec{x}},\qquad \omega=\pm\sqrt{k^2+m^2}.
+$$
+For a fixed wave vector $\vec{k}$, the general solution is
+$$
+\psi = A e^{-i\sqrt{k^2+m^2} t} e^{i\vec{k}\cdot\vec{x}} + B e^{i\sqrt{k^2+m^2} t} e^{i\vec{k}\cdot\vec{x}} = \psi_A + \psi_B,
+$$
+where the first half is called $\psi_A$ and the second half $\psi_B$. The complete solution is the linear combination over all $\vec{k}$ (a Fourier integral).
+
+Just as squaring $x=1$ gives $x^2=1$, the two equations share the solution $x=1$ while the latter also allows $x=-1$. By analogy, we can check that $\psi_A$ also satisfies the Salpeter equation, whereas $\psi_B$ satisfies only the K–G equation and not the original one.
+
+It looks as if we have written down the fundamental equation of relativistic quantum mechanics, and that everything from here on is about how to solve it. But we will soon find quite a few problems.
+
+## 3. Problems with the Klein–Gordon equation
+
+### The negative-energy problem
+
+For the negative-frequency plane wave $\psi_B$, the eigenvalue of the generator of time translations is
+$$
+\hat{H} \psi_B = i \frac{\partial}{\partial t} \psi_B = -\sqrt{k^2 + m^2} \psi_B.
+$$
+The minus sign here comes from the eigenvalue of $i\partial_t$ on the negative-frequency solution; it does not satisfy the first-order equation with the positive square root defined above, yet it does satisfy the squared KG equation. Hence it gives a negative-energy solution with no lower bound: a particle could drop to lower and lower energies indefinitely and radiate energy outwards. Clearly this is absurd; if such a model were physically allowed, we would see relativistic particles setting off fireworks everywhere.
+
+:::note
+In fact this problem, like the next one, is a problem with our interpretation of $\psi$. Physics certainly does not allow a model with energy unbounded below.
+:::
+
+### The probabilistic interpretation of the wave function
+
+If we interpret $\psi$ as the wave function of a single particle, then $|\psi|^2$ represents the probability distribution of the particle's position in space. Quantum mechanics tells us that this total probability is conserved, and that there is also a conserved current equation. However, if we really try to do this, we find that we cannot obtain a local current. See [Appendix 1](./appendix-mathematical-tools/01-salpeter-nonlocality.mdx) for the details. Although that discussion is about the Salpeter equation, it applies equally to the K-G equation.
+
+The K-G equation does admit a local conservation equation, however. Define
+$$
+\rho \equiv i\left( \psi^* \frac{\partial \psi}{\partial t} - \psi \frac{\partial \psi^*}{\partial t} \right),
+$$
+
+and take its time derivative:
+$$
+\frac{\partial \rho}{\partial t} = i\left[ \frac{\partial \psi^*}{\partial t} \frac{\partial \psi}{\partial t} + \psi^* \frac{\partial^2 \psi}{\partial t^2} - \frac{\partial \psi}{\partial t} \frac{\partial \psi^*}{\partial t} - \psi \frac{\partial^2 \psi^*}{\partial t^2} \right] = i\left( \psi^* \frac{\partial^2 \psi}{\partial t^2} - \psi \frac{\partial^2 \psi^*}{\partial t^2} \right),
+$$
+
+and the K-G equation lets us eliminate the second time derivatives on the right-hand side:
+$$
+\frac{\partial \rho}{\partial t} = i\left[ \psi^* (\nabla^2 - m^2) \psi - \psi (\nabla^2 - m^2) \psi^* \right] = i\left( \psi^* \nabla^2 \psi - \psi \nabla^2 \psi^* \right),
+$$
+
+Using the product rule,
+$$
+\frac{\partial \rho}{\partial t} = i \nabla \cdot \left( \psi^* \nabla \psi - \psi \nabla \psi^* \right) = -\nabla \cdot \left[ i\left( \psi \nabla \psi^* - \psi^* \nabla \psi \right) \right],
+$$
+
+so we obtain the continuity equation
+$$
+\frac{\partial \rho}{\partial t} = -\nabla \cdot \vec j, \qquad \vec j = i\left( \psi \nabla \psi^* - \psi^* \nabla \psi \right),
+$$
+
+This looks decent, but note that $\rho$ is not positive definite, so there is no way to interpret it as the probability distribution of a particle in space. Hence either the equation is wrong, or our physical interpretation of its solutions is wrong.
+
+:::note
+For a complex scalar field, $\rho$ can be interpreted as the density of a conserved charge and $\vec{j}$ as the corresponding current; if that charge is electric charge, we obtain the charge density and the current, so the appearance of negative values is allowed.
+:::
+
+## 4. Conclusion
+
+We tried two routes: keep the square root, and the equation is nonlocal; square it away, and the resulting K–G equation is a local relativistic equation, but taking its solutions directly as ordinary wave functions runs into negative energy and negative probability density.
+
+There is one more practical issue to consider: particles can be created and can annihilate. If we only ever use "the position wave function of a single particle", we cannot describe processes in which the particle number changes. Of course we all know that one can introduce the notions of fermions and bosons and many-particle wave functions, but that is a rather inefficient device; we will discuss this problem in detail later.
+
+All of the above strongly suggests that if we give $\psi$ a new interpretation, it may be possible to resolve these difficulties. And $\psi$ is a function defined on all of spacetime, that is, a "field". This suggests that relativistic quantum mechanics can be solved by introducing field theory. That is why we need quantum field theory.
+
+Quantum field theory itself does not, however, take relativity as a prerequisite: there exist quantum field theories describing non-relativistic systems, usually used in condensed matter theory.
+
+[^1]: We use natural units throughout, i.e. $c=\hbar=1$.
+[^2]: Of course, we have all seen many examples of objects interacting without "contact", such as gravity and the electromagnetic force. This is precisely why we need quantum field theory: interactions are mediated by fields, and a field is still a local object (at least physicists still firmly believe so).
+[^3]: There do, however, exist genuine examples of "interaction" without contact, such as the entangled states and Bell (or CHSH) inequalities that inevitably come up in quantum computation. These issues are subtler and we will not pursue them here. At least for now we still cannot transmit information by these means, and the causality required by relativity is not violated.

@@ -25,7 +25,7 @@ To define a tangent vector field on a manifold rigorously, we must first answer 
 Recall: at every point $p$ of a manifold $M$ there is an associated [tangent space](./01-manifolds.mdx#tangent-space) $T_pM$. The tangent bundle is the space obtained by "collecting together" the tangent spaces of all points:
 
 $$
-TM := \bigcup_{p\in M} \{p\} \times T_pM.
+TM:=\bigcup_{p\in M} \{p\} \times T_pM.
 $$
 
 :::info[Tangent bundle as a manifold]
@@ -33,17 +33,16 @@ $$
 If the manifold $M$ has dimension $n$, then the tangent bundle has dimension $2n$. Let $(O_\alpha,\psi_\alpha)$ be a local coordinate system on $M$. This chart induces a coordinate system $(U_\alpha,\phi_\alpha)$ on $TM$, where $U_\alpha$ is defined by
 
 $$
-U_\alpha = \{(p,v)\in TM : p\in O_\alpha,\ v\in T_pM\},
+U_\alpha = \{(p, v) \in TM: p \in O_\alpha, v \in T_pM \},
 $$
 
 and the homeomorphism $\phi_\alpha$ is defined by
 
 $$
-\phi_\alpha: U_\alpha \to \R^{2n}, \qquad
-\phi_\alpha(p,v) = (x^\mu, v^\mu),
+\phi_\alpha: U_\alpha \to \R^{2n}, \qquad \phi(p, v) = (x^\mu, v^\mu),
 $$
 
-where $x^\mu$ are the coordinates of the point $p$ given by the chart on $M$, i.e. $\psi_\alpha(p)=(x^1,\dots,x^n)$, and $v^\mu$ are the components of the vector $v$ with respect to the coordinate basis, i.e. $v=v^\mu\partial_\mu$.
+where $x^\mu$ are the coordinates of the point $p$ given by the chart on $M$, i.e. $\psi(p) = (x^1, \dots, x^n)$, and $v^\mu$ are the components of the vector $v$ with respect to the coordinate basis, i.e. $v=v^\mu\partial_\mu$.
 :::
 
 :::note
@@ -51,7 +50,7 @@ where $x^\mu$ are the coordinates of the point $p$ given by the chart on $M$, i.
 Although we have given a map from the tangent bundle to $\R^{2n}$, we have not yet specified a topology on $TM$, which means the $U_\alpha$ defined above are not yet fully justified. The remedy is straightforward: we declare a subset $V\subset TM$ to be open if and only if for every $\alpha$, the set $\phi_\alpha(V\cap\pi^{-1}(O_\alpha))$ is open in $\R^{2n}$, where $\pi$ is the natural projection of the Cartesian product used in constructing the tangent bundle:
 
 $$
-\pi: TM \to M, \qquad \pi(p,v)=p.
+\pi: TM \to M, \qquad \pi(p, v) = p
 $$
 
 This is precisely the bundle projection of the tangent bundle. We will explain this in greater detail when we discuss fibre bundles later.
@@ -70,7 +69,7 @@ We will discuss local trivialisation in greater detail later.
 It is easy to see that if $M$ is a smooth manifold, then $TM$ is also a smooth manifold. Its coordinate transformations are
 
 $$
-(x^\mu, v^\mu) \mapsto \left(y^\mu,\ \frac{\partial y^\mu}{\partial x^\nu}\,v^\nu\right).
+(x^\mu, v^\mu) \mapsto \left(y^\mu, \frac{\partial y^\mu}{\partial x^\nu} v^\nu\right)
 $$
 
 The smoothness of $y^\mu=y^\mu(x^\mu)$ is guaranteed by the smoothness of $M$, and $\frac{\partial y^\mu}{\partial x^\nu}v^\nu$ is a linear map, hence also smooth. The smoothness of the Jacobian matrix is likewise guaranteed by $M$.
@@ -84,10 +83,10 @@ Now that we have introduced the tangent bundle, we can treat a point on the mani
 A continuous map $\sigma: M\to TM$ satisfying
 
 $$
-\pi\circ\sigma = \mathrm{id}_M
+\pi\circ\sigma = \text{id}_M
 $$
 
-is called a **section** of the tangent bundle, or a **vector field** on the manifold $M$. Here $\pi$ is the bundle projection (the natural projection of the Cartesian product used in constructing the tangent bundle), and $\mathrm{id}_M$ is the identity map on $M$.
+is called a **section** of the tangent bundle, or a **vector field** on the manifold $M$. Here $\pi$ is the bundle projection (the natural projection of the Cartesian product used in constructing the tangent bundle), and $\text{id}_M$ is the identity map on $M$.
 
 :::note
 
@@ -108,18 +107,18 @@ Now that we have rigorously defined tangent vector fields, let us consider some 
 
 ::::tip[Action of a vector field on a scalar field]
 
-Let $X\in\Gamma(TM)$. At a point $p\in M$, we have $\mathrm{proj}_2\circ X(p)=v\in T_pM$. Since $v$ is a derivation, it acts on any scalar field: $v(f)\in\R$. We therefore define the action of the vector field $X$ on a scalar field by
+Let $X\in\Gamma(TM)$. At a point $p\in M$, we have $\text{proj}_2\circ X(p)=v\in T_pM$. Since $v$ is a derivation, it acts on any scalar field: $v(f)\in\R$. We therefore define the action of the vector field $X$ on a scalar field by
 
 $$
-X': \mathscr{F}_M \to \mathscr{F}_M, \qquad
-[X'(f)](p) = [\mathrm{proj}_2\circ X(p)](f).
+X': C^\infty(M) \to C^\infty(M), \qquad
+[X'(f)](p) = [\text{proj}_2\circ X(p)](f)
 $$
 
 When no confusion arises, we denote $X'$ simply by $X$. In practice, there is little opportunity for confusion.
 
 :::note
 
-Without introducing the tangent bundle, this is precisely the rigorous definition of a tangent vector field: a tangent vector field is a map $\mathscr{F}_M\to\mathscr{F}_M$, whose smoothness is determined by the smoothness of the resulting scalar fields.
+Without introducing the tangent bundle, this is precisely the rigorous definition of a tangent vector field: a tangent vector field is a map $C^\infty(M)\to C^\infty(M)$, whose smoothness is determined by the smoothness of the resulting scalar fields.
 :::
 ::::
 
@@ -130,25 +129,25 @@ On the tangent space we defined linear combinations of tangent vectors: $\alpha 
 Define addition and scalar multiplication of vector fields by:
 
 1. Addition: $(X+Y)(p) := X(p) + Y(p)$,
-2. Scalar multiplication: $(fX)(p) := f(p)\,X(p)$,
+2. Scalar multiplication: $(fX)(p) := f(p) X(p)$,
 
-where $f\in\mathscr{F}_M$ is a scalar field and $X,Y\in\Gamma(TM)$ are vector fields.
+where $f \in C^\infty(M)$ is a scalar field and $X,Y\in\Gamma(TM)$ are vector fields.
 
 :::note
 
 The above addition and scalar multiplication should be understood under the projection:
 
 $$
-\mathrm{proj}_2\circ(X+Y)(p) = \mathrm{proj}_2\circ X(p) + \mathrm{proj}_2\circ Y(p),
+\text{proj}_2\circ(X+Y)(p) = \text{proj}_2\circ X(p) + \text{proj}_2\circ Y(p),
 $$
 
 and
 
 $$
-\mathrm{proj}_2\circ(fX)(p) = f(p)\,\mathrm{proj}_2\circ X(p),
+\text{proj}_2\circ(fX)(p) = f(p) \text{proj}_2\circ X(p),
 $$
 
-because $X(p)$, as a point in the tangent bundle, does not have a well‑defined addition or scalar multiplication, whereas $\mathrm{proj}_2\circ X(p)\in T_pM$ is an element of a vector space, which naturally admits addition and scalar multiplication.
+because $X(p)$, as a point in the tangent bundle, does not have a well‑defined addition or scalar multiplication, whereas $\text{proj}_2\circ X(p)\in T_pM$ is an element of a vector space, which naturally admits addition and scalar multiplication.
 
 More generally, whenever we speak of addition or scalar multiplication of sections, we implicitly perform the operation pointwise: evaluate the section at each point, perform the operation in the fibre, and define the result as a new section.
 :::
@@ -160,7 +159,7 @@ More generally, whenever we speak of addition or scalar multiplication of sectio
 
 Clearly, under the definitions above, vector fields form a structure that resembles a vector space: addition, scalar multiplication, and closure all appear to be satisfied. But this is **not** a vector space!
 
-The reason is that $\mathscr{F}_M$ is not a field. Concretely, we cannot guarantee that every smooth scalar field $f$ possesses a multiplicative inverse $g$ that is also a smooth scalar field and satisfies $f\cdot g = I$, where $I$ is the constant scalar field $I:M\to\R$, $I(p)=1$ for all $p\in M$. In fact, $\mathscr{F}_M$ forms a **ring**.
+The reason is that $C^\infty(M)$ is not a field. Concretely, we cannot guarantee that every smooth scalar field $f$ possesses a multiplicative inverse $g$ that is also a smooth scalar field and satisfies $f\cdot g = I$, where $I$ is the constant scalar field $I: M \to \R, I(p) = 1, \, \forall\, p \in M$. In fact, $C^\infty(M)$ forms a **ring**.
 
 :::tip[Basic abstract algebra]
 
@@ -184,7 +183,7 @@ If the ring multiplication additionally satisfies $a\cdot b = b\cdot a$ for all 
 If a commutative ring additionally satisfies that every non‑zero element (with respect to the additive identity $0$) has a multiplicative inverse, and $0\neq 1$, then it is called a **field**.
 :::
 
-Clearly, the addition and multiplication defined pointwise on scalar fields over a manifold satisfy the definition of a ring, and it is a commutative ring. As for the structure formed by vector fields, mathematicians call such a set — one that admits a linear structure but is not a vector space — a **module**.
+Clearly, the addition and multiplication defined pointwise on scalar fields over a manifold satisfy the definition of a ring, and it is a commutative ring. As for the structure formed by vector fields, mathematicians call such a set — one that admits a linear structure but is not a vector space — a **module**. This is a poor translation; personally I think it would be better called a ring-linear space.
 
 :::tip[Module]
 
@@ -212,7 +211,7 @@ Formally, a quadruple $(E,B,\pi,F)$ is called a **fibre bundle** if it satisfies
 
 1. $E,B,F$ are topological spaces;
 2. $\pi: E\to B$ is a continuous surjection;
-3. For every point $x\in B$, there exists an open neighbourhood $U\subset B$ and a homeomorphism $\varphi: \pi^{-1}(U)\subset E \to U\times F$ such that $\pi = \mathrm{proj}_1\circ\varphi$, where $\mathrm{proj}_1$ is the natural projection of $U\times F$.
+3. for every point $x \in B$, there always exists an open neighbourhood $U \subset B$ on which one can define a homeomorphism $\varphi$ from $\pi^{-1}(U) \subset E$ to $U \times F$, and require $\pi = \text{proj}_1 \circ \varphi$, where $\text{proj}_1$ is the natural projection of $U \times F$.
 
 :::note
 
@@ -249,7 +248,7 @@ is not fully rigorous! This is clearly a pointwise construction, and could in pr
 A clear counterexample is the "cylinder": let the base manifold be $S^1$ (the circle) and the fibre be $[0,1]\subset\R$. Place the centre of the circle at the origin of $\R^3$ and use cylindrical coordinates $\rho,\phi,z$. Define
 
 $$
-E = \bigcup_{x\in S^1} \{x\}\times[0,1],
+E = \bigcup_{x\in S^1} \{x\}\times[0,1]
 $$
 
 and impose the following rule: when the cylindrical angle $\phi$ is rational, the fibre $[0,1]$ is placed horizontally (i.e. along the radial direction $\rho$) at the corresponding point on $S^1$; when $\phi$ is irrational, the fibre $[0,1]$ is placed vertically (i.e. along the $z$ direction). One can imagine that as the angle varies, the fibre oscillates wildly, so that for a given point there is absolutely no open neighbourhood $U$ for which $\pi^{-1}(U)\cong U\times[0,1]$. This is a typical example of a fibration that fails to be a fibre bundle.
@@ -257,19 +256,13 @@ and impose the following rule: when the cylindrical angle $\phi$ is rational, th
 
 We should also clarify one point: although we formally write a quadruple $(E,B,\pi,F)$, we do not actually know $E$ in advance. In fact, we use the base space $B$, the fibre $F$, and the bundle projection $\pi$ to **describe** the total space $E$.
 
-Furthermore, for an unknown fibre bundle, our knowledge of the bundle projection $\pi$ is limited to the fact that it is, in a suitable sense, equivalent to the natural projection — as expressed in the local triviality condition: $\pi = \mathrm{proj}_1\circ\varphi$. The bundle projection $\pi$ is equivalent, up to the homeomorphism provided by local trivialisation, to the natural projection of a Cartesian product. For simple fibre bundles such as the tangent bundle, it **is** the natural projection.
+Furthermore, for an unknown fibre bundle, our knowledge of the bundle projection $\pi$ is limited to the fact that it is, in a suitable sense, equivalent to the natural projection — as expressed in the local triviality condition: $\pi = \text{proj}_1\circ\varphi$. The bundle projection $\pi$ is equivalent, up to the homeomorphism provided by local trivialisation, to the natural projection of a Cartesian product. For simple fibre bundles such as the tangent bundle, it **is** the natural projection.
 
 :::note
 
 You may wonder: if two of the four components are unclear to us, how do we describe a fibre bundle at all? In fact, we have not yet introduced another crucial ingredient: the **transition functions**.
 
-What are these? They are analogous to the differentiable structure of a manifold. Suppose that for a point $x$ on the base manifold there exist two open neighbourhoods $U_\alpha$ and $U_\beta$, each equipped with a local trivialisation: $\pi = \mathrm{proj}_1\circ\varphi_\alpha = \mathrm{proj}_1\circ\varphi_\beta$. On the overlap $U = U_\alpha\cap U_\beta$, we obtain a map
-
-$$
-\varphi_\alpha\circ\varphi_\beta^{-1}: U\times F \to U\times F.
-$$
-
-By the local triviality condition, points of the base space are left unchanged, so this map acts only on the fibre. It is called a **transition function**.
+What are these? They are analogous to the differentiable structure of a manifold. Suppose that for a point $x$ on the base manifold there exist two open neighbourhoods $U_\alpha$ and $U_\beta$, each equipped with a local trivialisation: $\pi = \text{proj}_1\circ\varphi_\alpha = \text{proj}_1\circ\varphi_\beta$. On the overlap $U = U_\alpha\cap U_\beta$, we obtain a map $\varphi_\alpha \circ \varphi_\beta^{-1}: U \times F \to U \times F$; by the local triviality condition, points of the base space are left unchanged, so this map acts only on the fibre. It is called a **transition function**.
 
 We will not delve deeper into this concept for now, as it requires some group theory. Once we have finished with the manifold‑related concepts, we will return to explore this topic in greater depth.
 
@@ -280,7 +273,7 @@ If the reader finds the above passage incomprehensible, a sensible option is to 
 
 ### Vector Bundles
 
-In the special case where the fibre $F$ is a vector space, i.e. $F\cong\mathbb{K}^n$ with $\mathbb{K}=\C$ or $\R$, we call the fibre bundle a **vector bundle**.
+In the special case where the fibre $F$ is a vector space, i.e. $F\cong\mathbb{K}^n$ with $\mathbb{K}$ being $\mathbb{C}$ or $\R$, we call the fibre bundle a **vector bundle**.
 
 *To be continued (2026-06-05)*
 
