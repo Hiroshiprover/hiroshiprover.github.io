@@ -1,0 +1,14 @@
+{
+  "lualatex": {
+    "sha256": "5555f7e7454136f645a587a082e3205fedaf7ab87e3b89d9476b5102661a4696",
+    "version": "This is LuaHBTeX, Version 1.21.0 (TeX Live 2025)"
+  },
+  "dvisvgm": {
+    "sha256": "384b27e32bc1f82c2df7c83408562cf491d4b1db71a2d810f1cedac9ec2fdcc4",
+    "version": "dvisvgm 3.4.3"
+  },
+  "mutool": {
+    "sha256": "b1fd1956dce89c589edc80dfbcda357732f60658632bf40f2dd75deb694a0638",
+    "version": "mutool version 1.28.6"
+  }
+}

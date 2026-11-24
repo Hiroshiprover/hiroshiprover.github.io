@@ -1,0 +1,41 @@
+{
+  "package": "@docusaurus/theme-common",
+  "version": "3.10.1",
+  "reason": "Cancel resize measurement after React detaches the code-block ref; preserve mounted-node behavior.",
+  "files": [
+    {
+      "path": "src/hooks/useCodeWordWrap.ts",
+      "originalSha256": "a4a4ba7a0af4533ff6da2896bb606f5d56d696906e1ecc2f0f7d5d844fbd7a1b",
+      "patchedSha256": "61ab128148d79133ee6ad16ff2d66fa8f4cd74d9bee94c86c941f03d462645d4",
+      "replacements": [
+        {
+          "before": "    const {scrollWidth, clientWidth} = codeBlockRef.current!;",
+          "after": "    // React may detach the ref before the resize listener is cleaned up.\n    const codeBlock = codeBlockRef.current;\n    if (!codeBlock) {\n      return;\n    }\n    const {scrollWidth, clientWidth} = codeBlock;"
+        },
+        {
+          "before": "      codeBlockRef.current!.querySelector('code')!.hasAttribute('style');",
+          "after": "      codeBlock.querySelector('code')!.hasAttribute('style');"
+        }
+      ]
+    },
+    {
+      "path": "lib/hooks/useCodeWordWrap.js",
+      "originalSha256": "3483ac26c8c5cb90064902fb63a5256576092207a86b572480a04a8fb103b012",
+      "patchedSha256": "a7e50f433ae0e3e9402fbc0f294a123eaa654ff36e53ec3f7749d8f955a7160d",
+      "replacements": [
+        {
+          "before": "        const { scrollWidth, clientWidth } = codeBlockRef.current;",
+          "after": "        // React may detach the ref before the resize listener is cleaned up.\n        const codeBlock = codeBlockRef.current;\n        if (!codeBlock) {\n            return;\n        }\n        const { scrollWidth, clientWidth } = codeBlock;"
+        },
+        {
+          "before": "            codeBlockRef.current.querySelector('code').hasAttribute('style');",
+          "after": "            codeBlock.querySelector('code').hasAttribute('style');"
+        },
+        {
+          "before": "//# sourceMappingURL=useCodeWordWrap.js.map",
+          "after": "// Source map omitted: local lifecycle patch changes generated line mappings."
+        }
+      ]
+    }
+  ]
+}

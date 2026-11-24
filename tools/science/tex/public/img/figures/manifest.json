@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "inputHash": "6f8e431818242b67e8845a27e96097de2c2796a1bc89afe11d22554ae4608af1",
+  "figures": [
+    {
+      "id": "residue-contour",
+      "source": "samples/residue-contour.tex",
+      "title": "留数定理与积分围道",
+      "caption": "上半平面的正向闭合围道，内部含两个极点。示意围道方向与留数定理，不指定具体函数。",
+      "url": "img/figures/residue-contour-12f534333f33b1fe.svg",
+      "sha256": "12f534333f33b1fe0058206faa3fbeaf772504a1898d99ac1d944f206f8185bf",
+      "viewBox": [
+        0.0,
+        0.0,
+        275.664,
+        197.747
+      ]
+    },
+    {
+      "id": "feynman-exchange",
+      "source": "samples/feynman-exchange.tex",
+      "title": "单光子交换费曼图",
+      "caption": "电子散射的 t 道示意图；费米子箭头指向上方时间方向，内线为虚光子。未画出相同粒子散射的完整图集合。",
+      "url": "img/figures/feynman-exchange-d36e2a98aff73ba7.svg",
+      "sha256": "d36e2a98aff73ba7969929d3f5258a27233d9792dd478e8cc20f14f6c381b5bc",
+      "viewBox": [
+        0.0,
+        0.0,
+        260.643,
+        147.681
+      ]
+    },
+    {
+      "id": "geometry-cube",
+      "source": "samples/geometry-cube.tex",
+      "title": "立方体与空间坐标",
+      "caption": "边长 a 的立方体斜投影；虚线标出被遮挡的边，轴标签区分三个空间方向。",
+      "url": "img/figures/geometry-cube-ed9de32c99b72df3.svg",
+      "sha256": "ed9de32c99b72df3aa9a2d7e12557c8a4d67243fcadfdd63e4fdc4523462bc85",
+      "viewBox": [
+        0.0,
+        0.0,
+        161.705,
+        190.527
+      ]
+    }
+  ]
+}

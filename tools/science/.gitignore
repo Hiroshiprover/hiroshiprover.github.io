@@ -1,0 +1,7 @@
+# Local generator runtimes and caches; saved source/artifacts remain tracked.
+python/.venv/
+python/.cache/
+tex/.tools/
+tex/diagrams/.generation.lock
+__pycache__/
+*.pyc

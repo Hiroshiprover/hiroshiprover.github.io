@@ -1,0 +1,40 @@
+---
+title: 从 Python 计算到静态文章
+slug: /
+---
+
+import {GeneratedFigure,Downloads,PythonSource} from '@site/src/components/Artifacts';
+
+# 让计算成为文章的一部分
+
+这个两能带模型把独立的 Python 源码、数值结果和文章展示连接起来。计算在作者本地完成，读者打开的是普通静态页面。
+
+## 一个最小的物理模型
+
+取跃迁能量为单位，考虑一维晶格哈密顿量
+
+$$
+H(k,m)=\sin k\,\sigma_x+(m+\cos k)\,\sigma_z,\qquad -\pi\leq k\leq\pi.
+$$
+
+其本征能量是
+
+$$
+E_\pm(k,m)=\pm\sqrt{\sin^2k+(m+\cos k)^2}.
+$$
+
+代码用数值对角化计算能谱，再与解析式核对。这里展示 $m=0.6$；在参数实验中可以观察 $m=1$ 附近能隙闭合。
+
+<GeneratedFigure />
+
+## 可下载、可复现
+
+SVG 用于文章，PNG 便于其他场景复用，JSON 保留参数扫描数据。原始脚本、参数和 Notebook 也一起保存。
+
+<Downloads />
+
+## 计算源码
+
+下面展示的内容直接来自独立的 `.py` 文件。
+
+<PythonSource />

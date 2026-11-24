@@ -1,6 +1,7 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import type {Options as DocsOptions} from '@docusaurus/plugin-content-docs';
 import remarkMathExtended from 'remark-math-extended';
 import rehypeKatex from 'rehype-katex';
 import {katexOptions} from './src/config/katex';
@@ -9,10 +10,10 @@ import {katexOptions} from './src/config/katex';
 // render the same committed content without the old preview/staging plugin.
 const previewKatex = () => (tree: any, file: any) => rehypeKatex(katexOptions)(tree, file);
 
-const projSidebarItemsGenerator = async ({ defaultSidebarItemsGenerator, ...args }) => {
+const projSidebarItemsGenerator: NonNullable<DocsOptions['sidebarItemsGenerator']> = async ({ defaultSidebarItemsGenerator, ...args }) => {
   const items = await defaultSidebarItemsGenerator(args);
   const titles = new Map(args.docs.map((doc) => [doc.id, doc.title]));
-  const translateLabels = (entries) => entries.map((item) => {
+  const translateLabels = (entries: typeof items): typeof items => entries.map((item) => {
     if (item.type === 'category') return {...item, items: translateLabels(item.items)};
     if (item.type === 'doc' || item.type === 'ref') {
       const label = item.label ?? titles.get(item.id);
@@ -47,7 +48,7 @@ const blogOptions = {
   onInlineTags: 'warn',
   onInlineAuthors: 'warn',
   onUntruncatedBlogPosts: 'warn',
-};
+} satisfies NonNullable<Preset.Options['blog']>;
 const pagesOptions = {
   remarkPlugins: [remarkMathExtended],
   rehypePlugins: [previewKatex],
@@ -105,6 +106,8 @@ const config: Config = {
   themes: ['@docusaurus/theme-mermaid'],
 
   plugins: [
+    './plugins/science-artifacts/index.cjs',
+    './plugins/site-search/index.cjs',
     ['@docusaurus/plugin-content-docs', projDocsOptions],
   ],
 
@@ -146,6 +149,7 @@ const config: Config = {
         {to: '/docs/intro', label: '笔记', position: 'left'},
         {to: '/blog', label: '随笔', position: 'left'},
         {type: 'docSidebar', sidebarId: 'projSidebar', docsPluginId: 'proj', label: '项目', position: 'left'},
+        {to: '/search/', label: '搜索 / Search', position: 'right'},
         {type: 'localeDropdown', position: 'right', dropdownItemsAfter: [], dropdownItemsBefore: []},
         {
           href: 'https://github.com/Hiroshiprover',

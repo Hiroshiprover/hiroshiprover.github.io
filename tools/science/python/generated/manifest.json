@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "inputHash": "c97fa449b66a1f3e888c878445b777c9f34373d543b2fe3bb88ce1e8b384279e",
+  "inputs": {
+    "notebooks/two-band.ipynb": "b21ae5ab4c5d9863be89680d71ff747cdd9f1e7e9cfa8cce14c0684c68dbcda4",
+    "python/bands.py": "a80db7159ebb1c11befe3e94bd8634aaaa2eb2fa6695ef11f08cf51257c801e7",
+    "python/parameters.json": "9b8a0da9618f989f8ffe830bd700ea232f377d9c54a211d280b6e47d279e988d",
+    "requirements.in": "9bd2cd9058b844c091956622e50404bfc50c7834b8a90146519f650fac3f301e",
+    "requirements.lock": "df717eb837d3e106ba38e30d6de20c4964e2aa8ecedf17edf6c8deb8e1698e6c",
+    "scripts/generate.py": "51e648c7abd440d4052e13325d15db01774a5dab73e18ea6dcf6215775913da3"
+  },
+  "artifactBase": "generated/3a3b5456fa77f76b5f44/",
+  "outputs": {
+    "bands.json": "91ef99a86e76fae818baaff131a4d61600e4aab9824406d1e50dfc3600e0022c",
+    "bands.png": "19f096b1f1f655af8af7e85c073609204f7c70599957491b2acc7103b4c21357",
+    "bands.py": "a80db7159ebb1c11befe3e94bd8634aaaa2eb2fa6695ef11f08cf51257c801e7",
+    "bands.svg": "7cc87455a38561cc2e7bc7b52208c00e759a027e279247a3ecfd21571d74b3ef",
+    "notebook-assets/two-band_5_0.png": "19f096b1f1f655af8af7e85c073609204f7c70599957491b2acc7103b4c21357",
+    "parameters.json": "9b8a0da9618f989f8ffe830bd700ea232f377d9c54a211d280b6e47d279e988d",
+    "two-band.ipynb.json": "6db3b91c33f1fde18ed5f2d0d920eb0f0a285c8424bdff42ad2bb544f6b721d1"
+  },
+  "notebookDocSha256": "7534e14f8e3d17447b376358e5e5913f71dee67c200909927d2ebdd2cf626f8e",
+  "environment": {
+    "python": "3.13.2",
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "matplotlib": "3.10.3",
+    "nbconvert": "7.16.6"
+  }
+}

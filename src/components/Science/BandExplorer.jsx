@@ -1,0 +1,12 @@
+import React,{useEffect,useState} from 'react';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import manifest from '@site/tools/science/python/generated/manifest.json';
+export default function BandExplorer(){
+ const [data,setData]=useState(null),[index,setIndex]=useState(12),[error,setError]=useState('');const url=useBaseUrl(manifest.artifactBase+'bands.json');
+ useEffect(()=>{const controller=new AbortController();fetch(url,{signal:controller.signal}).then(r=>{if(!r.ok)throw Error('预计算数据加载失败');return r.json()}).then(d=>{if(d.schemaVersion!==1||!d.frames?.length)throw Error('数据格式不兼容');setIndex(Math.max(0,d.frames.findIndex(f=>Math.abs(f.mass-d.staticMass)<1e-8)));setData(d)}).catch(e=>{if(e.name!=='AbortError')setError(e.message)});return()=>controller.abort()},[url]);
+ if(error)return <div role="alert">{error}</div>;
+ if(!data)return <div className="band-status" role="status">加载预计算能谱…</div>;
+ const frame=data.frames[index],x=k=>58+(k+Math.PI)/(2*Math.PI)*586,y=e=>185-e/3.2*146;
+ const path=values=>values.map((e,i)=>`${i?'L':'M'}${x(data.k[i]).toFixed(2)},${y(e).toFixed(2)}`).join(' ');
+ return <section className="band-control" aria-label="预计算能谱交互图"><label htmlFor="mass-slider">质量参数 m <output data-testid="mass" htmlFor="mass-slider">{frame.mass.toFixed(2)}</output></label><input id="mass-slider" aria-label="质量参数 m" type="range" min="0" max={data.frames.length-1} step="1" value={index} onChange={e=>setIndex(Number(e.target.value))}/><svg viewBox="0 0 700 370" role="img" aria-label={`质量参数 ${frame.mass.toFixed(2)} 的上下能带，能隙 ${frame.gap.toFixed(2)}`}><g stroke="#d9dfe8" strokeWidth="1">{[-3,-2,-1,0,1,2,3].map(v=><line key={v} x1="58" x2="644" y1={y(v)} y2={y(v)}/>)}</g><g fill="#617084" fontSize="12" fontFamily="system-ui">{[-3,-2,-1,0,1,2,3].map(v=><text key={v} x="45" y={y(v)+4} textAnchor="end">{v}</text>)}{[-Math.PI,-Math.PI/2,0,Math.PI/2,Math.PI].map((v,i)=><text key={v} x={x(v)} y="348" textAnchor="middle">{['−π','−π/2','0','π/2','π'][i]}</text>)}<text x="350" y="367" textAnchor="middle">Crystal momentum k</text><text x="58" y="20">Energy / hopping</text></g><path data-testid="upper-band" d={path(frame.upper)} fill="none" stroke="#4168b3" strokeWidth="2.4"/><path data-testid="lower-band" d={path(frame.lower)} fill="none" stroke="#b77942" strokeWidth="2.4"/></svg><div className="band-readouts" aria-live="polite"><span>最小能隙 <strong data-testid="gap">{frame.gap.toFixed(2)}</strong></span><span>{data.frames.length} 组预计算参数 · 步长 {(data.frames[1].mass-data.frames[0].mass).toFixed(2)}</span></div></section>
+}
